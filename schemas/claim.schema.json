@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Claim",
+  "type": "object",
+  "required": [
+    "claim_id",
+    "claim",
+    "type",
+    "status",
+    "evidence"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string"
+    },
+    "claim": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "mathematical",
+        "simulation",
+        "literature",
+        "interpretation"
+      ]
+    },
+    "status": {
+      "enum": [
+        "conjecture",
+        "proved",
+        "simulation-supported",
+        "literature-supported",
+        "uncertain",
+        "rejected"
+      ]
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "used_in_manuscript_section": {
+      "type": "string"
+    },
+    "needs_approval": {
+      "type": "boolean"
+    },
+    "reviewer_2_concerns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

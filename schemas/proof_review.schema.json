@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProofReview",
+  "type": "object",
+  "required": [
+    "theorem_id",
+    "decision",
+    "unsupported_steps",
+    "counterexample_search"
+  ],
+  "properties": {
+    "theorem_id": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "accept",
+        "revise",
+        "downgrade_to_conjecture",
+        "reject"
+      ]
+    },
+    "unsupported_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "counterexample_search": {
+      "type": "string"
+    },
+    "assumptions_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "new_assumptions_needed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

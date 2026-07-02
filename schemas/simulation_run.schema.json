@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SimulationRun",
+  "type": "object",
+  "required": [
+    "run_id",
+    "n",
+    "trials",
+    "context_range",
+    "context_effect",
+    "replications",
+    "seed",
+    "status"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "n": {
+      "type": "integer"
+    },
+    "trials": {
+      "type": "integer"
+    },
+    "context_range": {
+      "enum": [
+        "unrestricted",
+        "range_restricted"
+      ]
+    },
+    "context_effect": {
+      "enum": [
+        "weak",
+        "strong"
+      ]
+    },
+    "replications": {
+      "type": "integer"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "running",
+        "complete",
+        "failed"
+      ]
+    },
+    "output_path": {
+      "type": "string"
+    },
+    "git_commit": {
+      "type": "string"
+    }
+  }
+}
