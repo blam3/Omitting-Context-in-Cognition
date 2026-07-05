@@ -47,7 +47,7 @@ fit_simple_omitted_context <- function(dat) {
 
   # One-parameter-style ambiguity-value proxy with no contextual predictors.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + sv_base + ref_side,
+    choice ~ value + probability + ambiguity + risky_value + ref_side,
     dat = dat,
     model_name = "simple_omitted_context"
   )
@@ -60,7 +60,7 @@ fit_complex_omitted_context <- function(dat) {
   # color/source cues, and nonlinear ambiguity can absorb context-induced
   # residual structure even though no true source/color mechanism generated it.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + sv_base + ambiguous_value +
+    choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
       ambiguity_sq_value + condition + color_cue + ref_side,
     dat = dat,
     model_name = "complex_omitted_context"
@@ -74,7 +74,7 @@ fit_simple_contextual_true_family <- function(dat) {
   # SES shift the latent ambiguity-aversion contribution without adding a new
   # cognitive architecture.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + sv_base + ses +
+    choice ~ value + probability + ambiguity + risky_value + ses +
       ses_ambiguous_value + ref_side,
     dat = dat,
     model_name = "simple_contextual_reference"
@@ -95,7 +95,7 @@ fit_context_mean_variance_proxy <- function(dat) {
   )
 
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + sv_base + ses_bin * ambiguous_value + ref_side,
+    choice ~ value + probability + ambiguity + risky_value + ses_bin * ambiguous_value + ref_side,
     dat = dat,
     model_name = "context_mean_variance_proxy"
   )
