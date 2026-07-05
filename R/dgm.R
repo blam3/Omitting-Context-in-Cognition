@@ -21,7 +21,7 @@ simulate_context <- function(
     ses <- pmin(pmax(rnorm(n, mean = 0, sd = 1), -0.5), 0.5)
   }
 
-  as.numeric(scale(ses))
+  ses
 }
 
 context_effect_parameters <- function(context_effect = c("none", "weak", "moderate", "strong")) {
@@ -88,16 +88,16 @@ simulate_ambiguity_task <- function(
   }
 
   dat <- expand.grid(id = seq_len(n), trial = seq_len(trials))
-  design <- design[match(dat$trial, design$trial), ]
-
+  match_idx <- match(dat$trial, design$trial)
+    
+  dat$probability <- design$probability[match_idx]
   dat$ses <- ses[dat$id]
   dat$theta <- theta_i[dat$id]
   dat$theta_sd <- theta_sd_i[dat$id]
   dat$tau <- tau_i[dat$id]
-  dat$probability <- design$probability
-  dat$ambiguity <- design$ambiguity
-  dat$value <- design$value
-  dat$ref_side <- design$ref_side
+  dat$ambiguity <- design$ambiguity[match_idx]
+  dat$value <- design$value[match_idx]
+  dat$ref_side <- design$ref_side[match_idx]
   dat$condition <- factor(design$condition)
   dat$color_cue <- factor(design$color_cue)
 
