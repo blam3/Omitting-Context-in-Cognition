@@ -94,6 +94,11 @@ compare_pair_proxy <- function(baseline_fit, candidate_fit, n_obs, label) {
   cbind(out, adv)
 }
 
+# compare_models_proxy: programmatically map the outputs of compare_pair_proxy
+# into a single-row wide summary. This avoids manually unpacking each column
+# and appending literal suffixes which breaks DRY when compare_pair_proxy adds
+# or removes metrics. The implementation renames non-selector columns using a
+# suffix and binds them into the output.
 compare_models_proxy <- function(simple_fit, complex_fit, n_obs, reference_fit = NULL) {
   # AIC/BIC are only fast proxies for the current scaffold. Final analyses should
   # use PSIS-LOO, held-out participant log score, and simulation-calibrated
@@ -107,24 +112,22 @@ compare_models_proxy <- function(simple_fit, complex_fit, n_obs, reference_fit =
     label = "complex_vs_simple"
   )
 
+  # Normalize selection labels to canonical "complex"/"simple"
+  sel_bic <- ifelse(simple_complex$selected_by_bic_proxy == safe_model_name(complex_fit, "complex"), "complex", "simple")
+  sel_aic <- ifelse(simple_complex$selected_by_aic_proxy == safe_model_name(complex_fit, "complex"), "complex", "simple")
+
+  # Programmatically pick the other comparison columns (exclude selectors and label)
+  other_cols <- setdiff(names(simple_complex), c("selected_by_bic_proxy", "selected_by_aic_proxy", "comparison_label"))
+  suffix1 <- "_complex_minus_simple"
+  other_part <- simple_complex[other_cols]
+  names(other_part) <- paste0(names(other_part), suffix1)
+
   out <- data.frame(
-    selected_by_bic_proxy = ifelse(
-      simple_complex$selected_by_bic_proxy == safe_model_name(complex_fit, "complex"),
-      "complex", "simple"
-    ),
-    selected_by_aic_proxy = ifelse(
-      simple_complex$selected_by_aic_proxy == safe_model_name(complex_fit, "complex"),
-      "complex", "simple"
-    ),
-    bic_diff_complex_minus_simple = simple_complex$bic_diff_candidate_minus_baseline,
-    aic_diff_complex_minus_simple = simple_complex$aic_diff_candidate_minus_baseline,
-    loglik_advantage_complex_minus_simple = simple_complex$loglik_advantage,
-    loglik_advantage_per_obs_complex_minus_simple = simple_complex$loglik_advantage_per_obs,
-    df_gap_complex_minus_simple = simple_complex$df_gap,
-    aic_threshold_loglik_complex_minus_simple = simple_complex$aic_loglik_threshold,
-    bic_threshold_loglik_complex_minus_simple = simple_complex$bic_loglik_threshold,
+    selected_by_bic_proxy = sel_bic,
+    selected_by_aic_proxy = sel_aic,
     stringsAsFactors = FALSE
   )
+  out <- cbind(out, other_part, stringsAsFactors = FALSE)
 
   if (!is.null(reference_fit)) {
     complex_context <- compare_pair_proxy(
@@ -134,23 +137,23 @@ compare_models_proxy <- function(simple_fit, complex_fit, n_obs, reference_fit =
       label = "context_vs_complex"
     )
 
+    sel_bic2 <- ifelse(complex_context$selected_by_bic_proxy == safe_model_name(reference_fit, "context"), "context", "complex")
+    sel_aic2 <- ifelse(complex_context$selected_by_aic_proxy == safe_model_name(reference_fit, "context"), "context", "complex")
+
+    other_cols2 <- setdiff(names(complex_context), c("selected_by_bic_proxy", "selected_by_aic_proxy", "comparison_label"))
+    suffix2 <- "_context_minus_complex"
+    other_part2 <- complex_context[other_cols2]
+    names(other_part2) <- paste0(names(other_part2), suffix2)
+
     out <- cbind(
       out,
       data.frame(
-        selected_by_bic_proxy_context_vs_complex = ifelse(
-          complex_context$selected_by_bic_proxy == safe_model_name(reference_fit, "context"),
-          "context", "complex"
-        ),
-        selected_by_aic_proxy_context_vs_complex = ifelse(
-          complex_context$selected_by_aic_proxy == safe_model_name(reference_fit, "context"),
-          "context", "complex"
-        ),
-        bic_diff_context_minus_complex = complex_context$bic_diff_candidate_minus_baseline,
-        aic_diff_context_minus_complex = complex_context$aic_diff_candidate_minus_baseline,
-        loglik_advantage_context_minus_complex = complex_context$loglik_advantage,
-        loglik_advantage_per_obs_context_minus_complex = complex_context$loglik_advantage_per_obs,
+        selected_by_bic_proxy_context_vs_complex = sel_bic2,
+        selected_by_aic_proxy_context_vs_complex = sel_aic2,
         stringsAsFactors = FALSE
-      )
+      ),
+      other_part2,
+      stringsAsFactors = FALSE
     )
   }
 
