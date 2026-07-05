@@ -26,7 +26,7 @@ prepare_proxy_features <- function(dat) {
   dat$ambiguity_sq_value <- -0.5 * dat$value * dat$ambiguity^2
   dat$ses_ambiguous_value <- dat$ses * dat$ambiguous_value
 
-  dat
+  dat <- na.omit(dat)
 }
 
 fit_glm_binomial <- function(formula, dat, model_name) {
@@ -89,7 +89,7 @@ fit_context_mean_variance_proxy <- function(dat) {
   # SES-by-ambiguity interactions as a screening model before Stan/brms work.
   dat$ses_bin <- cut(
     dat$ses,
-    breaks = quantile(dat$ses, probs = c(0, 1/3, 2/3, 1), na.rm = TRUE),
+    breaks = unique(quantile(dat$ses, probs = c(0, 1/3, 2/3, 1), na.rm = TRUE)),
     include.lowest = TRUE,
     labels = c("low", "mid", "high")
   )
