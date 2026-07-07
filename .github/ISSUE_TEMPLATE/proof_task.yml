@@ -1,0 +1,36 @@
+name: Proof task
+description: A bounded theorem or proof-review task for the OCECM project.
+title: "Proof: "
+labels: ["proof"]
+body:
+  - type: textarea
+    id: target
+    attributes:
+      label: Proof target
+      description: Name the theorem, lemma, corollary, or proof obligation.
+      placeholder: Prove the Gaussian constructive heterogeneity lemma.
+    validations:
+      required: true
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Assumptions used or proposed
+      description: List assumptions and mark any new ones that require registry updates or PI approval.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What must be true for this proof task to be considered complete?
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Required checks
+      options:
+        - label: Boundary cases stated
+        - label: Comparison criterion specified if model selection is mentioned
+        - label: Assumption register updated
+        - label: Claim register updated if manuscript claim changes
