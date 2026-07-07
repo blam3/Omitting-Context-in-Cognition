@@ -19,6 +19,11 @@ jobs:
         with:
           r-version: release
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libuv1-dev
+
       - name: Install test dependencies
         run: |
           Rscript -e 'install.packages("testthat", repos = "https://cloud.r-project.org")'

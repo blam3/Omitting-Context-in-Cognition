@@ -3,8 +3,9 @@ run_replication <- function(n, trials, context_range, context_effect, seed) {
   # package and script contexts
   helper_dir <- system.file("R", package = "OmittingContextInCognition")
   if (helper_dir == "") {
-    # Fallback for development/script mode
-    helper_dir <- dirname(rlang::caller_source())
+    # Fallback for development/script mode: scripts and tests in this repo
+    # are always invoked with the repo root as the working directory.
+    helper_dir <- "R"
   }
   
   source(file.path(helper_dir, "dgm.R"))
