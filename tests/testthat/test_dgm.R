@@ -1,5 +1,3 @@
-source("R/dgm.R")
-
 testthat::test_that("simulate_context returns requested length", {
   ses <- simulate_context(100, context_range = "unrestricted", seed = 1)
   testthat::expect_equal(length(ses), 100)
