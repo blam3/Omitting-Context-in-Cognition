@@ -1,7 +1,9 @@
-source("R/dgm.R")
-source("R/fit_models.R")
-source("R/model_selection.R")
-source("R/metrics.R")
+# R/run_replication.R
+
+source(file.path(dirname(rlang::caller_source()), "dgm.R"))
+source(file.path(dirname(rlang::caller_source()), "fit_models.R"))
+source(file.path(dirname(rlang::caller_source()), "model_selection.R"))
+source(file.path(dirname(rlang::caller_source()), "metrics.R"))
 
 coef_or_na <- function(fit_obj, term) {
   est <- fit_obj$estimate
