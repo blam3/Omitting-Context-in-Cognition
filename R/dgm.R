@@ -106,7 +106,7 @@ simulate_ambiguity_task <- function(
 
   dat <- expand.grid(id = seq_len(n), trial = seq_len(trials))
   match_idx <- match(dat$trial, design$trial)
-    
+
   dat$probability <- design$probability[match_idx]
   dat$ses <- ses[dat$id]
   dat$theta <- theta_i[dat$id]
@@ -115,8 +115,8 @@ simulate_ambiguity_task <- function(
   dat$ambiguity <- design$ambiguity[match_idx]
   dat$value <- design$value[match_idx]
   dat$ref_side <- design$ref_side[match_idx]
-  dat$condition <- factor(design$condition)
-  dat$color_cue <- factor(design$color_cue)
+  dat$condition <- factor(design$condition[match_idx])
+  dat$color_cue <- factor(design$color_cue[match_idx])
 
   # Standard ambiguity-value form: SV = v * (p - beta_i * A / 2).
   dat$risky_value <- dat$value * dat$probability

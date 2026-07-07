@@ -10,9 +10,15 @@ __pycache__/
 .DS_Store
 results/
 cache/
-logs/
+logs/*
+!logs/
+!logs/research_updates/
+!logs/research_updates/README.md
+!logs/research_updates/example_update.json
 tmp/
 *.log
+data_synthetic/*.csv
+!data_synthetic/README.md
 *.aux
 *.bbl
 *.blg

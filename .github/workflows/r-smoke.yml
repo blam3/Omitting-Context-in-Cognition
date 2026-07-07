@@ -1,0 +1,45 @@
+name: R smoke tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Remove broken third-party apt sources
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/azure-cli.list /etc/apt/sources.list.d/microsoft-prod.list
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libuv1-dev
+
+      - name: Install test dependencies
+        run: |
+          Rscript -e 'install.packages("testthat", repos = "https://cloud.r-project.org")'
+
+      - name: Run smoke simulation
+        run: make smoke
+
+      - name: Generate synthetic RAID-style data
+        run: make synthetic-raid
+
+      - name: Run tests
+        run: make test
+
+      - name: Validate example research update
+        run: make validate-update

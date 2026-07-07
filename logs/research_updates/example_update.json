@@ -1,0 +1,35 @@
+{
+  "cycle_title": "Add researcher governance scaffolding",
+  "track": "governance",
+  "completed": [
+    "Created initial assumption and claim registries",
+    "Added structured update logging instructions",
+    "Added a lightweight update validator"
+  ],
+  "why_it_matters": [
+    "The autonomous researcher can now record scientific commitments and PI decision gates explicitly."
+  ],
+  "files_changed": [
+    "registries/assumption_register.csv",
+    "registries/claim_register.md",
+    "logs/research_updates/README.md",
+    "scripts/validate_research_update.py"
+  ],
+  "checks_run": [
+    {
+      "name": "validate example research update",
+      "status": "not_run",
+      "notes": "Run with make validate-update after checkout."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Continue using existing approved defaults."
+  },
+  "risks_or_uncertainties": [
+    "The lightweight validator checks schema shape but does not implement full JSON Schema semantics."
+  ],
+  "next_bounded_task": "Run CI smoke tests and create the first real theorem proof issue."
+}

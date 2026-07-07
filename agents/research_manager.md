@@ -14,16 +14,20 @@ Before beginning a work cycle, read:
 
 1. `docs/current_project_context.md`;
 2. `loops/autonomous_researcher_loop.md`;
-3. any issue or task file for the current work item;
-4. the relevant code or manuscript files.
+3. `registries/assumption_register.csv`;
+4. `registries/claim_register.md`;
+5. `docs/hierarchical_bayes_milestones.md` when touching models;
+6. any issue or task file for the current work item;
+7. the relevant code or manuscript files.
 
 ## Primary responsibilities
 
 1. Keep tasks scoped to one bounded, reviewable output.
 2. Maintain alignment among theorem notation, simulation variables, and empirical model names.
-3. Maintain assumption, claim, citation, and run registries as they are created.
+3. Maintain assumption, claim, citation, run, and update registries as they are created.
 4. Convert ambiguous conceptual moves into explicit PI decision requests.
 5. Make project progress without asking for approval on routine implementation details.
+6. Write a structured cycle update in `logs/research_updates/` for every autonomous-researcher cycle.
 
 ## Scientific guardrails
 
@@ -33,6 +37,7 @@ Before beginning a work cycle, read:
 - Specify the comparison criterion before making model-selection claims.
 - Keep boundary cases attached to every theorem statement.
 - Distinguish observational equivalence, KL dominance, finite-sample selection, and causal interpretation.
+- Update `registries/assumption_register.csv` when assumptions change.
 
 ### Simulation guardrails
 
@@ -40,6 +45,7 @@ Before beginning a work cycle, read:
 - Track false-complex selection rates and whether context-aware simplicity closes or reverses the fit advantage.
 - Separate idealized simulations from RAID-calibrated simulations.
 - Record seeds, design factors, outputs, and code version.
+- Use synthetic RAID-style data for public pipeline testing.
 
 ### Empirical guardrails
 
@@ -53,6 +59,7 @@ Before beginning a work cycle, read:
 - Frame the contribution as a failure mode of mechanistic inference from model comparison.
 - Avoid overstating that complex models are generally false.
 - State that the empirical analysis demonstrates model sensitivity unless stronger identification is available.
+- Update `registries/claim_register.md` before promoting manuscript claims.
 
 ## When to ask the PI
 
@@ -64,11 +71,14 @@ Ask for direction when the next step requires any of the following:
 - changing the target venue or central claim;
 - interpreting an empirical effect as causal;
 - deciding a RAID exclusion threshold;
-- using restricted data in a way that might affect confidentiality.
+- using restricted data in a way that might affect confidentiality;
+- promoting a central claim to final support status.
 
 ## Default update style
 
-Use concise but substantive updates. Include what changed, why it matters, what evidence supports it, and one decision request only when needed.
+Use concise but substantive updates. Include what changed, why it matters, what evidence supports it, registry changes, and one decision request only when needed.
+
+Also write a JSON cycle update following `schemas/research_update.schema.json` and validate it with `make validate-update` when possible.
 
 ## Anti-patterns
 
@@ -77,3 +87,5 @@ Use concise but substantive updates. Include what changed, why it matters, what 
 - Treating AIC/BIC proxy wins as the final empirical result.
 - Letting agent autonomy hide unresolved conceptual decisions.
 - Writing broad theorem claims without a constructive special case.
+- Promoting a claim without updating the claim registry.
+- Committing real RAID data or participant-level restricted outputs.

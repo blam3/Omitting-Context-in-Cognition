@@ -1,15 +1,31 @@
-source("R/dgm.R")
-source("R/fit_models.R")
-source("R/model_selection.R")
-source("R/metrics.R")
-
-coef_or_na <- function(fit_obj, term) {
-  est <- fit_obj$estimate
-  if (term %in% names(est)) return(unname(est[term]))
-  NA_real_
+find_repo_root <- function(start = getwd()) {
+  path <- normalizePath(start, mustWork = TRUE)
+  repeat {
+    if (file.exists(file.path(path, "DESCRIPTION"))) return(path)
+    parent <- dirname(path)
+    if (parent == path) {
+      stop("Could not locate repository root (no DESCRIPTION file found).")
+    }
+    path <- parent
+  }
 }
 
 run_replication <- function(n, trials, context_range, context_effect, seed) {
+  # Source helper functions when needed, using a relative path that works in both
+  # package and script contexts
+  helper_dir <- system.file("R", package = "OmittingContextInCognition")
+  if (helper_dir == "") {
+    # Fallback for development/script mode: the working directory varies
+    # between callers (repo root for Rscript, tests/testthat for
+    # testthat::test_dir()), so locate the repo root by walking up from cwd.
+    helper_dir <- file.path(find_repo_root(), "R")
+  }
+
+  source(file.path(helper_dir, "dgm.R"))
+  source(file.path(helper_dir, "fit_models.R"))
+  source(file.path(helper_dir, "model_selection.R"))
+  source(file.path(helper_dir, "metrics.R"))
+  
   dat <- simulate_ambiguity_task(
     n = n,
     trials = trials,
@@ -50,4 +66,10 @@ run_replication <- function(n, trials, context_range, context_effect, seed) {
       reference_ses_ambiguity_coef = coef_or_na(reference_fit, "ses_ambiguous_value")
     )
   )
+}
+
+coef_or_na <- function(fit_obj, term) {
+  est <- fit_obj$estimate
+  if (term %in% names(est)) return(unname(est[term]))
+  NA_real_
 }
