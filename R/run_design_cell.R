@@ -14,7 +14,7 @@ context_effect <- get_arg("context_effect", "weak")
 replications <- as.integer(get_arg("replications", 10))
 seed <- as.integer(get_arg("seed", 20260630))
 
-source("R/run_replication.R")
+source(file.path(dirname(rlang::caller_source()), "run_replication.R"))
 
 dir.create("results", showWarnings = FALSE)
 dir.create("simulations", showWarnings = FALSE)
