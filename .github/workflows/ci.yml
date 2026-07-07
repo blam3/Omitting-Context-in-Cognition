@@ -22,8 +22,8 @@ jobs:
 
       - name: Run unit tests
         run: |
-          Rscript -e "if (file.exists('DESCRIPTION')) { devtools::load_all(); testthat::test_dir('tests/testthat') } else { testthat::test_dir('tests/testthat') }"
-
+          Rscript -e "devtools::load_all(); testthat::test_dir('tests/testthat')"
+      
       - name: Run smoke simulation
         run: |
           Rscript R/run_smoke_simulation.R
