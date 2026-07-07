@@ -14,6 +14,17 @@ The target paper should combine three evidence streams:
 2. **Simulation:** under realistic sample sizes and task designs, a false complex model can beat the context-omitting simple model.
 3. **Empirical demonstration:** trial-level RAID decision-under-uncertainty data test whether context-aware simple models change conclusions relative to context-omitting complex models.
 
+## Required governance files
+
+Before making scientific changes, consult:
+
+- `registries/assumption_register.csv` for assumptions and decision status;
+- `registries/claim_register.md` for claim/evidence status;
+- `docs/hierarchical_bayes_milestones.md` for the staged path from GLM proxies to Stan/brms models;
+- `logs/research_updates/README.md` for required structured cycle reports.
+
+Any new theorem assumption, causal claim, primary false-complex model choice, or estimand change must be recorded and decision-gated.
+
 ## Formal theorem package
 
 The autonomous researcher should prioritize a publishable constructive theorem before attempting a fully general theorem.
@@ -127,6 +138,8 @@ The loop must not fit final empirical models until a coding memo answers:
 6. Are catch-trial fields row-level, participant-level, or both?
 7. What exclusion rule is primary, and which sensitivity rules are preregistered?
 
+Use `docs/raid_variable_coding_memo_template.md` for the audit. Use `R/generate_synthetic_raid_data.R` and `make synthetic-raid` for public pipeline testing before restricted data are available.
+
 ## Current empirical model ladder
 
 | Model | Context? | Complexity | Purpose |
@@ -141,6 +154,19 @@ The loop must not fit final empirical models until a coding memo answers:
 
 Primary empirical contrast: **M2/M3 vs. M4**.
 
+## Bayesian modeling path
+
+The GLM scaffold is only for smoke tests. Follow `docs/hierarchical_bayes_milestones.md` to move toward:
+
+1. single-level structural ambiguity likelihood;
+2. participant-level hierarchical ambiguity model;
+3. context-aware mean model;
+4. context-aware mean-plus-variance model;
+5. PI-selected primary false-complex model;
+6. final M1-M5 empirical model suite.
+
+The initial Stan skeleton is `stan/simple_ambiguity_single_level.stan`.
+
 ## Autonomous researcher priorities
 
 1. Keep the theorem, simulation, and empirical analysis synchronized.
@@ -148,3 +174,4 @@ Primary empirical contrast: **M2/M3 vs. M4**.
 3. Convert every new assumption into an explicit assumption register entry.
 4. Convert every model-selection claim into a comparison criterion: KL, expected log score, AIC/BIC threshold, PSIS-LOO ELPD, held-out log score, or Bayes factor sensitivity.
 5. Ask the human PI before adding assumptions, changing estimands, choosing the primary false-complex model, or interpreting RAID results as causal.
+6. Write a structured cycle report to `logs/research_updates/` for every autonomous researcher cycle.
