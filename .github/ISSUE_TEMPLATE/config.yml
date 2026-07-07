@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: OCECM researcher loop protocol
+    url: https://github.com/blam3/Omitting-Context-in-Cognition/blob/main/loops/autonomous_researcher_loop.md
+    about: Review the autonomous researcher cycle protocol before filing broad tasks.
