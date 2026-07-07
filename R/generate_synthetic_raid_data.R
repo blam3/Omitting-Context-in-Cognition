@@ -50,6 +50,7 @@ participant_summary$gender_synthetic <- sample(
 
 catch_prop <- setNames(pmin(0.35, rbeta(participants, 1, 12)), participant_ids)
 pass_fail <- ifelse(catch_prop <= 0.20, "pass", "fail")
+names(pass_fail) <- participant_ids
 
 is_catch <- dat$trial %% max(5, floor(trials / 4)) == 0
 catch_status <- rep(NA_integer_, nrow(dat))
