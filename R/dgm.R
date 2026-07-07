@@ -7,6 +7,13 @@
 # context-omitting model, a complex context-omitting model, and a simple
 # context-aware reference model.
 
+#' Simulate Context
+#'
+#' @param n Number of context values to simulate
+#' @param context_range Either "unrestricted" or "range_restricted"
+#' @param seed Random seed for reproducibility
+#'
+#' @export
 simulate_context <- function(
     n,
     context_range = c("unrestricted", "range_restricted"),
@@ -50,6 +57,16 @@ simulate_trial_design <- function(trials, seed = NULL) {
   )
 }
 
+#' Simulate Ambiguity Task
+#'
+#' @param n Number of participants
+#' @param trials Number of trials per participant
+#' @param context_range Either "unrestricted" or "range_restricted"
+#' @param context_effect Strength of context effect
+#' @param seed Random seed
+#' @param design Study design of the decision-making task
+#'
+#' @export
 simulate_ambiguity_task <- function(
     n,
     trials,
