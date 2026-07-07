@@ -1,0 +1,36 @@
+name: Empirical RAID task
+description: A bounded RAID variable-audit, cleaning, modeling, or reporting task.
+title: "Empirical: "
+labels: ["empirical"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Empirical task
+      description: Define the bounded RAID task.
+      placeholder: Complete the coding audit for choice/refSide mapping.
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data required
+      description: Identify whether the task uses synthetic data, public metadata, or restricted RAID data.
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Outputs
+      description: List expected files, memos, model fits, or diagnostics.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: No confidential values committed
+        - label: Variable-coding memo updated before structural modeling
+        - label: Exclusion rule fixed before model comparison
+        - label: Causal interpretation avoided unless approved
