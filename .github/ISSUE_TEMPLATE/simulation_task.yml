@@ -1,0 +1,36 @@
+name: Simulation task
+description: A bounded simulation, recovery, or model-comparison task.
+title: "Simulation: "
+labels: ["simulation"]
+body:
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Simulation purpose
+      description: State the theorem or empirical question the simulation addresses.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Design factors
+      description: List N, trials, context effects, model suite, seeds, and whether the design is idealized or RAID-calibrated.
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Required outputs
+      description: Name result files, diagnostic tables, plots, and registry updates.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: Includes simple omitted-context model
+        - label: Includes complex omitted-context model
+        - label: Includes simple context-aware model
+        - label: Records seed and code version
+        - label: Does not use confidential RAID data
