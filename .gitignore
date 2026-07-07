@@ -27,3 +27,11 @@ data_synthetic/*.csv
 *.out
 *.synctex.gz
 manuscript/main.pdf
+data_raw_secure/
+data_processed_secure/
+results_secure/
+scratch_secure/
+*.rds
+*.rda
+*.qs
+*.parquet
