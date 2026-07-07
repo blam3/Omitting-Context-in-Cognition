@@ -17,7 +17,7 @@ jobs:
 
       - name: Install test dependencies
         run: |
-          Rscript -e "install.packages(c('testthat'))"
+          Rscript -e "install.packages(c('testthat', 'devtools'))"
           Rscript -e "devtools::load_all()"
 
       - name: Run unit tests
