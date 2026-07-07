@@ -1,0 +1,50 @@
+name: PI decision needed
+description: Request PI direction before changing assumptions, estimands, claims, or restricted-data handling.
+title: "Decision needed: "
+labels: ["decision-needed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when the autonomous researcher must pause for PI direction.
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision question
+      description: State exactly one decision the PI needs to make.
+      placeholder: Which false-complex model should be the primary empirical comparator?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Explain why this decision matters for the theorem, simulation, empirical analysis, or manuscript.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: List the viable options and the default if no response is available.
+      placeholder: |
+        A. Source/condition-specific ambiguity
+        B. Nonlinear ambiguity weighting
+        C. Latent class model
+    validations:
+      required: true
+  - type: dropdown
+    id: gate
+    attributes:
+      label: Decision gate type
+      options:
+        - theorem assumption
+        - estimand change
+        - primary false-complex model
+        - causal interpretation
+        - restricted data
+        - exclusion threshold
+        - compute request
+        - venue/manuscript claim
+    validations:
+      required: true
