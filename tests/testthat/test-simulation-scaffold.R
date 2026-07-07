@@ -1,5 +1,5 @@
 test_that("simulation DGM returns aligned trial-level columns", {
-  source("R/dgm.R")
+  source(testthat::test_path("../../R/dgm.R"))
 
   dat <- simulate_ambiguity_task(
     n = 5,
@@ -22,7 +22,7 @@ test_that("simulation DGM returns aligned trial-level columns", {
 })
 
 test_that("one replication returns model-selection diagnostics", {
-  source("R/run_replication.R")
+  source(testthat::test_path("../../R/run_replication.R"))
 
   res <- run_replication(
     n = 8,
