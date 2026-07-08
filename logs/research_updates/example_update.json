@@ -28,8 +28,21 @@
     "options": [],
     "default_if_no_response": "Continue using existing approved defaults."
   },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Example record updated to show the procedure-compliance metadata expected for autonomous-researcher cycles."
+  },
   "risks_or_uncertainties": [
-    "The lightweight validator checks schema shape but does not implement full JSON Schema semantics."
+    "The lightweight validator checks the project-specific schema shape but does not implement full JSON Schema semantics."
   ],
   "next_bounded_task": "Run CI smoke tests and create the first real theorem proof issue."
 }
