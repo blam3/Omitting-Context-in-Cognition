@@ -1,0 +1,47 @@
+name: PR procedure compliance
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  require-procedure-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR body for procedure compliance section
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || "";
+            const requiredPatterns = [
+              [/##\s+Procedure compliance/i, "Missing `## Procedure compliance` section."],
+              [/Read the required operating context/i, "Missing operating-context checklist item."],
+              [/Scoped the work to one bounded/i, "Missing bounded-task checklist item."],
+              [/Ran the self-check/i, "Missing self-check checklist item."],
+              [/Updated relevant registries/i, "Missing registry checklist item."],
+              [/structured cycle report/i, "Missing structured-cycle-report checklist item."],
+              [/no confidential RAID data/i, "Missing restricted-data checklist item."],
+              [/PI direction is needed/i, "Missing PI-decision-gate checklist item."],
+              [/Kept scientific claims within/i, "Missing claim-status checklist item."],
+              [/Next bounded task/i, "Missing next-bounded-task section or checklist item."]
+            ];
+
+            const errors = requiredPatterns
+              .filter(([pattern]) => !pattern.test(body))
+              .map(([, message]) => message);
+
+            const complianceSection = body.match(/##\s+Procedure compliance[\s\S]*?(?=\n##\s+|$)/i)?.[0] || "";
+            const checkboxCount = (complianceSection.match(/- \[[ xX]\]/g) || []).length;
+            if (checkboxCount < 8) {
+              errors.push(`Expected at least 8 procedure-compliance checklist items; found ${checkboxCount}.`);
+            }
+
+            if (errors.length > 0) {
+              core.setFailed(`PR body does not satisfy the procedure-compliance audit trail:\n- ${errors.join("\n- ")}`);
+            } else {
+              core.info("Procedure-compliance section detected with required audit items.");
+            }
