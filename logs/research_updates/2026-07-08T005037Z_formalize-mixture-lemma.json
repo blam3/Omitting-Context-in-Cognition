@@ -1,0 +1,42 @@
+{
+  "cycle_title": "Formalize omitted-context mixture lemma",
+  "track": "theorem",
+  "completed": [
+    "Drafted a proof-review artifact for issue #4 in docs/omitted_context_mixture_lemma.md",
+    "Identified that the direct mixture identity uses theta conditional on X and Z unless trial design exogeneity or a fixed-design convention is stated",
+    "Recorded proposed assumption A-006 and marked claim C-002 as in progress rather than accepted"
+  ],
+  "why_it_matters": [
+    "The mixture lemma is the first theorem object in the OCECM proof route.",
+    "Surfacing the X/Z conditioning issue prevents the manuscript from overclaiming a simplified marginal law before PI approval."
+  ],
+  "files_changed": [
+    "docs/omitted_context_mixture_lemma.md",
+    "registries/assumption_register.csv",
+    "registries/claim_register.md",
+    "docs/proposed_assumptions.md",
+    "docs/proof_review_log.md",
+    "logs/research_updates/2026-07-08T005037Z_formalize-mixture-lemma.json"
+  ],
+  "checks_run": [
+    {
+      "name": "research update validator",
+      "status": "pass",
+      "notes": "Ran python3 scripts/validate_research_update.py on this update and make validate-update on the example update."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "For issue #4, should the theorem package approve A-006 so the main display uses F_{theta|Z}, or should it keep the more general F_{theta|X,Z} mixture as the primary statement?",
+    "options": [
+      "Approve A-006 and use the simplified F_{theta|Z} display where trial design is fixed or randomized.",
+      "Do not approve A-006; make F_{theta|X,Z} the primary theorem statement and mention F_{theta|Z} only as a corollary."
+    ],
+    "default_if_no_response": "Do not promote C-002 beyond in_progress and keep the proof draft out of the manuscript."
+  },
+  "risks_or_uncertainties": [
+    "The proof draft has not yet received proof-critic review.",
+    "The simplified issue formula can fail under adaptive or stratified trial assignment."
+  ],
+  "next_bounded_task": "Run proof-critic review on Lemma 1.1 and prepare the PI-selected theorem statement for manuscript or supplement insertion."
+}

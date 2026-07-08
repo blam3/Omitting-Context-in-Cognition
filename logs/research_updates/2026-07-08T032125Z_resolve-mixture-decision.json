@@ -1,0 +1,38 @@
+{
+  "cycle_title": "Resolve mixture lemma conditioning decision",
+  "track": "theorem",
+  "completed": [
+    "Applied PI direction rejecting A-006 as a primary theorem assumption",
+    "Updated the mixture lemma draft so F_{theta|X,Z} is the primary theorem statement",
+    "Kept F_{theta|Z} only as a corollary under fixed or exogenous trial design"
+  ],
+  "why_it_matters": [
+    "The theorem package now avoids adding a trial-design exogeneity assumption to the main result.",
+    "The proof draft remains valid for adaptive or stratified trial designs by conditioning on X and Z."
+  ],
+  "files_changed": [
+    "docs/omitted_context_mixture_lemma.md",
+    "registries/assumption_register.csv",
+    "docs/proposed_assumptions.md",
+    "docs/proof_review_log.md",
+    "logs/research_updates/2026-07-08T032125Z_resolve-mixture-decision.json"
+  ],
+  "checks_run": [
+    {
+      "name": "research update validator",
+      "status": "pass",
+      "notes": "Ran python3 scripts/validate_research_update.py on this update and parsed the assumption register as CSV."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Continue with F_{theta|X,Z} as the primary mixture theorem statement."
+  },
+  "risks_or_uncertainties": [
+    "The proof still needs proof-critic review before manuscript insertion.",
+    "The corollary should be clearly labeled so readers do not mistake it for the primary theorem."
+  ],
+  "next_bounded_task": "Run proof-critic review on the revised Lemma 1.1 and prepare the manuscript-ready theorem statement."
+}
