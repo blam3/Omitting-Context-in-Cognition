@@ -78,6 +78,13 @@ explicit trial-design exogeneity condition.
 3. Conditional law of total probability: a conditional probability can be
    written as the average of a more finely conditioned probability over the
    distribution of the conditioning variable being averaged out.
+4. Regularity of conditioning: `Theta` takes values in a Borel (e.g. Polish)
+   space, so that a regular conditional distribution `F_{Theta | X,Z}(· | x,z)`
+   of `Theta` given `(X,Z)` exists and is a bona fide probability measure for
+   `(X,Z)`-almost every `(x,z)`. In the project's binary/multinomial setting
+   `Theta` is finite-dimensional and real-valued, so this holds automatically
+   (Kallenberg, *Foundations of Modern Probability*, 2nd ed., Thm 6.3; Durrett,
+   *Probability: Theory and Examples*, 5th ed., §4.1.3).
 
 Rejected assumption A-006 is not used in this draft. Following PI direction,
 the theorem package keeps `F_{\Theta | X,Z}` as the primary statement and
@@ -88,9 +95,9 @@ additional conditions.
 
 ### Lemma 1.1 (Omitted-Context Conditional Mixture)
 
-For any outcome `y` in `Y_space` and observed values `(x,z)` at which the
-relevant regular conditional laws are defined, suppose the conditional choice
-law satisfies
+Suppose Assumption 4 holds, so that the regular conditional distribution
+`F_{\Theta | X,Z}(\cdot | x,z)` exists. Then for any outcome `y` in `Y_space`
+and for `(X,Z)`-almost every `(x,z)`, if the conditional choice law satisfies
 
 ```math
 P(Y = y | X = x, Z = z, \Theta = \theta)
@@ -208,11 +215,16 @@ P(Y = y | X = x, Z = z)
 = \int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
 ```
 
-If `X` is treated as fixed by design, the same expression can be read as an
-average over the participant-level latent distribution at the fixed trial
-design value `x`. This is why the `F_{\Theta | Z}` display is useful in
-manuscript exposition, but it remains a corollary rather than the general
-statement.
+The "fixed design" branch is not a separate argument: if `X` is fixed by
+design — assigned by a non-adaptive rule that does not depend on the realized
+outcomes, and hence carries no information about `\Theta` beyond `Z` — then
+`\Theta` is conditionally independent of `X` given `Z`, so
+`F_{\Theta | X,Z}(\cdot | x,z) = F_{\Theta | Z}(\cdot | z)` again holds and the
+single substitution above applies verbatim. (This is exactly the exogeneity
+that adaptive designs violate; see §8.) Thus both sufficient conditions in
+Corollary 1.2 reduce to the one derivation of this step, and the
+`F_{\Theta | Z}` display is a genuine special case rather than an independent
+result.
 
 ### 5.3 Conclusion
 
@@ -246,10 +258,16 @@ exogenous trial design.
 
 ## 7. Known Gaps / Unproven Steps
 
-- A fully measure-theoretic SI version should state regularity conditions for
-  conditional distributions. For the project issue's binary/multinomial choice
-  setting, the finite-outcome identity above is sufficient for the response
-  law, but not for all possible generalizations.
+- The regularity condition for the conditional distributions is now stated
+  explicitly as Assumption 4 (`Theta` valued in a Borel/Polish space, so the
+  regular conditional distribution `F_{Theta | X,Z}` exists), and Lemma 1.1 is
+  stated for `(X,Z)`-almost every `(x,z)`. This discharges the existence of the
+  mixing measure. Two items remain for a fully measure-theoretic SI version:
+  (i) the finite-outcome identity above covers the project's binary/multinomial
+  response law but is not stated at the generality needed for continuous or
+  otherwise non-finite outcome spaces; (ii) Assumption 4 is stated but not
+  itself re-derived here (it is standard — see Kallenberg Thm 6.3 / Durrett
+  §4.1.3).
 - This lemma does not yet prove heteroskedasticity, KL dominance, or finite-
   sample model-selection thresholds.
 - Proof-critic review remains pending before manuscript insertion.
