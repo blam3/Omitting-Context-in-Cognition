@@ -33,13 +33,15 @@ The autonomous researcher should read these files before taking action:
 1. [`docs/current_project_context.md`](docs/current_project_context.md) — current theorem, simulation, RAID, and manuscript context.
 2. [`loops/autonomous_researcher_loop.md`](loops/autonomous_researcher_loop.md) — cycle protocol and human-decision gates.
 3. [`agents/research_manager.md`](agents/research_manager.md) — research-manager role prompt.
-4. [`registries/README.md`](registries/README.md) — registry governance rules.
-5. [`registries/assumption_register.csv`](registries/assumption_register.csv) — assumption tracking.
-6. [`registries/claim_register.md`](registries/claim_register.md) — claim/evidence tracking.
-7. [`docs/raid_variable_coding_memo_template.md`](docs/raid_variable_coding_memo_template.md) — required audit before empirical RAID modeling.
-8. [`docs/hierarchical_bayes_milestones.md`](docs/hierarchical_bayes_milestones.md) — staged plan from GLM proxies to Stan/brms models.
-9. [`schemas/research_update.schema.json`](schemas/research_update.schema.json) — structured cycle-update format.
-10. [`logs/research_updates/example_update.json`](logs/research_updates/example_update.json) — example machine-readable loop update.
+4. [`docs/procedure_compliance.md`](docs/procedure_compliance.md) — required PR-body audit trail for autonomous cycles.
+5. [`.github/pull_request_template.md`](.github/pull_request_template.md) — PR template with required procedure-compliance section.
+6. [`registries/README.md`](registries/README.md) — registry governance rules.
+7. [`registries/assumption_register.csv`](registries/assumption_register.csv) — assumption tracking.
+8. [`registries/claim_register.md`](registries/claim_register.md) — claim/evidence tracking.
+9. [`docs/raid_variable_coding_memo_template.md`](docs/raid_variable_coding_memo_template.md) — required audit before empirical RAID modeling.
+10. [`docs/hierarchical_bayes_milestones.md`](docs/hierarchical_bayes_milestones.md) — staged plan from GLM proxies to Stan/brms models.
+11. [`schemas/research_update.schema.json`](schemas/research_update.schema.json) — structured cycle-update format.
+12. [`logs/research_updates/example_update.json`](logs/research_updates/example_update.json) — example machine-readable loop update.
 
 ## Formal proof route
 
@@ -98,12 +100,16 @@ The GitHub Actions workflow `.github/workflows/r-smoke.yml` runs on pushes and p
 3. testthat tests;
 4. example structured update validation.
 
+The GitHub Actions workflow `.github/workflows/pr-procedure-compliance.yml` runs on pull requests and verifies that the PR body exposes the required `## Procedure compliance` audit section.
+
 ## Governance artifacts
 
 - `registries/assumption_register.csv` tracks assumptions, status, decision state, and dependencies.
 - `registries/claim_register.md` tracks claims, evidence status, and allowed manuscript use.
 - `.github/ISSUE_TEMPLATE/decision_needed.yml` creates PI decision issues.
 - `.github/ISSUE_TEMPLATE/proof_task.yml`, `simulation_task.yml`, and `empirical_task.yml` scope bounded autonomous tasks.
+- `.github/pull_request_template.md` requires a PR-body procedure-compliance checklist.
+- `docs/procedure_compliance.md` explains how to use and review the compliance audit trail.
 - `logs/research_updates/` stores machine-readable cycle reports.
 
 ## Required human approval
@@ -142,6 +148,6 @@ Routine code edits, tests, theorem wording proposals, simulation parameter edits
 ├── slurm/                     # Slurm templates
 ├── scripts/                   # Setup, validators, and runner scripts
 ├── src/loop_researcher/       # Optional Python API-based orchestrator
-├── .github/workflows/         # CI smoke checks
+├── .github/workflows/         # CI and PR compliance checks
 └── Makefile
 ```
