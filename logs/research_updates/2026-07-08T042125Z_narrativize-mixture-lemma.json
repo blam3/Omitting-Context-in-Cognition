@@ -1,0 +1,35 @@
+{
+  "cycle_title": "Narrativize omitted-context mixture lemma",
+  "track": "theorem",
+  "completed": [
+    "Rewrote the omitted-context mixture lemma draft with a clearer narrative arc",
+    "Expanded the derivation so novice methodologists can follow the conditional averaging argument",
+    "Added an implications section explaining how the lemma supports later model-comparison results"
+  ],
+  "why_it_matters": [
+    "The mixture lemma is the first formal step connecting omitted context to the statistical target seen by model comparison.",
+    "A more readable proof draft is easier to review, teach, and later adapt into manuscript or SI prose."
+  ],
+  "files_changed": [
+    "docs/omitted_context_mixture_lemma.md",
+    "logs/research_updates/2026-07-08T042125Z_narrativize-mixture-lemma.json"
+  ],
+  "checks_run": [
+    {
+      "name": "research update validator",
+      "status": "pass",
+      "notes": "Ran python3 scripts/validate_research_update.py on this update."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Continue with proof-critic review of the F_{theta|X,Z} primary statement."
+  },
+  "risks_or_uncertainties": [
+    "The expanded prose still needs proof-critic review before manuscript insertion.",
+    "The implications section must remain framed as motivation for later results, not as proof of false-complex selection by itself."
+  ],
+  "next_bounded_task": "Run proof-critic review on the expanded Lemma 1.1 draft."
+}
