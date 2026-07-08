@@ -1,0 +1,61 @@
+{
+  "cycle_title": "Require PR procedure compliance",
+  "track": "governance",
+  "completed": [
+    "Added a pull-request template with a required Procedure compliance section",
+    "Added a GitHub Actions workflow that checks PR bodies for the compliance audit trail",
+    "Updated the autonomous loop and research manager instructions to require PR-body procedure compliance",
+    "Extended the structured update schema and validator to accept procedure-compliance metadata"
+  ],
+  "why_it_matters": [
+    "The autonomous researcher now has a visible PR-body audit trail, making skipped orientation, missing registry review, unreported decision gates, and confidentiality checks easier to catch during review."
+  ],
+  "files_changed": [
+    ".github/pull_request_template.md",
+    ".github/workflows/pr-procedure-compliance.yml",
+    "docs/procedure_compliance.md",
+    "loops/autonomous_researcher_loop.md",
+    "agents/research_manager.md",
+    "schemas/research_update.schema.json",
+    "scripts/validate_research_update.py",
+    "logs/research_updates/example_update.json",
+    "README.md",
+    "logs/research_updates/2026-07-07-pr-procedure-compliance.json"
+  ],
+  "checks_run": [
+    {
+      "name": "make validate-update",
+      "status": "not_run",
+      "notes": "Not run in this GitHub connector environment; the updated validator and example are committed for CI/local validation."
+    },
+    {
+      "name": "PR procedure compliance workflow",
+      "status": "not_run",
+      "notes": "Workflow will execute when this pull request is opened or edited."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Use the PR-body Procedure compliance section as the default audit trail for autonomous-researcher pull requests."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "This PR changes governance infrastructure only; no scientific claims, theorem assumptions, RAID data, or participant-level outputs were added."
+  },
+  "risks_or_uncertainties": [
+    "The PR-body workflow checks that the audit section exists and contains required items; it cannot verify truthfulness of the checklist responses.",
+    "Older open PRs may need their bodies edited to satisfy the new template after this change is merged."
+  ],
+  "next_bounded_task": "After this is merged, update any open autonomous-researcher PR bodies to include the new Procedure compliance section."
+}

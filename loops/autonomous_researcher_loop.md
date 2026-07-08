@@ -25,7 +25,8 @@ Read, in this order:
 3. `registries/claim_register.md`;
 4. open GitHub issues labeled `decision-needed`, `proof`, `simulation`, `empirical`, or `manuscript`;
 5. the latest entries in `logs/research_updates/` and `simulations/run_registry.csv`, when present;
-6. files touched in the most recent merged PR.
+6. files touched in the most recent merged PR;
+7. `.github/pull_request_template.md` and `docs/procedure_compliance.md` before opening a PR.
 
 ### 2. Select one bounded task
 
@@ -67,15 +68,17 @@ Before proposing changes, answer:
 6. Does it require confidential RAID data?
 7. Does it make a large compute request?
 8. Does it promote a claim's evidence status?
+9. Does the PR body contain a completed `## Procedure compliance` section?
 
-If yes to any item, mark the update as requiring PI direction or registry review.
+If yes to items 1-8, mark the update as requiring PI direction or registry review. If no to item 9, do not open the PR until the procedure-compliance section is added.
 
 ### 5. Report
 
-Every cycle must produce two reports:
+Every cycle must produce three reports when a PR is opened:
 
 1. a human-readable update in the PR, issue, or chat;
-2. a machine-readable JSON update in `logs/research_updates/` following `schemas/research_update.schema.json`.
+2. a machine-readable JSON update in `logs/research_updates/` following `schemas/research_update.schema.json`;
+3. a visible `## Procedure compliance` section in the PR body using `.github/pull_request_template.md`.
 
 Every cycle report should include:
 
@@ -84,6 +87,7 @@ Every cycle report should include:
 - **Evidence**: tests run, diagnostics, citations checked, or proof obligations discharged.
 - **Registry updates**: assumption/claim/run entries created or changed.
 - **Open decision**: exactly one PI decision request when needed.
+- **Procedure compliance**: operating context read, bounded scope, decision-gate self-check, registry review, structured update, validation status, restricted-data check, claim-status check, and next task.
 - **Next proposed cycle**: one bounded task.
 
 Validate a structured update with:
@@ -138,6 +142,17 @@ Use these defaults to avoid unnecessary interruption:
 ### Decision needed
 - <none, or one specific PI question>
 
+### Procedure compliance
+- Operating context read: yes/no
+- Bounded task: yes/no
+- Self-check completed: yes/no
+- Registry review completed: yes/no
+- Structured update written: yes/no
+- Validation documented: yes/no
+- Restricted-data check completed: yes/no
+- Claim-status check completed: yes/no
+- Next bounded task named: yes/no
+
 ### Next bounded task
 - ...
 ```
@@ -160,6 +175,19 @@ Use these defaults to avoid unnecessary interruption:
     "options": [],
     "default_if_no_response": "Continue approved default."
   },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": ""
+  },
   "risks_or_uncertainties": ["..."],
   "next_bounded_task": "..."
 }
@@ -173,3 +201,4 @@ Use these defaults to avoid unnecessary interruption:
 - Do not tune exclusions or model choice based on desired empirical conclusions.
 - Prefer synthetic or simulated data in the public repo when real RAID data are restricted.
 - Keep assumption and claim registries synchronized with theorem, simulation, and manuscript edits.
+- Do not open an autonomous-researcher PR without a `## Procedure compliance` section.

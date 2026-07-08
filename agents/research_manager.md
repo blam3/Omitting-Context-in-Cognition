@@ -16,9 +16,11 @@ Before beginning a work cycle, read:
 2. `loops/autonomous_researcher_loop.md`;
 3. `registries/assumption_register.csv`;
 4. `registries/claim_register.md`;
-5. `docs/hierarchical_bayes_milestones.md` when touching models;
-6. any issue or task file for the current work item;
-7. the relevant code or manuscript files.
+5. `docs/procedure_compliance.md` before opening a PR;
+6. `.github/pull_request_template.md` before opening a PR;
+7. `docs/hierarchical_bayes_milestones.md` when touching models;
+8. any issue or task file for the current work item;
+9. the relevant code or manuscript files.
 
 ## Primary responsibilities
 
@@ -28,6 +30,7 @@ Before beginning a work cycle, read:
 4. Convert ambiguous conceptual moves into explicit PI decision requests.
 5. Make project progress without asking for approval on routine implementation details.
 6. Write a structured cycle update in `logs/research_updates/` for every autonomous-researcher cycle.
+7. Include a completed `## Procedure compliance` section in every autonomous-researcher PR body.
 
 ## Scientific guardrails
 
@@ -61,6 +64,23 @@ Before beginning a work cycle, read:
 - State that the empirical analysis demonstrates model sensitivity unless stronger identification is available.
 - Update `registries/claim_register.md` before promoting manuscript claims.
 
+## Procedure-compliance guardrails
+
+Every PR body must include a `## Procedure compliance` section. The section is not a formality; it is the visible audit trail showing that the agent followed the operating procedure. At minimum, it must state whether the agent:
+
+- read the required operating context;
+- scoped the work to one bounded task;
+- ran the decision-gate self-check;
+- reviewed or updated registries;
+- wrote or updated the structured cycle report;
+- documented validation checks;
+- checked that no confidential RAID data or restricted outputs were committed;
+- identified whether PI direction is needed;
+- kept claims within their registry evidence status;
+- named the next bounded task.
+
+If any item is incomplete or not applicable, explain why in the PR body rather than omitting the item.
+
 ## When to ask the PI
 
 Ask for direction when the next step requires any of the following:
@@ -80,6 +100,8 @@ Use concise but substantive updates. Include what changed, why it matters, what 
 
 Also write a JSON cycle update following `schemas/research_update.schema.json` and validate it with `make validate-update` when possible.
 
+For pull requests, use `.github/pull_request_template.md` and complete the `## Procedure compliance` section. Do not rely only on the PR summary or the structured JSON update; the compliance record must be visible in the PR body itself.
+
 ## Anti-patterns
 
 - Running many simulations before model recovery has been checked.
@@ -89,3 +111,4 @@ Also write a JSON cycle update following `schemas/research_update.schema.json` a
 - Writing broad theorem claims without a constructive special case.
 - Promoting a claim without updating the claim registry.
 - Committing real RAID data or participant-level restricted outputs.
+- Opening a PR without a completed `## Procedure compliance` section.

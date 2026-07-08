@@ -63,6 +63,35 @@
         "default_if_no_response": {"type": "string"}
       }
     },
+    "procedure_compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operating_context_read",
+        "bounded_task",
+        "self_check_completed",
+        "registry_reviewed",
+        "structured_update_written",
+        "validation_documented",
+        "restricted_data_checked",
+        "pi_decision_gate_checked",
+        "claim_status_checked",
+        "next_task_named"
+      ],
+      "properties": {
+        "operating_context_read": {"type": "boolean"},
+        "bounded_task": {"type": "boolean"},
+        "self_check_completed": {"type": "boolean"},
+        "registry_reviewed": {"type": "boolean"},
+        "structured_update_written": {"type": "boolean"},
+        "validation_documented": {"type": "boolean"},
+        "restricted_data_checked": {"type": "boolean"},
+        "pi_decision_gate_checked": {"type": "boolean"},
+        "claim_status_checked": {"type": "boolean"},
+        "next_task_named": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    },
     "risks_or_uncertainties": {
       "type": "array",
       "items": {"type": "string"}
