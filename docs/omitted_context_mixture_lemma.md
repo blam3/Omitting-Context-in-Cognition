@@ -17,23 +17,17 @@ participant-trial observation, define:
 - `Theta = h(Z, C, U)` as the latent decision parameter.
 - `eta_star` as fixed parameters of the conditional choice kernel.
 
-The analyst observes `(Y, X, Z)` and omits `C`. The project target is the
-omitted-context marginal response law
-
-```math
-p_0(y | x,z) =
-\int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
-```
-
-The immediately valid conditional-mixture identity is
+The analyst observes `(Y, X, Z)` and omits `C`. The primary omitted-context
+marginal response law is
 
 ```math
 p_0(y | x,z) =
 \int p(y | x,\theta; \eta^*) dF_{\Theta | X,Z}(\theta | x,z).
 ```
 
-The target display with `F_{\Theta | Z}` follows if trial design is fixed by
-the researcher or assigned independently of `Theta` conditional on `Z`.
+A simplified display with `F_{\Theta | Z}` is not a primary theorem assumption.
+It is available only as a corollary under a fixed-design interpretation or an
+explicit trial-design exogeneity condition.
 
 ## 2. Assumptions Used
 
@@ -45,9 +39,10 @@ the researcher or assigned independently of `Theta` conditional on `Z`.
 3. Standard probability identity: conditional law of total probability over
    the latent parameter distribution.
 
-Proposed assumption A-006 is not used as an approved assumption in this draft.
-It is needed only if the manuscript keeps the simplified `F_{\Theta | Z}`
-display rather than the more general `F_{\Theta | X,Z}` display.
+Rejected assumption A-006 is not used in this draft. Following PI direction,
+the theorem package keeps `F_{\Theta | X,Z}` as the primary statement and
+mentions the simplified `F_{\Theta | Z}` display only as a corollary under
+additional conditions.
 
 ## 3. Formal Statement
 
@@ -68,22 +63,25 @@ P(Y = y | X = x, Z = z)
 = \int p(y | x,\theta; \eta^*) dF_{\Theta | X,Z}(\theta | x,z).
 ```
 
-If, in addition, `\Theta` is conditionally independent of `X` given `Z`, or
-`X` is treated as a fixed design, then
+### Corollary 1.2 (Fixed or Exogenous Trial Design)
+
+If, in addition to Lemma 1.1, `\Theta` is conditionally independent of `X`
+given `Z`, or `X` is treated as a fixed design, then
 
 ```math
 P(Y = y | X = x, Z = z)
 = \int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
 ```
 
+This corollary is not the primary theorem statement.
+
 ## 4. Proof (or Proof Sketch)
 
 ### 4.1 Strategy Overview
 
-Condition on the latent parameter and integrate it out. The only substantive
-move is replacing the conditional distribution of `Theta | X,Z` with
-`Theta | Z`; that move requires fixed/randomized trial design or conditional
-independence of trial features and latent parameters.
+Condition on the latent parameter and integrate it out. The primary statement
+keeps the latent-parameter distribution conditional on both `X` and `Z`, so it
+does not require trial-design exogeneity.
 
 ### 4.2 Step-by-Step Derivation
 
@@ -109,23 +107,22 @@ dF_{\Theta | X,Z}(\theta | x,z).
    (A-001)
 4. Since `Theta = h(Z,C,U)`, the distribution integrated in Step 3 includes
    variation induced by omitted `C`. (A-002)
-5. If `\Theta` is conditionally independent of `X` given `Z`, then
+5. For Corollary 1.2 only, if `\Theta` is conditionally independent of `X`
+   given `Z`, then
    `F_{\Theta | X,Z}(\cdot | x,z) = F_{\Theta | Z}(\cdot | z)`. If `X` is
    fixed by design, the same display is interpreted as integrating over the
    participant-level latent distribution at the fixed trial design value `x`.
-   (proposed A-006 or fixed-design convention)
+   (additional corollary condition)
 
 ### 4.3 Conclusion
 
 The omitted-context response law is a mixture of the conditional choice kernel
-over a latent-parameter distribution. The exact registry-safe statement uses
-`F_{\Theta | X,Z}`. The issue's proposed `F_{\Theta | Z}` statement is available
-after PI approval of the trial-design exogeneity or fixed-design convention.
+over a latent-parameter distribution. The primary theorem statement uses
+`F_{\Theta | X,Z}`. The simplified `F_{\Theta | Z}` statement is available only
+as Corollary 1.2 under fixed or exogenous trial design.
 
 ## 5. Known Gaps / Unproven Steps
 
-- Proof review should decide whether the main text should state the general
-  `F_{\Theta | X,Z}` version, the simpler `F_{\Theta | Z}` version, or both.
 - A fully measure-theoretic SI version should state regularity conditions for
   conditional distributions. For the project issue's binary/multinomial choice
   setting, the finite-outcome identity above is sufficient for the response
@@ -146,7 +143,7 @@ after PI approval of the trial-design exogeneity or fixed-design convention.
 
 ## 7. Need for New Assumptions?
 
-Yes. Proposed A-006 records the trial-design exogeneity or fixed-design
-condition needed for the issue's simplified `F_{\Theta | Z}` display. This
-cycle does not adopt A-006 as approved; it asks the PI whether to approve it or
-prefer the general `F_{\Theta | X,Z}` theorem statement.
+No new approved assumptions are needed for the primary theorem statement.
+A-006 was considered and rejected by PI direction on 2026-07-07. The
+`F_{\Theta | Z}` display remains only a corollary under additional fixed-design
+or exogeneity conditions.
