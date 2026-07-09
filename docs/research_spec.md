@@ -27,16 +27,20 @@ A conceptual formalization and bias-demonstration paper advocating an embedded c
 - Trial lengths: 40, 100, 200
 - Contextual-variable distribution: unrestricted vs range-restricted
 - Context effect: weak vs strong
+- Bayesian design factors:
+  - primary leave-out unit: participant versus trial (PI decision gate);
+  - proper prior scale for each candidate model;
+  - marginal-likelihood estimator and its numerical diagnostics.
 - Primary outcomes:
-  - Bayes Factor classification accuracy
-  - Bayes Factor type I and II error
-  - LOOIC classification accuracy
-  - LOOIC type I and II error
+  - LOO expected-log-predictive-density and LOOIC differences for `M4` versus `M1` and `M2/M3`;
+  - LOOIC selection accuracy plus type I and type II error under the declared leave-out target;
+  - Pareto-k reliability rates and fallback-method use;
+  - log Bayes-factor differences plus selection accuracy and type I/type II error;
+  - Bayes-factor sensitivity across the predeclared prior-scale grid.
 - Secondary outcomes:
-  - Absolute bias
-  - Relative bias
-  - RMSE
-  - Coverage
+  - held-out participant log score;
+  - AIC/BIC proxy comparisons for theorem/scaffold continuity;
+  - absolute bias, relative bias, RMSE, and coverage.
 
 ## Planned artifacts
 

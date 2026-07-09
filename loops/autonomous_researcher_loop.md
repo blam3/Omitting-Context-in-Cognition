@@ -114,10 +114,10 @@ Pause and request direction before:
 
 Use these defaults to avoid unnecessary interruption:
 
-- Target proof route: mixture representation -> Gaussian constructive heterogeneity -> KL dominance -> AIC/BIC threshold corollaries.
+- Target proof route: mixture representation -> Gaussian constructive heterogeneity -> KL dominance -> LOO expected-predictive-score/LOOIC consequence -> Bayes-factor consequence under declared priors -> secondary AIC/BIC threshold corollaries.
 - Target empirical contrast: M2/M3 context-aware simple model versus M4 context-omitting complex model.
-- Primary predictive metric: PSIS-LOO ELPD, with held-out participant log score as robustness.
-- AIC/BIC: simulation/theory bridge only, not the final Bayesian empirical criterion.
+- Primary Bayesian comparison targets: PSIS-LOO ELPD/LOOIC for predictive performance and Bayes factors under predeclared proper priors for model evidence; report them as distinct quantities.
+- Held-out participant log score is a robustness target. AIC/BIC are simulation/theory bridge diagnostics only, not final Bayesian empirical criteria.
 - SES context proxies: income and education separately, then composite as sensitivity.
 - RAID claim: model-sensitivity demonstration, not causal identification.
 - Public reproducibility: synthetic RAID-style data and simulation code, not restricted data.
