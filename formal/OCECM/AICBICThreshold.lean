@@ -1,7 +1,7 @@
 import OCECM.Basic
 
 /-!
-# AIC/BIC threshold scaffold
+# Secondary AIC/BIC threshold scaffold
 
 This file is a placeholder for finite-sample threshold corollaries. The intended
 results are conditional comparisons:
@@ -18,7 +18,7 @@ model-selection guarantees.
 namespace OCECM
 
 def aicBicThresholdCard : TheoremCard :=
-  { label := "T-005 AIC/BIC finite-sample threshold corollaries"
+  { label := "T-007 secondary AIC/BIC finite-sample threshold corollaries"
     claimId := "C-004"
     assumptionIds := []
     status := TheoremStatus.backlog

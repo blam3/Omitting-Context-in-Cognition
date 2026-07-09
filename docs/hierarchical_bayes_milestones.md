@@ -20,7 +20,7 @@ Move from fast GLM proxies to a staged Stan/brms model suite without losing alig
 
 - `make smoke` passes;
 - `make test` passes;
-- proxy output includes false-complex selection rates and context-aware comparison rates;
+- proxy output explicitly labels AIC/BIC as GLM-only bridge diagnostics and records no Bayes factor or LOOIC;
 - proxy claims remain marked `scaffold_only` in the claim register.
 
 ## Milestone 1: single-level structural ambiguity likelihood
@@ -65,7 +65,9 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 - Stan model: `stan/simple_ambiguity_hierarchical.stan`;
 - non-centered parameterization;
 - posterior predictive checks by participant and trial features;
-- held-out participant split script.
+- held-out participant split script;
+- generated quantities that retain log likelihood by trial and participant;
+- prior predictive checks sufficient to rule out accidental improper-prior Bayes-factor calculations.
 
 **Exit criteria:**
 
@@ -85,7 +87,8 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 
 - Stan model or generated quantities extension;
 - income-only, education-only, and composite-SES variants;
-- PSIS-LOO and held-out participant comparison with Milestone 2.
+- PSIS-LOO ELPD/LOOIC and held-out participant comparison with Milestone 2;
+- Pareto-k reporting at the declared leave-out unit.
 
 **Exit criteria:**
 
@@ -130,7 +133,8 @@ Candidate models requiring PI selection:
 
 - primary false-complex model is documented in the assumption and claim registries;
 - model recovery distinguishes true context effects from true complexity under simulation;
-- model comparison reports uncertainty and not only point estimates.
+- model comparison reports uncertainty and not only point estimates;
+- proper priors and a marginal-likelihood method are documented before Bayes factors are calculated.
 
 ## Milestone 6: final empirical model suite
 
@@ -140,15 +144,16 @@ Candidate models requiring PI selection:
 
 **Primary metrics:**
 
-- PSIS-LOO ELPD;
+- PSIS-LOO ELPD and LOOIC at the predeclared leave-out unit;
+- Pareto-k diagnostics and any exact/refit fallback used for unreliable units;
+- log Bayes factor from a documented marginal-likelihood method and a predeclared proper-prior sensitivity grid;
 - held-out participant log score;
 - posterior predictive checks by SES/context group.
 
 **Secondary metrics:**
 
 - WAIC sensitivity;
-- AIC/BIC bridge for theorem/simulation continuity;
-- Bayes factor or marginal likelihood only as prior-sensitive sensitivity.
+- AIC/BIC bridge for theorem/simulation continuity.
 
 ## Immediate next implementation tasks
 
