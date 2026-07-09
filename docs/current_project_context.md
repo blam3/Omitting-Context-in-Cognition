@@ -46,7 +46,7 @@ p(Y_it | X_it, theta_i; eta),
 then the analyst who omits `C_i` observes
 
 ```math
-p_0(y | x,z) = int p(y | x, theta; eta*) dF_{theta|Z}(theta | z).
+p_0(y | x,z) = int p(y | x, theta; eta*) dF_{theta|X,Z}(theta | x,z).
 ```
 
 This is the first theorem object the loop should try to formalize and check.
