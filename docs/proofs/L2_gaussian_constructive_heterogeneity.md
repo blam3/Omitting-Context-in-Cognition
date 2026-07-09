@@ -7,65 +7,61 @@
 
 ## 1. Objects & Notation
 
-Let `i` be an arbitrary participant index. Let
-`(Omega, F, P)` be a probability space, and let `Z_i`, `C_i`, and
-`u_i` be real-valued random variables. Write
+Let $i$ be an arbitrary participant index. Let
+$(\Omega,\mathcal F,\mathbb P)$ be a probability space, and let
+$Z_i$, $C_i$, and $u_i$ be real-valued random variables. Write
 
 $$
-\mathcal{G}_i = \sigma(Z_i).
+\mathcal G_i=\sigma(Z_i).
 $$
 
-The covariate `Z_i` is scalar, as indicated by the target expression
-`alpha_1 Z_i`. Let `alpha_0, alpha_1, gamma` be fixed real constants and
-let `sigma_u^2 \geq 0` be fixed. Let `m` and `v` be measurable functions,
-with `v(z) \geq 0` where it is defined.
+The covariate $Z_i$ is scalar, as indicated by the target expression
+$\alpha_1 Z_i$. Let $\alpha_0,\alpha_1,\gamma\in\mathbb R$ be fixed, let
+$\sigma_u^2\geq 0$ be fixed, and let $m$ and $v$ be measurable functions with
+$v(z)\geq 0$ where defined.
 
 A-003 supplies square integrability and the structural equation
 
 $$
-\theta_i = \alpha_0 + \alpha_1 Z_i + \gamma C_i + u_i.
+\theta_i=\alpha_0+\alpha_1 Z_i+\gamma C_i+u_i.
 $$
 
 For conditional covariance, use
 
 $$
-\operatorname{Cov}(C_i,u_i \mid \mathcal{G}_i)
+\operatorname{Cov}(C_i,u_i\mid\mathcal G_i)
 =
-\mathbb{E}\!\left[
-  \bigl(C_i-\mathbb{E}[C_i\mid\mathcal{G}_i]\bigr)
-  \bigl(u_i-\mathbb{E}[u_i\mid\mathcal{G}_i]\bigr)
-  \middle| \mathcal{G}_i
+\mathbb E\!\left[
+  \bigl(C_i-\mathbb E[C_i\mid\mathcal G_i]\bigr)
+  \bigl(u_i-\mathbb E[u_i\mid\mathcal G_i]\bigr)
+  \,\middle|\,\mathcal G_i
 \right].
 $$
 
 All conditional equalities are equalities of versions and therefore imply the
-corresponding statement for `P_{Z_i}`-almost every conditioning value
-`z`. In the proof, subscripts are suppressed after this section:
-`Z=Z_i`, `C=C_i`, `u=u_i`, `theta=theta_i`, and
-`\mathcal{G}=\mathcal{G}_i`.
+corresponding statement for $P_{Z_i}$-almost every conditioning value $z$. In
+the proof, subscripts are suppressed after this section: $Z=Z_i$, $C=C_i$,
+$u=u_i$, $\theta=\theta_i$, and $\mathcal G=\mathcal G_i$.
 
 ## 2. Assumptions Used
 
 1. **A-003, constructive heterogeneity moments (decision-gated).** The
-   variables `Z_i`, `C_i`, and `u_i` are square-integrable; the stated
-   structural equation holds; and, conditionally on `Z_i=z`,
-   `C_i` has mean `m(z)) and variance `v(z)), while `u_i` has mean
-   `0` and variance `sigma_u^2`.
+   variables $Z_i$, $C_i$, and $u_i$ are square-integrable; the structural
+   equation holds; and, conditionally on $Z_i=z$, $C_i$ has mean $m(z)$ and
+   variance $v(z)$, while $u_i$ has mean $0$ and variance $\sigma_u^2$.
 
 2. **A-007, conditional context-disturbance orthogonality (proposed,
    decision-gated).** Conditional context-disturbance orthogonality:
-   Cov(C_i, u_i | Z_i) = 0 almost surely. Conditional independence C_i
-   independent of u_i given Z_i is a stronger sufficient condition but is not
-   required for the moment lemma.
+   $\operatorname{Cov}(C_i,u_i\mid Z_i)=0$ almost surely. Conditional
+   independence of $C_i$ and $u_i$ given $Z_i$ is a stronger sufficient
+   condition but is not required for the moment lemma.
 
 3. **A-008, conditional joint Gaussianity (proposed, decision-gated; corollary
-   only).** Conditional joint Gaussianity for the distributional corollary:
-   for `P_{Z_i}`-almost every `z`, `(C_i, u_i)` conditional on
-   `Z_i=z` is bivariate normal. This assumption is not used in the moment
-   lemma.
+   only).** For $P_{Z_i}$-almost every $z$, $(C_i,u_i)\mid Z_i=z$ is
+   bivariate normal. This assumption is not used in the moment lemma.
 
-4. **Standard probability results.** Conditional expectation is linear;
-   a `\mathcal{G}`-measurable term has zero conditional variance; conditional
+4. **Standard probability results.** Conditional expectation is linear; a
+   $\mathcal G$-measurable term has zero conditional variance; conditional
    variance is the conditional second moment around the conditional mean; and
    an affine image of a multivariate normal vector is multivariate normal.
    These are the only standard results invoked below.
@@ -79,77 +75,77 @@ No normality assumption is used by Lemma L2.1.
 Assume A-003 and A-007. Then, almost surely,
 
 $$
-\mathbb{E}[\theta_i \mid Z_i]
+\mathbb E[\theta_i\mid Z_i]
 =
-\alpha_0 + \alpha_1 Z_i + \gamma m(Z_i)
+\alpha_0+\alpha_1 Z_i+\gamma m(Z_i)
 $$
 
 and
 
 $$
-\operatorname{Var}(\theta_i \mid Z_i)
+\operatorname{Var}(\theta_i\mid Z_i)
 =
-\gamma^2 v(Z_i) + \sigma_u^2.
+\gamma^2 v(Z_i)+\sigma_u^2.
 $$
 
-Equivalently, for `P_{Z_i}`-almost every `z`,
+Equivalently, for $P_{Z_i}$-almost every $z$,
 
 $$
-\mathbb{E}[\theta_i \mid Z_i=z]
+\mathbb E[\theta_i\mid Z_i=z]
 =
-\alpha_0 + \alpha_1 z + \gamma m(z)
+\alpha_0+\alpha_1 z+\gamma m(z)
 $$
 
 and
 
 $$
-\operatorname{Var}(\theta_i \mid Z_i=z)
+\operatorname{Var}(\theta_i\mid Z_i=z]
 =
-\gamma^2 v(z) + \sigma_u^2.
+\gamma^2 v(z)+\sigma_u^2.
 $$
 
-If `gamma \ne 0` and `v(Z_i)` is not almost surely constant, the
-conditional variance of `theta_i` is not almost surely constant. This is the
-precise constructive heterogeneity consequence; it does not itself imply
+If $\gamma\ne0$ and $v(Z_i)$ is not almost surely constant, the conditional
+variance of $\theta_i$ is not almost surely constant. This is the precise
+constructive heterogeneity consequence; it does not itself imply
 false-complex model selection.
 
 ### Corollary L2.2 (Gaussian distributional conclusion)
 
-Assume A-003, A-007, and A-008. Then, for `P_{Z_i}`-almost every `z`,
+Assume A-003, A-007, and A-008. Then, for $P_{Z_i}$-almost every $z$,
 
 $$
-(C_i,u_i) \mid Z_i=z
+(C_i,u_i)\mid Z_i=z
 \sim
-\mathcal{N}_2\!\left(
+\mathcal N_2\!\left(
   \begin{pmatrix}m(z)\\0\end{pmatrix},
-  \begin{pmatrix}v(z) & 0\\0 & \sigma_u^2\end{pmatrix}
+  \begin{pmatrix}v(z)&0\\0&\sigma_u^2\end{pmatrix}
 \right),
 $$
 
 and hence
 
 $$
-\theta_i \mid Z_i=z
+\theta_i\mid Z_i=z
 \sim
-\mathcal{N}\!\left(
-  \alpha_0 + \alpha_1 z + \gamma m(z),
-  \gamma^2 v(z) + \sigma_u^2
+\mathcal N\!\left(
+  \alpha_0+\alpha_1 z+\gamma m(z),
+  \gamma^2v(z)+\sigma_u^2
 \right).
 $$
 
 Degenerate normal cases with zero variance are permitted. A stronger sufficient
-alternative to A-008 is that, conditional on `Z_i=z`, `C_i` and `u_i`
-are independent Gaussian variables with the respective moments in A-003.
-That alternative is not required by the moment lemma.
+alternative to A-008 is that, conditional on $Z_i=z$, $C_i$ and $u_i$ are
+independent Gaussian variables with the respective moments in A-003. That
+alternative is not required by the moment lemma.
 
 ## 4. Proof (or Proof Sketch)
 
 ### 4.1 Strategy Overview
 
-We first condition on `\mathcal{G}=\sigma(Z)` and use linearity to obtain
-the conditional mean. We then subtract that mean from the structural equation
-and expand its conditional square. A-007 removes the only cross term. For the
-corollary, A-008 makes `(C,u)` conditionally bivariate normal, so the
+We first condition on $\mathcal G=\sigma(Z)$ and use linearity to obtain the
+conditional mean. We then subtract that mean from the structural equation and
+expand its conditional square. A-007 removes the only cross term. For the
+corollary, A-008 makes $(C,u)$ conditionally bivariate normal, so the
 structural equation is an affine transformation of a normal vector.
 
 ### 4.2 Step-by-Step Derivation
@@ -157,23 +153,23 @@ structural equation is an affine transformation of a normal vector.
 1. By A-003, the conditional moment assumptions can be written as
 
    $$
-   \mathbb{E}[C\mid\mathcal{G}]=m(Z),\qquad
-   \operatorname{Var}(C\mid\mathcal{G})=v(Z),\qquad
-   \mathbb{E}[u\mid\mathcal{G}]=0,\qquad
-   \operatorname{Var}(u\mid\mathcal{G})=\sigma_u^2.
+   \mathbb E[C\mid\mathcal G]=m(Z),\qquad
+   \operatorname{Var}(C\mid\mathcal G)=v(Z),\qquad
+   \mathbb E[u\mid\mathcal G]=0,\qquad
+   \operatorname{Var}(u\mid\mathcal G)=\sigma_u^2.
    $$
 
    (A-003 and the conditional-law convention in Section 1.)
 
-2. Conditioning the structural equation on `\mathcal{G}` gives
+2. Conditioning the structural equation on $\mathcal G$ gives
 
    $$
    \begin{aligned}
-   \mathbb{E}[\theta\mid\mathcal{G}]
+   \mathbb E[\theta\mid\mathcal G]
    &=
    \alpha_0+\alpha_1Z+
-   \gamma\mathbb{E}[C\mid\mathcal{G}]
-   +\mathbb{E}[u\mid\mathcal{G}]\\
+   \gamma\mathbb E[C\mid\mathcal G]
+   +\mathbb E[u\mid\mathcal G]\\
    &=
    \alpha_0+\alpha_1Z+\gamma m(Z).
    \end{aligned}
@@ -185,7 +181,7 @@ structural equation is an affine transformation of a normal vector.
    yields
 
    $$
-   \theta-\mathbb{E}[\theta\mid\mathcal{G}]
+   \theta-\mathbb E[\theta\mid\mathcal G]
    =
    \gamma\bigl(C-m(Z)\bigr)+u.
    $$
@@ -196,16 +192,16 @@ structural equation is an affine transformation of a normal vector.
 
    $$
    \begin{aligned}
-   \operatorname{Var}(\theta\mid\mathcal{G})
+   \operatorname{Var}(\theta\mid\mathcal G)
    &=
-   \mathbb{E}\!\left[
+   \mathbb E\!\left[
      \bigl\{\gamma(C-m(Z))+u\bigr\}^2
-     \middle|\mathcal{G}
+     \,\middle|\,\mathcal G
    \right]\\
    &=
-   \gamma^2 v(Z)
+   \gamma^2v(Z)
    +2\gamma\,
-     \mathbb{E}\!\left[(C-m(Z))u\mid\mathcal{G}\right]
+     \mathbb E\!\left[(C-m(Z))u\mid\mathcal G\right]
    +\sigma_u^2.
    \end{aligned}
    $$
@@ -216,9 +212,9 @@ structural equation is an affine transformation of a normal vector.
 
    $$
    \begin{aligned}
-   \mathbb{E}\!\left[(C-m(Z))u\mid\mathcal{G}\right]
+   \mathbb E\!\left[(C-m(Z))u\mid\mathcal G\right]
    &=
-   \operatorname{Cov}(C,u\mid\mathcal{G})\\
+   \operatorname{Cov}(C,u\mid\mathcal G)\\
    &=0.
    \end{aligned}
    $$
@@ -228,35 +224,34 @@ structural equation is an affine transformation of a normal vector.
 6. Substituting Step 5 into Step 4 proves
 
    $$
-   \operatorname{Var}(\theta\mid\mathcal{G})
+   \operatorname{Var}(\theta\mid\mathcal G)
    =
    \gamma^2v(Z)+\sigma_u^2,
    $$
 
    while Step 2 proves the conditional-mean identity; translating both
-   conditional-expectation versions to `z` proves Lemma L2.1 for
-   `P_Z`-almost every `z`. (Steps 2, 4, and 5.)
+   conditional-expectation versions to $z$ proves Lemma L2.1 for
+   $P_Z$-almost every $z$. (Steps 2, 4, and 5.)
 
-7. For the corollary, fix a `z` in the full-`P_Z)-measure set on which all
-   conditional statements hold. A-003 and A-007 specify the conditional mean
-   vector and diagonal covariance matrix, and A-008 supplies conditional
-   bivariate normality. Thus
+7. For the corollary, fix a $z$ in the full-$P_Z$-measure set on which all
+   conditional statements hold. Define
 
    $$
-   \theta\mid Z=z
-   =
-   \alpha_0+\alpha_1z+
-   \begin{pmatrix}\gamma & 1\end{pmatrix}
-   \begin{pmatrix}C\\u\end{pmatrix}
-   \middle| Z=z
+   W=\begin{pmatrix}C\\u\end{pmatrix},\qquad
+   a_z=\alpha_0+\alpha_1z,\qquad
+   \ell=\begin{pmatrix}\gamma\\1\end{pmatrix}.
    $$
 
-   is normal with mean `alpha_0+alpha_1 z+gamma m(z)` and variance
+   By A-003 and A-007, $W\mid Z=z$ has mean
+   $(m(z),0)^\mathsf T$ and covariance matrix
+   $\operatorname{diag}(v(z),\sigma_u^2)$; by A-008 it is bivariate normal.
+   Since $\theta=a_z+\ell^\mathsf TW$, the conditional law of $\theta$ is
+   normal with mean $a_z+\ell^\mathsf T(m(z),0)^\mathsf T$ and variance
 
    $$
-   \begin{pmatrix}\gamma & 1\end{pmatrix}
-   \begin{pmatrix}v(z) & 0\\0 & \sigma_u^2\end{pmatrix}
-   \begin{pmatrix}\gamma\\1\end{pmatrix}
+   \ell^\mathsf T
+   \begin{pmatrix}v(z)&0\\0&\sigma_u^2\end{pmatrix}
+   \ell
    =
    \gamma^2v(z)+\sigma_u^2.
    $$
@@ -283,23 +278,22 @@ Corollary L2.2.
 
 ## 6. Counter-Example Candidates
 
-- **Why A-007 is needed.** Let `Z=0` almost surely,
-  `alpha_0=alpha_1=0`, `gamma=1`, and `C=u=X` with
-  `X \sim \mathcal{N}(0,1)`. Then `m(0)=0`, `v(0)=1`,
-  `\mathbb{E}[u\mid Z]=0`, and `\operatorname{Var}(u\mid Z)=1`, but
-  `\operatorname{Cov}(C,u\mid Z)=1`. Consequently
-  `\operatorname{Var}(\theta\mid Z)=4`, not the claimed two-term value
-  `2`.
+- **Why A-007 is needed.** Let $Z=0$ almost surely,
+  $\alpha_0=\alpha_1=0$, $\gamma=1$, and $C=u=X$ with
+  $X\sim\mathcal N(0,1)$. Then $m(0)=0$, $v(0)=1$,
+  $\mathbb E[u\mid Z]=0$, and $\operatorname{Var}(u\mid Z)=1$, but
+  $\operatorname{Cov}(C,u\mid Z)=1$. Consequently
+  $\operatorname{Var}(\theta\mid Z)=4$, not the claimed two-term value $2$.
 
-- **Why A-008 is needed for the distributional conclusion.** Let `Z=0`
-  almost surely, `C=X` with `X \sim \mathcal{N}(0,1)`, and let `S` be
-  an independent fair Rademacher variable. Set `u=SX`. Both `C` and
-  `u` are standard normal and their covariance is zero, but
-  `C+u=X(1+S)` has an atom at zero with probability one-half and is not
-  normal. Thus normal marginals plus zero covariance do not replace conditional
-  joint Gaussianity.
+- **Why A-008 is needed for the distributional conclusion.** Let $Z=0$
+  almost surely, $C=X$ with $X\sim\mathcal N(0,1)$, and let $S$ be an
+  independent fair Rademacher variable. Set $u=SX$. Both $C$ and $u$ are
+  standard normal and their covariance is zero, but
+  $C+u=X(1+S)$ has an atom at zero with probability one-half and is not
+  normal. Thus normal marginals plus zero covariance do not replace
+  conditional joint Gaussianity.
 
-- **When heterogeneity does not arise.** If `gamma=0` or `v(Z)` is almost
+- **When heterogeneity does not arise.** If $\gamma=0$ or $v(Z)$ is almost
   surely constant, the variance identity remains true but does not yield
   context-dependent conditional variance. Similarly, a simple model with
   sufficient random-effect structure can already represent the induced
@@ -310,7 +304,7 @@ Corollary L2.2.
 Yes.
 
 1. **A-007** is proposed, not approved, in both
-   `docs/proposed_assumptions.md` and `registries/assumption_register.csv`.
+   docs/proposed_assumptions.md and registries/assumption_register.csv.
    It is the minimal conditional-zero-covariance condition needed for the
    two-term variance identity.
 
@@ -319,5 +313,5 @@ Yes.
    assumption of the moment lemma.
 
 The existing decision-gated A-003 was expanded in the assumption register to
-state the supplied square-integrability and `u_i` moment conditions explicitly.
+state the supplied square-integrability and $u_i$ moment conditions explicitly.
 No claim-registry status was promoted.
