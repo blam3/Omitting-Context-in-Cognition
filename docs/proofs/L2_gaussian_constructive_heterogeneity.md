@@ -99,7 +99,7 @@ $$
 and
 
 $$
-\operatorname{Var}(\theta_i\mid Z_i=z]
+\operatorname{Var}(\theta_i\mid Z_i=z)
 =
 \gamma^2 v(z)+\sigma_u^2.
 $$

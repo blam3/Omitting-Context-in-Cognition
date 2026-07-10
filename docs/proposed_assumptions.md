@@ -24,8 +24,8 @@ convention or conditional trial-design exogeneity.
 Status: proposed; decision needed from PI/theorem review.
 
 Conditional context-disturbance orthogonality: Cov(C_i, u_i | Z_i) = 0 almost
-surely. Conditional independence C_i independent of u_i given Z_i is a
-stronger sufficient condition but is not required for the moment lemma.
+surely. Conditional independence of C_i and u_i given Z_i is a stronger
+sufficient condition but is not required for the moment lemma.
 
 Rationale: The L2 conditional variance is
 `gamma^2 v(z) + sigma_u^2 + 2 gamma Cov(C_i, u_i | Z_i=z)`. The requested
