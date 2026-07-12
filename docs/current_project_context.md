@@ -31,25 +31,30 @@ The autonomous researcher should prioritize a publishable constructive theorem b
 
 ### Result 1: omitted-context mixture representation
 
-Let `Y_it` be choice, `X_it` trial features, `Z_i` observed participant covariates, `C_i` omitted context, and `theta_i` a latent decision parameter. If
+Let `Y_it` be choice, `X_it` trial features, `Z_i` observed participant
+covariates, `C_i` omitted context, and `theta_i` a latent decision parameter.
+If
 
 ```math
 theta_i = h(Z_i, C_i, U_i)
 ```
 
-and choices follow
+and the proposed conditional choice-kernel sufficiency condition A-009 holds,
 
 ```math
-p(Y_it | X_it, theta_i; eta),
+P(Y_it = y | X_it, Z_i, theta_i) = p(y | X_it, theta_i; eta*)
 ```
 
-then the analyst who omits `C_i` observes
+almost surely for each finite-outcome `y`, then the analyst who omits `C_i`
+observes
 
 ```math
 p_0(y | x,z) = int p(y | x, theta; eta*) dF_{theta|X,Z}(theta | x,z).
 ```
 
-This is the first theorem object the loop should try to formalize and check.
+A-010 supplies the proposed measurable-kernel regularity for the integral.
+This is a per-trial marginal representation; participant-level joint, LOO,
+and Bayes-factor targets require separately stated results.
 
 ### Result 2: Gaussian constructive heterogeneity
 
