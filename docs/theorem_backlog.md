@@ -17,7 +17,7 @@ that a theorem has been proved or accepted for manuscript use.
 
 | ID | Result | Claim | Assumptions | Status | Next proof action |
 |---|---|---|---|---|---|
-| T-001 | Omitted-context conditional mixture representation | C-002 | A-001, A-002, regular conditional distribution regularity stated in the draft | proof-critic-review | Proof Critic reviews Lemma 1.1 with `F_{Theta | X,Z}` as primary. |
+| T-001 | Omitted-context conditional mixture representation | C-002 | A-001; proposed A-009 conditional choice-kernel sufficiency; proposed A-010 kernel measurability; regular conditional-distribution regularity stated in the draft; A-002 interpretive only | decision-gated | Obtain PI direction on the A-009/A-010 package, then send the revised Lemma 1.1 for renewed proof review with `F_{Theta | X,Z}` primary. |
 | T-002 | Fixed or exogenous trial-design corollary | C-002 | Same as T-001 plus fixed-design or conditional-independence condition; A-006 remains rejected as a primary assumption | decision-gated | Keep as corollary only; do not promote to primary theorem statement without PI direction. |
 | T-003 | Gaussian constructive heterogeneity proof draft | C-003 | A-003; proposed A-007 for conditional zero covariance; proposed A-008 only for the joint-Gaussian corollary | decision-gated | Review `docs/proofs/L2_gaussian_constructive_heterogeneity.md`; obtain PI/theorem decisions on A-003, A-007, and A-008 before proof-critic review or claim promotion. |
 | T-004 | KL dominance bridge | C-004 | Model-class and pseudo-true-risk assumptions still to be drafted | backlog | Draft exact model classes, target law, and KL comparison criterion. |
