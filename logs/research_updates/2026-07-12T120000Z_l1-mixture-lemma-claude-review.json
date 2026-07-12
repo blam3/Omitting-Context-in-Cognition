@@ -1,0 +1,73 @@
+{
+  "cycle_title": "Revise L1 mixture lemma after proof-critic review",
+  "track": "theorem",
+  "completed": [
+    "Applied the logically valid L1 proof-critic corrections to the conditional mixture statement and derivation.",
+    "Kept the primary law conditional on X and Z, scoped the result to per-trial marginals, and did not add a serial-independence assumption.",
+    "Recorded proposed decision-gated A-009 conditional choice-kernel sufficiency and A-010 measurable-kernel regularity.",
+    "Updated the metadata-only Lean statement shape without asserting a measure-theoretic theorem."
+  ],
+  "why_it_matters": [
+    "The revised draft makes the conditional-kernel premise explicit, prevents the per-trial lemma from being misused as a participant-level joint likelihood, and preserves the rejected A-006 boundary."
+  ],
+  "files_changed": [
+    "docs/omitted_context_mixture_lemma.md",
+    "registries/assumption_register.csv",
+    "registries/claim_register.md",
+    "docs/theorem_backlog.md",
+    "docs/current_project_context.md",
+    "docs/proposed_assumptions.md",
+    "formal/OCECM/MixtureLemma.lean",
+    "logs/research_updates/2026-07-12T120000Z_l1-mixture-lemma-claude-review.json"
+  ],
+  "checks_run": [
+    {
+      "name": "git diff --check",
+      "status": "not_run",
+      "notes": "Will run in the clean child worktree before PR creation."
+    },
+    {
+      "name": "make validate-update",
+      "status": "not_run",
+      "notes": "Will run in the clean child worktree before PR creation."
+    },
+    {
+      "name": "explicit L1 structured-update validation",
+      "status": "not_run",
+      "notes": "Will run in the clean child worktree before PR creation."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "not_run",
+      "notes": "Will run in the clean child worktree before PR creation."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "Should T-001 adopt the proposed A-009 conditional choice-kernel sufficiency and A-010 measurable-kernel regularity package before renewed proof review?",
+    "options": [
+      "Approve both proposed assumptions for the bounded T-001 package.",
+      "Approve A-009 but request different handling of A-010 standard regularity.",
+      "Reject the package and keep C-002 in progress while reframing the result."
+    ],
+    "default_if_no_response": "Keep C-002 in_progress and T-001 decision-gated."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Documentation and Lean-statement-shape work only; no restricted RAID data, local-only artifacts, causal claims, or claim promotion."
+  },
+  "risks_or_uncertainties": [
+    "A-009 and A-010 remain decision-gated; C-002 cannot be promoted until the PI decision and renewed proof review.",
+    "The Lean file is intentionally a statement shape only and does not formalize measure theory."
+  ],
+  "next_bounded_task": "Obtain PI direction on A-009 and A-010, then conduct renewed proof-critic review of the revised Lemma 1.1."
+}
