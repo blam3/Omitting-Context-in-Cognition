@@ -44,3 +44,28 @@ the moment lemma.
 Rationale: Conditional zero covariance proves the moment identity but not a
 Gaussian conditional law for theta_i. Conditional joint Gaussianity, together
 with A-003 and A-007, makes the affine-sum distributional conclusion valid.
+
+## A-009 Conditional choice-kernel sufficiency
+
+Status: proposed; decision needed from PI/theorem review.
+
+For every outcome `y` in the finite response space,
+`E[1{Y_it = y} | X_it, Z_i, theta_i] = p(y | X_it, theta_i; eta*)` almost
+surely. This is the minimal condition used to substitute the registered choice
+kernel into the conditional-expectation proof of Lemma 1.1.
+
+Rationale: A-001's current wording does not by itself establish the equality
+after conditioning on `Z_i`. This condition is narrower than assuming a full
+participant-level joint-response factorization.
+
+## A-010 Jointly measurable choice kernel
+
+Status: proposed; decision needed from PI/theorem review.
+
+For every outcome `y` in the finite response space, the map
+`(x, theta) -> p(y | x, theta; eta*)` is jointly Borel measurable. Since it
+is bounded in `[0,1]`, it is integrable against the regular conditional
+distribution.
+
+Rationale: This is the regularity condition needed to express the
+conditional expectation in Lemma 1.1 as the displayed mixture integral.
