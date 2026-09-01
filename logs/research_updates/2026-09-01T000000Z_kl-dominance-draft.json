@@ -1,0 +1,90 @@
+{
+  "cycle_title": "Rescue the L1 proof-critic review and draft the T-004 KL dominance bridge",
+  "track": "theorem",
+  "completed": [
+    "Copied the proof-critic review of Lemma 1.1 from the unmerged draft PR #10 branch into docs/proofs/reviews/ so the only completed adversarial review in the project is no longer held inside an open draft PR.",
+    "Recorded the received review and its REVISE disposition in docs/proof_review_log.md, replacing the 'Reviewer-2 critique: Pending' state of the prior entry.",
+    "Drafted docs/proofs/L3_kl_dominance.md for backlog item T-004 with exact model classes, a declared comparison unit, the risk-divergence decomposition, the KL-to-log-score identity, a nesting proposition, a first-order sufficient condition for strict dominance, and a downstream contract corollary.",
+    "Proposed decision-gated A-009 (common comparison unit and design distribution) and A-010 (kernel non-degeneracy) in the assumption register and the proposed-assumptions record.",
+    "Moved T-004 from backlog to proof-draft, updated T-001 to record the received review, annotated T-007 with the now-precise definition of Delta ell, and added proposed backlog item T-008.",
+    "Recorded a correction: boundary case 1 as currently written in the project context and theorem backlog is stronger than the mathematics supports."
+  ],
+  "why_it_matters": [
+    "The KL bridge is the load-bearing link between the mixture lemma and every model-selection consequence, and it was the largest piece of theory that no decision gate was blocking.",
+    "The draft establishes that under a nested false-complex model the sign of the KL gap holds for every data-generating process, so Result 3 cannot by itself carry the project thesis; the weight must move to the finite-sample and Bayesian criteria.",
+    "Corollary L3.5 gives the mathematical reason for the repository's existing rule that LOOIC and Bayes-factor results may not be inferred from the KL bridge, replacing a procedural guardrail with a stated argument.",
+    "Proposition L3.4 yields a score statistic the simulation track can estimate without fitting the complex model, which gives a cheap theorem-aligned screen over candidate false-complex parameterizations."
+  ],
+  "files_changed": [
+    "docs/proofs/reviews/L1_mixture_lemma_claude_review.md",
+    "docs/proofs/L3_kl_dominance.md",
+    "docs/proof_review_log.md",
+    "docs/proposed_assumptions.md",
+    "docs/theorem_backlog.md",
+    "registries/assumption_register.csv",
+    "logs/research_updates/2026-09-01T000000Z_kl-dominance-draft.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/validate_research_update.py logs/research_updates/2026-09-01T000000Z_kl-dominance-draft.json schemas/research_update.schema.json",
+      "status": "pass",
+      "notes": "Validated this cycle report against the structured update schema."
+    },
+    {
+      "name": "make validate-update",
+      "status": "pass",
+      "notes": "Validated the repository example update using the existing Makefile target."
+    },
+    {
+      "name": "assumption register CSV parse and column check",
+      "status": "pass",
+      "notes": "Parsed registries/assumption_register.csv with the csv module; all rows carry the header's ten columns after adding A-009 and A-010."
+    },
+    {
+      "name": "byte-identical check of the rescued review against its source branch",
+      "status": "pass",
+      "notes": "Compared the copied review with the blob on origin/agent/gaussian-constructive-heterogeneity-v2; no content was altered."
+    },
+    {
+      "name": "make smoke, make synthetic-raid, make test",
+      "status": "not_applicable",
+      "notes": "This cycle changes theorem documentation and governance records only; no R code was touched. R is also not installed in the execution environment, so these run in CI rather than locally."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "not_applicable",
+      "notes": "No Lean sources were changed and no Lean toolchain is installed in the execution environment."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "Does the primary false-complex empirical model M_K nest the context-omitting simple model M_S, so that M_S is recovered by setting the extra source, colour, condition, and nonlinear ambiguity parameters to zero?",
+    "options": [
+      "Yes, M_K nests M_S. Accept that the sign of the KL gap is automatic (Proposition L3.3), stop presenting Result 3 as a theorem about context omission, and move the theorem package's weight to the magnitude of Delta ell and to T-005/T-006/T-007.",
+      "No, M_K is a genuinely non-nested alternative architecture. Proposition L3.3 does not apply, strict KL dominance becomes a substantive claim, and a separate sufficient condition must be drafted from the L2 Gaussian mixture.",
+      "Undecided pending the choice of the primary false-complex model, which is itself a standing PI gate."
+    ],
+    "default_if_no_response": "Treat T-004 as a conditional draft, do not cite Result 3 as evidence for the thesis in any manuscript text, and do not send L3 for proof-critic review until the nesting status is fixed."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "No claim status was promoted; C-004 remains planned and C-002 remains in_progress. Two new theorem assumptions are proposed with status decision_needed rather than adopted, following the A-007/A-008 pattern. No estimand change, false-complex model selection, causal claim, literature claim, restricted data, or expensive compute is involved. The cycle covers two items rather than one because the review rescue is a verbatim copy of already-reviewed content rather than new scientific work."
+  },
+  "risks_or_uncertainties": [
+    "T-004 rests on Lemma 1.1, which is itself under revision for findings F1 and F2, so L3 inherits that status and its participant-level instantiation is unavailable until the joint-mixture target is derived.",
+    "Counter-example CE-1 shows a complex-model win is consistent with plain trial-level misspecification and no omitted context at all, so neither the simulation nor the empirical design may read a positive KL or log-score gap as evidence of context omission.",
+    "Counter-example CE-2 shows the theorem route omits the context-aware versus false-complex contrast that claim C-001 asserts, while the Bayesian comparison plan already lists it as an empirical contrast; proposed T-008 records the asymmetry but does not resolve it.",
+    "Boundary case 1 as written in docs/current_project_context.md and docs/theorem_backlog.md overstates what follows from a null context effect; the correction is stated in L3 section 5 but those two files were left unedited to keep this cycle bounded.",
+    "A-009 and A-010 are appended to the assumption register at the same location where the open draft PR #10 appends A-007 and A-008, so a textual merge conflict at the end of that file is expected and should be resolved by keeping all four rows."
+  ],
+  "next_bounded_task": "Obtain the PI decision on M_K nesting, then either send L3 for proof-critic review or draft a non-nested sufficient condition for strict KL dominance built on the L2 Gaussian mixture."
+}
