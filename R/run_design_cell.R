@@ -1,3 +1,7 @@
+# run_replication() lives in its own file and is not attached by any package
+# loader in script mode, so it must be sourced before the grid loop below.
+source("R/run_replication.R")
+
 args <- commandArgs(trailingOnly = TRUE)
 
 get_arg <- function(name, default = NULL) {

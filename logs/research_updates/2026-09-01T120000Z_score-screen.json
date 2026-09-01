@@ -1,0 +1,115 @@
+{
+  "cycle_title": "Implement the Proposition L3.4 score screen in the GLM scaffold",
+  "track": "simulation",
+  "completed": [
+    "Added R/score_screen.R implementing the extra-parameter score screen of Proposition L3.4: it fits only the simple model and evaluates the complex model's score at the embedded simple fit, so no complex fit is required.",
+    "Enforced the nesting precondition with verify_nesting(), which raises rather than returning an uninterpretable statistic when the complex class does not contain the simple one.",
+    "Reported both a naive and a participant-clustered score statistic, because trials share a participant's latent parameters and the independent-observation variance is anticonservative; this makes the A-009 comparison-unit commitment visible in the output.",
+    "Added a per-block breakdown (linear ambiguity, nonlinear ambiguity, condition, colour cue) so the screen says which kind of false complexity absorbs residual structure rather than only whether some complex model can win.",
+    "Exposed the candidate-model formulas in R/fit_models.R so the screen and the fitted models cannot drift apart.",
+    "Wired the screen into run_replication(), summarise_model_selection(), a new R/run_score_screen.R sweep runner, a `make score-screen` target, and a CI step.",
+    "Added tests/testthat/test-score-screen.R with seven tests, including agreement between the score statistic and the likelihood-ratio statistic and a calibration check on data generated from the simple model.",
+    "Fixed a pre-existing bug in R/run_design_cell.R, which never sourced run_replication.R and so failed on every invocation of `make simulate-small`."
+  ],
+  "why_it_matters": [
+    "The screen gives the simulation track a cheap, theorem-aligned way to ask whether a candidate false-complex parameterisation is even capable of strictly lower divergence, before any Stan or hierarchical Bayesian work is committed to it.",
+    "Running it on the current scaffold immediately found that the complex model adds a genuinely true term, which means the scaffold's existing complex-versus-simple comparisons do not isolate false complexity.",
+    "The block breakdown separates the genuinely false blocks from the true one, which is exactly the discrimination the theorem's boundary case 4 requires."
+  ],
+  "files_changed": [
+    "R/score_screen.R",
+    "R/run_score_screen.R",
+    "R/fit_models.R",
+    "R/run_replication.R",
+    "R/run_design_cell.R",
+    "R/metrics.R",
+    "tests/testthat/test-score-screen.R",
+    "Makefile",
+    ".github/workflows/r-smoke.yml",
+    "logs/research_updates/2026-09-01T120000Z_score-screen.json"
+  ],
+  "checks_run": [
+    {
+      "name": "make test",
+      "status": "pass",
+      "notes": "28 tests pass, 0 failures, including the 14 assertions in the new score-screen file. R 4.3.3 was installed in the execution environment for this cycle, so these ran locally rather than only in CI."
+    },
+    {
+      "name": "make smoke",
+      "status": "pass",
+      "notes": "The smoke replication now carries the score-screen columns."
+    },
+    {
+      "name": "make simulate-small",
+      "status": "pass",
+      "notes": "Failed before this cycle with 'could not find function run_replication'; passes after the missing source() was added."
+    },
+    {
+      "name": "make synthetic-raid",
+      "status": "pass",
+      "notes": "Unchanged by this cycle; run to confirm no regression."
+    },
+    {
+      "name": "make validate-update",
+      "status": "pass",
+      "notes": "Example structured update still validates."
+    },
+    {
+      "name": "score statistic versus likelihood-ratio statistic",
+      "status": "pass",
+      "notes": "At n=40 trials=40 the two agree to 6.183 versus 6.184, and at n=120 trials=60 to 28.03 versus 28.50, as the asymptotic equivalence of the two tests predicts. This is the primary correctness check on the implementation."
+    },
+    {
+      "name": "first-order condition check",
+      "status": "pass",
+      "notes": "The retained-parameter block of the score is 4.7e-14 at the simple fit, confirming the screen evaluates the score at the embedded pseudo-true simple model as Proposition L3.4 requires."
+    },
+    {
+      "name": "calibration under a correctly specified simple model",
+      "status": "pass",
+      "notes": "Regenerating responses from the simple model's own linear predictor over 200 replications gives a naive rejection rate of 0.060 against a nominal 0.05. The clustered statistic rejects at 0.020, conservative as expected with only 30 clusters."
+    },
+    {
+      "name": "power and localisation",
+      "status": "pass",
+      "notes": "With a condition effect injected into the DGM, the condition block reaches p = 8.8e-12 while the ambiguity blocks stay orders of magnitude weaker, so the screen attributes the signal to the correct block."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "not_applicable",
+      "notes": "No Lean sources changed and no Lean toolchain is installed in the execution environment."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "The complex proxy M_K adds `ambiguous_value`, but the DGM sets sv_true = risky_value + theta * ambiguous_value, so that term is true rather than false complexity and the simple proxy M_S omits it. Should M_S be redefined to include `ambiguous_value` so the contrast isolates false complexity?",
+    "options": [
+      "Yes, add `ambiguous_value` to M_S so that M_K's extra block contains only the genuinely false condition, colour, and nonlinear-ambiguity terms (recommended; it is what A-004 already assumes the contrast is).",
+      "No, keep M_S as it stands and redefine the scaffold's question as omitted-true-term recovery rather than false complexity, updating A-004 and C-005 accordingly.",
+      "Defer until the primary false-complex model is selected, since that standing PI gate fixes M_K and may change the extra block anyway."
+    ],
+    "default_if_no_response": "Leave M_S unchanged and treat every existing complex-versus-simple selection rate in the scaffold as conflating true-term recovery with false complexity."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "No claim status was promoted; C-005 remains scaffold_only and C-004 remains planned. No new assumption was added: the screen consumes the already-proposed A-009 framing but adds nothing to the register. The definition of M_S was deliberately left unchanged because altering the model ladder is a PI decision, and the finding is raised as this cycle's decision gate instead. No restricted data, no expensive compute, no causal or literature claim."
+  },
+  "risks_or_uncertainties": [
+    "The screen implements a sufficient condition only. Failure to reject is not evidence that Delta ell = 0, and this asymmetry must not be read as a null result in any manuscript text.",
+    "Counter-example CE-1 of the L3 draft applies directly to the screen: a rejection is consistent with plain trial-level misspecification and no omitted context at all. The sweep confirms this empirically, since the screen already rejects above nominal at context_effect = none.",
+    "Under the current DGM and GLM proxy, screen rejection rates rise only from 0.125 at no context effect to 0.250 at a strong one, and the genuinely false condition block sits at the nominal 0.05 throughout. On this scaffold, omitted context is not producing detectable false-complex capability in the blocks A-004 designates as absorbers.",
+    "The clustered statistic is conservative with few participants; treat the naive and clustered statistics as a bracket rather than reading either as exact.",
+    "The screen is a GLM proxy result and inherits the scaffold_only status of C-005; it does not speak to LOOIC or Bayes factors, per Corollary L3.5.",
+    "The screen presupposes nesting, which is itself the open decision gate from the previous cycle. If M_K is redefined as non-nested, verify_nesting() will refuse and the screen will need a replacement built on a different sufficient condition."
+  ],
+  "next_bounded_task": "Obtain the PI decision on whether `ambiguous_value` belongs in M_S, then re-run the sweep so the reported rejection rates isolate the genuinely false-complex blocks."
+}

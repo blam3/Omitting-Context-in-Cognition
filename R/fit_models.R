@@ -42,12 +42,35 @@ fit_glm_binomial <- function(formula, dat, model_name) {
   )
 }
 
+# Candidate-model formulas.
+#
+# The formulas are exposed as functions rather than written inline in each
+# fitting wrapper so that the score screen in R/score_screen.R evaluates the
+# same model classes the loop actually fits. Proposition L3.4 of
+# docs/proofs/L3_kl_dominance.md is a statement about M_S embedded in M_K; if
+# the screen and the fits could drift apart, the screened quantity would no
+# longer be the score of the fitted complex model.
+
+simple_omitted_context_formula <- function() {
+  choice ~ value + probability + ambiguity + risky_value + ref_side
+}
+
+complex_omitted_context_formula <- function() {
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ambiguity_sq_value + condition + color_cue + ref_side
+}
+
+simple_contextual_formula <- function() {
+  choice ~ value + probability + ambiguity + risky_value + ses +
+    ses_ambiguous_value + ref_side
+}
+
 fit_simple_omitted_context <- function(dat) {
   dat <- prepare_proxy_features(dat)
 
   # One-parameter-style ambiguity-value proxy with no contextual predictors.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ref_side,
+    simple_omitted_context_formula(),
     dat = dat,
     model_name = "simple_omitted_context"
   )
@@ -59,9 +82,18 @@ fit_complex_omitted_context <- function(dat) {
   # Psychologically plausible but false complexity in the current DGM: condition,
   # color/source cues, and nonlinear ambiguity can absorb context-induced
   # residual structure even though no true source/color mechanism generated it.
+  #
+  # CAVEAT, found by the L3.4 score screen on 2026-09-01. This formula also adds
+  # `ambiguous_value`, which is NOT false complexity: the DGM sets
+  # sv_true = risky_value + theta * ambiguous_value, so `ambiguous_value` is a
+  # true term that the simple model omits. A-004 covers condition, colour, and
+  # nonlinear ambiguity only, and does not license treating this fourth added
+  # term as an absorber. Any complex-versus-simple win in the current scaffold
+  # therefore conflates recovering a true main effect with false complexity.
+  # Repairing it means changing the definition of M_S, which is a model-ladder
+  # decision for the PI rather than a routine code edit.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
-      ambiguity_sq_value + condition + color_cue + ref_side,
+    complex_omitted_context_formula(),
     dat = dat,
     model_name = "complex_omitted_context"
   )
@@ -74,8 +106,7 @@ fit_simple_contextual_true_family <- function(dat) {
   # SES shift the latent ambiguity-aversion contribution without adding a new
   # cognitive architecture.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ses +
-      ses_ambiguous_value + ref_side,
+    simple_contextual_formula(),
     dat = dat,
     model_name = "simple_contextual_reference"
   )

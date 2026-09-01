@@ -26,6 +26,13 @@ summarise_model_selection <- function(results) {
     )
   }
 
+  # The score screen is reported next to the selection rates because it answers
+  # the prior question: whether the complex class can attain strictly lower
+  # divergence at all (Proposition L3.4), rather than whether it wins here.
+  if ("score_p_cluster" %in% names(results)) {
+    out$score_screen_reject_rate_cluster <- mean(results$score_p_cluster < 0.05, na.rm = TRUE)
+  }
+
   if ("loglik_advantage_per_obs_complex_minus_simple" %in% names(results)) {
     out$mean_loglik_advantage_per_obs_complex_minus_simple <- mean(
       results$loglik_advantage_per_obs_complex_minus_simple,

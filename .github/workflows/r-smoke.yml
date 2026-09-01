@@ -38,6 +38,9 @@ jobs:
       - name: Generate synthetic RAID-style data
         run: make synthetic-raid
 
+      - name: Run score screen
+        run: Rscript R/run_score_screen.R --n 20 --trials 20 --replications 3 --context_effects none,strong --out_dir results
+
       - name: Run tests
         run: make test
 

@@ -25,6 +25,7 @@ run_replication <- function(n, trials, context_range, context_effect, seed) {
   source(file.path(helper_dir, "fit_models.R"))
   source(file.path(helper_dir, "model_selection.R"))
   source(file.path(helper_dir, "metrics.R"))
+  source(file.path(helper_dir, "score_screen.R"))
   
   dat <- simulate_ambiguity_task(
     n = n,
@@ -47,6 +48,20 @@ run_replication <- function(n, trials, context_range, context_effect, seed) {
 
   truth <- attr(dat, "truth")
 
+  # Theorem-aligned screen from Proposition L3.4 of the L3 KL dominance draft.
+  # It runs alongside the AIC/BIC proxies but answers a different question: the
+  # AIC/BIC columns say which model this sample selects, while the score screen
+  # says whether the complex class is even capable of strictly lower divergence.
+  # A screen failure is not evidence of no dominance, and a screen rejection is
+  # not evidence of omitted context; see the header of R/score_screen.R.
+  screen_row <- tryCatch(
+    score_screen_row(compute_score_screen(dat, cluster = "id")),
+    error = function(e) {
+      warning("Score screen failed: ", conditionMessage(e), call. = FALSE)
+      data.frame(score_screen_error = conditionMessage(e), stringsAsFactors = FALSE)
+    }
+  )
+
   cbind(
     data.frame(
       n = n,
@@ -64,7 +79,8 @@ run_replication <- function(n, trials, context_range, context_effect, seed) {
       reference_value_coef = coef_or_na(reference_fit, "value"),
       complex_nonlinear_ambiguity_coef = coef_or_na(complex_fit, "ambiguity_sq_value"),
       reference_ses_ambiguity_coef = coef_or_na(reference_fit, "ses_ambiguous_value")
-    )
+    ),
+    screen_row
   )
 }
 
