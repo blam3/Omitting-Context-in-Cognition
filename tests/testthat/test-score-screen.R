@@ -89,7 +89,10 @@ test_that("the screen is calibrated when the simple model is correctly specified
       )
     )
     design <- model.matrix(simple_omitted_context_formula(), data = dat)
-    beta <- c(-0.1, 0.6, 0.5, -0.3, 0.4, 0.1)[seq_len(ncol(design))]
+    # rep_len rather than a fixed-length vector: the simple model's width is a
+    # model-ladder decision that has already changed once, and indexing a short
+    # vector past its end silently yields NA coefficients and an all-NA response.
+    beta <- rep_len(c(-0.1, 0.6, 0.5, -0.3, 0.4, 0.2, 0.1), ncol(design))
     dat$choice <- rbinom(nrow(dat), size = 1, prob = plogis(as.numeric(design %*% beta)))
     compute_score_screen(dat)$p_value_naive
   }, numeric(1))

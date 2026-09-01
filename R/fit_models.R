@@ -52,7 +52,14 @@ fit_glm_binomial <- function(formula, dat, model_name) {
 # longer be the score of the fitted complex model.
 
 simple_omitted_context_formula <- function() {
-  choice ~ value + probability + ambiguity + risky_value + ref_side
+  # `ambiguous_value` is part of M_S by PI decision on 2026-09-01. The DGM sets
+  # sv_true = risky_value + theta * ambiguous_value, so the term is true rather
+  # than false complexity; leaving it out of M_S made the complex-versus-simple
+  # contrast conflate recovering a true main effect with false complexity. With
+  # it retained here, M_K's extra block is exactly the condition, colour, and
+  # nonlinear-ambiguity terms that A-004 designates as absorbers.
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ref_side
 }
 
 complex_omitted_context_formula <- function() {
@@ -61,8 +68,14 @@ complex_omitted_context_formula <- function() {
 }
 
 simple_contextual_formula <- function() {
-  choice ~ value + probability + ambiguity + risky_value + ses +
-    ses_ambiguous_value + ref_side
+  # Carries the same `ambiguous_value` main effect as M_S. The model ladder
+  # defines M2 as M1 plus context terms, so omitting the main effect here while
+  # M_S retains it would leave the context-aware reference strictly worse
+  # specified than its own baseline and would make the context-versus-complex
+  # comparison incoherent. It also restores the usual pairing of an interaction
+  # with its main effect, since ses_ambiguous_value is ses * ambiguous_value.
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ses + ses_ambiguous_value + ref_side
 }
 
 fit_simple_omitted_context <- function(dat) {
@@ -83,15 +96,11 @@ fit_complex_omitted_context <- function(dat) {
   # color/source cues, and nonlinear ambiguity can absorb context-induced
   # residual structure even though no true source/color mechanism generated it.
   #
-  # CAVEAT, found by the L3.4 score screen on 2026-09-01. This formula also adds
-  # `ambiguous_value`, which is NOT false complexity: the DGM sets
-  # sv_true = risky_value + theta * ambiguous_value, so `ambiguous_value` is a
-  # true term that the simple model omits. A-004 covers condition, colour, and
-  # nonlinear ambiguity only, and does not license treating this fourth added
-  # term as an absorber. Any complex-versus-simple win in the current scaffold
-  # therefore conflates recovering a true main effect with false complexity.
-  # Repairing it means changing the definition of M_S, which is a model-ladder
-  # decision for the PI rather than a routine code edit.
+  # The L3.4 score screen found on 2026-09-01 that `ambiguous_value` is a true
+  # term rather than an absorber, and the PI moved it into M_S the same day. The
+  # extra block relative to M_S is now exactly the condition, colour, and
+  # nonlinear-ambiguity terms A-004 covers, so a complex-versus-simple win here
+  # no longer conflates true-term recovery with false complexity.
   fit_glm_binomial(
     complex_omitted_context_formula(),
     dat = dat,

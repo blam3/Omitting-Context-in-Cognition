@@ -1,0 +1,108 @@
+{
+  "cycle_title": "Move ambiguous_value into M_S by PI decision and re-run the score screen sweep",
+  "track": "simulation",
+  "completed": [
+    "Added ambiguous_value to the simple omitted-context proxy M_S, per PI decision on 2026-09-01, so that M_K's extra block is exactly the condition, colour, and nonlinear-ambiguity terms A-004 designates as absorbers.",
+    "Added the same ambiguous_value main effect to the context-aware reference proxy M2, because the model ladder defines M2 as M1 plus context terms and omitting it would have left the reference strictly worse specified than its own baseline.",
+    "Made the score-screen calibration test width-safe with rep_len, after the formula change exposed that a fixed-length coefficient vector silently produced NA coefficients and an all-NA response.",
+    "Re-ran the score-screen sweep at the same settings as the pre-decision run so the two are directly comparable.",
+    "Established that the designated false-complex terms have exactly zero between-participant variance in this DGM, because simulate_trial_design() draws one trial design shared by every participant.",
+    "Annotated A-004 in the assumption register with that finding without changing its status or assumption text."
+  ],
+  "why_it_matters": [
+    "With the true ambiguity term retained in M_S, the screen's rejection rates collapse to nominal at every context-effect strength, so the apparent false-complex capability reported in the previous cycle was entirely the omitted true term.",
+    "This is counter-example CE-1 of the L3 draft realised on the project's own scaffold: a complex-model advantage arose from plain misspecification of the simple model with no contribution from omitted context.",
+    "The zero between-participant variance result explains why, and is structural rather than a matter of statistical power: participant-level context-induced heterogeneity cannot be absorbed by trial-level factors that are identical across participants.",
+    "The scaffold as it stands therefore cannot exhibit the phenomenon the project is about, which is a design finding the simulation track needs before any hierarchical Bayesian work is committed to this DGM."
+  ],
+  "files_changed": [
+    "R/fit_models.R",
+    "tests/testthat/test-score-screen.R",
+    "registries/assumption_register.csv",
+    "logs/research_updates/2026-09-01T180000Z_ms-respecification.json"
+  ],
+  "checks_run": [
+    {
+      "name": "make test",
+      "status": "pass",
+      "notes": "28 pass, 0 fail. The calibration test failed first on the formula change and was repaired by making the coefficient vector width-safe rather than by widening it once."
+    },
+    {
+      "name": "make smoke",
+      "status": "pass",
+      "notes": "Replication output still carries the score-screen columns under the new M_S."
+    },
+    {
+      "name": "make simulate-small",
+      "status": "pass",
+      "notes": "Design-cell path still runs."
+    },
+    {
+      "name": "make synthetic-raid",
+      "status": "pass",
+      "notes": "Unchanged by this cycle; run to confirm no regression."
+    },
+    {
+      "name": "make validate-update",
+      "status": "pass",
+      "notes": "Example structured update still validates."
+    },
+    {
+      "name": "score statistic versus likelihood-ratio statistic under the new M_S",
+      "status": "pass",
+      "notes": "3.340 versus 3.343 at n=120 trials=60 on five degrees of freedom, so the screen remains a correct efficient score test after the model-class change."
+    },
+    {
+      "name": "extra-block composition check",
+      "status": "pass",
+      "notes": "M_K's extra block is now ambiguity_sq_value plus the condition and colour dummies, matching A-004's three categories exactly."
+    },
+    {
+      "name": "between-participant variance of the designated absorbers",
+      "status": "pass",
+      "notes": "Exactly zero for all four dummies, and the condition sequence is identical across every participant, confirming the trial design is shared."
+    },
+    {
+      "name": "score screen sweep, n=60 trials=40 replications=40 seed=20260901",
+      "status": "pass",
+      "notes": "Rejection rates 0.025 to 0.075 across all four context-effect levels, against 0.125 to 0.250 before the change. AIC complex-selection rate falls from 0.175-0.275 to 0.025-0.100. Mean per-observation log-likelihood advantage roughly halves."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "not_applicable",
+      "notes": "No Lean sources changed and no Lean toolchain is installed in the execution environment."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "The designated false-complex terms have zero between-participant variance, so they cannot absorb participant-level context-induced heterogeneity in this DGM. How should the scaffold be changed so it can exhibit the OCECM phenomenon at all?",
+    "options": [
+      "Randomise the trial design per participant, and let condition or colour assignment depend on the latent parameter or on SES, so the false-complex terms carry between-participant information (recommended as the minimal change).",
+      "Replace the false-complex block with terms that are functions of the same trial features theta interacts with, so they can approximate the omitted-context mixture along the direction it actually acts.",
+      "Accept that the GLM proxy cannot express the mechanism and move the demonstration to the hierarchical Bayesian milestones, where latent-variance structure can be represented directly.",
+      "Treat the null result as the finding and report the scaffold as a boundary case in which omission is harmless."
+    ],
+    "default_if_no_response": "Do not read the current null rejection rates as evidence about the OCECM thesis; they characterise this DGM's inability to express the mechanism, not the absence of the mechanism."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "The M_S change was made on explicit PI direction. The parallel change to M2 was not separately directed and is flagged for veto: it follows from the ladder's own definition of M2 as M1 plus context terms, and reverting it is a one-line edit. A-004 was annotated in its rationale column only; its status, decision status, and assumption text are unchanged. No claim status was promoted: C-005 remains scaffold_only and C-004 remains planned. The null sweep result is explicitly not recorded as evidence about the thesis."
+  },
+  "risks_or_uncertainties": [
+    "The null rejection rates characterise this DGM and this GLM proxy only. They are not evidence that omitted context fails to induce false complexity in general, and must not be reported as such.",
+    "The screen tests a sufficient condition, so nominal rejection rates do not establish that Delta ell = 0 even within this scaffold.",
+    "The change to M2 was inferred from the ladder definition rather than directed, and should be confirmed or reverted.",
+    "Every complex-versus-simple selection rate recorded in the scaffold before this cycle conflated true-term recovery with false complexity and should not be cited.",
+    "A-004's assumption text remains true as written, but the register now records that it does not license the inference that the designated terms can win by absorbing omitted context in this DGM."
+  ],
+  "next_bounded_task": "Obtain PI direction on how to give the false-complex block between-participant information, then re-run the sweep to establish whether the scaffold can exhibit the phenomenon at all."
+}
