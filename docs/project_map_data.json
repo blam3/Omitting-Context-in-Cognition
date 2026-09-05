@@ -1,0 +1,1536 @@
+{
+  "project": {
+    "name": "OCECM Workbench",
+    "full_name": "Omitting Contextual Factors in Cognitive Models",
+    "repo": "blam3/omitting-context-in-cognition",
+    "thesis": "When a contextual variable shapes a latent decision parameter, omitting it changes the observed choice law. The residual structure can look like a different, more complex cognitive architecture — so a false complex model can beat a simpler context-aware one in model comparison.",
+    "what_this_repo_is": "Not the paper, and not a running experiment. It is a bounded-autonomy research workbench: agent role prompts, loop protocols, decision gates, registries that track what has actually been shown, plus a proxy simulation, a Lean scaffold and a manuscript stub.",
+    "as_of": "2026-07-09"
+  },
+  "statuses": [
+    {
+      "id": "active",
+      "label": "Running",
+      "desc": "Implemented and exercised — CI runs it, or it is the live ledger the loop reads and writes."
+    },
+    {
+      "id": "progress",
+      "label": "In progress",
+      "desc": "Substantive work exists but is not accepted. Currently: the mixture lemma, awaiting proof-critic review."
+    },
+    {
+      "id": "gated",
+      "label": "Decision-gated",
+      "desc": "Blocked on a recorded PI decision, not on effort. Nothing here should advance without one."
+    },
+    {
+      "id": "planned",
+      "label": "Planned",
+      "desc": "Specified in detail, not yet built. The spec is real; the artifact is not."
+    },
+    {
+      "id": "stub",
+      "label": "Placeholder",
+      "desc": "A file that exists to hold a shape — headers only, templates, .gitkeep, or superseded scaffolding."
+    }
+  ],
+  "lanes": [
+    {
+      "id": "orient",
+      "title": "Orientation",
+      "blurb": "What the project claims and how it is organised."
+    },
+    {
+      "id": "gov",
+      "title": "Governance",
+      "blurb": "The ledgers that decide what may be said, and on what evidence."
+    },
+    {
+      "id": "theory",
+      "title": "Theory & proof",
+      "blurb": "The proof route from omitted context to false-complex selection."
+    },
+    {
+      "id": "sim",
+      "title": "Simulation code",
+      "blurb": "The R proxy scaffold: fast, runnable, deliberately not the real model."
+    },
+    {
+      "id": "emp",
+      "title": "Empirical / RAID",
+      "blurb": "The staged path to hierarchical Bayesian models on real trial data."
+    },
+    {
+      "id": "ms",
+      "title": "Manuscript",
+      "blurb": "The output. Mostly still a skeleton."
+    },
+    {
+      "id": "orch",
+      "title": "Orchestration",
+      "blurb": "The agents, loops and schemas that drive a work cycle."
+    },
+    {
+      "id": "infra",
+      "title": "Audit trail & CI",
+      "blurb": "How each cycle leaves a reviewable record."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "readme",
+      "lane": "orient",
+      "label": "README.md",
+      "path": "README.md",
+      "status": "active",
+      "what": "The front door: thesis, proof route, simulation scaffold, commands, and the human-approval list.",
+      "why": "Read it for the shape of the project, then move straight to the current-context file — the README's own \"start here\" list mixes live ledgers with empty templates."
+    },
+    {
+      "id": "context",
+      "lane": "orient",
+      "label": "current_project_context.md",
+      "path": "docs/current_project_context.md",
+      "status": "active",
+      "what": "The live scientific brief: Results 1-6 with their equations, boundary conditions, the RAID variable crosswalk, the M0-M6 model ladder, and the Bayesian comparison protocol.",
+      "why": "The single most load-bearing document in the repo. If you read one file, read this one.",
+      "note": "Supersedes docs/research_spec.md wherever the two disagree. The spec is the stable definition; this is what the project currently believes."
+    },
+    {
+      "id": "spec",
+      "lane": "orient",
+      "label": "research_spec.md",
+      "path": "docs/research_spec.md",
+      "status": "active",
+      "what": "The stable project definition: domain, core claim, target asymptotic property, simulation grid, planned artifacts.",
+      "why": "Read for the fixed frame — the parts that are not supposed to move cycle to cycle."
+    },
+    {
+      "id": "architecture",
+      "lane": "orient",
+      "label": "architecture.md",
+      "path": "docs/architecture.md",
+      "status": "active",
+      "what": "Design principle for the agent system: manager-led, not a swarm. Lists the state ledgers and the loop stopping criteria.",
+      "why": "Explains why the repo is shaped the way it is.",
+      "note": "Its ledger table points at docs/claim_registry.md and docs/assumption_registry.md. Those were superseded by registries/ and never updated here."
+    },
+    {
+      "id": "selfmap",
+      "lane": "orient",
+      "label": "This map",
+      "kind": "group",
+      "status": "active",
+      "what": "The page you are reading, its curated content, and the generator that rebuilds it.",
+      "why": "Descriptions and status here are hand-written and can go stale. The generator re-derives every count and date from git on each build, and warns about any tracked file with no entry — so the map cannot quietly fall behind the repository.",
+      "note": "Run `make project-map` after adding files. Edit docs/project_map_data.json to change what a box says.",
+      "members": [
+        {
+          "path": "docs/project_map.html",
+          "label": "project_map.html",
+          "what": "The generated page. Open it directly in a browser; no build step or network needed."
+        },
+        {
+          "path": "docs/project_map_data.json",
+          "label": "project_map_data.json",
+          "what": "The curated half: lanes, nodes, edges, the reading path, and the progress tables."
+        },
+        {
+          "path": "scripts/build_project_map.py",
+          "label": "build_project_map.py",
+          "what": "Merges the curated data with line counts and git history, checks for drift, writes the page."
+        },
+        {
+          "path": "scripts/project_map_template.html",
+          "label": "project_map_template.html",
+          "what": "The page itself — styles, markup and behaviour — with one placeholder for the data blob."
+        }
+      ]
+    },
+    {
+      "id": "reg_readme",
+      "lane": "gov",
+      "label": "registries/README.md",
+      "path": "registries/README.md",
+      "status": "active",
+      "what": "Governance rules for the registries: what triggers an update, the evidence-status vocabulary, the decision vocabulary.",
+      "why": "Read before you interpret any status value anywhere else in the repo."
+    },
+    {
+      "id": "claim_register",
+      "lane": "gov",
+      "label": "claim_register.md",
+      "path": "registries/claim_register.md",
+      "status": "active",
+      "what": "The live claim ledger: C-001 through C-006, each with evidence status, evidence source, and what it is allowed to be used for in the manuscript.",
+      "why": "This is the honest answer to \"what has this project actually shown?\" Every claim is currently planned, in_progress, or scaffold_only. None are supported."
+    },
+    {
+      "id": "assumption_register",
+      "lane": "gov",
+      "label": "assumption_register.csv",
+      "path": "registries/assumption_register.csv",
+      "status": "active",
+      "what": "The live assumption ledger: A-001 through A-006, with track, decision status, review owner and proof dependency.",
+      "why": "A-006 is recorded as PI_rejected — a worked example of the decision gate doing its job. A-003 is still decision_needed and blocks the Gaussian result.",
+      "note": "Read as a table: the decision_status column is the one that matters."
+    },
+    {
+      "id": "approval_policy",
+      "lane": "gov",
+      "label": "approval_policy.md",
+      "path": "docs/approval_policy.md",
+      "status": "active",
+      "what": "What an agent may do unattended versus what must pause for a human: assumptions, estimands, interpretive and literature claims, deletions, expensive jobs.",
+      "why": "Defines the boundary of \"bounded autonomy\", including the numeric expensive-job thresholds (250 replications, 32 cores, 4 hours, 20 array tasks, 10 GB)."
+    },
+    {
+      "id": "procedure_compliance",
+      "lane": "gov",
+      "label": "procedure_compliance.md",
+      "path": "docs/procedure_compliance.md",
+      "status": "active",
+      "what": "The ten-item audit trail every autonomous PR body must expose under a `## Procedure compliance` heading, and how a reviewer should read it.",
+      "why": "Explains the checklist you will see on every PR, and what an unchecked box is allowed to mean."
+    },
+    {
+      "id": "proposed_assumptions",
+      "lane": "gov",
+      "label": "proposed_assumptions.md",
+      "path": "docs/proposed_assumptions.md",
+      "status": "active",
+      "what": "The holding pen for assumptions an agent wants to add. Currently holds A-006 and the PI's reasoning for rejecting it.",
+      "why": "The clearest short read on how a decision gate actually resolves."
+    },
+    {
+      "id": "lit_policy",
+      "lane": "gov",
+      "label": "literature_verification_policy.md",
+      "path": "docs/literature_verification_policy.md",
+      "status": "active",
+      "what": "No literature claim enters the manuscript without traceable support: required citation metadata, and a rule against uncertain references.",
+      "why": "Short. Read it alongside the citation map, which is still empty."
+    },
+    {
+      "id": "superseded",
+      "lane": "gov",
+      "label": "Superseded template ledgers",
+      "kind": "group",
+      "status": "stub",
+      "what": "Five files from the original scaffold that were replaced by registries/ or never filled in.",
+      "why": "Worth knowing they exist so you do not mistake them for current state. The claim and assumption files here are templates; the live versions are in registries/.",
+      "note": "The biggest trap in the repo for a new reader.",
+      "members": [
+        {
+          "path": "docs/claim_registry.md",
+          "label": "claim_registry.md",
+          "what": "Template + one legacy claim C-0001. Superseded by registries/claim_register.md."
+        },
+        {
+          "path": "docs/assumption_registry.md",
+          "label": "assumption_registry.md",
+          "what": "Template with an explicit \"no substantive assumptions approved\" placeholder. Superseded by registries/assumption_register.csv."
+        },
+        {
+          "path": "docs/approval_log.md",
+          "label": "approval_log.md",
+          "what": "Entry template only — no approvals logged, though PI decisions have been recorded elsewhere (proof_review_log, cycle reports)."
+        },
+        {
+          "path": "docs/reviewer_objections.md",
+          "label": "reviewer_objections.md",
+          "what": "Heading only. The Reviewer 2 loop has not run."
+        },
+        {
+          "path": "docs/citation_claim_map.csv",
+          "label": "citation_claim_map.csv",
+          "what": "Header row only. No literature has been verified yet."
+        }
+      ]
+    },
+    {
+      "id": "theorem_backlog",
+      "lane": "theory",
+      "label": "theorem_backlog.md",
+      "path": "docs/theorem_backlog.md",
+      "status": "active",
+      "what": "The proof route as a status table: T-001 to T-007, each with claim, assumptions, status and next proof action. Plus the boundary conditions every statement must preserve, and the Lean file plan.",
+      "why": "The single best view of how far the theory has actually got. One item is under review; four are decision-gated; two are backlog.",
+      "tour_anchor": true
+    },
+    {
+      "id": "mixture_lemma",
+      "lane": "theory",
+      "label": "omitted_context_mixture_lemma.md",
+      "path": "docs/omitted_context_mixture_lemma.md",
+      "status": "progress",
+      "what": "The one real proof draft in the repo: Lemma 1.1, the omitted-context conditional mixture representation, written as a narrative derivation with assumptions, gaps and counterexample candidates.",
+      "why": "The mathematical heart of the project so far. It proves that a context-omitting analyst is fitting a mixture law, which is the object every later model-comparison result is about.",
+      "note": "Primary statement conditions on (X, Z). The simpler F(theta|Z) display survives only as Corollary 1.2 under fixed or exogenous trial design — that was the A-006 decision."
+    },
+    {
+      "id": "proof_log",
+      "lane": "theory",
+      "label": "proof_review_log.md",
+      "path": "docs/proof_review_log.md",
+      "status": "active",
+      "what": "Dated proof-attempt records: assumptions used, unsupported steps, counterexample search, decision, next action.",
+      "why": "One entry so far, for the mixture lemma. Shows the review discipline the project intends to hold itself to."
+    },
+    {
+      "id": "bayes_plan",
+      "lane": "theory",
+      "label": "bayesian_comparison_plan.md",
+      "path": "docs/bayesian_comparison_plan.md",
+      "status": "active",
+      "what": "The contract keeping two comparisons separate: LOOIC / expected log predictive density for prediction, and Bayes factors under declared priors for model evidence.",
+      "why": "The most methodologically opinionated document here. It insists KL dominance implies neither, and forbids the GLM proxy from emitting either.",
+      "note": "Recommends leave-one-participant-out, but leaves it as an open PI gate."
+    },
+    {
+      "id": "lean",
+      "lane": "theory",
+      "label": "Lean formalization scaffold",
+      "kind": "group",
+      "status": "planned",
+      "what": "A minimal Lean 4 project with a file reserved for each theorem-route result. It compiles, and deliberately proves nothing.",
+      "why": "Read Basic.lean to see the TheoremCard structure — status metadata mirroring the backlog, so a Lean file cannot silently outrun the registries.",
+      "note": "No mathlib yet. Adding a probability library is itself a separate reviewable decision.",
+      "members": [
+        {
+          "path": "formal/README.md",
+          "label": "formal/README.md",
+          "what": "Scope, file map, validation command, and the governance rule that Lean statements must not outrun the registries."
+        },
+        {
+          "path": "formal/OCECM/Basic.lean",
+          "label": "Basic.lean",
+          "what": "TheoremStatus, TheoremCard, ChoiceKernel and MarginalLaw scaffolding. No probability theory."
+        },
+        {
+          "path": "formal/OCECM/MixtureLemma.lean",
+          "label": "MixtureLemma.lean",
+          "what": "Reserved home for Lemma 1.1, carrying a status card only — no axiom asserting the identity."
+        },
+        {
+          "path": "formal/OCECM/GaussianConstructive.lean",
+          "label": "GaussianConstructive.lean",
+          "what": "Reserved for the Gaussian heterogeneity result, held until A-003 is decided."
+        },
+        {
+          "path": "formal/OCECM/AICBICThreshold.lean",
+          "label": "AICBICThreshold.lean",
+          "what": "Reserved for the secondary finite-sample threshold shapes."
+        },
+        {
+          "path": "formal/lakefile.lean",
+          "label": "lakefile.lean",
+          "what": "Lean package definition. No external dependencies."
+        },
+        {
+          "path": "formal/lean-toolchain",
+          "label": "lean-toolchain",
+          "what": "Pinned toolchain for local `lake build`."
+        }
+      ]
+    },
+    {
+      "id": "dgm",
+      "lane": "sim",
+      "label": "dgm.R",
+      "path": "R/dgm.R",
+      "status": "active",
+      "what": "The data-generating mechanism: SES shifts both the mean and the dispersion of latent ambiguity aversion, then choices follow a subjective-value logistic.",
+      "why": "Read this to see the theorem made concrete. It contains no source, colour or nonlinear ambiguity mechanism — so any complex-model win is a false-complexity win by construction (assumption A-004)."
+    },
+    {
+      "id": "fit_models",
+      "lane": "sim",
+      "label": "fit_models.R",
+      "path": "R/fit_models.R",
+      "status": "active",
+      "what": "Three GLM proxy fits: context-omitting simple, context-omitting complex, and context-aware simple.",
+      "why": "The three-way contrast the whole project turns on, in its fastest possible form.",
+      "note": "Proxies only. These cannot produce Bayes factors or LOOIC, and the plan forbids pretending otherwise."
+    },
+    {
+      "id": "model_selection",
+      "lane": "sim",
+      "label": "model_selection.R",
+      "path": "R/model_selection.R",
+      "status": "active",
+      "what": "AIC/BIC proxy criteria plus the finite-sample log-likelihood threshold diagnostics that mirror Result 6.",
+      "why": "Shows the AIC/BIC bridge corollary as running code."
+    },
+    {
+      "id": "metrics",
+      "lane": "sim",
+      "label": "metrics.R",
+      "path": "R/metrics.R",
+      "status": "active",
+      "what": "Bias, relative bias and RMSE, plus selection-rate summaries across replications.",
+      "why": "Defines what a simulation cell actually reports."
+    },
+    {
+      "id": "runners",
+      "lane": "sim",
+      "label": "Simulation runners",
+      "kind": "group",
+      "status": "active",
+      "what": "One replication, one design cell, and the CI smoke run.",
+      "why": "`make smoke` runs the third of these end to end in seconds — the fastest way to see the scaffold work.",
+      "members": [
+        {
+          "path": "R/run_replication.R",
+          "label": "run_replication.R",
+          "what": "One theorem-aligned replication: simulate, fit three models, compare, return one row."
+        },
+        {
+          "path": "R/run_design_cell.R",
+          "label": "run_design_cell.R",
+          "what": "Runs a grid cell over replications and writes results plus a run-registry row."
+        },
+        {
+          "path": "R/run_smoke_simulation.R",
+          "label": "run_smoke_simulation.R",
+          "what": "The 40-participant smoke run CI executes on every push."
+        }
+      ]
+    },
+    {
+      "id": "sim_registry",
+      "lane": "sim",
+      "label": "Design grid & run registry",
+      "kind": "group",
+      "status": "planned",
+      "what": "The full 60-cell simulation grid, and the registry that would record runs against it.",
+      "why": "The grid is fully specified; the registry is still a header row. No design cell has been run and registered.",
+      "members": [
+        {
+          "path": "simulations/design_grid.csv",
+          "label": "design_grid.csv",
+          "what": "60 cells: n in {40,100,250,500,1000} x trials in {40,100,200} x unrestricted/range-restricted x weak/strong, 1000 replications each."
+        },
+        {
+          "path": "simulations/run_registry.csv",
+          "label": "run_registry.csv",
+          "what": "Header row only — run_id, n, trials, context_range, context_effect, replications, seed, status, output_path, timestamp."
+        }
+      ]
+    },
+    {
+      "id": "tests",
+      "lane": "sim",
+      "label": "testthat suite",
+      "kind": "group",
+      "status": "active",
+      "what": "Unit tests for the DGM and the simulation scaffold.",
+      "why": "Small, but they are what keeps the loop able to detect a broken scaffold. `make test` runs them.",
+      "members": [
+        {
+          "path": "tests/testthat/test_dgm.R",
+          "label": "test_dgm.R",
+          "what": "Checks the simulated data shape and context behaviour."
+        },
+        {
+          "path": "tests/testthat/test-simulation-scaffold.R",
+          "label": "test-simulation-scaffold.R",
+          "what": "Checks a replication returns the expected selection columns."
+        }
+      ]
+    },
+    {
+      "id": "makefile",
+      "lane": "sim",
+      "label": "Makefile",
+      "path": "Makefile",
+      "status": "active",
+      "what": "The command surface: setup, smoke, test, simulate-small, synthetic-raid, validate-update, manuscript, clean.",
+      "why": "The quickest orientation to what can actually be executed in this repo."
+    },
+    {
+      "id": "env",
+      "lane": "sim",
+      "label": "Cluster & environment",
+      "kind": "group",
+      "status": "active",
+      "what": "Slurm template, local setup script, package metadata and the ignore rules that keep restricted data out of git.",
+      "why": ".gitignore is worth a look — it encodes the confidentiality boundary around RAID data.",
+      "members": [
+        {
+          "path": "slurm/run_design_cell.sbatch",
+          "label": "run_design_cell.sbatch",
+          "what": "Slurm template for a single design cell on a cluster."
+        },
+        {
+          "path": "scripts/setup_local.sh",
+          "label": "setup_local.sh",
+          "what": "Local environment bootstrap."
+        },
+        {
+          "path": "DESCRIPTION",
+          "label": "DESCRIPTION",
+          "what": "R package metadata. run_replication.R walks up to it to find the repo root."
+        },
+        {
+          "path": ".env.example",
+          "label": ".env.example",
+          "what": "Environment variables for the optional Python loop runner."
+        },
+        {
+          "path": ".gitignore",
+          "label": ".gitignore",
+          "what": "Excludes secure data directories and generated results — the confidentiality boundary."
+        }
+      ]
+    },
+    {
+      "id": "milestones",
+      "lane": "emp",
+      "label": "hierarchical_bayes_milestones.md",
+      "path": "docs/hierarchical_bayes_milestones.md",
+      "status": "active",
+      "what": "The staged path from GLM proxies to publication models: Milestones 0-6, each with purpose, equations, deliverables and exit criteria.",
+      "why": "The clearest statement of the gap between what runs today and what the paper needs. Milestone 0 is met; Milestones 1-6 are not started.",
+      "tour_anchor": true
+    },
+    {
+      "id": "stan",
+      "lane": "emp",
+      "label": "simple_ambiguity_single_level.stan",
+      "path": "stan/simple_ambiguity_single_level.stan",
+      "status": "planned",
+      "what": "The first non-GLM model: subjective value SV = v(p - beta*A/2), a Bernoulli-logit choice law, and generated quantities retaining per-trial log likelihood.",
+      "why": "The only Stan code in the repo, and the concrete start of Milestone 1.",
+      "note": "Written but not yet fitted — no R wrapper, prior predictive check or recovery script exists."
+    },
+    {
+      "id": "raid_memo",
+      "lane": "emp",
+      "label": "raid_variable_coding_memo_template.md",
+      "path": "docs/raid_variable_coding_memo_template.md",
+      "status": "gated",
+      "what": "The seven-question audit that must be answered before any final empirical model is fitted: what `choice` codes, what `probs`/`ambigs`/`vals` mean, how `refSide` maps to options, what `colors` and `condition` are, catch-trial level, and the primary exclusion rule.",
+      "why": "A hard gate. The loop is forbidden from fitting final empirical models until this memo is complete."
+    },
+    {
+      "id": "synth_raid",
+      "lane": "emp",
+      "label": "generate_synthetic_raid_data.R",
+      "path": "R/generate_synthetic_raid_data.R",
+      "status": "active",
+      "what": "Generates public synthetic RAID-style trial and demographic files so the pipeline can be tested without restricted data.",
+      "why": "How the project develops against real data structure without touching real data. `make synthetic-raid` runs it."
+    },
+    {
+      "id": "data_synth",
+      "lane": "emp",
+      "label": "data_synthetic/README.md",
+      "path": "data_synthetic/README.md",
+      "status": "active",
+      "what": "Explains that everything in this directory is synthetic and safe to commit.",
+      "why": "Read it before assuming any data file here is real."
+    },
+    {
+      "id": "main_tex",
+      "lane": "ms",
+      "label": "main.tex",
+      "path": "manuscript/main.tex",
+      "status": "stub",
+      "what": "The manuscript skeleton: title, abstract, and section headings restructured around Bayesian model comparison. The formal setup contains placeholder definitions.",
+      "why": "Read the abstract for the intended paper; read the placeholders for an honest sense of how much prose exists. Almost none."
+    },
+    {
+      "id": "supplement",
+      "lane": "ms",
+      "label": "supplement_proofs.tex",
+      "path": "manuscript/supplement_proofs.tex",
+      "status": "stub",
+      "what": "The proof supplement, still empty by design.",
+      "why": "Nothing enters here until the proof loop accepts a result. The mixture lemma has not been accepted."
+    },
+    {
+      "id": "refs",
+      "lane": "ms",
+      "label": "references.bib",
+      "path": "manuscript/references.bib",
+      "status": "stub",
+      "what": "Bibliography file.",
+      "why": "Empty. Consistent with the citation map: the literature loop has not run."
+    },
+    {
+      "id": "figtab",
+      "lane": "ms",
+      "label": "Figure & table slots",
+      "kind": "group",
+      "status": "stub",
+      "what": "Reserved output directories.",
+      "why": "Both hold only a .gitkeep — no simulation has produced a figure or table yet.",
+      "members": [
+        {
+          "path": "manuscript/figures/.gitkeep",
+          "label": "figures/.gitkeep",
+          "what": "Reserved for simulation figures."
+        },
+        {
+          "path": "manuscript/tables/.gitkeep",
+          "label": "tables/.gitkeep",
+          "what": "Reserved for simulation tables."
+        }
+      ]
+    },
+    {
+      "id": "main_loop",
+      "lane": "orch",
+      "label": "autonomous_researcher_loop.md",
+      "path": "loops/autonomous_researcher_loop.md",
+      "status": "active",
+      "what": "The cycle protocol: what to read on orient, the five publication-critical tracks, the self-check, the decision gates, and what a cycle must leave behind.",
+      "why": "Read this third, after the README and the current context. It is how work actually happens here."
+    },
+    {
+      "id": "track_loops",
+      "lane": "orch",
+      "label": "Track loops",
+      "kind": "group",
+      "status": "active",
+      "what": "Seven short per-track procedures, each a numbered sequence of agent handoffs plus the files it writes.",
+      "why": "Each is under 25 lines. Read the proof and simulation loops to see the intended review discipline.",
+      "members": [
+        {
+          "path": "loops/theory_loop.md",
+          "label": "theory_loop.md",
+          "what": "Informal thesis to formal objects; routes new assumptions to the proposed-assumptions holding pen."
+        },
+        {
+          "path": "loops/proof_loop.md",
+          "label": "proof_loop.md",
+          "what": "Formalist drafts, critic reviews step by step, counterexample search, then accept/downgrade/reject."
+        },
+        {
+          "path": "loops/simulation_loop.md",
+          "label": "simulation_loop.md",
+          "what": "Design cell to registered result, with an expensive-run approval step."
+        },
+        {
+          "path": "loops/literature_loop.md",
+          "label": "literature_loop.md",
+          "what": "Search, DOI verification, summary, overclaiming critique, then human approval for manuscript-level claims."
+        },
+        {
+          "path": "loops/manuscript_loop.md",
+          "label": "manuscript_loop.md",
+          "what": "Draft only from approved claims; auditor checks every numeric claim maps to a script."
+        },
+        {
+          "path": "loops/reproducibility_loop.md",
+          "label": "reproducibility_loop.md",
+          "what": "make smoke, make test, lockfiles, provenance; stop after 10 failed repairs."
+        },
+        {
+          "path": "loops/reviewer_response_loop.md",
+          "label": "reviewer_response_loop.md",
+          "what": "Anticipate methods objections before submission and answer them in the manuscript."
+        }
+      ]
+    },
+    {
+      "id": "manager",
+      "lane": "orch",
+      "label": "research_manager.md",
+      "path": "agents/research_manager.md",
+      "status": "active",
+      "what": "The coordinating role: required operating context, responsibilities, and the PR discipline it must follow.",
+      "why": "The agent prompt that runs most cycles. Its required-reading list is the practical version of the README's."
+    },
+    {
+      "id": "pi",
+      "lane": "orch",
+      "label": "principal_investigator.md",
+      "path": "agents/principal_investigator.md",
+      "status": "active",
+      "what": "The governance role: converts goals to task packets, enforces approval gates, prevents scope creep.",
+      "why": "Short, and it defines who is allowed to close a decision gate."
+    },
+    {
+      "id": "specialists",
+      "lane": "orch",
+      "label": "Specialist agent roles",
+      "kind": "group",
+      "status": "active",
+      "what": "Eight role prompts, one per function in the loop.",
+      "why": "mathematical_formalist.md and proof_critic.md are the substantial ones — they specify an output template, proof strategies, notation standards, and named fallacies to avoid.",
+      "members": [
+        {
+          "path": "agents/mathematical_formalist.md",
+          "label": "mathematical_formalist.md",
+          "what": "Turns informal ideas into definitions, assumptions, lemmas and proofs under a fixed output template. Every new assumption must be appended verbatim to the holding pen."
+        },
+        {
+          "path": "agents/proof_critic.md",
+          "label": "proof_critic.md",
+          "what": "Attacks claims: hidden assumptions, counterexamples, invalid steps. Includes a checklist on identifiability and criterion misuse."
+        },
+        {
+          "path": "agents/simulation_architect.md",
+          "label": "simulation_architect.md",
+          "what": "Designs DGM variants and design-grid rows, each cell tied to a hypothesis and a claim."
+        },
+        {
+          "path": "agents/code_engineer.md",
+          "label": "code_engineer.md",
+          "what": "Implements and debugs simulation code; at most 10 repair attempts before an error report."
+        },
+        {
+          "path": "agents/reproducibility_auditor.md",
+          "label": "reproducibility_auditor.md",
+          "what": "Checks a clean checkout reproduces: seeds, paths, locked versions, provenance."
+        },
+        {
+          "path": "agents/reviewer_2_agent.md",
+          "label": "reviewer_2_agent.md",
+          "what": "Seven standing objections, including that the theorem may be conditional rather than general."
+        },
+        {
+          "path": "agents/literature_agent.md",
+          "label": "literature_agent.md",
+          "what": "Finds and verifies sources; never fabricates citations."
+        },
+        {
+          "path": "agents/manuscript_editor.md",
+          "label": "manuscript_editor.md",
+          "what": "Turns verified claims into prose; introduces no new scientific claims."
+        }
+      ]
+    },
+    {
+      "id": "schemas",
+      "lane": "orch",
+      "label": "Output schemas",
+      "kind": "group",
+      "status": "active",
+      "what": "Six JSON schemas defining the structured shapes agents must emit.",
+      "why": "research_update.schema.json is the one that matters — it defines the cycle report, including the ten procedure-compliance booleans.",
+      "members": [
+        {
+          "path": "schemas/research_update.schema.json",
+          "label": "research_update.schema.json",
+          "what": "The cycle report: completed, why it matters, files changed, checks run, decision needed, procedure compliance, risks, next bounded task."
+        },
+        {
+          "path": "schemas/task_packet.schema.json",
+          "label": "task_packet.schema.json",
+          "what": "A bounded task handed to one agent, with approval reason and stop conditions."
+        },
+        {
+          "path": "schemas/agent_output.schema.json",
+          "label": "agent_output.schema.json",
+          "what": "Generic agent return: status, summary, files changed, approval request, risks."
+        },
+        {
+          "path": "schemas/claim.schema.json",
+          "label": "claim.schema.json",
+          "what": "A claim record, mirroring the claim register columns."
+        },
+        {
+          "path": "schemas/proof_review.schema.json",
+          "label": "proof_review.schema.json",
+          "what": "A proof review verdict: decision, unsupported steps, counterexample search, new assumptions needed."
+        },
+        {
+          "path": "schemas/simulation_run.schema.json",
+          "label": "simulation_run.schema.json",
+          "what": "A registered simulation run, mirroring the run registry columns."
+        }
+      ]
+    },
+    {
+      "id": "validator",
+      "lane": "orch",
+      "label": "validate_research_update.py",
+      "path": "scripts/validate_research_update.py",
+      "status": "active",
+      "what": "Dependency-free validator for cycle reports against the research-update schema.",
+      "why": "`make validate-update` runs it in CI. It checks shape, not truth."
+    },
+    {
+      "id": "runner",
+      "lane": "orch",
+      "label": "Python loop runner",
+      "kind": "group",
+      "status": "planned",
+      "what": "An optional API-based orchestrator that refuses shell commands outside an allow-list and treats approval-gated language as a stop condition.",
+      "why": "policy.py is eight lines and shows the whole idea: pattern-match the agent's own text for approval-required intent and halt.",
+      "note": "Optional and not wired into CI. The repo's real loop runs through agent prompts and PRs.",
+      "members": [
+        {
+          "path": "src/loop_researcher/policy.py",
+          "label": "policy.py",
+          "what": "The approval-required pattern list — new assumption, estimand, interpretive claim, delete, expensive job, slurm, submission."
+        },
+        {
+          "path": "src/loop_researcher/local_tools.py",
+          "label": "local_tools.py",
+          "what": "An allow-list of four safe commands; everything else returns a refusal."
+        },
+        {
+          "path": "src/loop_researcher/loop_runner.py",
+          "label": "loop_runner.py",
+          "what": "The minimal API loop."
+        },
+        {
+          "path": "src/loop_researcher/config.py",
+          "label": "config.py",
+          "what": "Thresholds mirroring the approval policy."
+        },
+        {
+          "path": "src/loop_researcher/__init__.py",
+          "label": "__init__.py",
+          "what": "Package marker."
+        }
+      ]
+    },
+    {
+      "id": "issue_script",
+      "lane": "orch",
+      "label": "create_initial_github_issues.md",
+      "path": "scripts/create_initial_github_issues.md",
+      "status": "active",
+      "what": "Seed issues for bootstrapping the loop.",
+      "why": "Context for how work items were first created."
+    },
+    {
+      "id": "cycles",
+      "lane": "infra",
+      "label": "Cycle reports",
+      "kind": "group",
+      "status": "active",
+      "what": "Eight machine-readable records — seven real cycles plus a worked example — each stating what was done, what was checked, what decision was needed and what comes next.",
+      "why": "The best chronological account of progress in the repo. Read them in order and the project's reasoning becomes visible, including a decision raised and resolved across two consecutive cycles.",
+      "members": [
+        {
+          "path": "logs/research_updates/README.md",
+          "label": "README.md",
+          "what": "Why cycle reports exist and what must be in one."
+        },
+        {
+          "path": "logs/research_updates/example_update.json",
+          "label": "example_update.json",
+          "what": "The worked example CI validates on every run."
+        },
+        {
+          "path": "logs/research_updates/2026-07-07-pr-procedure-compliance.json",
+          "label": "2026-07-07 procedure compliance",
+          "what": "Governance: added the PR template, the compliance workflow and the schema fields."
+        },
+        {
+          "path": "logs/research_updates/2026-07-08T005037Z_formalize-mixture-lemma.json",
+          "label": "2026-07-08 formalize mixture lemma",
+          "what": "Theorem: drafted Lemma 1.1, surfaced the X/Z conditioning problem, and asked the PI one concrete question."
+        },
+        {
+          "path": "logs/research_updates/2026-07-08T032125Z_resolve-mixture-decision.json",
+          "label": "2026-07-08 resolve mixture decision",
+          "what": "Theorem: applied the PI's answer — A-006 rejected, F(theta|X,Z) primary, F(theta|Z) demoted to a corollary."
+        },
+        {
+          "path": "logs/research_updates/2026-07-08T042125Z_narrativize-mixture-lemma.json",
+          "label": "2026-07-08 narrativize lemma",
+          "what": "Theorem: rewrote the proof draft so a non-specialist can follow the conditional averaging argument."
+        },
+        {
+          "path": "logs/research_updates/2026-07-08T172922Z_theorem-proof-infrastructure.json",
+          "label": "2026-07-08 proof infrastructure",
+          "what": "Infrastructure: added the theorem backlog and the Lean scaffold without promoting any claim."
+        },
+        {
+          "path": "logs/research_updates/2026-07-09T000000Z_bayesian-comparison-restructure.json",
+          "label": "2026-07-09 Bayesian restructure",
+          "what": "Simulation: reordered the proof route so LOOIC and Bayes factors are primary and AIC/BIC secondary."
+        },
+        {
+          "path": "logs/research_updates/2026-09-05T000000Z_project-map.json",
+          "label": "2026-09-05 project map",
+          "what": "Infrastructure: added this map, its curated data and the generator that keeps it honest."
+        }
+      ]
+    },
+    {
+      "id": "pr_template",
+      "lane": "infra",
+      "label": "pull_request_template.md",
+      "path": ".github/pull_request_template.md",
+      "status": "active",
+      "what": "The PR body template carrying the required `## Procedure compliance` section.",
+      "why": "Every autonomous PR uses it, and a workflow checks it is present."
+    },
+    {
+      "id": "workflows",
+      "lane": "infra",
+      "label": "CI workflows",
+      "kind": "group",
+      "status": "active",
+      "what": "Three GitHub Actions workflows: two run the R scaffold and the update validator, one enforces the PR audit trail.",
+      "why": "This is what \"running\" means in this repo today — the smoke simulation, the synthetic data generator, testthat, and schema validation.",
+      "members": [
+        {
+          "path": ".github/workflows/r-smoke.yml",
+          "label": "r-smoke.yml",
+          "what": "Smoke simulation, synthetic RAID generation, testthat, and example update validation."
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "label": "ci.yml",
+          "what": "R setup, unit tests and the smoke simulation on every push."
+        },
+        {
+          "path": ".github/workflows/pr-procedure-compliance.yml",
+          "label": "pr-procedure-compliance.yml",
+          "what": "Checks the PR body exposes the compliance heading and core audit items. It verifies exposure, not truth."
+        }
+      ]
+    },
+    {
+      "id": "issue_templates",
+      "lane": "infra",
+      "label": "Issue templates",
+      "kind": "group",
+      "status": "active",
+      "what": "Five templates that make each kind of work item explicit — including a dedicated PI decision form.",
+      "why": "decision_needed.yml is how a gate gets raised as a visible artifact rather than a buried question.",
+      "members": [
+        {
+          "path": ".github/ISSUE_TEMPLATE/decision_needed.yml",
+          "label": "decision_needed.yml",
+          "what": "Raises a PI decision gate with options and a default if no response."
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/proof_task.yml",
+          "label": "proof_task.yml",
+          "what": "Scopes a bounded proof task."
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/simulation_task.yml",
+          "label": "simulation_task.yml",
+          "what": "Scopes a bounded simulation task."
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/empirical_task.yml",
+          "label": "empirical_task.yml",
+          "what": "Scopes a bounded empirical task."
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/config.yml",
+          "label": "config.yml",
+          "what": "Issue chooser configuration."
+        }
+      ]
+    },
+    {
+      "id": "codex_prompt",
+      "lane": "infra",
+      "label": "theorem_cycle.md",
+      "path": ".github/codex/prompts/theorem_cycle.md",
+      "status": "active",
+      "what": "A reusable prompt for running one bounded theorem cycle.",
+      "why": "Shows how a cycle is kicked off in practice."
+    }
+  ],
+  "edges": [
+    {
+      "from": "readme",
+      "to": "context",
+      "type": "read"
+    },
+    {
+      "from": "context",
+      "to": "main_loop",
+      "type": "read"
+    },
+    {
+      "from": "context",
+      "to": "theorem_backlog",
+      "type": "depends"
+    },
+    {
+      "from": "context",
+      "to": "milestones",
+      "type": "depends"
+    },
+    {
+      "from": "context",
+      "to": "bayes_plan",
+      "type": "depends"
+    },
+    {
+      "from": "spec",
+      "to": "context",
+      "type": "read"
+    },
+    {
+      "from": "architecture",
+      "to": "main_loop",
+      "type": "governs"
+    },
+    {
+      "from": "architecture",
+      "to": "superseded",
+      "type": "governs"
+    },
+    {
+      "from": "reg_readme",
+      "to": "claim_register",
+      "type": "governs"
+    },
+    {
+      "from": "reg_readme",
+      "to": "assumption_register",
+      "type": "governs"
+    },
+    {
+      "from": "approval_policy",
+      "to": "main_loop",
+      "type": "governs"
+    },
+    {
+      "from": "proposed_assumptions",
+      "to": "assumption_register",
+      "type": "produces"
+    },
+    {
+      "from": "assumption_register",
+      "to": "theorem_backlog",
+      "type": "governs"
+    },
+    {
+      "from": "claim_register",
+      "to": "theorem_backlog",
+      "type": "governs"
+    },
+    {
+      "from": "claim_register",
+      "to": "main_tex",
+      "type": "governs"
+    },
+    {
+      "from": "lit_policy",
+      "to": "superseded",
+      "type": "governs"
+    },
+    {
+      "from": "theorem_backlog",
+      "to": "mixture_lemma",
+      "type": "depends"
+    },
+    {
+      "from": "theorem_backlog",
+      "to": "lean",
+      "type": "governs"
+    },
+    {
+      "from": "mixture_lemma",
+      "to": "proof_log",
+      "type": "produces"
+    },
+    {
+      "from": "mixture_lemma",
+      "to": "supplement",
+      "type": "produces"
+    },
+    {
+      "from": "bayes_plan",
+      "to": "theorem_backlog",
+      "type": "governs"
+    },
+    {
+      "from": "bayes_plan",
+      "to": "milestones",
+      "type": "governs"
+    },
+    {
+      "from": "bayes_plan",
+      "to": "sim_registry",
+      "type": "governs"
+    },
+    {
+      "from": "dgm",
+      "to": "fit_models",
+      "type": "produces"
+    },
+    {
+      "from": "fit_models",
+      "to": "model_selection",
+      "type": "produces"
+    },
+    {
+      "from": "model_selection",
+      "to": "metrics",
+      "type": "produces"
+    },
+    {
+      "from": "metrics",
+      "to": "runners",
+      "type": "produces"
+    },
+    {
+      "from": "runners",
+      "to": "sim_registry",
+      "type": "produces"
+    },
+    {
+      "from": "runners",
+      "to": "tests",
+      "type": "depends"
+    },
+    {
+      "from": "makefile",
+      "to": "runners",
+      "type": "produces"
+    },
+    {
+      "from": "makefile",
+      "to": "synth_raid",
+      "type": "produces"
+    },
+    {
+      "from": "makefile",
+      "to": "validator",
+      "type": "produces"
+    },
+    {
+      "from": "dgm",
+      "to": "assumption_register",
+      "type": "depends"
+    },
+    {
+      "from": "env",
+      "to": "runners",
+      "type": "depends"
+    },
+    {
+      "from": "milestones",
+      "to": "stan",
+      "type": "produces"
+    },
+    {
+      "from": "stan",
+      "to": "main_tex",
+      "type": "produces"
+    },
+    {
+      "from": "raid_memo",
+      "to": "milestones",
+      "type": "governs"
+    },
+    {
+      "from": "synth_raid",
+      "to": "data_synth",
+      "type": "produces"
+    },
+    {
+      "from": "synth_raid",
+      "to": "stan",
+      "type": "depends"
+    },
+    {
+      "from": "dgm",
+      "to": "milestones",
+      "type": "depends"
+    },
+    {
+      "from": "main_loop",
+      "to": "track_loops",
+      "type": "governs"
+    },
+    {
+      "from": "main_loop",
+      "to": "cycles",
+      "type": "produces"
+    },
+    {
+      "from": "main_loop",
+      "to": "manager",
+      "type": "depends"
+    },
+    {
+      "from": "manager",
+      "to": "specialists",
+      "type": "governs"
+    },
+    {
+      "from": "pi",
+      "to": "proposed_assumptions",
+      "type": "governs"
+    },
+    {
+      "from": "pi",
+      "to": "approval_policy",
+      "type": "depends"
+    },
+    {
+      "from": "specialists",
+      "to": "schemas",
+      "type": "produces"
+    },
+    {
+      "from": "schemas",
+      "to": "validator",
+      "type": "depends"
+    },
+    {
+      "from": "validator",
+      "to": "cycles",
+      "type": "governs"
+    },
+    {
+      "from": "track_loops",
+      "to": "proof_log",
+      "type": "produces"
+    },
+    {
+      "from": "runner",
+      "to": "approval_policy",
+      "type": "depends"
+    },
+    {
+      "from": "procedure_compliance",
+      "to": "pr_template",
+      "type": "governs"
+    },
+    {
+      "from": "pr_template",
+      "to": "workflows",
+      "type": "depends"
+    },
+    {
+      "from": "issue_templates",
+      "to": "pi",
+      "type": "produces"
+    },
+    {
+      "from": "codex_prompt",
+      "to": "theorem_backlog",
+      "type": "depends"
+    },
+    {
+      "from": "workflows",
+      "to": "tests",
+      "type": "depends"
+    },
+    {
+      "from": "workflows",
+      "to": "validator",
+      "type": "depends"
+    },
+    {
+      "from": "main_tex",
+      "to": "refs",
+      "type": "depends"
+    },
+    {
+      "from": "main_tex",
+      "to": "figtab",
+      "type": "depends"
+    },
+    {
+      "from": "sim_registry",
+      "to": "figtab",
+      "type": "produces"
+    },
+    {
+      "from": "selfmap",
+      "to": "readme",
+      "type": "depends"
+    },
+    {
+      "from": "makefile",
+      "to": "selfmap",
+      "type": "produces"
+    }
+  ],
+  "tour": [
+    {
+      "node": "readme",
+      "why": "Get the thesis and the shape of the workbench in five minutes. Skim the \"start here\" list, but do not treat it as a ranking."
+    },
+    {
+      "node": "context",
+      "why": "The live scientific brief. Results 1-6, the boundary conditions that stop the claim being universal, and the M0-M6 model ladder. Everything downstream refers back here."
+    },
+    {
+      "node": "main_loop",
+      "why": "How a work cycle runs, what it must read first, and which questions stop it dead and go to the human PI."
+    },
+    {
+      "node": "claim_register",
+      "why": "The evidence ledger. Six claims, none yet supported — this is what stops the project narrating itself as further along than it is."
+    },
+    {
+      "node": "assumption_register",
+      "why": "Six assumptions, one of them rejected by the PI. Read the decision_status column to see the gate working."
+    },
+    {
+      "node": "theorem_backlog",
+      "why": "The proof route as a status table: what is under review, what is decision-gated, what has not been stated yet."
+    },
+    {
+      "node": "mixture_lemma",
+      "why": "The one real proof draft. It establishes that a context-omitting analyst is fitting a mixture law — the object every later comparison result is about."
+    },
+    {
+      "node": "bayes_plan",
+      "why": "Why LOOIC and Bayes factors answer different questions, why KL dominance implies neither, and why the fast GLM code is forbidden from reporting either."
+    },
+    {
+      "node": "milestones",
+      "why": "The staged path from today's proxies to publishable hierarchical Bayesian models. Milestone 0 is met; 1 through 6 are not."
+    },
+    {
+      "node": "dgm",
+      "why": "The theorem as running code: context shifts the mean and the dispersion of latent ambiguity aversion, and no true complexity is present."
+    },
+    {
+      "node": "fit_models",
+      "why": "The three-way contrast the project turns on — context-omitting simple, context-omitting complex, context-aware simple."
+    },
+    {
+      "node": "stan",
+      "why": "The first real cognitive model, written but not yet fitted. The gap between this file and the milestones is the project's main open work."
+    },
+    {
+      "node": "main_tex",
+      "why": "The destination. Read the abstract for the intended paper, then note how little prose exists beneath it."
+    },
+    {
+      "node": "cycles",
+      "why": "Finish here. Seven structured reports are the clearest record of what has actually been done, including a decision raised and answered across consecutive cycles."
+    }
+  ],
+  "progress": {
+    "theorems": [
+      {
+        "id": "T-001",
+        "title": "Omitted-context conditional mixture representation",
+        "claim": "C-002",
+        "status": "progress",
+        "state": "proof-critic-review",
+        "next": "Proof Critic reviews Lemma 1.1 with F(Theta|X,Z) as the primary statement."
+      },
+      {
+        "id": "T-002",
+        "title": "Fixed or exogenous trial-design corollary",
+        "claim": "C-002",
+        "status": "gated",
+        "state": "decision-gated",
+        "next": "Keep as a corollary only. A-006 stays rejected as a primary assumption."
+      },
+      {
+        "id": "T-003",
+        "title": "Gaussian constructive heterogeneity",
+        "claim": "C-003",
+        "status": "gated",
+        "state": "decision-gated",
+        "next": "Awaiting PI review of A-003 before it can be the primary formal theorem."
+      },
+      {
+        "id": "T-004",
+        "title": "KL dominance bridge",
+        "claim": "C-004",
+        "status": "planned",
+        "state": "backlog",
+        "next": "Draft the exact model classes, target law and KL comparison criterion."
+      },
+      {
+        "id": "T-005",
+        "title": "LOO predictive-score / LOOIC consequence",
+        "claim": "C-004",
+        "status": "gated",
+        "state": "decision-gated",
+        "next": "PI selects the primary leave-out unit, then draft the conditional result."
+      },
+      {
+        "id": "T-006",
+        "title": "Bayes-factor consequence under declared priors",
+        "claim": "C-004",
+        "status": "gated",
+        "state": "decision-gated",
+        "next": "Open a prior-and-estimator decision before writing any statement."
+      },
+      {
+        "id": "T-007",
+        "title": "AIC/BIC finite-sample thresholds",
+        "claim": "C-004",
+        "status": "planned",
+        "state": "backlog",
+        "next": "Formalize conditional thresholds only, as secondary bridge corollaries."
+      }
+    ],
+    "claims": [
+      {
+        "id": "C-001",
+        "title": "Omitting contextual causes can make model comparison favor the wrong mechanism.",
+        "evidence": "planned",
+        "status": "planned",
+        "use": "Abstract and introduction only after theorem and simulation support."
+      },
+      {
+        "id": "C-002",
+        "title": "Omitted context induces a marginal mixture over latent decision parameters.",
+        "evidence": "in_progress",
+        "status": "progress",
+        "use": "Theorem section or SI after proof review."
+      },
+      {
+        "id": "C-003",
+        "title": "In the Gaussian case, omitted context can create context-dependent latent variance.",
+        "evidence": "planned",
+        "status": "gated",
+        "use": "Theorem section or SI after assumptions approved. Decision needed."
+      },
+      {
+        "id": "C-004",
+        "title": "Under criterion-specific conditions a false complex model can beat a context-omitting simple model.",
+        "evidence": "planned",
+        "status": "planned",
+        "use": "Theorem and simulation design after criterion-specific conditions are reviewed."
+      },
+      {
+        "id": "C-005",
+        "title": "The GLM scaffold can reveal failure modes worth testing in hierarchical Bayesian models.",
+        "evidence": "scaffold_only",
+        "status": "active",
+        "use": "Internal reports only."
+      },
+      {
+        "id": "C-006",
+        "title": "RAID results are context-aware model-sensitivity evidence, not causal SES evidence.",
+        "evidence": "planned",
+        "status": "planned",
+        "use": "Methods and discussion limitation."
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "A-001",
+        "track": "theorem",
+        "title": "Observed choice law",
+        "decision": "approved_default",
+        "status": "active"
+      },
+      {
+        "id": "A-002",
+        "track": "theorem",
+        "title": "Omitted context shifts the latent parameter",
+        "decision": "approved_default",
+        "status": "active"
+      },
+      {
+        "id": "A-003",
+        "track": "theorem",
+        "title": "Constructive Gaussian case",
+        "decision": "decision_needed",
+        "status": "gated"
+      },
+      {
+        "id": "A-004",
+        "track": "simulation",
+        "title": "False-complex DGM exclusion",
+        "decision": "approved_default",
+        "status": "active"
+      },
+      {
+        "id": "A-005",
+        "track": "empirical",
+        "title": "RAID noncausal default",
+        "decision": "approved_default",
+        "status": "active"
+      },
+      {
+        "id": "A-006",
+        "track": "theorem",
+        "title": "Trial-design exogeneity for the simplified mixture",
+        "decision": "PI_rejected",
+        "status": "stub"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "M0",
+        "title": "Proxy scaffold integrity",
+        "status": "active",
+        "note": "Met. make smoke, make test and the update validator all run in CI."
+      },
+      {
+        "id": "M1",
+        "title": "Single-level structural ambiguity likelihood",
+        "status": "planned",
+        "note": "Stan file written; no fitting wrapper, prior predictive check or recovery run yet."
+      },
+      {
+        "id": "M2",
+        "title": "Participant-level hierarchical model",
+        "status": "planned",
+        "note": "Not started. Needs non-centred parameterization and held-out participant splits."
+      },
+      {
+        "id": "M3",
+        "title": "Context-aware mean model",
+        "status": "planned",
+        "note": "Not started. Where SES enters the latent parameter's mean."
+      },
+      {
+        "id": "M4",
+        "title": "Context-aware mean-plus-variance model",
+        "status": "planned",
+        "note": "Not started. The theorem's heteroskedasticity route."
+      },
+      {
+        "id": "M5",
+        "title": "Primary false-complex model",
+        "status": "gated",
+        "note": "Blocked: the PI must choose among source-specific, nonlinear, probability-distortion or latent-class candidates."
+      },
+      {
+        "id": "M6",
+        "title": "Final empirical model suite",
+        "status": "gated",
+        "note": "Blocked behind the RAID variable-coding memo and Milestone 5."
+      }
+    ],
+    "gates": [
+      {
+        "title": "Primary LOO leave-out unit",
+        "detail": "Participant-level or trial-level leave-out answer different scientific questions. The Bayesian comparison plan recommends leave-one-participant-out but leaves the choice open. Blocks T-005 and the simulation contract.",
+        "where": "docs/bayesian_comparison_plan.md"
+      },
+      {
+        "title": "A-003, the Gaussian constructive case",
+        "detail": "Whether theta = a0 + a1*Z + gamma*C + u with C|Z having mean m(z) and variance v(z) may be the primary formal theorem assumption. Blocks T-003 and claim C-003.",
+        "where": "registries/assumption_register.csv"
+      },
+      {
+        "title": "Primary false-complex model",
+        "detail": "Which psychologically plausible complex model plays the role of M4: source/condition-specific ambiguity, nonlinear weighting, probability distortion, or a latent-class mixture. Blocks Milestone 5.",
+        "where": "docs/hierarchical_bayes_milestones.md"
+      },
+      {
+        "title": "Bayes-factor priors and estimator",
+        "detail": "Prior families, prior scales and the marginal-likelihood estimator must be recorded before any Bayes-factor statement is written. Blocks T-006.",
+        "where": "docs/theorem_backlog.md"
+      },
+      {
+        "title": "RAID variable-coding memo",
+        "detail": "Seven questions about what choice, probs, ambigs, vals, refSide, colors and condition actually encode. No final empirical model may be fitted until it is answered.",
+        "where": "docs/raid_variable_coding_memo_template.md"
+      }
+    ],
+    "open_issues": [
+      {
+        "number": 4,
+        "title": "Proof: Formalize omitted-context mixture lemma",
+        "url": "https://github.com/blam3/omitting-context-in-cognition/issues/4",
+        "note": "The draft exists and has been revised twice under PI direction; the issue stays open pending proof-critic review."
+      }
+    ]
+  }
+}

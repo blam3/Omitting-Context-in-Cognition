@@ -1,0 +1,76 @@
+{
+  "cycle_title": "Add an interactive project map for outside readers",
+  "track": "infrastructure",
+  "completed": [
+    "Added docs/project_map.html, a self-contained interactive map of the repository with a guided reading path, a per-workstream file graph, and a progress view",
+    "Added docs/project_map_data.json holding the curated description, status and reading-order metadata for every tracked file",
+    "Added scripts/build_project_map.py, which merges that curated data with line counts and git history and warns when a tracked file has no map entry",
+    "Added scripts/project_map_template.html and a make project-map target",
+    "Pointed the README at the map from the top of the Start here section"
+  ],
+  "why_it_matters": [
+    "A reader outside the project can now see what the repository contains, what to read in what order, and how far the work has actually got, without reconstructing it from twenty directories.",
+    "The progress view reports only what the registries already record, so the map cannot present the project as further along than its own evidence statuses allow.",
+    "The drift check means the map fails loudly rather than silently ageing as files are added."
+  ],
+  "files_changed": [
+    "docs/project_map.html",
+    "docs/project_map_data.json",
+    "scripts/build_project_map.py",
+    "scripts/project_map_template.html",
+    "Makefile",
+    "README.md",
+    "logs/research_updates/2026-09-05T000000Z_project-map.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/build_project_map.py",
+      "status": "pass",
+      "notes": "Rebuilds the page from the curated data and reports zero drift warnings against 107 tracked files."
+    },
+    {
+      "name": "python3 scripts/validate_research_update.py on this update",
+      "status": "pass",
+      "notes": "Validated against schemas/research_update.schema.json."
+    },
+    {
+      "name": "make validate-update",
+      "status": "pass",
+      "notes": "Existing example update still validates."
+    },
+    {
+      "name": "Rendered-page review",
+      "status": "pass",
+      "notes": "Rendered headless in Chromium at 1600px and 390px across all three views: no console errors, no horizontal overflow."
+    },
+    {
+      "name": "make smoke, make test",
+      "status": "not_run",
+      "notes": "R is not installed in this execution environment. This change touches no R, Stan, Lean or manuscript code, so the simulation scaffold is unaffected."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Treat the map as documentation only. It reports registry status and promotes no claim."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Documentation-only change. No assumption, estimand, claim status, literature claim or causal claim was added or altered; the map reads the registries rather than writing them. No restricted RAID data, participant-level output or secret is included."
+  },
+  "risks_or_uncertainties": [
+    "Node descriptions are hand-written in docs/project_map_data.json and can fall out of date; the drift check catches missing files but not a stale description.",
+    "Status labels on the map restate the registries. If a registry changes, the map data must be edited and the page rebuilt in the same cycle."
+  ],
+  "next_bounded_task": "Run proof-critic review on Lemma 1.1, the outstanding action for T-001 in the theorem backlog."
+}

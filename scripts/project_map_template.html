@@ -1,0 +1,810 @@
+<title>OCECM Workbench Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+<style>
+:root {
+  --ground: #f2f5f6;
+  --surface: #ffffff;
+  --surface-2: #e7edef;
+  --ink: #14222a;
+  --ink-2: #4b5f69;
+  --ink-3: #7d8f98;
+  --rule: #d2dcdf;
+  --rule-soft: #e3eaec;
+  --accent: #0f5a63;
+  --accent-ink: #0b464d;
+  --accent-soft: #dcebec;
+  --s-active: #2c6c4e;
+  --s-progress: #9c630c;
+  --s-gated: #8f2f3b;
+  --s-planned: #47617a;
+  --s-stub: #8a979e;
+  --shadow: 0 1px 2px rgba(20, 34, 42, .06), 0 8px 24px -16px rgba(20, 34, 42, .3);
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d1417;
+    --surface: #141e23;
+    --surface-2: #1c282e;
+    --ink: #dbe6e9;
+    --ink-2: #9cb0b8;
+    --ink-3: #6c8088;
+    --rule: #26363d;
+    --rule-soft: #1c292f;
+    --accent: #4bb6c0;
+    --accent-ink: #7ed2da;
+    --accent-soft: #14343a;
+    --s-active: #5cb98c;
+    --s-progress: #d69a3d;
+    --s-gated: #df7481;
+    --s-planned: #7fa0b8;
+    --s-stub: #6b7d85;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0d1417;
+  --surface: #141e23;
+  --surface-2: #1c282e;
+  --ink: #dbe6e9;
+  --ink-2: #9cb0b8;
+  --ink-3: #6c8088;
+  --rule: #26363d;
+  --rule-soft: #1c292f;
+  --accent: #4bb6c0;
+  --accent-ink: #7ed2da;
+  --accent-soft: #14343a;
+  --s-active: #5cb98c;
+  --s-progress: #d69a3d;
+  --s-gated: #df7481;
+  --s-planned: #7fa0b8;
+  --s-stub: #6b7d85;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .8);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+code, .mono { font-family: var(--mono); font-size: .82em; }
+.eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- header ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  padding: 12px 22px;
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.brand { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+.brand h1 { font-size: 20px; }
+.brand .sub { font-size: 12.5px; color: var(--ink-3); font-family: var(--mono); }
+.tabs { display: flex; gap: 2px; padding: 3px; background: var(--surface-2); border-radius: 7px; }
+.tabs button {
+  padding: 5px 13px; border-radius: 5px; font-size: 13px; font-weight: 500; color: var(--ink-2);
+}
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.search {
+  font: inherit; font-size: 13px; width: 190px; padding: 6px 10px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 6px;
+}
+.search::placeholder { color: var(--ink-3); }
+.icon-btn {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--surface);
+  font-size: 14px; color: var(--ink-2);
+}
+.icon-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+
+/* ---------- shell ---------- */
+.shell {
+  display: grid;
+  grid-template-columns: 268px minmax(0, 1fr) 340px;
+  gap: 22px;
+  padding: 22px;
+  align-items: start;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.shell[data-view="progress"] { grid-template-columns: minmax(0, 1fr); max-width: 1240px; }
+.stage { min-width: 0; }
+.shell[data-view="progress"] .rail,
+.shell[data-view="progress"] .detail { display: none; }
+.rail, .detail { position: sticky; top: 78px; max-height: calc(100vh - 100px); overflow-y: auto; }
+
+/* ---------- rail ---------- */
+.rail-block + .rail-block { margin-top: 22px; }
+.rail h2 { font-size: 15.5px; margin-bottom: 4px; }
+.rail .lede { font-size: 13px; color: var(--ink-2); margin-bottom: 12px; }
+.stops { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
+.stop {
+  display: grid; grid-template-columns: 22px 1fr; gap: 9px; width: 100%;
+  text-align: left; padding: 8px 9px; border-radius: 6px;
+  border-left: 2px solid transparent;
+}
+.stop:hover { background: var(--surface); }
+.stop[aria-current="true"] { background: var(--surface); border-left-color: var(--accent); box-shadow: var(--shadow); }
+.stop .n {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+  padding-top: 2px; font-variant-numeric: tabular-nums;
+}
+.stop[aria-current="true"] .n { color: var(--accent); }
+.stop .t { font-size: 13px; font-weight: 500; line-height: 1.35; }
+.stop .w { font-size: 12px; color: var(--ink-2); line-height: 1.45; margin-top: 3px; display: none; }
+.stop[aria-current="true"] .w { display: block; }
+
+.legend { display: flex; flex-direction: column; gap: 3px; }
+.chip {
+  display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+  padding: 6px 9px; border-radius: 6px; font-size: 13px; color: var(--ink-2);
+}
+.chip:hover { background: var(--surface); }
+.chip[aria-pressed="false"] { opacity: .42; }
+.chip .swatch { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.chip .cnt { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.chip .desc { display: block; font-size: 11.5px; color: var(--ink-3); line-height: 1.4; }
+.wirekey { display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
+.wirekey div { display: flex; align-items: center; gap: 8px; }
+.wirekey i { width: 22px; height: 0; border-top-width: 2px; border-top-style: solid; flex: none; }
+
+/* ---------- board ---------- */
+.board { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.wires { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 3; }
+.lane {
+  position: relative; z-index: 2;
+  background: var(--surface); border: 1px solid var(--rule-soft); border-radius: 9px;
+  padding: 13px 13px 14px;
+}
+.lane > header { margin-bottom: 11px; }
+.lane h2 { font-size: 15px; }
+.lane .blurb { font-size: 12px; color: var(--ink-3); line-height: 1.45; margin-top: 2px; }
+.lane ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.node {
+  display: grid; grid-template-columns: 9px 1fr auto; align-items: center; gap: 9px;
+  width: 100%; text-align: left; padding: 7px 9px;
+  border: 1px solid var(--rule-soft); border-radius: 6px; background: var(--surface);
+  transition: border-color .12s, background .12s, opacity .12s;
+}
+.node:hover { border-color: var(--ink-3); }
+.node .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--s-planned); }
+.node .name { font-size: 12.5px; font-weight: 500; line-height: 1.3; overflow-wrap: break-word; }
+.node .num { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.node .step { color: var(--s-progress); font-weight: 500; }
+.shell[data-view="path"] .node .size { display: none; }
+.shell[data-view="path"] .node:not(.has-step) .size { display: inline; }
+.shell:not([data-view="path"]) .node .step { display: none; }
+.node.is-group .name::after {
+  content: attr(data-count); display: inline-block; margin-left: 6px;
+  font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 0 4px; vertical-align: 1px;
+}
+.node[data-status="active"] .dot { background: var(--s-active); }
+.node[data-status="progress"] .dot { background: var(--s-progress); }
+.node[data-status="gated"] .dot { background: var(--s-gated); }
+.node[data-status="planned"] .dot { background: var(--s-planned); }
+.node[data-status="stub"] .dot { background: none; border: 1.5px dashed var(--s-stub); }
+.node[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.node.linked { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule-soft)); }
+.node.dim { opacity: .3; }
+.node.off { opacity: .22; }
+.node.hit { border-color: var(--s-progress); background: color-mix(in srgb, var(--s-progress) 10%, var(--surface)); }
+.lane.empty { display: none; }
+
+/* ---------- detail ---------- */
+.detail { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--rule-soft); border-radius: 9px; padding: 15px 16px; }
+.card h2 { font-size: 17px; line-height: 1.25; }
+.card h3 { font-size: 13px; font-family: var(--sans); font-weight: 600; letter-spacing: .02em; }
+.pathline {
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-2);
+  background: var(--surface-2); border-radius: 4px; padding: 3px 6px;
+  display: inline-block; margin-top: 8px; overflow-wrap: anywhere;
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; border: 1px solid;
+}
+.pill .swatch { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pill[data-status="active"] { color: var(--s-active); border-color: color-mix(in srgb, var(--s-active) 35%, transparent); }
+.pill[data-status="progress"] { color: var(--s-progress); border-color: color-mix(in srgb, var(--s-progress) 35%, transparent); }
+.pill[data-status="gated"] { color: var(--s-gated); border-color: color-mix(in srgb, var(--s-gated) 35%, transparent); }
+.pill[data-status="planned"] { color: var(--s-planned); border-color: color-mix(in srgb, var(--s-planned) 35%, transparent); }
+.pill[data-status="stub"] { color: var(--s-stub); border-color: color-mix(in srgb, var(--s-stub) 35%, transparent); }
+.detail .body { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+.detail .body strong { color: var(--ink); font-weight: 600; }
+.detail .stack { display: flex; flex-direction: column; gap: 11px; margin-top: 13px; }
+.note {
+  border-left: 2px solid var(--s-progress); padding: 2px 0 2px 11px;
+  font-size: 12.5px; line-height: 1.55; color: var(--ink-2);
+}
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-top: 12px; margin-top: 13px; border-top: 1px solid var(--rule-soft); }
+.fact { font-size: 11.5px; color: var(--ink-3); }
+.fact b { display: block; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.members { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; }
+.members li { padding: 9px 0; border-top: 1px solid var(--rule-soft); }
+.members .mpath { font-family: var(--mono); font-size: 11.5px; color: var(--ink); }
+.members .mwhat { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; margin-top: 2px; }
+.links { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.links button {
+  font-size: 12px; padding: 3px 8px; border-radius: 5px;
+  border: 1px solid var(--rule); color: var(--ink-2);
+}
+.links button:hover { border-color: var(--accent); color: var(--accent-ink); }
+.links button .rel { color: var(--ink-3); font-size: 10.5px; margin-right: 5px; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- progress ---------- */
+.progress { display: flex; flex-direction: column; gap: 20px; }
+.state-of-play { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.state-of-play .lede { font-family: var(--serif); font-size: 20px; line-height: 1.4; color: var(--ink); }
+.state-of-play .lede em { color: var(--accent-ink); font-style: normal; }
+.counts { display: flex; flex-wrap: wrap; gap: 8px 26px; }
+.counts .fact b { font-size: 19px; }
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 16px; align-items: start; }
+.panel { background: var(--surface); border: 1px solid var(--rule-soft); border-radius: 9px; padding: 16px 18px; }
+.panel h2 { font-size: 16px; }
+.panel > p.blurb { font-size: 12.5px; color: var(--ink-3); margin-top: 3px; line-height: 1.45; }
+.panel .rows { list-style: none; margin: 12px 0 0; padding: 0; }
+.panel .rows > li { padding: 10px 0; border-top: 1px solid var(--rule-soft); display: grid; gap: 3px; }
+.rowhead { display: flex; align-items: baseline; gap: 9px; }
+.rowhead .id { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); flex: none; }
+.rowhead .t { font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+.rowhead .st {
+  margin-left: auto; flex: none; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+}
+.rowhead .st[data-status="active"] { color: var(--s-active); }
+.rowhead .st[data-status="progress"] { color: var(--s-progress); }
+.rowhead .st[data-status="gated"] { color: var(--s-gated); }
+.rowhead .st[data-status="planned"] { color: var(--s-planned); }
+.rowhead .st[data-status="stub"] { color: var(--s-stub); }
+.rowsub { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.panel.gates { border-color: color-mix(in srgb, var(--s-gated) 32%, var(--rule-soft)); }
+.panel.gates .rows > li { border-top-color: color-mix(in srgb, var(--s-gated) 18%, var(--rule-soft)); }
+.gate-where { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+.ladder { list-style: none; margin: 12px 0 0; padding: 0; }
+.ladder li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; }
+.ladder .rung { position: relative; display: grid; place-items: start center; padding-top: 12px; }
+.ladder .rung::before {
+  content: ""; width: 11px; height: 11px; border-radius: 50%;
+  border: 2px solid var(--s-planned); background: var(--ground);
+}
+.ladder li[data-status="active"] .rung::before { background: var(--s-active); border-color: var(--s-active); }
+.ladder li[data-status="gated"] .rung::before { border-color: var(--s-gated); }
+.ladder li:not(:last-child) .rung::after {
+  content: ""; position: absolute; top: 25px; bottom: -2px; width: 2px; background: var(--rule);
+}
+.ladder .txt { padding: 8px 0 12px; }
+.timeline { list-style: none; margin: 12px 0 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 78px 1fr; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rule-soft); }
+.timeline .when { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.track {
+  display: inline-block; font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink-3); border: 1px solid var(--rule); border-radius: 3px; padding: 0 5px; margin-left: 7px;
+}
+.panel a { color: var(--accent-ink); }
+.footnote { font-size: 12px; color: var(--ink-3); text-align: center; padding: 6px 22px 30px; line-height: 1.6; }
+.footnote code { background: var(--surface-2); border-radius: 3px; padding: 1px 5px; }
+
+@media (max-width: 1400px) { .board { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1180px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail, .detail { position: static; max-height: none; }
+  .rail { order: 1; } .stage { order: 2; } .detail { order: 3; }
+  .stop .w { display: block; }
+}
+@media (max-width: 760px) {
+  .board { grid-template-columns: minmax(0, 1fr); }
+  .wires { display: none; }
+  .state-of-play { grid-template-columns: minmax(0, 1fr); }
+  .topbar { padding: 10px 14px; }
+  .shell { padding: 14px; gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>OCECM Workbench Map</h1>
+    <span class="sub" id="brandsub"></span>
+  </div>
+  <div class="tabs" role="tablist" aria-label="View">
+    <button role="tab" id="tab-path" aria-selected="true" data-view="path">Reading path</button>
+    <button role="tab" id="tab-map" aria-selected="false" data-view="map">Map</button>
+    <button role="tab" id="tab-progress" aria-selected="false" data-view="progress">Progress</button>
+  </div>
+  <input class="search" id="search" type="search" placeholder="Search files and topics" aria-label="Search files and topics">
+  <button class="icon-btn" id="theme" title="Switch theme" aria-label="Switch theme">◐</button>
+</header>
+
+<div class="shell" id="shell" data-view="path">
+  <aside class="rail" id="rail"></aside>
+  <main class="stage" id="stage">
+    <div class="board" id="board">
+      <svg class="wires" id="wires" aria-hidden="true"></svg>
+    </div>
+    <div class="progress" id="progress" hidden></div>
+  </main>
+  <aside class="detail" id="detail"></aside>
+</div>
+
+<p class="footnote" id="footnote"></p>
+
+<script>
+const MAP = __PROJECT_MAP_DATA__;
+
+const byId = Object.fromEntries(MAP.nodes.map(n => [n.id, n]));
+const statusById = Object.fromEntries(MAP.statuses.map(s => [s.id, s]));
+const tourIndex = Object.fromEntries(MAP.tour.map((t, i) => [t.node, i + 1]));
+
+const el = {
+  shell: document.getElementById('shell'),
+  board: document.getElementById('board'),
+  wires: document.getElementById('wires'),
+  rail: document.getElementById('rail'),
+  detail: document.getElementById('detail'),
+  progress: document.getElementById('progress'),
+  search: document.getElementById('search'),
+};
+
+let view = 'path';
+let selected = null;
+let hovered = null;
+let query = '';
+const hiddenStatuses = new Set();
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const softBreak = s => esc(s).replace(/([_/])/g, '$1<wbr>');
+const cycleReports = () => byId.cycles.members.filter(m => m.path.endsWith('.json') && !m.path.includes('example'));
+
+/* ---------------- board ---------------- */
+
+function nodePaths(node) {
+  const paths = node.path ? [node.path] : [];
+  return paths.concat((node.members || []).map(m => m.path));
+}
+
+function matches(node) {
+  if (!query) return true;
+  const hay = [node.label, node.path, node.what, node.why, node.note]
+    .concat((node.members || []).flatMap(m => [m.path, m.label, m.what]))
+    .join(' ').toLowerCase();
+  return hay.includes(query);
+}
+
+function buildBoard() {
+  const frag = document.createDocumentFragment();
+  MAP.lanes.forEach(lane => {
+    const section = document.createElement('section');
+    section.className = 'lane';
+    section.dataset.lane = lane.id;
+    const nodes = MAP.nodes.filter(n => n.lane === lane.id);
+    section.innerHTML =
+      `<header><h2>${esc(lane.title)}</h2><p class="blurb">${esc(lane.blurb)}</p></header>` +
+      `<ul>${nodes.map(n => {
+        const step = tourIndex[n.id];
+        const cls = ['node'];
+        if (n.kind === 'group') cls.push('is-group');
+        if (step) cls.push('has-step');
+        return `<li><button class="${cls.join(' ')}" data-id="${n.id}"
+          data-status="${n.status}" aria-pressed="false">
+          <span class="dot"></span>
+          <span class="name" data-count="${n.file_count} files">${softBreak(n.label)}</span>
+          ${step ? `<span class="num step">${String(step).padStart(2, '0')}</span>` : ''}
+          <span class="num size">${n.lines.toLocaleString()} ln</span>
+        </button></li>`;
+      }).join('')}</ul>`;
+    frag.appendChild(section);
+  });
+  el.board.appendChild(frag);
+  el.board.addEventListener('click', e => {
+    const btn = e.target.closest('.node');
+    if (btn) select(btn.dataset.id);
+  });
+  el.board.addEventListener('mouseover', e => {
+    const btn = e.target.closest('.node');
+    const id = btn ? btn.dataset.id : null;
+    if (id !== hovered) { hovered = id; paint(); }
+  });
+  el.board.addEventListener('mouseleave', () => { hovered = null; paint(); });
+}
+
+/* ---------------- wires ---------------- */
+
+const WIRE_COLOR = {
+  governs: 'var(--accent)',
+  produces: 'var(--s-active)',
+  depends: 'var(--ink-3)',
+  read: 'var(--s-progress)',
+  tour: 'var(--s-progress)',
+};
+
+function wireSet() {
+  if (view === 'path') {
+    return MAP.tour.slice(0, -1).map((t, i) => ({ from: t.node, to: MAP.tour[i + 1].node, type: 'tour' }));
+  }
+  return MAP.edges;
+}
+
+function drawWires() {
+  const svg = el.wires;
+  svg.innerHTML = '';
+  if (view === 'progress' || window.innerWidth <= 760) return;
+  const board = el.board.getBoundingClientRect();
+  svg.setAttribute('viewBox', `0 0 ${board.width} ${board.height}`);
+
+  const box = id => {
+    const node = el.board.querySelector(`.node[data-id="${id}"]`);
+    if (!node || node.offsetParent === null) return null;
+    const r = node.getBoundingClientRect();
+    return { x: r.left - board.left, y: r.top - board.top, w: r.width, h: r.height };
+  };
+
+  wireSet().forEach(edge => {
+    const a = box(edge.from), b = box(edge.to);
+    if (!a || !b) return;
+    const ac = { x: a.x + a.w / 2, y: a.y + a.h / 2 };
+    const bc = { x: b.x + b.w / 2, y: b.y + b.h / 2 };
+    let p1, p2, c1, c2;
+    if (Math.abs(bc.x - ac.x) > 40) {
+      const right = bc.x > ac.x;
+      p1 = { x: right ? a.x + a.w : a.x, y: ac.y };
+      p2 = { x: right ? b.x : b.x + b.w, y: bc.y };
+      const k = Math.max(28, Math.abs(p2.x - p1.x) * 0.42);
+      c1 = { x: p1.x + (right ? k : -k), y: p1.y };
+      c2 = { x: p2.x - (right ? k : -k), y: p2.y };
+    } else {
+      const down = bc.y > ac.y;
+      p1 = { x: ac.x, y: down ? a.y + a.h : a.y };
+      p2 = { x: bc.x, y: down ? b.y : b.y + b.h };
+      const k = Math.max(20, Math.abs(p2.y - p1.y) * 0.4);
+      c1 = { x: p1.x, y: p1.y + (down ? k : -k) };
+      c2 = { x: p2.x, y: p2.y - (down ? k : -k) };
+    }
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M${p1.x},${p1.y} C${c1.x},${c1.y} ${c2.x},${c2.y} ${p2.x},${p2.y}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', WIRE_COLOR[edge.type] || 'var(--ink-3)');
+    path.setAttribute('stroke-width', edge.type === 'tour' ? '1.6' : '1.3');
+    path.dataset.from = edge.from;
+    path.dataset.to = edge.to;
+    path.dataset.type = edge.type;
+    svg.appendChild(path);
+  });
+  paintWires();
+}
+
+function paintWires() {
+  const focus = hovered || selected;
+  el.wires.querySelectorAll('path').forEach(p => {
+    const touches = focus && (p.dataset.from === focus || p.dataset.to === focus);
+    const base = p.dataset.type === 'tour' ? 0.55 : 0.22;
+    p.setAttribute('opacity', focus ? (touches ? 0.95 : base * 0.35) : base);
+    p.setAttribute('stroke-width', touches ? '2.2' : (p.dataset.type === 'tour' ? '1.6' : '1.3'));
+  });
+}
+
+/* ---------------- painting ---------------- */
+
+function neighbours(id) {
+  const out = new Map();
+  MAP.edges.forEach(e => {
+    if (e.from === id) out.set(e.to, e.type);
+    else if (e.to === id) out.set(e.from, e.type);
+  });
+  return out;
+}
+
+function paint() {
+  const focus = hovered || selected;
+  const linked = focus ? neighbours(focus) : new Map();
+  el.board.querySelectorAll('.node').forEach(btn => {
+    const id = btn.dataset.id;
+    const node = byId[id];
+    const hit = query ? matches(node) : true;
+    const visible = !hiddenStatuses.has(node.status);
+    btn.setAttribute('aria-pressed', String(id === selected));
+    btn.classList.toggle('linked', Boolean(focus) && linked.has(id));
+    btn.classList.toggle('hit', Boolean(query) && hit);
+    btn.classList.toggle('dim', (Boolean(query) && !hit) || !visible);
+    btn.classList.toggle('off', view === 'path' && !tourIndex[id] && !query);
+  });
+  MAP.lanes.forEach(lane => {
+    const section = el.board.querySelector(`.lane[data-lane="${lane.id}"]`);
+    const any = MAP.nodes.some(n => n.lane === lane.id && !hiddenStatuses.has(n.status));
+    section.classList.toggle('empty', !any);
+  });
+  if (view === 'path') {
+    el.rail.querySelectorAll('.stop').forEach(s =>
+      s.setAttribute('aria-current', String(s.dataset.id === selected)));
+  }
+  paintWires();
+}
+
+/* ---------------- detail ---------------- */
+
+function overview() {
+  const p = MAP.project, r = MAP.repo_stats;
+  const claims = MAP.progress.claims.length;
+  return `<div class="card">
+    <p class="eyebrow">What this is</p>
+    <h2 style="margin-top:6px">${esc(p.full_name)}</h2>
+    <div class="stack">
+      <p class="body">${esc(p.thesis)}</p>
+      <p class="body">${esc(p.what_this_repo_is)}</p>
+      <p class="note">Nothing here is finished. Of ${claims} registered claims, none has reached
+      <span class="mono">supported</span>; one theorem is under review and five decisions are open.
+      The Progress view lists them.</p>
+    </div>
+    <div class="facts">
+      <span class="fact"><b>${r.tracked}</b>tracked files</span>
+      <span class="fact"><b>${r.commits}</b>commits</span>
+      <span class="fact"><b>${cycleReports().length}</b>research cycles</span>
+      <span class="fact"><b>${r.latest_commit}</b>last commit</span>
+    </div>
+  </div>
+  <div class="card">
+    <p class="eyebrow">How to use this page</p>
+    <div class="stack">
+      <p class="body"><strong>Reading path</strong> walks the fourteen files that explain the project, in order.
+      <strong>Map</strong> shows every tracked file grouped by workstream, with the wires between them.
+      <strong>Progress</strong> reports what the project's own registries say has been established.</p>
+      <p class="body">Click any box to read what it is and why you would open it. Hover to light up what it connects to.</p>
+    </div>
+  </div>`;
+}
+
+function detailFor(id) {
+  const n = byId[id];
+  const st = statusById[n.status];
+  const links = [...neighbours(id)].map(([other, type]) =>
+    `<button data-goto="${other}"><span class="rel">${esc(type)}</span>${esc(byId[other].label)}</button>`).join('');
+  const members = (n.members || []).map(m =>
+    `<li><div class="mpath">${esc(m.path)}</div>${m.what ? `<div class="mwhat">${esc(m.what)}</div>` : ''}</li>`).join('');
+  const step = tourIndex[id];
+  const tourWhy = step ? MAP.tour[step - 1].why : '';
+  return `<div class="card">
+    ${step ? `<p class="eyebrow">Reading path &#183; stop ${step} of ${MAP.tour.length}</p>` : `<p class="eyebrow">${esc(MAP.lanes.find(l => l.id === n.lane).title)}</p>`}
+    <h2 style="margin-top:6px">${esc(n.label)}</h2>
+    ${n.path ? `<div class="pathline">${esc(n.path)}</div>` : ''}
+    <div class="stack">
+      <div><span class="pill" data-status="${n.status}"><span class="swatch"></span>${esc(st.label)}</span></div>
+      <p class="body">${esc(n.what)}</p>
+      <p class="body"><strong>Why read it.</strong> ${esc(step ? tourWhy : n.why)}</p>
+      ${n.note ? `<p class="note">${esc(n.note)}</p>` : ''}
+    </div>
+    <div class="facts">
+      <span class="fact"><b>${n.lines.toLocaleString()}</b>lines</span>
+      <span class="fact"><b>${n.file_count}</b>${n.file_count === 1 ? 'file' : 'files'}</span>
+      ${n.last ? `<span class="fact"><b>${esc(n.last)}</b>last touched</span>` : ''}
+    </div>
+    ${links ? `<div class="links">${links}</div>` : ''}
+  </div>
+  ${members ? `<div class="card"><h3>${plural(n.members.length, 'file', 'files')} inside</h3><ul class="members">${members}</ul></div>` : ''}`;
+}
+
+function renderDetail() {
+  el.detail.innerHTML = selected ? detailFor(selected) : overview();
+  el.detail.querySelectorAll('[data-goto]').forEach(b =>
+    b.addEventListener('click', () => select(b.dataset.goto)));
+}
+
+function select(id, silent) {
+  selected = selected === id ? null : id;
+  renderDetail();
+  paint();
+  if (!silent && selected && window.innerWidth <= 1180) {
+    el.detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* ---------------- rail ---------------- */
+
+function renderRail() {
+  if (view === 'path') {
+    el.rail.innerHTML = `<div class="rail-block">
+      <h2>Read in this order</h2>
+      <p class="lede">Fourteen stops, about an hour. Each one answers a question the next depends on.</p>
+      <div class="stops">${MAP.tour.map((t, i) => {
+        const n = byId[t.node];
+        return `<button class="stop" data-id="${t.node}" aria-current="false">
+          <span class="n">${String(i + 1).padStart(2, '0')}</span>
+          <span><span class="t">${esc(n.label)}</span><span class="w">${esc(t.why)}</span></span>
+        </button>`;
+      }).join('')}</div>
+    </div>`;
+    el.rail.querySelectorAll('.stop').forEach(s =>
+      s.addEventListener('click', () => select(s.dataset.id)));
+  } else {
+    const counts = {};
+    MAP.nodes.forEach(n => { counts[n.status] = (counts[n.status] || 0) + n.file_count; });
+    el.rail.innerHTML = `<div class="rail-block">
+      <h2>Status</h2>
+      <p class="lede">Taken from the project's own registries, not inferred. Click to filter.</p>
+      <div class="legend">${MAP.statuses.map(s => `
+        <button class="chip" data-status="${s.id}" aria-pressed="true">
+          <span class="swatch" style="background:var(--s-${s.id})"></span>
+          <span><span>${esc(s.label)}</span><span class="desc">${esc(s.desc)}</span></span>
+          <span class="cnt">${counts[s.id] || 0}</span>
+        </button>`).join('')}</div>
+    </div>
+    <div class="rail-block">
+      <h2>Wires</h2>
+      <p class="lede">Hover a box to light up what it touches.</p>
+      <div class="wirekey">
+        <div><i style="border-color:var(--accent)"></i>governs &#8212; sets rules the other must follow</div>
+        <div><i style="border-color:var(--s-active)"></i>produces &#8212; writes or feeds the other</div>
+        <div><i style="border-color:var(--ink-3)"></i>depends &#8212; needs the other to make sense</div>
+        <div><i style="border-color:var(--s-progress)"></i>read next &#8212; orientation order</div>
+      </div>
+    </div>`;
+    el.rail.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+      const s = c.dataset.status;
+      if (hiddenStatuses.has(s)) hiddenStatuses.delete(s); else hiddenStatuses.add(s);
+      c.setAttribute('aria-pressed', String(!hiddenStatuses.has(s)));
+      paint();
+      requestAnimationFrame(drawWires);
+    }));
+  }
+}
+
+/* ---------------- progress ---------------- */
+
+function rows(items, opts) {
+  return `<ul class="rows">${items.map(item => `<li>
+    <div class="rowhead">
+      ${item.id ? `<span class="id">${esc(item.id)}</span>` : ''}
+      <span class="t">${esc(item.title)}</span>
+      <span class="st" data-status="${item.status}">${esc(opts.badge(item))}</span>
+    </div>
+    ${opts.sub(item) ? `<div class="rowsub">${opts.sub(item)}</div>` : ''}
+  </li>`).join('')}</ul>`;
+}
+
+function renderProgress() {
+  const P = MAP.progress, r = MAP.repo_stats;
+  const gated = P.gates.length;
+  const cycles = cycleReports().length;
+
+  el.progress.innerHTML = `
+  <section class="state-of-play">
+    <p class="lede">The scaffolding is built and running; the science is at its first result.
+      One lemma is drafted and under review, <em>${gated} decisions are open</em>, and no claim
+      has yet been promoted past <span class="mono">in_progress</span>.</p>
+    <div class="counts">
+      <span class="fact"><b>1 / 7</b>theorem-route results drafted</span>
+      <span class="fact"><b>0 / 6</b>claims supported</span>
+      <span class="fact"><b>1 / 7</b>Bayesian milestones met</span>
+      <span class="fact"><b>${cycles}</b>recorded cycles</span>
+      <span class="fact"><b>${r.commits}</b>commits since ${esc(r.first_commit)}</span>
+    </div>
+  </section>
+
+  <div class="panels">
+    <section class="panel gates">
+      <h2>Open decisions</h2>
+      <p class="blurb">Each of these blocks work by design. The loop is required to stop and ask rather than choose for itself.</p>
+      ${rows(P.gates.map(g => ({ ...g, status: 'gated' })), {
+        badge: () => 'awaiting PI',
+        sub: g => `${esc(g.detail)}<br><span class="gate-where">${esc(g.where)}</span>`,
+      })}
+      ${P.open_issues.map(i => `<p class="rowsub" style="margin-top:12px">Open issue
+        <a href="${esc(i.url)}">#${i.number} &#183; ${esc(i.title)}</a>. ${esc(i.note)}</p>`).join('')}
+    </section>
+
+    <section class="panel">
+      <h2>Proof route</h2>
+      <p class="blurb">From <code>docs/theorem_backlog.md</code>. Status here is a claim about review state, not about truth.</p>
+      ${rows(P.theorems, { badge: t => t.state, sub: t => esc(t.next) })}
+    </section>
+
+    <section class="panel">
+      <h2>Claim register</h2>
+      <p class="blurb">From <code>registries/claim_register.md</code>. The evidence column is what keeps the manuscript honest.</p>
+      ${rows(P.claims, { badge: c => c.evidence, sub: c => `Allowed use: ${esc(c.use)}` })}
+    </section>
+
+    <section class="panel">
+      <h2>Bayesian modelling milestones</h2>
+      <p class="blurb">From <code>docs/hierarchical_bayes_milestones.md</code>. The path from today's GLM proxies to publishable models.</p>
+      <ul class="ladder">${P.milestones.map(m => `<li data-status="${m.status}">
+        <span class="rung"></span>
+        <span class="txt">
+          <span class="rowhead"><span class="id">${esc(m.id)}</span><span class="t">${esc(m.title)}</span></span>
+          <span class="rowsub">${esc(m.note)}</span>
+        </span></li>`).join('')}</ul>
+    </section>
+
+    <section class="panel">
+      <h2>Assumption register</h2>
+      <p class="blurb">From <code>registries/assumption_register.csv</code>. A-006 is the worked example of a gate refusing an assumption.</p>
+      ${rows(P.assumptions, { badge: a => a.decision.replace(/_/g, ' '), sub: a => `${esc(a.track)} track` })}
+    </section>
+
+    <section class="panel">
+      <h2>Cycle history</h2>
+      <p class="blurb">From <code>logs/research_updates/</code>. Every autonomous cycle leaves one of these.</p>
+      <ul class="timeline">${cycleReports()
+        .map(m => {
+          const when = m.label.slice(0, 10);
+          return `<li><span class="when">${esc(when)}</span>
+            <span><span class="t" style="font-size:13.5px;font-weight:500">${esc(m.label.slice(11))}</span>
+            <span class="rowsub">${esc(m.what)}</span></span></li>`;
+        }).join('')}</ul>
+    </section>
+  </div>`;
+}
+
+/* ---------------- views ---------------- */
+
+function setView(next) {
+  view = next;
+  el.shell.dataset.view = next;
+  document.querySelectorAll('.tabs button').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.view === next)));
+  const isProgress = next === 'progress';
+  el.board.hidden = isProgress;
+  el.progress.hidden = !isProgress;
+  if (isProgress && !el.progress.innerHTML) renderProgress();
+  if (!isProgress) { renderRail(); paint(); requestAnimationFrame(drawWires); }
+}
+
+document.querySelectorAll('.tabs button').forEach(b =>
+  b.addEventListener('click', () => setView(b.dataset.view)));
+
+el.search.addEventListener('input', e => {
+  query = e.target.value.trim().toLowerCase();
+  if (query && view === 'progress') setView('map');
+  paint();
+});
+
+let theme = null;
+document.getElementById('theme').addEventListener('click', () => {
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = theme ? theme === 'dark' : systemDark;
+  theme = isDark ? 'light' : 'dark';
+  document.documentElement.dataset.theme = theme;
+  requestAnimationFrame(drawWires);
+});
+
+/* ---------------- init ---------------- */
+
+document.getElementById('brandsub').textContent = `${MAP.repo_stats.tracked} files · ${MAP.project.repo}`;
+document.getElementById('footnote').innerHTML =
+  `Generated from <code>${esc(MAP.repo_stats.generated_from)}</code> by <code>scripts/build_project_map.py</code>. ` +
+  `Descriptions and status live in <code>docs/project_map_data.json</code>; counts and dates come from git. ` +
+  `Rebuild with <code>make project-map</code>.`;
+
+buildBoard();
+renderRail();
+renderDetail();
+select(MAP.tour[0].node, true);
+setView('path');
+window.addEventListener('resize', () => requestAnimationFrame(drawWires));
+requestAnimationFrame(drawWires);
+</script>

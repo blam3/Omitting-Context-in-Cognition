@@ -28,6 +28,10 @@ This is not a free-running agent swarm. It is a controlled research workbench wi
 
 ## Start here
 
+For a visual tour of the repository — every file grouped by workstream, a suggested
+reading order, and what the registries currently say has been established — open
+[`docs/project_map.html`](docs/project_map.html) in a browser. Rebuild it with `make project-map`.
+
 The autonomous researcher should read these files before taking action:
 
 1. [`docs/current_project_context.md`](docs/current_project_context.md) — current theorem, simulation, RAID, and manuscript context.

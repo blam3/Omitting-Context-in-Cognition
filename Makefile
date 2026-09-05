@@ -1,4 +1,4 @@
-.PHONY: setup smoke test simulate-small synthetic-raid validate-update manuscript clean
+.PHONY: setup smoke test simulate-small synthetic-raid validate-update project-map manuscript clean
 
 setup:
 	Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv'); renv::restore(prompt = FALSE)"
@@ -17,6 +17,9 @@ synthetic-raid:
 
 validate-update:
 	python3 scripts/validate_research_update.py logs/research_updates/example_update.json schemas/research_update.schema.json
+
+project-map:
+	python3 scripts/build_project_map.py
 
 manuscript:
 	cd manuscript && latexmk -pdf main.tex
