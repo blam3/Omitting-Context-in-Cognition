@@ -1,15 +1,15 @@
 # OCECM Autonomous Researcher Workbench
 
-This repository is a bounded-autonomy research workbench for the project **Omitting Contextual Factors in Cognitive Models**.
+This repository is a research workbench for the project **Omitting Contextual Factors in Cognitive Models**.
 
 ## Current project thesis
 
-When a contextual variable, such as socioeconomic resources or life-context uncertainty, shapes a latent decision parameter, omitting that contextual factor can change the observed choice law. The resulting residual structure can look like a different, more complex cognitive architecture. A false complex model may therefore beat a simpler context-omitting model in model comparison, even when a simpler context-aware model is the better mechanistic explanation.
+When a contextual variable, such as socioeconomic resources or stressful life events, shapes a latent decision/cognitive parameter, omitting that contextual factor can change the observed choice pattern. The resulting residual structure can look like the result of a different, more complex cognitive model. A false complex model may therefore beat a simpler context-omitting model in model comparison, even when a simpler model that incorporates context is the better mechanistic explanation.
 
 The planned paper combines:
 
 1. a formal theorem package;
-2. Monte Carlo and RAID-calibrated simulations;
+2. Monte Carlo and RAID-calibrated simulations, where RAID is an empirical dataset;
 3. an empirical RAID trial-level decision-under-uncertainty demonstration;
 4. a manuscript/SI package suitable for a high-impact methods-and-cognitive-science submission.
 
