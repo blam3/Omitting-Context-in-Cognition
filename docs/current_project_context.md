@@ -31,22 +31,22 @@ The autonomous researcher should prioritize a publishable constructive theorem b
 
 ### Result 1: omitted-context mixture representation
 
-Let `Y_it` be choice, `X_it` trial features, `Z_i` observed participant covariates, `C_i` omitted context, and `theta_i` a latent decision parameter. If
+Let $Y_{it}$ be choice, $X_it$ trial features, $Z_i$ observed participant covariates, $C_i$ omitted context, and $theta_i$ a latent decision parameter, and $U_i$ represents unobserved individual-level random error/noise. If
 
 ```math
-theta_i = h(Z_i, C_i, U_i)
+\theta_i = h(Z_i, C_i, U_i)
 ```
 
 and choices follow
 
 ```math
-p(Y_it | X_it, theta_i; eta),
+p(Y_{it} | X_{it}, \theta_i; \eta),
 ```
 
 then the analyst who omits `C_i` observes
 
 ```math
-p_0(y | x,z) = int p(y | x, theta; eta*) dF_{theta|X,Z}(theta | x,z).
+p_0(y | x, z) = \int p(y | x, theta; eta*) dF_{\theta|X,Z}(\theta | x, z).
 ```
 
 This is the first theorem object the loop should try to formalize and check.
@@ -56,7 +56,7 @@ This is the first theorem object the loop should try to formalize and check.
 Use the constructive case
 
 ```math
-theta_i = alpha_0 + alpha_1 Z_i + gamma C_i + u_i,
+\theta_i = \alpha_0 + \alpha_1 Z_i + \gamma C_i + u_i,
 ```
 
 with
@@ -68,7 +68,7 @@ C_i | Z_i=z ~ N(m(z), v(z)).
 Then
 
 ```math
-theta_i | Z_i=z ~ N(alpha_0 + alpha_1 z + gamma m(z), sigma_u^2 + gamma^2 v(z)).
+\theta_i | Z_i=z ~ N(\alpha_0 + \alpha_1 z + \gamma m(z), \sigma_u^2 + \gamma^2 v(z)).
 ```
 
 If `v(z)` is nonconstant, omission creates context-dependent latent variance. This is the clean bridge from omitted context to false complexity.
@@ -78,7 +78,7 @@ If `v(z)` is nonconstant, omission creates context-dependent latent variance. Th
 Let `M_S` be the context-omitting simple model and `M_K` be the context-omitting complex model. If
 
 ```math
-inf_{psi in M_K} KL(p_0 || p_psi) < inf_{eta in M_S} KL(p_0 || p_eta),
+inf_{\psi in M_K} KL(p_0 || p_\psi) < \inf_{eta in M_S} KL(p_0 || p_eta),
 ```
 
 then the false complex model has higher asymptotic expected log likelihood than the context-omitting simple model.
@@ -86,12 +86,12 @@ then the false complex model has higher asymptotic expected log likelihood than 
 ### Result 4: predictive-score consequence for LOOIC
 
 Let `G` denote the prespecified unit left out for predictive evaluation, and
-let `elpd_LOO(M)` be the expected log predictive density of model `M` for that
+let `elpd_{LOO(M)}` be the expected log predictive density of model `M` for that
 unit. For the context-omitting simple model `M_S` and the context-omitting
 complex model `M_K`, define
 
 ```math
-Delta_LOO = elpd_LOO(M_K) - elpd_LOO(M_S).
+Delta_{LOO} = elpd_{LOO(M_K)} - elpd_{LOO(M_S)}.
 ```
 
 The target LOOIC consequence is conditional: if `Delta_LOO > 0`, the
@@ -99,7 +99,7 @@ leave-out unit is defined before fitting, and the LOO estimator is valid for
 the fitted model class, then the complex model has lower LOOIC, because
 
 ```math
-LOOIC(M) = -2 elpd_LOO(M).
+LOOIC(M) = -2 elpd_{LOO(M)}.
 ```
 
 This result must be kept distinct from the KL bridge. The theorem draft must
