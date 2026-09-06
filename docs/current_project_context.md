@@ -1,6 +1,6 @@
 # Current Project Context for the Autonomous Researcher
 
-_Last updated: 2026-07-09_
+_Last updated: 2026-09-06_
 
 ## Core thesis
 
@@ -10,7 +10,7 @@ The project is no longer only about biased parameter estimates. The central clai
 
 The target paper should combine three evidence streams:
 
-1. **Formal proof:** omitted context induces mixtures, heteroskedasticity, or nonlinear marginal response laws.
+1. **Formal proof:** omitted context induces mixtures, heteroskedasticity, or nonlinear marginal response distributions.
 2. **Simulation:** under realistic sample sizes and task designs, a false complex model can beat the context-omitting simple model.
 3. **Empirical demonstration:** trial-level RAID decision-under-uncertainty data test whether context-aware simple models change conclusions relative to context-omitting complex models.
 
@@ -29,25 +29,27 @@ Any new theorem assumption, causal claim, primary false-complex model choice, or
 
 The autonomous researcher should prioritize a publishable constructive theorem before attempting a fully general theorem.
 
-### Result 1: omitted-context mixture representation
+### Result 1: Omitted-context mixture representation
 
-Let $Y_{it}$ be choice, $X_it$ trial features, $Z_i$ observed participant covariates, $C_i$ omitted context, and $theta_i$ a latent decision parameter, and $U_i$ represents unobserved individual-level random error/noise. If
+Let $Y_{it}$ be choice, $X_{it}$ trial features, $Z_i$ observed participant covariates, $C_i$ omitted context, $theta_i$ a latent decision parameter, and $U_i$ represents unobserved individual-level random error/noise. If
 
-```math
+$$
 \theta_i = h(Z_i, C_i, U_i)
-```
+$$
 
 and choices follow
 
-```math
-p(Y_{it} | X_{it}, \theta_i; \eta),
-```
+$$
+p(Y_{it} \mid X_{it}, \theta_i; \eta),
+$$
 
-then the analyst who omits `C_i` observes
+then the analyst who omits $C_i$ observes
 
-```math
-p_0(y | x, z) = \int p(y | x, theta; eta*) dF_{\theta|X,Z}(\theta | x, z).
-```
+$$
+p_0(y \mid x, z) = \int p(y \mid x, \theta; \eta*) dF_{\theta \mid X,Z}(\theta \mid x, z).
+$$
+
+where $p_0$ is the probability distribution under the omitted context.
 
 This is the first theorem object the loop should try to formalize and check.
 
@@ -55,55 +57,55 @@ This is the first theorem object the loop should try to formalize and check.
 
 Use the constructive case
 
-```math
+$$
 \theta_i = \alpha_0 + \alpha_1 Z_i + \gamma C_i + u_i,
-```
+$$
 
 with
 
-```math
+$$
 C_i | Z_i=z ~ N(m(z), v(z)).
-```
+$$
 
 Then
 
-```math
+$$
 \theta_i | Z_i=z ~ N(\alpha_0 + \alpha_1 z + \gamma m(z), \sigma_u^2 + \gamma^2 v(z)).
-```
+$$
 
-If `v(z)` is nonconstant, omission creates context-dependent latent variance. This is the clean bridge from omitted context to false complexity.
+If $v(z)$ is nonconstant, omission creates context-dependent latent variance. This is the clean bridge from omitted context to false complexity.
 
 ### Result 3: KL dominance
 
-Let `M_S` be the context-omitting simple model and `M_K` be the context-omitting complex model. If
+Let $M_S$ be the context-omitting simple model and $M_K$ be the context-omitting complex model. If
 
-```math
-inf_{\psi in M_K} KL(p_0 || p_\psi) < \inf_{eta in M_S} KL(p_0 || p_eta),
-```
+$$
+\inf_{\psi \in M_K} \text{KL}(p_0 \mid\mid p_\psi) < \inf_{\eta \in M_S} \text{KL}(p_0 \mid\mid p_\eta),
+$$
 
 then the false complex model has higher asymptotic expected log likelihood than the context-omitting simple model.
 
 ### Result 4: predictive-score consequence for LOOIC
 
-Let `G` denote the prespecified unit left out for predictive evaluation, and
-let `elpd_{LOO(M)}` be the expected log predictive density of model `M` for that
-unit. For the context-omitting simple model `M_S` and the context-omitting
-complex model `M_K`, define
+Let $G$ denote the prespecified unit left out for predictive evaluation, and
+let $elpd_{LOO(M)}$ be the expected log predictive density of model $M$ for that
+unit. For the context-omitting simple model $M_S$ and the context-omitting
+complex model $M_K$, define
 
-```math
+$$
 Delta_{LOO} = elpd_{LOO(M_K)} - elpd_{LOO(M_S)}.
-```
+$$
 
-The target LOOIC consequence is conditional: if `Delta_LOO > 0`, the
+The target LOOIC consequence is conditional: if $Delta_LOO > 0$, the
 leave-out unit is defined before fitting, and the LOO estimator is valid for
 the fitted model class, then the complex model has lower LOOIC, because
 
-```math
+$$
 LOOIC(M) = -2 elpd_{LOO(M)}.
-```
+$$
 
 This result must be kept distinct from the KL bridge. The theorem draft must
-state the target population, whether `G` is a participant or a trial, and the
+state the target population, whether $G$ is a participant or a trial, and the
 regularity conditions connecting its population log predictive density to the
 estimated LOOIC. PSIS Pareto-k diagnostics are an empirical validity check,
 not an assumption that can be silently waived.
@@ -112,12 +114,12 @@ not an assumption that can be silently waived.
 
 For proper, predeclared priors within each candidate model, define
 
-```math
-BF_{K,S} = p(y | M_K) / p(y | M_S).
-```
+$$
+BF_{K,S} = p(y \mid M_K) / p(y \mid M_S).
+$$
 
 The Bayes-factor target is also conditional: a separate result can study when
-the omitted-context mixture leads to `log BF_{K,S} > 0`. It cannot be inferred
+the omitted-context mixture leads to $log BF_{K,S} > 0$. It cannot be inferred
 from KL dominance or from a LOOIC advantage alone. The statement must specify
 the prior families and scales, the marginal-likelihood estimator, and the
 asymptotic regime. Bayes factors answer a model-evidence question under those
@@ -125,19 +127,19 @@ priors; they are not a predictive-score substitute.
 
 ### Result 6: secondary AIC/BIC finite-sample bridge
 
-Let `Delta ell` be expected per-observation log-score advantage of the complex model.
+Let $Delta ell$ be expected per-observation log-score advantage of the complex model.
 
 AIC-like selection favors the false complex model when
 
-```math
+$$
 2 n Delta ell > 2(k_K - k_S).
-```
+$$
 
 BIC-like selection favors it when
 
-```math
+$$
 2 n Delta ell > (k_K - k_S) log n.
-```
+$$
 
 Treat these as secondary threshold corollaries under stated assumptions, not
 universal guarantees. They retain continuity with the fast GLM scaffold but
@@ -147,8 +149,8 @@ are not the primary Bayesian cognitive-modeling endpoint.
 
 Do **not** claim context omission always causes false-complex selection. Explicitly track these null or low-risk cases:
 
-1. `C` has no effect on `theta`.
-2. `C` is independent of relevant observed features and only adds correctly modeled iid noise.
+1. $C$ has no effect on $\theta$.
+2. $C$ is independent of relevant observed features and only adds correctly modeled iid noise.
 3. The simple model already contains sufficient random-effect structure to represent the marginal law.
 4. The complex model does not approximate the omitted-context mixture better than the simple model.
 5. The LOO target is poorly aligned with the scientific generalization target,
