@@ -1,4 +1,4 @@
-.PHONY: setup smoke test simulate-small synthetic-raid validate-update manuscript clean
+.PHONY: setup smoke test simulate-small synthetic-raid score-screen validate-update manuscript clean
 
 setup:
 	Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv'); renv::restore(prompt = FALSE)"
@@ -23,3 +23,6 @@ manuscript:
 
 clean:
 	rm -rf results cache logs/tmp tmp manuscript/*.aux manuscript/*.bbl manuscript/*.blg manuscript/*.fdb_latexmk manuscript/*.fls manuscript/*.out
+
+score-screen:
+	Rscript R/run_score_screen.R --n 40 --trials 40 --replications 20 --seed 20260901

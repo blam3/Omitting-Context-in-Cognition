@@ -17,13 +17,14 @@ that a theorem has been proved or accepted for manuscript use.
 
 | ID | Result | Claim | Assumptions | Status | Next proof action |
 |---|---|---|---|---|---|
-| T-001 | Omitted-context conditional mixture representation | C-002 | A-001, A-002, regular conditional distribution regularity stated in the draft | proof-critic-review | Proof Critic reviews Lemma 1.1 with `F_{Theta | X,Z}` as primary. |
+| T-001 | Omitted-context conditional mixture representation | C-002 | A-001, A-002, regular conditional distribution regularity stated in the draft | proof-critic-review | Review received (`docs/proofs/reviews/L1_mixture_lemma_claude_review.md`, verdict REVISE). Apply edits E1-E8 after PI decisions on the A-001 sharpening and on serial choice-noise independence. |
 | T-002 | Fixed or exogenous trial-design corollary | C-002 | Same as T-001 plus fixed-design or conditional-independence condition; A-006 remains rejected as a primary assumption | decision-gated | Keep as corollary only; do not promote to primary theorem statement without PI direction. |
 | T-003 | Gaussian constructive heterogeneity result | C-003 | A-003 | decision-gated | Wait for PI/theorem review before treating A-003 as the primary formal theorem assumption. |
-| T-004 | KL dominance bridge | C-004 | Model-class and pseudo-true-risk assumptions still to be drafted | backlog | Draft exact model classes, target law, and KL comparison criterion. |
+| T-004 | KL dominance bridge | C-004 | Lemma 1.1 at a declared unit; proposed A-009 for a common comparison unit and design distribution; proposed A-010 for kernel non-degeneracy | proof-draft | Review `docs/proofs/L3_kl_dominance.md`. Obtain the PI decision on whether `M_K` nests `M_S`, since under nesting the sign of the KL gap carries no OCECM content (Proposition L3.3). |
 | T-005 | LOO expected-predictive-score / LOOIC consequence | C-004 | T-004 plus a declared leave-out unit, population predictive target, and LOO regularity conditions | decision-gated | PI selects the primary leave-out unit; then draft a conditional result linking a positive predictive-score gap to lower LOOIC. |
 | T-006 | Bayes-factor consequence under declared priors | C-004 | Proper prior families, prior scales, marginal-likelihood definition, and an explicit asymptotic regime | decision-gated | Do not infer this result from KL or LOOIC. Open a prior-and-estimator decision before writing the statement. |
-| T-007 | AIC/BIC finite-sample threshold corollaries | C-004 | T-004 plus explicit sample-size and parameter-count conditions | backlog | Keep as secondary bridge corollaries; formalize conditional thresholds only. |
+| T-007 | AIC/BIC finite-sample threshold corollaries | C-004 | T-004 plus explicit sample-size and parameter-count conditions | backlog | Keep as secondary bridge corollaries; formalize conditional thresholds only. Corollary L3.5 fixes `Delta ell` as `delta_S - delta_K` at the declared unit and requires `n` to count units of that declared type. |
+| T-008 | Context-aware versus false-complex contrast | C-001, C-004 | To be drafted; presupposes T-004 | backlog | Proposed by the L3 draft (CE-2): the theorem route compares `M_S` with `M_K` only, while claim C-001 and the second contrast in `docs/bayesian_comparison_plan.md` require `M_{S+C}` versus `M_K`. Opening this item needs PI direction. |
 
 ## Boundary Conditions To Preserve
 

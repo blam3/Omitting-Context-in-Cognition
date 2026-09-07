@@ -42,12 +42,48 @@ fit_glm_binomial <- function(formula, dat, model_name) {
   )
 }
 
+# Candidate-model formulas.
+#
+# The formulas are exposed as functions rather than written inline in each
+# fitting wrapper so that the score screen in R/score_screen.R evaluates the
+# same model classes the loop actually fits. Proposition L3.4 of
+# docs/proofs/L3_kl_dominance.md is a statement about M_S embedded in M_K; if
+# the screen and the fits could drift apart, the screened quantity would no
+# longer be the score of the fitted complex model.
+
+simple_omitted_context_formula <- function() {
+  # `ambiguous_value` is part of M_S by PI decision on 2026-09-01. The DGM sets
+  # sv_true = risky_value + theta * ambiguous_value, so the term is true rather
+  # than false complexity; leaving it out of M_S made the complex-versus-simple
+  # contrast conflate recovering a true main effect with false complexity. With
+  # it retained here, M_K's extra block is exactly the condition, colour, and
+  # nonlinear-ambiguity terms that A-004 designates as absorbers.
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ref_side
+}
+
+complex_omitted_context_formula <- function() {
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ambiguity_sq_value + condition + color_cue + ref_side
+}
+
+simple_contextual_formula <- function() {
+  # Carries the same `ambiguous_value` main effect as M_S. The model ladder
+  # defines M2 as M1 plus context terms, so omitting the main effect here while
+  # M_S retains it would leave the context-aware reference strictly worse
+  # specified than its own baseline and would make the context-versus-complex
+  # comparison incoherent. It also restores the usual pairing of an interaction
+  # with its main effect, since ses_ambiguous_value is ses * ambiguous_value.
+  choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
+    ses + ses_ambiguous_value + ref_side
+}
+
 fit_simple_omitted_context <- function(dat) {
   dat <- prepare_proxy_features(dat)
 
   # One-parameter-style ambiguity-value proxy with no contextual predictors.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ref_side,
+    simple_omitted_context_formula(),
     dat = dat,
     model_name = "simple_omitted_context"
   )
@@ -59,9 +95,14 @@ fit_complex_omitted_context <- function(dat) {
   # Psychologically plausible but false complexity in the current DGM: condition,
   # color/source cues, and nonlinear ambiguity can absorb context-induced
   # residual structure even though no true source/color mechanism generated it.
+  #
+  # The L3.4 score screen found on 2026-09-01 that `ambiguous_value` is a true
+  # term rather than an absorber, and the PI moved it into M_S the same day. The
+  # extra block relative to M_S is now exactly the condition, colour, and
+  # nonlinear-ambiguity terms A-004 covers, so a complex-versus-simple win here
+  # no longer conflates true-term recovery with false complexity.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
-      ambiguity_sq_value + condition + color_cue + ref_side,
+    complex_omitted_context_formula(),
     dat = dat,
     model_name = "complex_omitted_context"
   )
@@ -74,8 +115,7 @@ fit_simple_contextual_true_family <- function(dat) {
   # SES shift the latent ambiguity-aversion contribution without adding a new
   # cognitive architecture.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ses +
-      ses_ambiguous_value + ref_side,
+    simple_contextual_formula(),
     dat = dat,
     model_name = "simple_contextual_reference"
   )
