@@ -18,3 +18,29 @@ Rationale: Issue #4 proposes the simplified `theta | Z` mixture display, but
 the direct conditional law of total probability gives a mixture over
 `theta | X,Z`. The simplified display is appropriate only under a fixed-design
 convention or conditional trial-design exogeneity.
+
+## A-007 Conditional context-disturbance orthogonality
+
+Status: proposed; decision needed from PI/theorem review.
+
+Conditional context-disturbance orthogonality: Cov(C_i, u_i | Z_i) = 0 almost
+surely. Conditional independence of C_i and u_i given Z_i is a stronger
+sufficient condition but is not required for the moment lemma.
+
+Rationale: The L2 conditional variance is
+`gamma^2 v(z) + sigma_u^2 + 2 gamma Cov(C_i, u_i | Z_i=z)`. The requested
+two-term formula therefore needs this minimal orthogonality condition (or the
+stronger conditional-independence alternative).
+
+## A-008 Conditional joint Gaussianity for distributional corollary
+
+Status: proposed; decision needed from PI/theorem review.
+
+Conditional joint Gaussianity for the distributional corollary: for
+P_{Z_i}-almost every z, (C_i, u_i) conditional on Z_i=z is bivariate normal.
+This assumption is used only for the Gaussian distribution corollary, not for
+the moment lemma.
+
+Rationale: Conditional zero covariance proves the moment identity but not a
+Gaussian conditional law for theta_i. Conditional joint Gaussianity, together
+with A-003 and A-007, makes the affine-sum distributional conclusion valid.
