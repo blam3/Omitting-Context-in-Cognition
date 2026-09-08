@@ -1,6 +1,87 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-09 proof-critic: counterexample search against Theorem T-004 proper
+
+Date: 2026-09-09
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: proof-critic pass (counterexample search), at PI request
+Theorem or lemma: Theorem T-004 (compactness / lower-semicontinuity argument),
+  Theorem T-004' (score-condition variant)
+Claim registry ID: C-004
+Assumptions used: A-001, A-002, A-003, A-007, A-008, A-009
+
+RESULT: NO COUNTEREXAMPLE TO THEOREM T-004. Every step was checked and holds:
+  c < infinity via beta_S = (0,0,0); no coordinate of the limit at 0 or 1 (else
+  q_j * d diverges, contradicting a bounded minimising sequence); continuity on
+  (0,1)^J; the limit lies in closure(M_S) as T-004b defines it; and KL = 0 iff
+  equality at every design point, which needs q_j > 0 for all j, supplied by
+  A-008.
+
+Probe A - condition (i) is NECESSARY, not decorative. For p_0 in
+  closure(M_S)\M_S the divergence decays like s^-2 to zero
+  (6.18e-4, 1.74e-5, 1.90e-7, 1.91e-9, 1.91e-11 for (c0,rho)=(0.5,1.3)), so the
+  infimum is 0 and the conclusion c > 0 fails outright. Reproduced independently
+  in R and Python to identical values. This vindicates the proof's decision to
+  work in closure(M_S) rather than assume a minimiser exists in M_S.
+
+Probe B/C - interiority and uniqueness hold for the studied family but are NOT
+  implied. The M_S minimiser is interior and unique for all four cases of T-004
+  section 5 (s^2 in [0.97, 1.21], parameter spread below 1e-6 over 60 restarts);
+  case D recovers the generating parameters exactly. A 58-configuration scan
+  found no case with s^2 > 1e3 (largest 578.6). BUT condition (i) does NOT
+  logically imply interiority: T-004's proof places the minimiser only in
+  closure(M_S) = M_S union D, and Probe A exhibits a p_0 whose minimiser sits in
+  D, i.e. at s = infinity, where no pseudo-true parameter exists in the
+  parameter space at all. So T-004' interiority/uniqueness and T-007b (P1) are
+  INDEPENDENT assumptions, empirically satisfied here but not derivable from
+  T-004's hypotheses. This resolves the T-004'/T-007c tension flagged in the
+  previous pass: the documents are consistent, but only because the assumption
+  is separate, and neither said so.
+
+Probe D - the premise never fails, but the content degrades. p_0 is a convex
+  combination of Phi values so p_0 in (0,1)^J always holds. The gap however
+  collapses toward the boundary (6.9e-6, 4.1e-8, 3.6e-12, 4.2e-17 as b_0 rises),
+  so condition (i) can hold while c is numerically indistinguishable from zero.
+  Compounds the effect-size caveat of T-004 section 6.
+
+Probe E - the two hypotheses are asymmetric. Condition (ii) is attainment (KL
+  exactly 0 at an interior parameter point, w = 1/2); condition (i) concerns an
+  infimum that may lie in the closure. Section 3 read as though they were the
+  same kind of object.
+
+NEW HARNESS DEFECT (found while running Probe D, in code CI was passing).
+  kl_design() clipped the model probability p but not the target p0, so a
+  saturated p0 gave 0 * log(0/x) = 0 * -Inf = NaN. Because max(NaN, 0) is NaN in
+  R, inf_kl() propagated it SILENTLY rather than erroring. Reachable: Phi(x) == 1
+  in float64 for x >~ 8.3, which the heterogeneity scan of section 6 can hit.
+
+Repairs applied (commit 2876a28):
+  1. T-004 section 3: remarks recording that (i) is necessary (with the decay
+     table) and that (i) and (ii) are asymmetric.
+  2. T-004' and T-007b section 2: interiority/uniqueness stated as independent
+     assumptions, with the failure mode named and the two documents
+     cross-referenced; T-007 section 4 gains the corresponding boundary row.
+  3. kl_design() guards both arguments with the 0 log 0 = 0 convention, checks
+     lengths, and stops on a non-finite result; inf_kl() ignores non-finite fits
+     and errors if none is finite.
+  4. Four regression tests: the p0 saturation guard, the necessity of condition
+     (i) including its s^-2 rate, interiority/uniqueness on the table cases with
+     exact parameter recovery for case D, and the boundary gap collapse.
+
+Note on the repair itself: the first draft of the necessity test passed sqrt(s)
+  where m_s_predict expects the pre-squared scale, so the sequence had variance s
+  against slope rho*s and the KL rose instead of decaying. The test caught it;
+  after the fix R reproduces the Python figures exactly.
+
+Unsupported steps: unchanged. T-003, T-007 and T-001 have not had a critic pass.
+  T-007b's proof remains a citation to White and Vuong, both still unverified in
+  docs/citation_claim_map.csv.
+
+Reviewer-2 critique: Pending.
+Decision: revise (applied). T-004 remains proof-draft, not accepted.
+Next action: proof-critic pass on T-003, then T-007, then T-001.
+
 ## 2026-09-09 proof-critic: counterexample search against Lemma T-004b
 
 Date: 2026-09-09
