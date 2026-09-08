@@ -66,15 +66,22 @@ $$\widehat{\mathrm{elpd}}^{G}_{M_K} - \widehat{\mathrm{elpd}}^{G}_{M_S}
 \ =\ n\,\Delta\ell^{*} \ -\ \big(p_{\mathrm{loo}}(M_K) - p_{\mathrm{loo}}(M_S)\big)
 \ +\ O_p(\sqrt{n}),$$
 
-where `p_{\mathrm{loo}}(M) = n\,\hat\ell_n(M) - \widehat{\mathrm{elpd}}^{G}_{M}` is the
-effective number of parameters. Consequently
+where, writing
+`\widehat{\mathrm{lpd}}(M) = \sum_j \log p_M(y_j \mid y_{1:n})` for the in-sample
+log pointwise predictive density,
+`p_{\mathrm{loo}}(M) = \widehat{\mathrm{lpd}}(M) - \widehat{\mathrm{elpd}}^{G}_{M}`
+is the effective number of parameters. (`\widehat{\mathrm{lpd}}` is the Bayesian
+posterior predictive quantity, not the maximised log-likelihood
+`n\,\hat\ell_n`; the two differ by `O_p(1)`, which is the same order as
+`p_{\mathrm{loo}}` itself and so may not be conflated.) Consequently
 
 $$P\big( \mathrm{LOOIC}(M_K) < \mathrm{LOOIC}(M_S) \big) \ \longrightarrow\ 1 .$$
 
 **Proof sketch.** The leave-one-out predictive density admits the expansion
-`\log p_M(y_j \mid y_{-j}) = \log p_M(y_j \mid \hat\beta_M) - c_j/n + o_p(1/n)`
-where `\sum_j c_j \to p_{\mathrm{loo}}(M)`; summing over `j` gives
-`\widehat{\mathrm{elpd}}^{G}_{M} = n \hat\ell_n(M) - p_{\mathrm{loo}}(M) + o_p(1)`.
+`\log p_M(y_j \mid y_{-j}) = \log p_M(y_j \mid y_{1:n}) - c_j + o_p(1/n)` with
+`\sum_j c_j \to p_{\mathrm{loo}}(M)`; summing over `j` gives
+`\widehat{\mathrm{elpd}}^{G}_{M} = \widehat{\mathrm{lpd}}(M) - p_{\mathrm{loo}}(M) + o_p(1)`,
+and `\widehat{\mathrm{lpd}}(M) = n\,\hat\ell_n(M) + O_p(1)`.
 Differencing the two models and applying the law of large numbers to
 `\hat\ell_n(M_K) - \hat\ell_n(M_S) \to_p \Delta\ell^{*}` (valid under R2–R3)
 gives the display. The penalty difference is `O_p(1)` while `n\Delta\ell^{*}`

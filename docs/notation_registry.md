@@ -100,6 +100,7 @@ Binding rules:
 | `G` | prespecified leave-out unit. **Bound to: a single trial** (approval 2026-09-08) |
 | `\mathrm{elpd}^{G}_{M}` | expected log predictive density of model `M` for unit `G` |
 | `\widehat{\mathrm{elpd}}^{G}_{M}` | its PSIS-LOO estimator |
+| `\widehat{\mathrm{lpd}}(M)` | in-sample log pointwise predictive density, `\sum_j \log p_M(y_j \mid y_{1:n})`. **Not** the maximised log-likelihood `n\hat\ell_n`: they differ by `O_p(1)`, the same order as `p_{\mathrm{loo}}` |
 | `\mathrm{LOOIC}(M)` | `-2\,\mathrm{elpd}^{G}_{M}` |
 | `p_{\mathrm{loo}}` | effective number of parameters; the **only** admissible complexity measure for `M_K` |
 | `\hat k` | Pareto shape diagnostic of PSIS |
