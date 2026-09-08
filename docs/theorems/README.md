@@ -17,6 +17,16 @@ gates**; every result is blocked on proof-critic review instead. See
 `../theorem_backlog.md` for the route, `../approval_log.md` for the decisions,
 and `../../loops/proof_loop.md` for the four-part gate into the supplement.
 
+## Citations are unverified
+
+The results here cite standard sources by name (White; Vuong; Takeuchi; Kleijn
+and van der Vaart; Watanabe; Chernoff; Self and Liang; Vehtari and colleagues;
+Meng and Wong). Every one is recorded in `../citation_claim_map.csv` with status
+`unverified` — no DOI has been confirmed. Under
+`../literature_verification_policy.md` they may not enter the manuscript in that
+state. Verifying them is a prerequisite for any of these results reaching the
+supplement, alongside proof-critic review.
+
 ## The `theorem-meta` block
 
 ```
