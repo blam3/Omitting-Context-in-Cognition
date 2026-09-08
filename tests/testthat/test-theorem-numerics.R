@@ -161,3 +161,81 @@ test_that("T-004 condition (i) holds for the table cases via BOTH branches", {
   p_bd <- p0_mixture(A_DESIGN, B0, c(1.2, 1.2), c(0.8, 0.8), c(0.5, 0.5))
   expect_true(closure_membership(p_bd, A_DESIGN)$in_closure)
 })
+
+test_that("kl_design guards a saturated p0 with the 0 log 0 = 0 convention", {
+  # Proof-critic review 2026-09-09. The earlier version clipped only the model
+  # probability, so a p0 saturated at 0 or 1 gave 0 * log(0/x) = NaN -- and
+  # max(NaN, 0) is NaN in R, so inf_kl propagated it SILENTLY. Phi(x) == 1 in
+  # float64 for x >~ 8.3, which the T-004 section 6 heterogeneity scan can hit.
+  q <- rep(0.2, 5); p <- rep(0.5, 5)
+  expect_true(is.finite(kl_design(c(1, .9, .8, .7, .6), p, q)))
+  expect_true(is.finite(kl_design(c(0, .1, .2, .3, .4), p, q)))
+  # symmetric saturation gives the same divergence against a flat model
+  expect_equal(kl_design(c(1, .9, .8, .7, .6), p, q),
+               kl_design(c(0, .1, .2, .3, .4), p, q), tolerance = 1e-12)
+  # a genuinely broken input must fail loudly, not drift through an optimiser
+  expect_error(kl_design(c(NA, .9, .8, .7, .6), p, q))
+  expect_error(kl_design(c(.5, .5), p, q))          # length mismatch
+})
+
+test_that("T-004: condition (i) is necessary -- KL to M_S vanishes without it", {
+  # p0 in closure(M_S) \ M_S (rho != c0): the divergence decays like s^-2 to
+  # zero, so inf KL over M_S is 0 and T-004's conclusion c > 0 fails. This is
+  # what makes condition (i) load-bearing rather than decorative.
+  c0 <- 0.5; rho <- 1.3
+  p0 <- pnorm(ifelse(A_DESIGN > 0, rho, c0))
+  kls <- vapply(10^(1:5), function(s) {
+    # m_s_predict squares its third argument, so pass s (variance s^2) to
+    # match the sequence beta^(n) = (c0, rho*s, s^2) of Lemma T-004b.
+    kl_design(p0, m_s_predict(c(c0, rho * s, s), A_DESIGN), Q_DESIGN)
+  }, numeric(1))
+  expect_true(all(diff(kls) < 0))                   # strictly decreasing
+  expect_lt(kls[length(kls)], 1e-10)                # -> 0
+  expect_true(all(kls > 0))                         # never attained
+  expect_lt(abs(log10(kls[2] / kls[3]) - 2), 0.3)   # s^-2 rate
+  # and p0 is genuinely in the closure, via branch (b)
+  expect_true(closure_membership(p0, A_DESIGN)$in_closure)
+})
+
+test_that("T-004': the M_S minimiser is interior and unique for the table cases", {
+  # T-004' and T-007b (P1) assume this; it does NOT follow from condition (i)
+  # (see the preceding test, where no minimiser exists in M_S at all). Guarding
+  # it keeps the empirical claim in T-004 section 3 honest.
+  fit_S <- function(p0, restarts = 40, seed = 5) {
+    set.seed(seed)
+    best <- list(value = Inf, par = NULL)
+    for (i in seq_len(restarts)) {
+      f <- try(optim(rnorm(3, 0, 2.5),
+                     function(par) kl_design(p0, m_s_predict(par, A_DESIGN), Q_DESIGN),
+                     method = "Nelder-Mead",
+                     control = list(maxit = 20000, reltol = 1e-14)), silent = TRUE)
+      if (!inherits(f, "try-error") && is.finite(f$value) && f$value < best$value) best <- f
+    }
+    best
+  }
+  # boundary case D must recover the generating parameters exactly
+  p_bd <- p0_mixture(A_DESIGN, B0, c(1.2, 1.2), c(0.8, 0.8), c(0.5, 0.5))
+  fd <- fit_S(p_bd)
+  expect_equal(fd$par[1], B0, tolerance = 1e-3)
+  expect_equal(fd$par[2], 1.2, tolerance = 1e-3)
+  expect_equal(fd$par[3]^2, 0.8, tolerance = 1e-3)
+  # and the heterogeneous cases have a finite, interior s^2 (not drifting to Inf)
+  for (cs in list(list(mu = c(0.6, 1.8), s2 = c(0.2, 2.5)),
+                  list(mu = c(1.2, 1.2), s2 = c(0.2, 2.5)))) {
+    f <- fit_S(p0_mixture(A_DESIGN, B0, cs$mu, cs$s2, c(0.5, 0.5)))
+    expect_lt(f$par[3]^2, 1e3)
+    expect_gt(f$par[3]^2, 1e-3)
+  }
+})
+
+test_that("T-004: the KL gap collapses as p0 approaches the boundary", {
+  # Mathematically p0 is always in (0,1)^J so the premise never fails, but the
+  # gap shrinks toward zero near the boundary: condition (i) can hold while c is
+  # numerically indistinguishable from 0. This compounds the section 6 caveat.
+  gaps <- vapply(c(0.3, 3.0, 6.0), function(b0) {
+    p0 <- p0_mixture(A_DESIGN, b0, c(0.6, 1.8), c(0.2, 2.5), c(0.5, 0.5))
+    inf_kl(p0, A_DESIGN, Q_DESIGN, m_s_predict, 3, restarts = 60)
+  }, numeric(1))
+  expect_true(all(diff(gaps) < 0))                  # monotone collapse
+  expect_gt(gaps[1] / gaps[length(gaps)], 1e3)      # by orders of magnitude
+})

@@ -31,9 +31,26 @@ p_cell_mc <- function(a, b0, mu, sigma2, draws = 2e5, seed = 1) {
 
 # --- divergence and model classes ------------------------------------------
 
+# Design-averaged Bernoulli KL.
+#
+# Both arguments are guarded, and the 0 log 0 = 0 convention is applied
+# explicitly. The earlier version clipped only the model probability `p`, so a
+# target `p0` saturated at 0 or 1 produced 0 * log(0 / x) = 0 * -Inf = NaN --
+# and because max(NaN, 0) is NaN in R, inf_kl() propagated it SILENTLY instead
+# of erroring. That is reachable: Phi(x) == 1 in float64 for x >~ 8.3, which the
+# heterogeneity scan of T-004 section 6 can hit. Found in proof-critic review
+# (2026-09-09).
 kl_design <- function(p0, p, q) {
-  p <- pmin(pmax(p, 1e-12), 1 - 1e-12)
-  sum(q * (p0 * log(p0 / p) + (1 - p0) * log((1 - p0) / (1 - p))))
+  stopifnot(length(p0) == length(p), length(p0) == length(q))
+  eps <- 1e-12
+  p <- pmin(pmax(p, eps), 1 - eps)
+  p0 <- pmin(pmax(p0, eps), 1 - eps)
+  out <- sum(q * (p0 * log(p0 / p) + (1 - p0) * log((1 - p0) / (1 - p))))
+  # Fail loudly rather than let a non-finite value drift through an optimiser.
+  if (!is.finite(out)) {
+    stop("kl_design produced a non-finite value; check p0 and p for saturation")
+  }
+  out
 }
 
 # M_S: three-parameter Gaussian random-ambiguity-sensitivity probit (A-009).
@@ -59,8 +76,11 @@ inf_kl <- function(p0, a, q, predict_fn, n_par, restarts = 40, seed = 7) {
     fit <- try(optim(start, function(par) kl_design(p0, predict_fn(par, a), q),
                      method = "Nelder-Mead",
                      control = list(maxit = 20000, reltol = 1e-14)), silent = TRUE)
-    if (!inherits(fit, "try-error")) best <- min(best, fit$value)
+    if (!inherits(fit, "try-error") && is.finite(fit$value)) {
+      best <- min(best, fit$value)
+    }
   }
+  if (!is.finite(best)) stop("inf_kl found no finite fit; check p0 for saturation")
   max(best, 0)
 }
 
@@ -95,8 +115,11 @@ affine_residual <- function(p0, a, restarts = 40, seed = 11) {
   best <- Inf
   for (i in seq_len(restarts)) {
     fit <- try(optim(rnorm(1, 0, 1.5), obj, method = "BFGS"), silent = TRUE)
-    if (!inherits(fit, "try-error")) best <- min(best, fit$value)
+    if (!inherits(fit, "try-error") && is.finite(fit$value)) {
+      best <- min(best, fit$value)
+    }
   }
+  if (!is.finite(best)) stop("inf_kl found no finite fit; check p0 for saturation")
   max(best, 0)
 }
 

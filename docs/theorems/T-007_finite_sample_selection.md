@@ -72,6 +72,28 @@ assume in addition:
   - \log p_{\beta_S^{\circ}}(Y \mid X) \big) > 0`;
 - **(P4)** standard M-estimation regularity (dominating envelopes, Donsker class).
 
+**(P1) and (P2) are independent of T-004's hypotheses — they do not come for
+free.** This is worth stating because §3 below argues that they *fail* for `M_K`,
+and a reader may reasonably ask how T-004 can hold while they fail. The two are
+consistent, as follows.
+
+T-004's condition (i) is `p_0 \notin \bar M_S`. Its proof locates the `M_S`
+minimiser in `\bar M_S = M_S \cup D` and does **not** place it in `M_S`. So even
+under T-004's hypotheses there may be no pseudo-true parameter for `M_S` in the
+parameter space at all — `T-004_kl_dominance.md` §3 exhibits a `p_0` for which
+the minimiser sits in the degenerate family `D`, i.e. at `s = \infty`. (P1) is
+therefore an assumption T-007b adds, not one it inherits.
+
+For `M_K` the failure is different in kind and not repairable by assumption:
+`M_K` is singular, so (P2) fails on a set of parameter values that includes the
+pseudo-true point under boundary conditions 1–3. T-007b is stated for the
+regular case precisely so that §3 can say what happens outside it.
+
+Empirically both hold for the omitted-context mixture family this project
+studies — the `M_S` minimiser is interior and unique across all cases in
+`T-004_kl_dominance.md` §5 and a 58-configuration scan. That is evidence, not
+proof, and it must be rechecked when the model family or design changes.
+
 Then
 
 $$\frac{D_n}{n} \ \xrightarrow{\ p\ } \ \Delta\ell^{*}, \qquad
@@ -182,6 +204,7 @@ C-004.
 | `\Delta\ell^{*} = 0` (T-004 boundary conditions 1–4) | `D_n = O_p(1)`; AIC/BIC both favour `M_S` eventually; no crossover exists |
 | `\omega^2 = 0` | the CLT in T-007b degenerates; `D_n` has a chi-squared-type limit and T-007b' does not apply |
 | pseudo-true parameter on the boundary | T-007b does not apply at all; only T-007c governs |
+| no pseudo-true parameter in `M_S` (minimiser in `D`, i.e. `s = \infty`) | (P1) fails; T-007b does not apply. Possible even under T-004's hypotheses — see §2 |
 | `n` below the T-007b' crossover | penalties dominate; this is boundary condition 5, now quantitative |
 
 ## 5. Numerical verification

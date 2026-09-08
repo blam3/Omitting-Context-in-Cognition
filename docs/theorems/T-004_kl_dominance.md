@@ -214,6 +214,27 @@ The proof is short because the work was moved into Lemma T-004b: the only
 subtlety is that `M_S` is not closed, and a naive argument that infers
 `\inf > 0` from pointwise positivity is wrong.
 
+**Remark (the two hypotheses are not the same kind of object).** Condition (ii)
+is **attainment**: `p_0` is a member of `M_K`, so the left infimum is achieved at
+a parameter point, not merely approached. Condition (i) concerns an
+**infimum that may lie in the closure**: the proof locates the `M_S` minimiser in
+`\bar{M}_S = M_S \cup D`, and does not claim it lies in `M_S`. The asymmetry is
+real and is why the proof is phrased in terms of `\bar{M}_S` throughout.
+
+**Remark (condition (i) is necessary, not decorative).** If `p_0 \in \bar M_S`
+the conclusion fails outright. Taking `p_0 \in D` with `\rho \ne c_0` — so
+`p_0 \notin M_S`, yet `p_0 \in \bar M_S` — the divergence along
+`\beta^{(n)} = (c_0, \rho s, s)` decays like `s^{-2}` to zero:
+
+| `(c_0, \rho)` | `s = 10` | `10^2` | `10^3` | `10^4` | `10^5` | `10^6` |
+|---|---|---|---|---|---|---|
+| `(0.5, 1.3)` | `6.18\times10^{-4}` | `1.74\times10^{-5}` | `1.90\times10^{-7}` | `1.91\times10^{-9}` | `1.91\times10^{-11}` | `1.91\times10^{-13}` |
+| `(-1.0, 0.6)` | `1.40\times10^{-2}` | `1.30\times10^{-4}` | `1.27\times10^{-6}` | `1.27\times10^{-8}` | `1.27\times10^{-10}` | `1.27\times10^{-12}` |
+
+so `\inf_{M_S} \mathrm{KL}_Q = 0` and `c > 0` is false. Note this also exhibits a
+`p_0` for which the `M_S` infimum is **not attained in `M_S` at all** — the
+minimiser sits in `D`. That matters for T-004' and T-007b; see the next remark.
+
 **Theorem T-004' (strict improvement without containment).** Drop (ii) and
 assume instead that `M_S \subset M_K` with `M_K` parameterised as
 `(\beta_S, \beta_2)` with `\beta_2 = 0` recovering `M_S`, that
@@ -233,6 +254,33 @@ at `(\beta_S^{\circ}, 0)` equals `\inf_{M_S}`. `\square`
 This is the version that applies to `M_K^{\mathrm{flex}}`, which does not contain
 `p_0`. The score condition is a computable integral, not an assumption about the
 conclusion.
+
+**Remark (uniqueness and interiority of `\beta_S^{\circ}` are INDEPENDENT
+assumptions).** They do not follow from condition (i), and the point is easy to
+miss. Theorem T-004's proof places the `M_S` minimiser in
+`\bar{M}_S = M_S \cup D` and nothing rules out its landing in `D`, where there is
+no `\beta_S^{\circ}` in the parameter space at all — the preceding remark exhibits
+exactly such a `p_0`. So `p_0 \notin \bar M_S` does **not** imply that a
+pseudo-true parameter for `M_S` exists, is unique, or is interior. T-004' assumes
+all three separately, and so does T-007b via its condition (P1); see
+`T-007_finite_sample_selection.md` §2, which records the same caveat from the
+other side.
+
+Empirically the assumption holds across the omitted-context mixture family. For
+the four cases of §5 the minimiser is interior and unique, recovered to a
+parameter spread below `10^{-6}` over 60 restarts:
+
+| Case | `\hat\beta_0` | `\hat\beta_1` | `\hat s^2` |
+|---|---|---|---|
+| A mean + variance | `0.3024` | `1.1177` | `1.207` |
+| B variance only | `0.3011` | `1.1607` | `0.970` |
+| C mean only | `0.2999` | `1.2034` | `1.191` |
+| D boundary | `0.3000` | `1.2000` | `0.800` |
+
+Case D recovers the generating parameters exactly, as it must. A scan of 58
+further mixture configurations found no case with `\hat s^2 > 10^3` (largest
+observed: `578.6`). This is evidence, not proof: the assumption should be
+checked, not assumed, whenever the model family or design changes.
 
 ## 4. Exactly when the inequality fails — the sharp boundary result
 
