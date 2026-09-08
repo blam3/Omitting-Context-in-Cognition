@@ -1,4 +1,4 @@
-import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.Real.Sqrt
 
 /-!
 # Lemma T-004a, algebraic core
@@ -47,11 +47,10 @@ theorem mem_M_S_iff_affine_after_rescaling
   · intro h a
     have hne : Real.sqrt (1 + s2 * a ^ 2) ≠ 0 := (attenuation_sqrt_pos hs).ne'
     rw [h a]
-    field_simp
+    exact div_mul_cancel₀ _ hne
   · intro h a
     have hne : Real.sqrt (1 + s2 * a ^ 2) ≠ 0 := (attenuation_sqrt_pos hs).ne'
-    rw [eq_div_iff hne]
-    exact h a
+    exact (eq_div_iff hne).mpr (h a)
 
 /--
 The boundary case `s² = 0`: with no attenuation the criterion degenerates to
