@@ -21,11 +21,11 @@ that a theorem has been proved or accepted for manuscript use.
 |---|---|---|---|---|---|
 | T-001 | Omitted-context conditional mixture representation | C-002 | A-001, A-002, regular conditional distribution regularity stated in the draft | proof-critic-review | Proof Critic reviews Lemma 1.1 with `F_{Theta | X,Z}` as primary. |
 | T-002 | Fixed or exogenous trial-design corollary | C-002 | Same as T-001 plus fixed-design or conditional-independence condition; A-006 remains rejected as a primary assumption | corollary-only (D-005) | Settled by D-005: stays a corollary. Not reopenable by an agent. |
-| T-003 | Gaussian constructive heterogeneity result | C-003 | A-001, A-002, A-003 | statement-draft | A-003 approved by D-001. Proof critic reviews `docs/theorems/T-003_gaussian_constructive.md`, including the sharp iff in Corollary T-003a. |
-| T-004 | KL dominance bridge | C-004 | A-001, A-002, A-003, A-007, A-008, A-009 | statement-draft | Statement rewritten to be non-circular (`docs/theorems/T-004_kl_dominance.md`). Blocked on PI approval of A-007, A-008, A-009. |
-| T-005 | LOO expected-predictive-score / LOOIC consequence | C-004 | T-004 plus A-010, A-011 and regularity R1-R6 | statement-draft | Leave-out unit bound to the trial by D-002. Proof critic reviews the estimator/population bridge T-005b and the R5 degeneracy case. |
+| T-003 | Gaussian constructive heterogeneity result | C-003 | A-001, A-002, A-003, A-007, A-008 | proof-draft | All assumptions approved (D-001, D-006). Proof critic reviews `docs/theorems/T-003_gaussian_constructive.md`, including the sharp iff in Corollary T-003a. |
+| T-004 | KL dominance bridge | C-004 | A-001, A-002, A-003, A-007, A-008, A-009 | proof-draft | All assumptions approved (D-001, D-006). Proof critic reviews `docs/theorems/T-004_kl_dominance.md`; Lemma T-004b (the closure argument) is the load-bearing step. |
+| T-005 | LOO expected-predictive-score / LOOIC consequence | C-004 | T-004 plus A-010, A-011 and regularity R1-R6 | statement-draft | Not advanced with the others (D-006 condition 3): T-005b is a proof sketch. Derive the leave-one-out expansion or cite it explicitly, then submit for critic review. |
 | T-006 | Bayes-factor consequence under declared priors | C-004 | A-011 | **deferred - not a theorem target** | Demoted by D-003 to a numerical prior-sensitivity study. See `docs/theorems/T-006_bayes_factor_deferred.md` for the justification and the reopening conditions. |
-| T-007 | Finite-sample selection thresholds | C-004 | T-004 plus A-009, A-011 | statement-draft | Split by D-004 into T-007a (exact algebra), T-007b (regular bridge), T-007c (singular correction). Proof critic reviews the singular-case policy. |
+| T-007 | Finite-sample selection thresholds | C-004 | T-004 plus A-009, A-011 | proof-draft | All assumptions approved (D-004, D-006). Proof critic reviews the singular-case policy; note T-007c is a policy, not a theorem. |
 
 ## Boundary Conditions To Preserve
 
@@ -59,7 +59,9 @@ The first Lean pass should remain selective and conservative.
 ## Procedure Guardrails
 
 - Do not add new theorem assumptions without updating
-  `registries/assumption_register.csv` or opening a PI decision gate.
+  `registries/assumption_register.csv` or opening a PI decision gate. As of
+  D-006 there are no open theorem gates; the package is blocked on proof-critic
+  review, not on decisions.
 - Do not promote claims in `registries/claim_register.md` from this backlog
   alone.
 - Do not insert results into `manuscript/supplement_proofs.tex` until the proof

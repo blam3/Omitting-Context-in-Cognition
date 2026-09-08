@@ -57,5 +57,8 @@ enforces mechanically that each `TheoremCard` status here matches
 - C-002 remains `in_progress` until proof review accepts the mixture lemma.
 - A-006 remains rejected; any `F_{Theta | Z}` statement belongs only in the
   T-002 corollary.
-- A-007, A-008, A-009 are `decision_needed`. No Lean statement may assume them
-  until they are approved.
+- A-007, A-008 and A-009 were approved by D-006 (2026-09-09), so
+  `AttenuationAlgebra.lean` may assume them. It is nevertheless stated without
+  them: its content is real algebra on the index scale, and it holds for any
+  `s^2 >= 0` and any real design point, so it is strictly more general than the
+  A-007/A-008 setting T-004 uses it in.

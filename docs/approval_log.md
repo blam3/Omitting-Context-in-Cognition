@@ -7,6 +7,59 @@ only request a new decision gate.
 
 ---
 
+## 2026-09-09 / D-006 — Approve A-007, A-008, A-009 (the T-004 construction)
+
+```text
+Date: 2026-09-09
+Requested by: autonomous research session (T-004 unblocking)
+Decision needed: Whether the three modelling assumptions introduced by the
+  rewritten T-004 statement may be treated as approved theorem assumptions.
+Reason approval was required: docs/approval_policy.md gates new theorem
+  assumptions. These three were recorded as decision_needed when T-004 was
+  restated on 2026-09-08 and were the only remaining open gate in the package.
+Options:
+  (a) Approve all three.
+  (b) Approve a subset.
+  (c) Continue to defer.
+User decision: (a) Approve A-007, A-008 and A-009.
+Conditions or modifications:
+  1. SCOPE. Like A-003 under D-001, these are assumptions of the CONSTRUCTIVE
+     theorem, not of the package. They license T-003b, T-004 and the parts of
+     T-005/T-007 that inherit from T-004. They do not license a general claim.
+     In particular:
+       - A-007 fixes a PROBIT kernel. The closed-form attenuation identity in
+         Corollary T-003b is exact for probit and only approximate for logit.
+         Any logit statement must be derived separately and labelled as an
+         approximation; it may not be presented as a corollary of T-004.
+       - A-008 fixes a finite, non-negative design with J >= 4 levels including
+         a = 0. J >= 4 is what makes M_S over-determined and non-representability
+         detectable; a = 0 and non-negativity are both used in Lemma T-004b.
+         A design violating these does not falsify T-004, but T-004 says nothing
+         about it.
+       - A-009 fixes explicit parametric families for M_S and M_K. Results proved
+         under A-009 transfer to other candidate models only by re-checking
+         Lemma T-004a and the containment or score condition for those families.
+  2. STATUS EFFECT. Clearing this gate advances the statements from
+     `statement-draft` to `proof-draft`. It does NOT make them `accepted`.
+     Proof-critic review (gate 3 of the four in loops/proof_loop.md) remains
+     outstanding for every result, so nothing enters
+     manuscript/supplement_proofs.tex yet.
+  3. T-005 is deliberately NOT advanced. Its central result T-005b is a proof
+     sketch: the leave-one-out expansion is quoted rather than derived. It stays
+     at `statement-draft` until that is written out or replaced by an explicit
+     citation.
+  4. The manuscript must carry the A-007/A-008/A-009 conditions wherever T-004
+     is stated, not only in a supplementary assumptions list. A reader who takes
+     T-004 as a general result about omitted context has been misled.
+Follow-up tasks:
+  - registries/assumption_register.csv: A-007, A-008, A-009 -> approved.
+  - docs/theorem_backlog.md: T-003, T-004, T-007 -> proof-draft.
+  - Lean TheoremCard statuses resynced (enforced by scripts/check_coherence.py).
+  - Next action for the package is proof-critic review, not manuscript writing.
+```
+
+---
+
 ## 2026-09-08 / D-001 — Approve A-003 as a primary theorem assumption
 
 ```text
@@ -220,18 +273,16 @@ Follow-up tasks:
 
 ---
 
-## Open gates (NOT approved by the above)
+## Open gates
 
-The constructive T-004 statement introduces three new modelling assumptions
-that are recorded as `decision_needed` in
-`registries/assumption_register.csv` and are NOT covered by D-001:
+**None.** Every theorem assumption in
+`registries/assumption_register.csv` is now `approved` or `approved_default`,
+except A-006, which is rejected and not reopenable by an agent.
 
-- **A-007** probit response kernel for the constructive theorem;
-- **A-008** finite context support and trial-design richness;
-- **A-009** explicit parametric definitions of `M_S` and `M_K`.
-
-T-004 is therefore `statement-draft`, not `accepted`. It may not enter
-`manuscript/supplement_proofs.tex` until these three are approved.
+The package is no longer blocked on decisions. It is blocked on **review**:
+proof-critic review is outstanding for T-001, T-003, T-004 and T-007, and T-005
+additionally needs its T-005b expansion derived rather than quoted. See
+`loops/proof_loop.md` for the four-part gate into the supplement.
 
 ## Entry template
 

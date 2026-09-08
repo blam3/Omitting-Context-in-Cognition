@@ -2,17 +2,17 @@
 id: T-003
 title: Gaussian constructive heterogeneity result
 claim: C-003
-status: statement-draft
+status: proof-draft
 assumptions: A-001, A-002, A-003, A-007, A-008
 depends_on: T-001, T-002
-approval: D-001
+approval: D-001, D-006
 -->
 
 # T-003 — Gaussian Constructive Heterogeneity
 
-Status: `statement-draft`. A-003 approved as a constructive-illustration
-assumption by D-001 (`docs/approval_log.md`, 2026-09-08). Not yet accepted for
-`manuscript/supplement_proofs.tex`; proof-critic review pending.
+Status: `proof-draft`. A-003 approved by D-001; A-007 and A-008, used by
+Corollary T-003b, approved by D-006 (2026-09-09). Not accepted for
+`manuscript/supplement_proofs.tex`: proof-critic review is outstanding.
 
 Notation is bound by `docs/notation_registry.md`.
 
@@ -68,7 +68,8 @@ that the induced mixing law stays inside the simple model's reach (T-004 §4).
 ## 3. The bridge corollary: probit attenuation
 
 This is the corollary that T-004 actually consumes. It requires A-007 (probit
-kernel), which is **not yet approved** — see `docs/approval_log.md`, Open gates.
+kernel), approved by D-006. The identity is exact for probit; the logit case is
+only approximate and must be derived and labelled separately.
 
 **Corollary T-003b (context-omitted response law under a probit kernel).**
 Take the scalar ambiguity index `X = A` with kernel

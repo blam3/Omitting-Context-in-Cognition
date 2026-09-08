@@ -5,14 +5,20 @@ claim: C-004
 status: statement-draft
 assumptions: A-001, A-002, A-003, A-007, A-008, A-009, A-010, A-011
 depends_on: T-004
-approval: D-002, D-004
+approval: D-002, D-004, D-006
 -->
 
 # T-005 — From the Population Gap to LOOIC
 
 Status: `statement-draft`. Leave-out unit bound to the **trial** by D-002
-(`docs/approval_log.md`, 2026-09-08). Notation is bound by
-`docs/notation_registry.md`.
+(2026-09-08); the T-004 assumptions it inherits were approved by D-006
+(2026-09-09).
+
+**This result is deliberately NOT advanced to `proof-draft` alongside T-003,
+T-004 and T-007** (D-006 condition 3). Its central statement T-005b is a proof
+*sketch*: the leave-one-out expansion is quoted, not derived. Promoting it
+requires writing that derivation out or replacing it with an explicit citation.
+Notation is bound by `docs/notation_registry.md`.
 
 ## 0. Why the previous statement was not a theorem
 

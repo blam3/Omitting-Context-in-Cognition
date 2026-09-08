@@ -2,18 +2,20 @@
 id: T-007
 title: Finite-sample selection thresholds, corrected for misspecification and singularity
 claim: C-004
-status: statement-draft
+status: proof-draft
 assumptions: A-001, A-002, A-003, A-007, A-008, A-009, A-011
 depends_on: T-004
-approval: D-004
+approval: D-004, D-006
 -->
 
 <!-- coherence-allow: bare_delta_ell -->
 
 # T-007 — Finite-Sample Selection Thresholds
 
-Status: `statement-draft`. Split into three parts by D-004
-(`docs/approval_log.md`, 2026-09-08). Notation is bound by
+Status: `proof-draft`. Split into three parts by D-004 (2026-09-08); the
+inherited T-004 assumptions were approved by D-006 (2026-09-09). Not accepted:
+proof-critic review is outstanding, and T-007c is a policy rather than a
+theorem. Notation is bound by
 `docs/notation_registry.md`.
 
 ## 0. Two errors in the previous statement

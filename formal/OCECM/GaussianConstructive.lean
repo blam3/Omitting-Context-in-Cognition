@@ -9,8 +9,10 @@ This file is a placeholder for the constructive result:
 `C_i | Z_i = z` having mean `m(z)` and variance `v(z)`, induces a conditional
 latent-parameter mean and variance after context omission.
 
-No theorem is asserted here. A-003 is still marked `decision_needed`, so the
-constructive result should not be promoted before PI/theorem review.
+No theorem is asserted here. A-003 is approved (D-001) and A-007/A-008 are
+approved (D-006), so the statement is no longer decision-blocked; it is blocked
+on proof-critic review. The Lean home for the algebraic core of the associated
+T-004 criterion is `OCECM/AttenuationAlgebra.lean`.
 -/
 
 namespace OCECM
@@ -18,8 +20,8 @@ namespace OCECM
 def gaussianConstructiveCard : TheoremCard :=
   { label := "T-003 Gaussian constructive heterogeneity result"
     claimId := "C-003"
-    assumptionIds := ["A-003"]
-    status := TheoremStatus.statementDraft
+    assumptionIds := ["A-003", "A-007", "A-008"]
+    status := TheoremStatus.proofDraft
     manuscriptReady := false }
 
 universe uScalar uCovariate

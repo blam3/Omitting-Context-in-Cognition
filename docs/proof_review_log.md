@@ -1,6 +1,46 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-09 A-007/A-008/A-009 approved; statuses advanced
+
+Date: 2026-09-09
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: autonomous research session (governance update, not a proof pass)
+Theorem or lemma: T-003, T-004, T-007 (status), T-005 (deliberately unchanged)
+Claim registry ID: C-003, C-004
+Assumptions used: A-007, A-008, A-009 approved by D-006
+
+Proof summary: No mathematics changed in this entry. The PI approved the three
+  assumptions introduced by the 2026-09-08 T-004 rewrite, which was the last
+  open decision gate in the package. T-003, T-004 and T-007 advance from
+  `statement-draft` to `proof-draft`.
+
+Deliberately NOT advanced: T-005. Its central result T-005b quotes the
+  leave-one-out expansion rather than deriving it, so it is a sketch and stays
+  at `statement-draft`. Advancing it alongside the others would have
+  misrepresented what has actually been proved.
+
+Unsupported steps (unchanged from 2026-09-08, and now the only blockers):
+  - proof-critic review is outstanding for T-001, T-003, T-004 and T-007;
+  - T-005b needs its expansion derived or explicitly cited;
+  - the RLCTs for M_S and M_K remain unknown, which is why T-006 stays deferred
+    and T-007c remains a policy rather than a theorem.
+
+Counterexample search: not repeated; the 2026-09-08 numerical checks stand and
+  continue to pass in CI.
+
+Scope recorded with the approval (D-006 condition 1): A-007 makes the
+  attenuation identity exact only for probit; A-008's J >= 4, a = 0 and
+  non-negativity are each load-bearing in Lemma T-004b; A-009 fixes the model
+  families, so transfer to other candidate models requires re-checking Lemma
+  T-004a and the containment or score condition.
+
+Reviewer-2 critique: Pending.
+Decision: revise. Nothing is accepted; the package is now blocked on review
+  rather than on decisions.
+Next action: proof-critic pass on T-004, starting with Lemma T-004b, which is
+  the load-bearing step and the one a naive argument gets wrong.
+
 ## 2026-09-08 theorem-package restatement (T-003 to T-007)
 
 Date: 2026-09-08

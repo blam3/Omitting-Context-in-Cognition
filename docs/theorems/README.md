@@ -6,14 +6,16 @@ One file per result. Each carries a machine-readable `theorem-meta` block that
 | File | Result | Status |
 |---|---|---|
 | (`../omitted_context_mixture_lemma.md`) | T-001 mixture representation; T-002 exogenous-design corollary | proof-critic-review / corollary-only |
-| `T-003_gaussian_constructive.md` | Gaussian constructive heterogeneity, with a sharp iff | statement-draft |
-| `T-004_kl_dominance.md` | when the KL inequality actually holds | statement-draft |
-| `T-005_loo_predictive.md` | trial-level LOO estimator-to-population bridge | statement-draft |
+| `T-003_gaussian_constructive.md` | Gaussian constructive heterogeneity, with a sharp iff | proof-draft |
+| `T-004_kl_dominance.md` | when the KL inequality actually holds | proof-draft |
+| `T-005_loo_predictive.md` | trial-level LOO estimator-to-population bridge | statement-draft (T-005b is a sketch) |
 | `T-006_bayes_factor_deferred.md` | why Bayes factors are not a theorem target | deferred |
-| `T-007_finite_sample_selection.md` | finite-sample thresholds, singular-case corrected | statement-draft |
+| `T-007_finite_sample_selection.md` | finite-sample thresholds, singular-case corrected | proof-draft |
 
-Nothing here is accepted. See `../theorem_backlog.md` for the route and
-`../approval_log.md` for the decisions that shaped it.
+Nothing here is accepted. As of D-006 (2026-09-09) there are **no open decision
+gates**; every result is blocked on proof-critic review instead. See
+`../theorem_backlog.md` for the route, `../approval_log.md` for the decisions,
+and `../../loops/proof_loop.md` for the four-part gate into the supplement.
 
 ## The `theorem-meta` block
 

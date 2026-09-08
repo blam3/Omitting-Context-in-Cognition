@@ -2,19 +2,28 @@
 id: T-004
 title: KL dominance of the false complex model under omitted context
 claim: C-004
-status: statement-draft
+status: proof-draft
 assumptions: A-001, A-002, A-003, A-007, A-008, A-009
 depends_on: T-001, T-003
-approval: D-001
+approval: D-001, D-006
 -->
 
 <!-- coherence-allow: eta_model_index -->
 
 # T-004 — When Does the KL Inequality Actually Hold?
 
-Status: `statement-draft`. **Not accepted.** A-007, A-008, A-009 are
-`decision_needed` (`docs/approval_log.md`, Open gates). Notation is bound by
+Status: `proof-draft`. **Not accepted.** A-007, A-008 and A-009 were approved by
+D-006 (2026-09-09), so the statement is no longer decision-blocked, but
+proof-critic review is outstanding and nothing here may enter
+`manuscript/supplement_proofs.tex` until it completes. Notation is bound by
 `docs/notation_registry.md`.
+
+**Scope (D-006).** A-007 fixes a probit kernel — the attenuation identity is
+exact for probit and only approximate for logit. A-008 fixes a finite,
+non-negative design with `J \ge 4` levels including `a = 0`. A-009 fixes explicit
+parametric families for `M_S` and `M_K`. Results below transfer to other kernels,
+designs or model families only by re-checking Lemma T-004a and the containment
+or score condition. This is a constructive theorem, not a general one.
 
 ## 0. Why the previous statement was not a theorem
 
@@ -38,12 +47,12 @@ This document states and proves that.
 
 Assume A-001, A-002, A-003 (so T-003 applies), plus:
 
-**A-007 (probit kernel).** The trial design reduces to a scalar ambiguity level
+**A-007 (probit kernel, approved D-006).** The trial design reduces to a scalar ambiguity level
 `A \in \mathcal{A}`, and
 
 $$P(Y = 1 \mid A = a, \Theta = \theta) = \Phi(b_0 + \theta a).$$
 
-**A-008 (finite support, design richness).**
+**A-008 (finite support, design richness, approved D-006).**
 `\mathcal{A} = \{a_1, \ldots, a_J\} \subset [0, \infty)` with `J \ge 4` distinct
 levels including `a_1 = 0`, and design measure `Q` with `q_j > 0`.
 Non-negativity is not cosmetic: it is used in Lemma T-004b, where a signed
@@ -52,7 +61,7 @@ constant. Ambiguity levels are non-negative by construction, so this costs
 nothing here. `Z` has finite support `\{z_1, \ldots, z_K\}` with `\pi_k > 0`. `A`
 is exogenous in the sense of T-002.
 
-**A-009 (model classes).** Both candidate models omit context, i.e. neither uses
+**A-009 (model classes, approved D-006).** Both candidate models omit context, i.e. neither uses
 `Z` or `C`:
 
 $$M_S = \Big\{\, a \mapsto \Phi\big( (\beta_0 + \beta_1 a) / \sqrt{1 + s^2 a^2} \big)
