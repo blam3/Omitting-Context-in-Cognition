@@ -43,9 +43,13 @@ Assume A-001, A-002, A-003 (so T-003 applies), plus:
 
 $$P(Y = 1 \mid A = a, \Theta = \theta) = \Phi(b_0 + \theta a).$$
 
-**A-008 (finite support, design richness).** `\mathcal{A} = \{a_1, \ldots, a_J\}`
-with `J \ge 4` distinct levels including `a_1 = 0`, and design measure `Q` with
-`q_j > 0`. `Z` has finite support `\{z_1, \ldots, z_K\}` with `\pi_k > 0`. `A`
+**A-008 (finite support, design richness).**
+`\mathcal{A} = \{a_1, \ldots, a_J\} \subset [0, \infty)` with `J \ge 4` distinct
+levels including `a_1 = 0`, and design measure `Q` with `q_j > 0`.
+Non-negativity is not cosmetic: it is used in Lemma T-004b, where a signed
+design would make the degenerate limit `\rho\,\mathrm{sign}(a)` rather than a
+constant. Ambiguity levels are non-negative by construction, so this costs
+nothing here. `Z` has finite support `\{z_1, \ldots, z_K\}` with `\pi_k > 0`. `A`
 is exogenous in the sense of T-002.
 
 **A-009 (model classes).** Both candidate models omit context, i.e. neither uses
@@ -118,8 +122,15 @@ in `\mathcal{A}` by A-008) gives `\beta_0^{(n)} \to c_0` finite. If
 `s_n \to s < \infty`, then evaluating at any `a \ne 0` forces
 `\beta_1^{(n)}` to converge, and the limit lies in `M_S`. If `s_n \to \infty`,
 then for `a \ne 0`,
-`g_n(a) = (\beta_0^{(n)} + \beta_1^{(n)}a) / (s_n |a| \sqrt{1 + s_n^{-2}a^{-2}})
-\to \lim \beta_1^{(n)}/s_n =: \rho`, the same value for every `a \ne 0`. `\square`
+
+$$g_n(a) = \frac{\beta_0^{(n)} + \beta_1^{(n)} a}{s_n |a| \sqrt{1 + s_n^{-2}a^{-2}}} .$$
+
+The `\beta_0^{(n)}` term contributes `O(1/s_n) \to 0`. The remaining term is
+`(\beta_1^{(n)}/s_n) \cdot a/|a|`, which by A-008 (`a > 0`) is
+`\beta_1^{(n)}/s_n`. Along a further subsequence `\beta_1^{(n)}/s_n` converges in
+`[-\infty, +\infty]`; a divergent limit would contradict finiteness of
+`g^{\infty}(a)`, so it converges to some `\rho \in \mathbb{R}` — the same value
+for every `a > 0`. `\square`
 
 **Corollary T-004c (decidable criterion for the closure).**
 `p \in \bar{M}_S` if and only if either
