@@ -18,8 +18,10 @@ It does not prove a new theorem and does not add scientific assumptions.
 - `OCECM/MixtureLemma.lean`: Future home for the omitted-context mixture lemma.
 - `OCECM/GaussianConstructive.lean`: Future home for the Gaussian constructive
   heterogeneity result.
-- `OCECM/AICBICThreshold.lean`: Future home for the AIC/BIC threshold
-  corollaries.
+- `OCECM/AICBICThreshold.lean`: Future home for the secondary AIC/BIC
+  threshold corollaries.
+- Future LOOIC and Bayes-factor statement files must wait for the decision
+  gates in `docs/theorem_backlog.md`.
 
 ## Validation
 

@@ -1,0 +1,83 @@
+{
+  "cycle_title": "Restructure theorem and simulation framing for Bayes factors and LOOIC",
+  "track": "simulation",
+  "completed": [
+    "Reprioritized the theorem backlog so LOOIC and Bayes-factor consequences follow the mixture and KL route before secondary AIC/BIC thresholds.",
+    "Restructured the manuscript simulation sections around Bayesian candidate models, leave-out targets, LOOIC, Bayes factors, diagnostics, and secondary bridge metrics.",
+    "Added a comparison plan that keeps predictive LOOIC and prior-sensitive Bayes-factor evidence conceptually distinct.",
+    "Updated C-004 wording without promoting its planned evidence status."
+  ],
+  "why_it_matters": [
+    "The project now asks criterion-appropriate questions about whether omitted context makes false complexity predict better and whether it receives greater declared-prior model evidence.",
+    "The plan prevents invalid use of the current GLM proxy as if it had produced Bayesian criteria."
+  ],
+  "files_changed": [
+    "README.md",
+    "docs/current_project_context.md",
+    "docs/theorem_backlog.md",
+    "docs/bayesian_comparison_plan.md",
+    "docs/research_spec.md",
+    "docs/hierarchical_bayes_milestones.md",
+    "manuscript/main.tex",
+    "registries/claim_register.md",
+    "loops/autonomous_researcher_loop.md",
+    "formal/README.md",
+    "formal/OCECM/AICBICThreshold.lean",
+    "logs/research_updates/2026-07-09T000000Z_bayesian-comparison-restructure.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Remote content consistency review",
+      "status": "pass",
+      "notes": "Verified that the theorem backlog, project context, manuscript scaffold, milestones, loop protocol, claim register, and Lean status metadata use the same LOOIC/Bayes-factor ordering."
+    },
+    {
+      "name": "make smoke",
+      "status": "not_run",
+      "notes": "The active writable workspace path was unavailable; this update does not change R code."
+    },
+    {
+      "name": "make test",
+      "status": "not_run",
+      "notes": "The active writable workspace path was unavailable; this update does not change R code."
+    },
+    {
+      "name": "make validate-update",
+      "status": "not_run",
+      "notes": "The active writable workspace path was unavailable; the cycle report has been schema-reviewed but not executed locally."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "not_run",
+      "notes": "The active writable workspace path was unavailable; the update changes comments and theorem-card metadata only."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "Which leave-out target should be primary for the first Bayesian comparison: participant-level LOOIC or trial-level LOOIC?",
+    "options": [
+      "Participant-level LOOIC, with trial-level LOOIC as a secondary diagnostic (recommended).",
+      "Trial-level LOOIC as the primary target."
+    ],
+    "default_if_no_response": "Do not run Bayesian comparison cells until the primary leave-out target is selected."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "No new theorem assumption, false-complex model choice, causal claim, restricted data, expensive compute, or claim-status promotion was added. The change restructures the planned criterion targets and records a leave-out-unit decision gate."
+  },
+  "risks_or_uncertainties": [
+    "Bayes factors require a separate proper-prior and marginal-likelihood specification before implementation or theorem statement.",
+    "LOOIC results depend on the selected leave-out unit and on reliable PSIS diagnostics.",
+    "The current GLM proxy remains unable to calculate valid Bayesian criteria."
+  ],
+  "next_bounded_task": "Implement a posterior-draw comparison interface after PI selection of the primary leave-out target and a documented Bayes-factor prior specification."
+}

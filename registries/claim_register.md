@@ -10,6 +10,8 @@ This registry prevents the autonomous researcher from turning tentative ideas in
 | C-004 | In the specified two-trial utility construction, both joint candidate laws are false, K has strictly smaller KL risk, and BIC/BF/exact participant LOO favor K with probability tending to one. | constructive theorem | in_progress | PROOF_PACKAGE.md T1, L2, C1–C4; local proof complete, adversarial review pending | internal proof review; manuscript after acceptance | authorized_scope | 2026-09-05 |
 | C-005 | The current GLM simulation scaffold can reveal failure modes worth testing in hierarchical Bayesian models. | infrastructure | scaffold_only | R proxy DGM and model suite | internal reports only | approved_default | 2026-07-04 |
 | C-006 | RAID empirical results should be interpreted as context-aware model-sensitivity evidence, not causal SES evidence, unless additional design information supports causality. | empirical interpretation | planned | RAID analysis plan | methods/discussion limitation | approved_default | 2026-07-04 |
+| C-007 | In the Gaussian constructive case, omitted context can create context-dependent latent variance. | theorem | planned | constructive proof | theorem section/SI after assumptions approved | decision_needed | 2026-07-04 |
+| C-008 | Under explicit criterion-specific conditions, a false complex model can beat a context-omitting simple model in predictive score or declared-prior model evidence; AIC/BIC are secondary bridge diagnostics. | theorem/simulation bridge | planned | KL dominance + LOOIC target + Bayes-factor target + secondary AIC/BIC corollary | theorem section and simulation design after criterion-specific conditions are reviewed | approved_default | 2026-07-09 |
 
 ## Evidence status rules
 
@@ -41,3 +43,13 @@ C-004 retains its finite benchmark scope and previous review status; it is not a
 ## 2026-09-08 primary separation attempt (author work; no promotion)
 
 `docs/primary_separation_attempt_2026-09-08.md` records exact Gaussian representability and two-trial nuisance-absorption counterexamples for the primary candidate pair. Strict primary separation remains unestablished, including for a finite-support context with varying variance. Conditional finite-design deletion/score and separate evidence/BIC rate derivations have author-only status. They are not C-004 extensions, evidence that M4 wins, or final support for C-001. Existing claim statuses are unchanged; review and PI acceptance remain required.
+
+## 2026-09-08 claim-ID renumbering
+
+The pre-2026-09-08 formulations of C-003 and C-004 were developed in parallel on
+`main` while the 2026-09-08 PI-directed claims of the same IDs were developed
+locally. To keep both auditable, the earlier formulations were renumbered to
+C-007 and C-008 with their original evidence status, decision status, and dates
+unchanged. `docs/theorem_backlog.md` references were updated accordingly:
+T-003 now cites C-007, and T-004 through T-007 cite C-008. No claim was
+promoted, demoted, or restated as part of this renumbering.

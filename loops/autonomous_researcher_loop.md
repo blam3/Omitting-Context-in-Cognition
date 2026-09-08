@@ -118,6 +118,7 @@ Use these defaults to avoid unnecessary interruption:
 - Target empirical contrast: M2/M3 context-aware simple model versus M4 context-omitting complex model.
 - Primary predictive target: a held-out trial from a participant whose remaining responses are available; validate exact trial refits before PSIS. New-participant LOPO is secondary. M4 probability distortion is already selected; priors and bridge sampling are recorded in docs/bayesian_comparison_plan.md.
 - AIC/BIC: simulation/theory bridge only, not the final Bayesian empirical criterion.
+- Report PSIS-LOO ELPD/LOOIC and declared-prior Bayes factors as distinct quantities; neither substitutes for the other. Held-out participant log score is a robustness target. The superseded pre-2026-09-08 proof route is recorded in `docs/theorem_backlog.md`.
 - SES context proxies: income and education separately, then composite as sensitivity.
 - RAID claim: model-sensitivity demonstration, not causal identification.
 - Public reproducibility: synthetic RAID-style data and simulation code, not restricted data.

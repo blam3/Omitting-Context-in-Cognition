@@ -52,3 +52,55 @@ BF uses the complete data evidence; changing LOO's holdout unit does not turn BF
 4. Validate conditional per-trial log likelihood and exact single-trial refits first. Validate PSIS against those refits and assess participant-clustered uncertainty. Optional LOPO results stay separately labeled.
 5. Report predictive preferences as preferences; in simulation mechanistic truth is known by construction, but a RAID M4 win is not proof of true probability distortion. Context can change predictions without yielding a universal direction or magnitude of selection.
 6. Run only bounded local checks within the existing compute policy until a production budget is approved. No outcome is established by this planning document.
+
+## Comparison questions — retained from the pre-2026-09-08 plan
+
+| Question | Contrast | Estimand | Selection direction |
+|---|---|---|---|
+| Can omitted context make false complexity predict better? | `M4` versus `M1`; then `M4` versus `M2/M3` | Expected leave-out log predictive density and LOOIC | Higher ELPD / lower LOOIC |
+| Can omitted context make false complexity receive more Bayesian model evidence? | Same contrasts under the declared candidate models | `log BF_{K,S}` | Positive log Bayes factor |
+
+The first contrast demonstrates misselection pressure; the second tests whether
+the context-aware explanation remains preferable once context is modeled. The
+estimand column states the original LOOIC framing; under the 2026-09-08
+decision the primary predictive estimand is trial-level LOO.
+
+## Reporting contract — retained from the pre-2026-09-08 plan
+
+For each simulated data set, preserve the common DGM and candidate-model
+definitions across all criteria. Fit only Bayesian models with proper priors.
+Store posterior log likelihood at the unit needed for the declared LOO target
+and record the marginal-likelihood method used for each Bayes factor. Report:
+
+- ELPD and LOOIC differences, selection rates, and type I/type II error;
+- Pareto-k summaries, the number of unreliable units, and any refit or exact
+  fallback;
+- log Bayes factors, selection rates, and the full prior-scale sensitivity
+  grid;
+- held-out participant log score as a robustness check;
+- AIC/BIC only as a labelled proxy bridge from the GLM scaffold.
+
+The current GLM proxy simulation is not permitted to emit Bayes factors or
+LOOIC. Its role is limited to DGM screening and AIC/BIC continuity until the
+hierarchical Bayesian model path is implemented.
+
+## Resolved decision gate — primary leave-out unit
+
+The pre-2026-09-08 plan left the primary LOO target open and recommended
+leave-one-participant-out, on the reasoning that the scientific question
+concerns generalization to new people rather than another trial from an
+already-observed participant.
+
+**The PI resolved this gate on 2026-09-08 in the opposite direction:**
+trial-level LOO is the primary predictive target, conditioned on the person's
+remaining responses, and whole-participant LOPO is a separately labelled
+secondary target. See `docs/pi_decisions_2026-09-08.md`. The earlier
+recommendation is recorded here only so the reversal is auditable; it is not
+current guidance.
+
+The requirement it carried does still stand: the first Bayes-factor
+implementation must separately document its proper prior families,
+prior-scale sensitivity grid, and marginal-likelihood estimator.
+
+The pre-2026-09-08 six-step theorem route is recorded in
+`docs/theorem_backlog.md` under the superseded planned route.
