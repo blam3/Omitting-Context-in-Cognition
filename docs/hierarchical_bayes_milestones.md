@@ -2,6 +2,12 @@
 
 The current GLM models are smoke-test proxies. The final project needs hierarchical Bayesian structural models that estimate latent ambiguity parameters, participant-level context effects, and predictive criteria.
 
+## Likelihood and holdout contract (PI revision 2026-09-08)
+
+Primary trial-level LOO deletes one response and retains the participant's other trials. Integrate over the deletion posterior of participant effects and global parameters. Validate exact single-trial refits before PSIS; account for participant dependence when reporting uncertainty. LOPO is an optional new-person sensitivity, not the primary score. See [comparison plan](bayesian_comparison_plan.md).
+
+The finite PROOF_PACKAGE.md remains a separate LOPO benchmark. Its theorem does not establish the revised primary result. BIC scaling remains a property of the likelihood and sampling regime; BF uses full-data evidence, proper weakly informative priors, and bridge sampling validated against tractable integrals. A-003 is primary, but additional residual/Gaussian conditions require explicit treatment.
+
 ## Goal
 
 Move from fast GLM proxies to a staged Stan/brms model suite without losing alignment with the theorem and RAID empirical plan.
@@ -24,6 +30,8 @@ Move from fast GLM proxies to a staged Stan/brms model suite without losing alig
 - proxy claims remain marked `scaffold_only` in the claim register.
 
 ## Milestone 1: single-level structural ambiguity likelihood
+
+The equation below is a historical scaffold. It must be checked against both lottery values and gain/loss coding before use; it is not the approved final RAID likelihood.
 
 **Purpose:** Replace descriptive GLM terms with the ambiguity-value equation.
 
@@ -65,13 +73,13 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 - Stan model: `stan/simple_ambiguity_hierarchical.stan`;
 - non-centered parameterization;
 - posterior predictive checks by participant and trial features;
-- held-out participant split script.
+- exact single-trial deletion/refit script; optional participant-holdout script.
 
 **Exit criteria:**
 
 - model recovery succeeds under idealized simulation;
 - posterior intervals have reasonable calibration in small simulation grids;
-- held-out participant log score is computed.
+- trial-level deletion log score is computed and validated without held-out-response leakage.
 
 ## Milestone 3: context-aware mean model
 
@@ -85,7 +93,7 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 
 - Stan model or generated quantities extension;
 - income-only, education-only, and composite-SES variants;
-- PSIS-LOO and held-out participant comparison with Milestone 2.
+- validated trial-level PSIS-LOO comparison with Milestone 2; optional separate LOPO sensitivity.
 
 **Exit criteria:**
 
@@ -95,7 +103,7 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 
 ## Milestone 4: context-aware mean-plus-variance model
 
-**Purpose:** Implement the theorem's heteroskedasticity route.
+**Purpose:** Implement the primary A-003 dispersion route subject to explicit residual conditions; approval of the additive equation alone is not a heteroskedasticity proof.
 
 ```math
 \log \sigma_{\beta,i} = \omega_0 + \omega_{inc} income_i + \omega_{edu} education_i
@@ -117,14 +125,7 @@ Y_{it} \sim Bernoulli(logit^{-1}(\alpha + \tau SV_{it} + \delta_{side} refSide_{
 
 **Purpose:** Fit the psychologically plausible complex model that omits context.
 
-Candidate models requiring PI selection:
-
-1. source/condition-specific ambiguity aversion;
-2. nonlinear ambiguity weighting;
-3. probability distortion;
-4. latent class / mixture model.
-
-**Decision gate:** The PI must select the primary false-complex model before final empirical model comparison.
+**PI decision 2026-09-08:** probability distortion is selected. The family-selection gate is closed. Specify its weighting function, option-value equation, domain handling and parameter hierarchy against the coding audit. The one-parameter form in `bayesian_comparison_plan.md` is a concrete proposal; other mechanisms are not co-primary by default.
 
 **Exit criteria:**
 
@@ -140,20 +141,20 @@ Candidate models requiring PI selection:
 
 **Primary metrics:**
 
-- PSIS-LOO ELPD;
-- held-out participant log score;
+- trial-level LOO ELPD with validated deletion predictions and participant-clustered uncertainty;
+- exact held-out-trial log score checks;
 - posterior predictive checks by SES/context group.
 
 **Secondary metrics:**
 
-- WAIC sensitivity;
+- optional new-participant LOPO and WAIC sensitivities;
 - AIC/BIC bridge for theorem/simulation continuity;
 - Bayes factor or marginal likelihood only as prior-sensitive sensitivity.
 
 ## Immediate next implementation tasks
 
-1. Add `stan/simple_ambiguity_single_level.stan`.
+1. Audit the existing `stan/simple_ambiguity_single_level.stan` against the two-lottery gain/loss task and selected priors.
 2. Add a synthetic-data model-recovery script.
 3. Add posterior predictive check functions.
-4. Add held-out participant split utilities.
-5. Create a PI decision issue for the primary false-complex model after initial recovery checks.
+4. Add trial-level exact refit utilities; keep participant holdout as optional sensitivity.
+5. Implement the selected probability-distortion model after task-equation and identifiability review; do not reopen its family-selection gate.

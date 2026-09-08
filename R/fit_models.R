@@ -45,9 +45,10 @@ fit_glm_binomial <- function(formula, dat, model_name) {
 fit_simple_omitted_context <- function(dat) {
   dat <- prepare_proxy_features(dat)
 
-  # One-parameter-style ambiguity-value proxy with no contextual predictors.
+  # Shared structural baseline: risky_value and ambiguous_value both occur in
+  # the DGM. Extra descriptive main effects remain shared across candidates.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ref_side,
+    choice ~ value + probability + ambiguity + risky_value + ambiguous_value + ref_side,
     dat = dat,
     model_name = "simple_omitted_context"
   )
@@ -56,9 +57,8 @@ fit_simple_omitted_context <- function(dat) {
 fit_complex_omitted_context <- function(dat) {
   dat <- prepare_proxy_features(dat)
 
-  # Psychologically plausible but false complexity in the current DGM: condition,
-  # color/source cues, and nonlinear ambiguity can absorb context-induced
-  # residual structure even though no true source/color mechanism generated it.
+  # Adds candidate nonlinear and cue effects to the same structural baseline.
+  # A bundled win does not identify which added term explains the gain.
   fit_glm_binomial(
     choice ~ value + probability + ambiguity + risky_value + ambiguous_value +
       ambiguity_sq_value + condition + color_cue + ref_side,
@@ -70,11 +70,12 @@ fit_complex_omitted_context <- function(dat) {
 fit_simple_contextual_true_family <- function(dat) {
   dat <- prepare_proxy_features(dat)
 
-  # Context-aware simple proxy. The key term is ses:ambiguous_value, which lets
+  # Context-aware proxy, including the baseline ambiguous_value term. The
+  # additional ses:ambiguous_value term lets
   # SES shift the latent ambiguity-aversion contribution without adding a new
   # cognitive architecture.
   fit_glm_binomial(
-    choice ~ value + probability + ambiguity + risky_value + ses +
+    choice ~ value + probability + ambiguity + risky_value + ambiguous_value + ses +
       ses_ambiguous_value + ref_side,
     dat = dat,
     model_name = "simple_contextual_reference"

@@ -1,0 +1,72 @@
+{
+  "cycle_title": "Add theorem-proof infrastructure",
+  "track": "infrastructure",
+  "completed": [
+    "Confirmed that the requested theorem backlog and Lean formalization paths were missing",
+    "Added a theorem backlog for the OCECM proof route without promoting any claim status",
+    "Added a minimal Lean project scaffold with theorem-topic files that contain no new proofs or asserted theorem axioms",
+    "Added a reusable Codex theorem-cycle prompt"
+  ],
+  "why_it_matters": [
+    "The theorem workstream now has stable locations for backlog tracking and future Lean formalization.",
+    "The scaffold keeps proof infrastructure separate from scientific claim promotion and PI-gated assumptions."
+  ],
+  "files_changed": [
+    "docs/theorem_backlog.md",
+    "formal/README.md",
+    "formal/lakefile.lean",
+    "formal/lean-toolchain",
+    "formal/OCECM/Basic.lean",
+    "formal/OCECM/MixtureLemma.lean",
+    "formal/OCECM/GaussianConstructive.lean",
+    "formal/OCECM/AICBICThreshold.lean",
+    ".github/codex/prompts/theorem_cycle.md",
+    "logs/research_updates/2026-07-08T172922Z_theorem-proof-infrastructure.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/validate_research_update.py logs/research_updates/2026-07-08T172922Z_theorem-proof-infrastructure.json schemas/research_update.schema.json",
+      "status": "pass",
+      "notes": "Validated the new structured cycle report."
+    },
+    {
+      "name": "make validate-update",
+      "status": "pass",
+      "notes": "Validated the repository example update using the existing Makefile target."
+    },
+    {
+      "name": "cd formal && lake build",
+      "status": "pass",
+      "notes": "Built the minimal Lean scaffold with the pinned local toolchain."
+    },
+    {
+      "name": "make smoke, make synthetic-raid, make test",
+      "status": "not_applicable",
+      "notes": "Not run because this PR only adds theorem-proof documentation and Lean infrastructure."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Continue with proof-critic review of the current omitted-context mixture lemma."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Infrastructure-only PR. No assumptions, estimands, empirical model choices, causal claims, restricted data, expensive compute, or claim promotions were added."
+  },
+  "risks_or_uncertainties": [
+    "The Lean scaffold is intentionally lightweight and does not yet import a probability library.",
+    "A-003 remains decision-gated before the Gaussian constructive theorem should be promoted."
+  ],
+  "next_bounded_task": "Run proof-critic review on Lemma 1.1 with F_{Theta | X,Z} as the primary statement."
+}

@@ -31,3 +31,30 @@ Reviewer-2 critique:
 Decision: accept | revise | downgrade to conjecture | reject
 Next action:
 ```
+
+## 2026-09-05 participant-level constructive package
+
+Source: PROOF_PACKAGE.md, author working draft.
+Scope: mixture, explicit strict joint KL separation, finite-state uniform convergence, BIC, proper-uniform-prior BF, uniform deletion concentration, exact LOPO and simultaneous selection.
+Assumptions: A-007–A-010 for the constructive chain; Gaussian A-003 is optional and unused.
+Author verification: O1–O10 closed by local derivations. Numerical four-cell/KL/criterion checks and shared-baseline representation checks pass. Structural proof lint is a completeness check, not proof certification.
+Adversarial review: pending; next action D1_KL_review in registries/proof_progress.json.
+Decision: retain as complete local draft; do not mark manuscript accepted or supported_final.
+Limits: finite-sample numerical examples favor S; they do not contradict the positive asymptotic gap. Final hierarchical ambiguity extension is not claimed.
+
+## 2026-09-06 D1: mixture and strict KL review
+
+Review type: separate LLM review pass in the same task; not independent external verification.
+Evidence: `docs/proof_reviews/review_01_KL.md` and exact-fraction/high-precision checks in `logs/theory_checks/2026-09-06_KL_review.json`.
+Verdict: L1 scalar identity and T1 strict participant-level KL separation pass O1–O3 review. No change to the constructive DGM, model pair, priors, or prediction target.
+Repairs: the general participant-vector corollary now explicitly conditions trial independence on both Theta and Z (new scoped A-011), because independence given Theta alone does not suffice. Replaced L1's “Only under” exogeneity wording with a sufficient-condition statement. Both repairs and counterexamples are documented in the review.
+Limitations: the no-intercept one-slope comparator is essential to this particular contrast; a free-intercept-plus-slope model matches the two marginals as well as K. The positive gap survives removing the slope box, so it is not an artifact of bounding b below log(3).
+Next: D2_BIC_review, O4–O6. No full-package or manuscript acceptance is implied.
+
+## 2026-09-07 D2: BIC convergence and localization
+
+Separate LLM review pass; not independent external acceptance. O4–O6 in L2/C1 pass without edits to the proof or assumptions. See `docs/proof_reviews/review_02_BIC.md`. The non-strict Chebyshev event, compact optimization, global curvature and interior-event geometry were checked explicitly.
+
+A complete same-assumption refinement uses two sufficient statistics to give the exact objective error and a smaller probability-bound constant. It is preserved in the review for D5 rather than rewriting the valid main proof. Exact-fraction checks over 214 small-n multinomial count vectors passed; no new simulation or practical selection-rate claim.
+
+State advances to D3_BF_review (O7). Full criterion-chain and external acceptance remain pending.

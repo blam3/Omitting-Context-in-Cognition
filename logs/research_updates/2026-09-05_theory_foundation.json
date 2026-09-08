@@ -1,0 +1,101 @@
+{
+  "cycle_title": "Participant-level constructive proof foundation and daily roadmap",
+  "track": "theorem",
+  "completed": [
+    "Corrected prose and shared GLM baseline; added a fixed-parameter null.",
+    "Wrote strict observable KL separation and distinct BIC, BF and exact participant LOO proofs, including local convergence obligations.",
+    "Created a bounded daily roadmap and persistent progress state with anti-loop fallbacks.",
+    "Activated daily proof heartbeat at 09:00 America/New_York and recorded its ID in the roadmap and state."
+  ],
+  "why_it_matters": [
+    "The complex candidate no longer benefits from an unfair missing true baseline term.",
+    "Both candidate joint distributions are false, and all theoretical criteria use whole participant response pairs."
+  ],
+  "files_changed": [
+    "README.md",
+    "docs/current_project_context.md",
+    "docs/omitted_context_mixture_lemma.md",
+    "docs/theorem_backlog.md",
+    "docs/proof_review_log.md",
+    "docs/hierarchical_bayes_milestones.md",
+    "docs/approval_log.md",
+    "docs/prospectus/Study1_rewrite.md",
+    "loops/autonomous_researcher_loop.md",
+    "registries/assumption_register.csv",
+    "registries/claim_register.md",
+    "R/fit_models.R",
+    "R/model_selection.R",
+    "R/dgm.R",
+    "tests/testthat/test-simulation-scaffold.R",
+    "docs/assumption_registry.md",
+    "docs/claim_registry.md",
+    "manuscript/main.tex",
+    "PROOF_PACKAGE.md",
+    "docs/optional_gaussian_heterogeneity.md",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json",
+    "scripts/verify_shared_baseline.R",
+    "scripts/verify_constructive_theory.py",
+    "logs/theory_checks/2026-09-05_constructive.json",
+    "logs/theory_checks/proof_gap_scan.json",
+    "logs/theory_checks/PROOF_GAP_SCAN.md",
+    "logs/research_updates/2026-09-05_theory_foundation.json",
+    ".gitignore"
+  ],
+  "checks_run": [
+    {
+      "name": "Rscript scripts/verify_shared_baseline.R",
+      "status": "pass",
+      "notes": "Exact true-logit representation in all baselines, old-baseline negative control, context interaction, heterogeneity and realized thresholds."
+    },
+    {
+      "name": "Rscript R/run_smoke_simulation.R",
+      "status": "pass",
+      "notes": "Proxy replication completed; no selection-rate claim."
+    },
+    {
+      "name": "python3 scripts/verify_constructive_theory.py",
+      "status": "pass",
+      "notes": "Exact four-state construction, positive joint risks and gap, normalized laws, quadrature refinement and participant deletion checks."
+    },
+    {
+      "name": "proof_gap_scan.py",
+      "status": "pass",
+      "notes": "10 obligations; zero blocked or structural/candidate findings. This is not proof correctness certification."
+    },
+    {
+      "name": "testthat full suite",
+      "status": "not_run",
+      "notes": "testthat is not installed in the available R runtime. Package-free regression checks and smoke simulation passed; testthat regression is included for CI."
+    },
+    {
+      "name": "Independent adversarial proof review",
+      "status": "not_run",
+      "notes": "Explicit next roadmap item; author draft is not final scientific support."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "default_if_no_response": "Continue the explicitly authorized constructive proof and roadmap scope."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "The user explicitly authorized the constructive pair and criterion development. No final empirical model or final scientific claim was approved; no restricted data or expensive grid was used."
+  },
+  "risks_or_uncertainties": [
+    "The constructive KL gap is small; all three seeded finite-sample checks favor the simple model. They are not selection-rate estimates.",
+    "The general hierarchical ambiguity extension is not proved.",
+    "Default Python SciPy has a NumPy ABI conflict; verification was rewritten to use NumPy alone, without modifying the global environment."
+  ],
+  "next_bounded_task": "D1_KL_review: adversarially check L1 and T1/O1-O3 and record line-specific evidence."
+}

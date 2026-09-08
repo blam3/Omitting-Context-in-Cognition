@@ -1,0 +1,9 @@
+{
+  "scope": "G1 author checks only; no cognitive separation proof or independent review",
+  "joint_counterexample_gap": 0.13792667225202965,
+  "conditional_counterexample_gap": -0.08521687906218003,
+  "trial_deletion_evidence_identity": "pass on two-atom latent example",
+  "state_dependency_and_evidence_checks": "pass",
+  "lemma_inventory": "PG-L1 through PG-L10 present",
+  "legacy_sha256": "46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c"
+}

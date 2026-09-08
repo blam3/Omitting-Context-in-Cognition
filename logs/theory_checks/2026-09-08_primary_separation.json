@@ -1,0 +1,66 @@
+{
+  "scope": "Author diagnostics only; no optimization, selection simulation or theorem acceptance.",
+  "boundary_gaussian_convolution_max_error": 1.6653345369377348e-16,
+  "boundary_GH64_vs_GH128_max_error": 1.1102230246251565e-16,
+  "absorption_max_cell_error": 5.551115123125783e-17,
+  "deletion_evidence_vs_deleted_posterior_max_error": 1.1102230246251565e-16,
+  "deletion_check_prior": "Three-point diagnostic prior, not the selected continuous Bayesian prior.",
+  "finite_prior_deterministic_sequence": [
+    {
+      "n": 32,
+      "max_deleted_log_prediction_error": 0.18298828289357116
+    },
+    {
+      "n": 128,
+      "max_deleted_log_prediction_error": 0.005066198224016993
+    },
+    {
+      "n": 512,
+      "max_deleted_log_prediction_error": 2.3325563702769614e-11
+    },
+    {
+      "n": 2048,
+      "max_deleted_log_prediction_error": 0.0
+    }
+  ],
+  "boundary_laws": {
+    "-1": [
+      0.26095707569235005,
+      0.3085642841206941,
+      0.1931765412483144,
+      0.23730209893864143
+    ],
+    "1": [
+      0.33770950048349246,
+      0.2768509012814523,
+      0.20815688257584308,
+      0.1772827156592121
+    ]
+  },
+  "finite_context_attempt": {
+    "-1": {
+      "mean_C": 0.0,
+      "var_C": 1.0,
+      "response_law": [
+        0.24844322103620328,
+        0.3134947656277097,
+        0.19032711336286942,
+        0.24773489997321754
+      ]
+    },
+    "1": {
+      "mean_C": 0.0,
+      "var_C": 4.0,
+      "response_law": [
+        0.2551713295855381,
+        0.3060583360153892,
+        0.18632757126966448,
+        0.2524427631294083
+      ]
+    }
+  },
+  "retained_trial_prediction": 0.3903756714895988,
+  "unconditional_trial_prediction": 0.3854395982350552,
+  "strict_separation": "Impossible on attempted two-trial design by analytic family equality; existence on richer designs unresolved.",
+  "legacy_sha256": "46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c"
+}

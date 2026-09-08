@@ -1,177 +1,44 @@
-# Current Project Context for the Autonomous Researcher
+# Current project context
 
-_Last updated: 2026-07-04_
+Updated 2026-09-08 after explicit PI decisions. Authoritative decision record: [pi_decisions_2026-09-08.md](pi_decisions_2026-09-08.md).
 
-## Core thesis
+## Scientific goal and current evidence
 
-The project is no longer only about biased parameter estimates. The central claim is now:
+Test whether omitting context that changes latent cognitive parameters can make a false, more complex cognitive model outperform a simpler context-omitting model. This is not a claim that complexity always wins or beats the correctly specified contextual distribution.
 
-> Omitting contextual causes of latent decision parameters can make model comparison favor the wrong cognitive mechanism.
+The PI-approved primary route now uses A-003: theta=a0+a1 Z+gamma C+u with E[C|Z=z]=m(z) and Var(C|Z=z)=v(z). The primary false-complex model family is probability distortion. Primary predictive comparison is trial-level leave-out. The new combined theorem is not yet proved. Conditional moment identities do not alone imply Gaussianity, heteroskedasticity without residual conditions, or observable KL separation.
 
-The target paper should combine three evidence streams:
+[PROOF_PACKAGE.md](../PROOF_PACKAGE.md) is a preserved finite two-context/two-trial linear-versus-quadratic benchmark with local KL/BIC/BF/LOPO derivations. Separate LLM reviews of O1–O6 are complete; BF/LOPO review and external acceptance remain pending. Its assumptions, prior and holdout unit remain unchanged. Do not present it as proof of the new Gaussian/distortion/trial-LOO route. Lean remains infrastructure only.
 
-1. **Formal proof:** omitted context induces mixtures, heteroskedasticity, or nonlinear marginal response laws.
-2. **Simulation:** under realistic sample sizes and task designs, a false complex model can beat the context-omitting simple model.
-3. **Empirical demonstration:** trial-level RAID decision-under-uncertainty data test whether context-aware simple models change conclusions relative to context-omitting complex models.
+## Active workflow
 
-## Required governance files
+Read the decision record, [comparison plan](bayesian_comparison_plan.md), assumption/claim registers, [roadmap](proof_roadmap.md), [progress state](../registries/proof_progress.json), latest update and working-tree changes. G1_primary_specification is next; G2–G7 cover primary separation, trial LOO, BF, review, computation and manuscript. Older D1–D10 items are benchmark work, not the primary completion inventory.
 
-Before making scientific changes, consult:
+## Likelihood and prediction
 
-- `registries/assumption_register.csv` for assumptions and decision status;
-- `registries/claim_register.md` for claim/evidence status;
-- `docs/hierarchical_bayes_milestones.md` for the staged path from GLM proxies to Stan/brms models;
-- `logs/research_updates/README.md` for required structured cycle reports.
+Trial LOO removes one response and retains that person's other responses; predict using the deleted-data posterior over both participant effects and global parameters. Validate exact refits before relying on PSIS, inspect diagnostics, and account for participant clustering in comparison uncertainty. New-participant LOPO may be reported separately. Participant dependence still governs full likelihoods and BIC asymptotics; trial leave-out does not license treating every row as independently sampled.
 
-Any new theorem assumption, causal claim, primary false-complex model choice, or estimand change must be recorded and decision-gated.
+BF remains a full-data evidence integral with proper priors. The LLM selected weakly informative defaults and bridge sampling under PI delegation, with exact integration/quadrature for tractable verification. See the comparison plan for parameter scales and sensitivity checks. No BF result has yet been established for the new primary models.
 
-## Formal theorem package
+## RAID coding and model ladder
 
-The autonomous researcher should prioritize a publishable constructive theorem before attempting a fully general theorem.
+The PI confirmed: choice identifies the risky/ambiguous lottery (codes 1/2); probs is observed win probability; ambigs measures ambiguous information; vals is a monetary amount; refSide is risky-option side; condition is gain/loss domain. Follow-up confirms 1=risky, 2=ambiguous, probs/ambigs on 0–1, domain labels "gain"/"loss", colors coded 1/2 with unknown meaning, and vals for only one option. The PI says losses are not currently stored; whether this means absent loss trials or unsigned magnitudes remains unresolved. Side codes, option alignment, the other lottery definition, exclusions and the context merge remain open. [The coding memo](raid_variable_coding_memo.md) records those gaps. No final real-data fitting until they are resolved; no restricted-data access is inferred from the descriptions.
 
-### Result 1: omitted-context mixture representation
-
-Let `Y_it` be choice, `X_it` trial features, `Z_i` observed participant covariates, `C_i` omitted context, and `theta_i` a latent decision parameter. If
-
-```math
-theta_i = h(Z_i, C_i, U_i)
-```
-
-and choices follow
-
-```math
-p(Y_it | X_it, theta_i; eta),
-```
-
-then the analyst who omits `C_i` observes
-
-```math
-p_0(y | x,z) = int p(y | x, theta; eta*) dF_{theta|Z}(theta | z).
-```
-
-This is the first theorem object the loop should try to formalize and check.
-
-### Result 2: Gaussian constructive heterogeneity
-
-Use the constructive case
-
-```math
-theta_i = alpha_0 + alpha_1 Z_i + gamma C_i + u_i,
-```
-
-with
-
-```math
-C_i | Z_i=z ~ N(m(z), v(z)).
-```
-
-Then
-
-```math
-theta_i | Z_i=z ~ N(alpha_0 + alpha_1 z + gamma m(z), sigma_u^2 + gamma^2 v(z)).
-```
-
-If `v(z)` is nonconstant, omission creates context-dependent latent variance. This is the clean bridge from omitted context to false complexity.
-
-### Result 3: KL dominance
-
-Let `M_S` be the context-omitting simple model and `M_K` be the context-omitting complex model. If
-
-```math
-inf_{psi in M_K} KL(p_0 || p_psi) < inf_{eta in M_S} KL(p_0 || p_eta),
-```
-
-then the false complex model has higher asymptotic expected log likelihood than the context-omitting simple model.
-
-### Result 4: finite-sample threshold
-
-Let `Delta ell` be expected per-observation log-score advantage of the complex model.
-
-AIC-like selection favors the false complex model when
-
-```math
-2 n Delta ell > 2(k_K - k_S).
-```
-
-BIC-like selection favors it when
-
-```math
-2 n Delta ell > (k_K - k_S) log n.
-```
-
-Treat these as threshold corollaries under stated assumptions, not universal guarantees.
-
-## Boundary conditions the loop must preserve
-
-Do **not** claim context omission always causes false-complex selection. Explicitly track these null or low-risk cases:
-
-1. `C` has no effect on `theta`.
-2. `C` is independent of relevant observed features and only adds correctly modeled iid noise.
-3. The simple model already contains sufficient random-effect structure to represent the marginal law.
-4. The complex model does not approximate the omitted-context mixture better than the simple model.
-5. Model-selection penalties dominate the added fit in the finite sample.
-
-## RAID empirical crosswalk
-
-The current RAID variable map is:
-
-| Theorem object | RAID counterpart |
+| Model | Role |
 |---|---|
-| `Y_it` | `choice` |
-| `X_it` | `probs`, `ambigs`, `vals`, `colors`, `refSide`, `condition` |
-| `Z_i` | income, education, age, gender, race, ethnicity, other demographics |
-| `C_i` | SES/resource context, proxied by income and education |
-| `theta_i` | ambiguity aversion, risk sensitivity, choice stochasticity, source/condition sensitivity |
-| `M_S` | one-parameter ambiguity model with no context predictors |
-| `M_{S+C}` | same ambiguity model with SES/context predicting latent parameters |
-| `M_K` | source/color/condition/nonlinear ambiguity model with no context predictors |
+| M1 | Simple ambiguity, no context |
+| M2 | Same mechanism with context-dependent latent mean |
+| M3 | Context-dependent mean and dispersion |
+| M4 | Probability distortion, no context (PI-selected family) |
+| M5 | Probability distortion plus the matched context specification |
+| M0/M6 | Descriptive checks / optional predictive benchmark |
 
-## Required RAID coding audit before empirical modeling
+Primary empirical contrast remains M2/M3 versus M4; a precise M2-versus-M3 primary designation and task-level equations remain to be fixed before comparison. A one-parameter weighting form is proposed in the comparison plan, not yet validated for RAID. Gain/loss domain terms must be shared fairly; condition is not an assumed cognitive source cue. Observational context effects remain noncausal by default.
 
-The loop must not fit final empirical models until a coding memo answers:
+## Implementation state and boundaries
 
-1. What does `choice` code: ambiguous/risky/reference, left/right, accept/reject, or something else?
-2. Are `probs` and `ambigs` proportions, percentages, or task levels?
-3. What does `vals` represent: gain magnitude, option value, reference value, or value difference?
-4. How does `refSide` map to displayed options and `choice`?
-5. What are `colors` and `condition`: cues, sources, arms, blocks, or processing labels?
-6. Are catch-trial fields row-level, participant-level, or both?
-7. What exclusion rule is primary, and which sensitivity rules are preregistered?
+GLM proxies share risky_value and ambiguous_value baseline terms; the contextual proxy adds SES and the complex proxy adds curvature/cue terms. They are not the selected probability-distortion models. The representable fixed-parameter null uses context_effect="none" and latent_heterogeneity=FALSE; default no-context-effect retains heterogeneity.
 
-Use `docs/raid_variable_coding_memo_template.md` for the audit. Use `R/generate_synthetic_raid_data.R` and `make synthetic-raid` for public pipeline testing before restricted data are available.
+The existing single-level Stan skeleton needs equation review, a fitting wrapper, prior predictive checks and recovery. It does not yet implement a validated two-lottery gain/loss task, hierarchical suite, or primary trial-LOO comparison. Follow the revised Bayesian milestones. No publication-scale simulation or empirical result is established.
 
-## Current empirical model ladder
-
-| Model | Context? | Complexity | Purpose |
-|---|---:|---:|---|
-| M0 descriptive logistic | optional | low | sanity check trial effects |
-| M1 simple ambiguity | no | low | context-omitting baseline |
-| M2 simple ambiguity + SES mean | yes | low | context shifts latent ambiguity aversion |
-| M3 simple ambiguity + SES mean/variance | yes | moderate | theorem-predicted heteroskedasticity |
-| M4 complex ambiguity | no | high | candidate false-complex model |
-| M5 complex ambiguity + SES | yes | high | test whether complexity remains after context inclusion |
-| M6 predictive benchmark | yes/no | flexible | guard against structural overinterpretation |
-
-Primary empirical contrast: **M2/M3 vs. M4**.
-
-## Bayesian modeling path
-
-The GLM scaffold is only for smoke tests. Follow `docs/hierarchical_bayes_milestones.md` to move toward:
-
-1. single-level structural ambiguity likelihood;
-2. participant-level hierarchical ambiguity model;
-3. context-aware mean model;
-4. context-aware mean-plus-variance model;
-5. PI-selected primary false-complex model;
-6. final M1-M5 empirical model suite.
-
-The initial Stan skeleton is `stan/simple_ambiguity_single_level.stan`.
-
-## Autonomous researcher priorities
-
-1. Keep the theorem, simulation, and empirical analysis synchronized.
-2. Prefer exact constructive results over vague general claims.
-3. Convert every new assumption into an explicit assumption register entry.
-4. Convert every model-selection claim into a comparison criterion: KL, expected log score, AIC/BIC threshold, PSIS-LOO ELPD, held-out log score, or Bayes factor sensitivity.
-5. Ask the human PI before adding assumptions, changing estimands, choosing the primary false-complex model, or interpreting RAID results as causal.
-6. Write a structured cycle report to `logs/research_updates/` for every autonomous researcher cycle.
+The finite benchmark gap is small and its three seeded computational checks favor the simple model; do not recast those checks as selection rates. A correctly specified shared-effect simple model can remove an approximation gap. Any increasing-trial claim requires its own asymptotic argument. Scientific acceptance and production compute/dissemination remain separate decisions; already settled PI choices need no repeat approval.

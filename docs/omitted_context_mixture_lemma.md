@@ -1,291 +1,35 @@
-# Omitted-Context Mixture Lemma Proof Draft
+# Omitted-context mixture lemma
 
-Issue: #4, "Proof: Formalize omitted-context mixture lemma"
+Status: short proof draft, locally checked on 2026-09-05; independent acceptance pending. Claim C-002. General primary conditioning remains on both trial features and covariates; rejected A-006 is not reinstated.
 
-Status: proof-review draft, not accepted for manuscript use.
+## Lemma 1.1: finite-response conditional mixture
 
-## 1. Why This Lemma Matters
+Let $Y$ have finite support, and let the latent parameter $\Theta=h(Z,C,U)$ take values in a standard Borel space. Assume the regular conditional law $F_{\Theta\mid X,Z}$ exists, and the measurable probability kernel satisfies
 
-The project asks why a cognitive model can look empirically superior even when
-its extra psychological machinery is not part of the data-generating process.
-The first step is modest but load-bearing: once a contextual cause of a latent
-decision parameter is omitted, the analyst no longer sees the original
-individual-level choice law. The analyst sees an average of that law over the
-latent parameter values that remain possible among observations with the same
-recorded trial features and covariates.
+$$P(Y=y\mid X,Z,\Theta)=p(y\mid X,\Theta;\eta^*)\quad\text{almost surely}.$$
 
-That average is a mixture. This lemma proves the mixture identity. It does not
-yet prove that a false complex model wins, and it does not claim that omission
-is always harmful. Its role is to identify the object that later model
-comparison procedures actually approximate. The later Gaussian heterogeneity,
-KL dominance, and finite-sample selection results all build on this point:
-model comparison is performed against the context-omitted marginal response
-law, not against the conditional law that would be visible if the omitted
-context were modeled.
+Then, for $(X,Z)$-almost every $(x,z)$,
 
-In the grand scheme of the OCECM project, the lemma is the bridge from
-"context affects latent cognition" to "a context-omitting analyst faces a
-different statistical target." It explains how environmental or socioeconomic
-context can become invisible in the model formula but still remain present in
-the response surface being fitted.
+$$P(Y=y\mid X=x,Z=z)=\int p(y\mid x,\theta;\eta^*)\,dF_{\Theta\mid X,Z}(\theta\mid x,z).$$
 
-## 2. Objects & Notation
+**Proof.** Apply the tower property to $1_{\{Y=y\}}$:
 
-Let `i` index participants and `t` index trials. For one generic
-participant-trial observation, define:
+$$E[1_{\{Y=y\}}\mid X,Z]
+=E[E[1_{\{Y=y\}}\mid X,Z,\Theta]\mid X,Z]
+=E[p(y\mid X,\Theta;\eta^*)\mid X,Z].$$
 
-- `Y` as a binary or multinomial choice outcome with support `Y_space`.
-- `X` as the observed trial design vector.
-- `Z` as observed participant covariates or observed context.
-- `C` as omitted context.
-- `U` as idiosyncratic latent heterogeneity.
-- `Theta = h(Z, C, U)` as the latent decision parameter.
-- `eta_star` as fixed parameters of the conditional choice kernel.
+Represent the last conditional expectation using the stated conditional distribution. The kernel is bounded, hence integrable; finite outcome support allows one common null set. $\square$
 
-The analyst observes `(Y, X, Z)` and omits `C`. Because `C` and `U` are not
-observed, the analyst generally does not know the participant's exact
-`Theta`. Instead, among observations with the same recorded `(X = x, Z = z)`,
-there is a conditional distribution of possible latent parameters:
+## Corollary 1.2: exogenous design
 
-```math
-F_{\Theta | X,Z}(\theta | x,z).
-```
+If additionally $\Theta\perp X\mid Z$, replace $F_{\Theta\mid X,Z}$ by $F_{\Theta\mid Z}$ in the display. This follows by substitution. A genuinely deterministic common design is a special case; merely treating an observed design as fixed, or calling assignment non-adaptive, does not establish independence. Adaptive assignment or dependence on an unrecorded baseline trait can violate it.
 
-The primary omitted-context marginal response law is therefore
+## Participant-level version and scope
 
-```math
-p_0(y | x,z) =
-\int p(y | x,\theta; \eta^*) dF_{\Theta | X,Z}(\theta | x,z).
-```
+For a deterministic common design $x_{1:T}$, suppose the trial kernels above hold and the responses are mutually conditionally independent given **$(\Theta,Z)$** (A-011). Then, for $Z$-almost every $z$, the likelihood for a new participant is
 
-If `Theta` is discrete, the integral is a weighted sum over possible values of
-`\theta`. If `Theta` is continuous, the integral is the corresponding
-probability-weighted average. Either way, the meaning is the same: the analyst
-averages the conditional choice probability over the latent parameter values
-left unresolved after omitting context.
+$$P(Y_{1:T}=y_{1:T}\mid Z=z)=\int\prod_{t=1}^T p(y_t\mid x_t,\theta;\eta^*)\,dF_{\Theta\mid Z}(\theta\mid z).$$
 
-A simplified display with `F_{\Theta | Z}` is not a primary theorem assumption.
-It is available only as a corollary under a fixed-design interpretation or an
-explicit trial-design exogeneity condition.
+Apply the same argument to the finite vector $Y_{1:T}$. The integral encloses the product. The product of separately marginalized trial probabilities is generally not this joint likelihood. Other designs require the appropriate joint conditional kernel and mixing distribution; the single-trial result does not silently establish conditional trial independence. Independence given $\Theta$ alone need not survive conditioning on $Z$; see the explicit counterexample and repair in [the 2026-09-06 review](proof_reviews/review_01_KL.md).
 
-## 3. Assumptions Used
-
-1. A-001, Observed choice law: observed choices `Y_it` are generated by a
-   latent decision parameter `theta_i` and observed trial features `X_it`
-   through `p(Y_it | X_it, theta_i; eta)`.
-2. A-002, Omitted context shifts latent parameter: the omitted contextual
-   factor `C_i` affects `theta_i` through `h(Z_i, C_i, U_i)`.
-3. Conditional law of total probability: a conditional probability can be
-   written as the average of a more finely conditioned probability over the
-   distribution of the conditioning variable being averaged out.
-4. Regularity of conditioning: `Theta` takes values in a Borel (e.g. Polish)
-   space, so that a regular conditional distribution `F_{Theta | X,Z}(· | x,z)`
-   of `Theta` given `(X,Z)` exists and is a bona fide probability measure for
-   `(X,Z)`-almost every `(x,z)`. In the project's binary/multinomial setting
-   `Theta` is finite-dimensional and real-valued, so this holds automatically
-   (Kallenberg, *Foundations of Modern Probability*, 2nd ed., Thm 6.3; Durrett,
-   *Probability: Theory and Examples*, 5th ed., §4.1.3).
-
-Rejected assumption A-006 is not used in this draft. Following PI direction,
-the theorem package keeps `F_{\Theta | X,Z}` as the primary statement and
-mentions the simplified `F_{\Theta | Z}` display only as a corollary under
-additional conditions.
-
-## 4. Formal Statement
-
-### Lemma 1.1 (Omitted-Context Conditional Mixture)
-
-Suppose Assumption 4 holds, so that the regular conditional distribution
-`F_{\Theta | X,Z}(\cdot | x,z)` exists. Then for any outcome `y` in `Y_space`
-and for `(X,Z)`-almost every `(x,z)`, if the conditional choice law satisfies
-
-```math
-P(Y = y | X = x, Z = z, \Theta = \theta)
-= p(y | x,\theta; \eta^*).
-```
-
-Then the analyst who omits `C` observes
-
-```math
-P(Y = y | X = x, Z = z)
-= \int p(y | x,\theta; \eta^*) dF_{\Theta | X,Z}(\theta | x,z).
-```
-
-### Corollary 1.2 (Fixed or Exogenous Trial Design)
-
-If, in addition to Lemma 1.1, `\Theta` is conditionally independent of `X`
-given `Z`, or `X` is treated as a fixed design, then
-
-```math
-P(Y = y | X = x, Z = z)
-= \int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
-```
-
-This corollary is not the primary theorem statement.
-
-## 5. Derivation
-
-### 5.1 Strategy Overview
-
-The proof is an averaging argument. If the analyst knew `Theta`, then the
-choice probability at trial design `x` would be
-`p(y | x,\theta; \eta^*)`. But the analyst does not observe `Theta`, because
-`Theta` partly depends on omitted context `C` and latent heterogeneity `U`.
-Therefore, after conditioning only on observed information `(X = x, Z = z)`,
-the analyst must average over the possible values of `Theta` that remain.
-
-The primary statement keeps the latent-parameter distribution conditional on
-both `X` and `Z`, so it does not require trial-design exogeneity.
-
-### 5.2 Step-by-Step Derivation
-
-1. Begin with the probability the analyst can estimate from observed data:
-
-```math
-P(Y = y | X = x, Z = z).
-```
-
-This is the chance of observing choice `y` among observations with trial
-features `x` and observed covariates `z`. It does not condition on `C`, because
-`C` is omitted. It also does not condition on the realized value of `Theta`,
-because `Theta` is latent.
-
-2. Introduce `Theta` as the unobserved quantity over which the analyst is
-implicitly averaging. The conditional law of total probability says that we can
-recover the coarser probability by averaging the finer probability over the
-conditional distribution of `Theta`:
-
-```math
-P(Y = y | X = x, Z = z)
-= \int P(Y = y | X = x, Z = z, \Theta = \theta)
-dF_{\Theta | X,Z}(\theta | x,z).
-```
-
-This step is not a modeling approximation. It is a probability identity. The
-left side conditions only on what the analyst observes. The integrand on the
-right asks what the choice probability would be if we also knew that the
-latent parameter had value `\theta`. The measure
-`dF_{\Theta | X,Z}(\theta | x,z)` supplies the weights: how likely each
-latent-parameter value is among observations with the same observed `(x,z)`.
-
-3. Substitute the cognitive choice kernel. By A-001, once `X` and `Theta` are
-given, the probability of the choice is represented by the model kernel:
-
-```math
-P(Y = y | X = x, Z = z, \Theta = \theta)
-= p(y | x,\theta; \eta^*).
-```
-
-Putting this into the identity from Step 2 gives
-
-```math
-P(Y = y | X = x, Z = z)
-= \int p(y | x,\theta; \eta^*)
-dF_{\Theta | X,Z}(\theta | x,z).
-```
-
-This is the omitted-context mixture law.
-
-4. Interpret where omitted context enters the mixture. By A-002,
-
-```math
-\Theta = h(Z,C,U).
-```
-
-Thus, even after the analyst conditions on `Z = z`, the latent parameter can
-still vary because `C` and `U` vary. If `C` affects `Theta`, then part of the
-spread, skew, or multimodality of `F_{\Theta | X,Z}` is context-induced rather
-than merely idiosyncratic noise. The omitted context has disappeared from the
-analyst's model formula, but it has not disappeared from the distribution being
-averaged over.
-
-5. Derive the fixed-design corollary. For Corollary 1.2 only, suppose
-`\Theta` is conditionally independent of `X` given `Z`. Then observing `X = x`
-does not change the conditional distribution of the latent parameter once
-`Z = z` is already known:
-
-```math
-F_{\Theta | X,Z}(\cdot | x,z) = F_{\Theta | Z}(\cdot | z).
-```
-
-Substituting this equality into the primary mixture law yields
-
-```math
-P(Y = y | X = x, Z = z)
-= \int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
-```
-
-The "fixed design" branch is not a separate argument: if `X` is fixed by
-design — assigned by a non-adaptive rule that does not depend on the realized
-outcomes, and hence carries no information about `\Theta` beyond `Z` — then
-`\Theta` is conditionally independent of `X` given `Z`, so
-`F_{\Theta | X,Z}(\cdot | x,z) = F_{\Theta | Z}(\cdot | z)` again holds and the
-single substitution above applies verbatim. (This is exactly the exogeneity
-that adaptive designs violate; see §8.) Thus both sufficient conditions in
-Corollary 1.2 reduce to the one derivation of this step, and the
-`F_{\Theta | Z}` display is a genuine special case rather than an independent
-result.
-
-### 5.3 Conclusion
-
-The analyst's observed response law is not usually a single conditional choice
-kernel evaluated at one known latent parameter. It is a mixture of such kernels
-over the latent-parameter distribution left after conditioning on observed
-data. The primary theorem statement uses `F_{\Theta | X,Z}`. The simplified
-`F_{\Theta | Z}` statement is available only as Corollary 1.2 under fixed or
-exogenous trial design.
-
-## 6. Implications for the Project
-
-1. **The target of model comparison changes.** A context-omitting model is
-   evaluated against `p_0(y | x,z)`, the marginal mixture law. It is not
-   evaluated against the individual-level kernel with `C` properly represented.
-2. **False complexity becomes possible.** If the mixture law has curvature,
-   heteroskedasticity, or apparent source-specific effects that are not present
-   in the individual-level kernel, a more flexible context-omitting model may
-   fit those features better than a simple context-omitting model.
-3. **The lemma does not prove model-selection failure by itself.** Later
-   results must show that the complex model approximates the mixture better
-   under a specified criterion such as KL divergence, expected log score,
-   AIC/BIC thresholds, PSIS-LOO ELPD, or held-out log score.
-4. **Boundary cases remain central.** If `C` has no effect on `Theta`, if the
-   simple model already represents the induced mixture, or if model-selection
-   penalties dominate the extra fit, the false-complex model need not win.
-5. **The RAID empirical role is diagnostic rather than causal by default.** In
-   the empirical track, this lemma motivates comparing context-aware simple
-   models against context-omitting complex models. It does not by itself turn
-   income or education associations into causal SES effects.
-
-## 7. Known Gaps / Unproven Steps
-
-- The regularity condition for the conditional distributions is now stated
-  explicitly as Assumption 4 (`Theta` valued in a Borel/Polish space, so the
-  regular conditional distribution `F_{Theta | X,Z}` exists), and Lemma 1.1 is
-  stated for `(X,Z)`-almost every `(x,z)`. This discharges the existence of the
-  mixing measure. Two items remain for a fully measure-theoretic SI version:
-  (i) the finite-outcome identity above covers the project's binary/multinomial
-  response law but is not stated at the generality needed for continuous or
-  otherwise non-finite outcome spaces; (ii) Assumption 4 is stated but not
-  itself re-derived here (it is standard — see Kallenberg Thm 6.3 / Durrett
-  §4.1.3).
-- This lemma does not yet prove heteroskedasticity, KL dominance, or finite-
-  sample model-selection thresholds.
-- Proof-critic review remains pending before manuscript insertion.
-
-## 8. Counter-Example Candidates
-
-- Adaptive trial designs: if `X` is assigned based on previous choices that
-  reveal information about `Theta`, then `F_{\Theta | X,Z}` may differ from
-  `F_{\Theta | Z}`.
-- Stratified task assignment: if participants with different `Z` or inferred
-  latent traits receive different trial distributions, the simplified display
-  can misstate the mixture distribution.
-- Correctly specified random-effects simple models: the mixture may be absorbed
-  without favoring a false complex cognitive mechanism.
-
-## 9. Need for New Assumptions?
-
-No new approved assumptions are needed for the primary theorem statement.
-A-006 was considered and rejected by PI direction on 2026-07-07. The
-`F_{\Theta | Z}` display remains only a corollary under additional fixed-design
-or exogeneity conditions.
+The identity alone proves neither observable complexity nor model-selection superiority. A Bernoulli mixture at one predictor value remains Bernoulli. The main work is showing that a restricted response function or joint law cannot represent the marginal distribution. [PROOF_PACKAGE.md](../PROOF_PACKAGE.md) supplies an explicit two-trial construction and separate BIC, BF and leave-one-participant-out corollaries. Gaussian heterogeneity is an [optional example](optional_gaussian_heterogeneity.md), not a dependency.

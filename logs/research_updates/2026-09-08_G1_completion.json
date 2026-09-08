@@ -1,0 +1,57 @@
+{
+  "cycle_title": "G1 completion: approved moments, proposed DGP and explicit proof gaps",
+  "track": "theorem",
+  "completed": [
+    "Completed condition-by-condition consequences, full design conditioning and the no-distortion true DGP class in docs/primary_theorem_specification.md.",
+    "Defined response-only exact trial deletion, score normalization and joint-projection conditional-risk targets; inventoried PG-L1 through PG-L10.",
+    "Split optional residual-moment P-G2a from Gaussian P-G2b; kept P-G1 and both extra packages unapproved. Corrected A-003 descriptive label without changing its approved content.",
+    "Reconciled STATUS.md and proof_progress.json: G1 specification complete, G2 next, all primary theorem obligations unaccepted."
+  ],
+  "why_it_matters": [
+    "Approval of A-003 does not imply a normal law, observable separation, BF preference or trial-LOO preference. The specification now identifies precisely what each next proof must establish."
+  ],
+  "files_changed": [
+    "docs/primary_theorem_specification.md",
+    "docs/proposed_assumptions.md",
+    "STATUS.md",
+    "registries/assumption_register.csv",
+    "registries/proof_progress.json",
+    "scripts/verify_primary_specification.py",
+    "logs/theory_checks/2026-09-08_G1_completion.json",
+    "logs/research_updates/2026-09-08_G1_completion.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/verify_primary_specification.py",
+      "status": "pass",
+      "notes": "Enumerated joint/conditional risk counterexample and discrete latent deletion identity; checked state dependencies, evidence paths and lemma inventory. These checks do not prove cognitive separation."
+    },
+    {
+      "name": "Legacy proof hash against recorded review hash",
+      "status": "pass",
+      "notes": "46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c unchanged."
+    },
+    {
+      "name": "Research update validation",
+      "status": "pass",
+      "notes": "Validated with scripts/validate_research_update.py; schema validation recorded separately if available."
+    },
+    {
+      "name": "Primary separation, BF and trial-LOO proofs or independent review",
+      "status": "not_run",
+      "notes": "Outside G1 completion; remain explicit gaps. No final claims promoted."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "No decision is required to complete G1. P-G1 and optional P-G2a/P-G2b are precise review proposals in docs/proposed_assumptions.md; future adoption must name the package actually needed.",
+    "default_if_no_response": "Keep all new packages proposed; continue bounded containment and boundary analysis without assumption promotion."
+  },
+  "risks_or_uncertainties": [
+    "The DGP is a class, not yet a numerical or analytic witness of strict separation.",
+    "The gain-only synthetic kernel is not a validated gain/loss RAID likelihood.",
+    "Joint-optimum existence, identifiability, strict joint/conditional gaps, prior-tail likelihood bounds and deletion stability remain open.",
+    "Author derivations and local numerical checks are not independent review or theorem acceptance."
+  ],
+  "next_bounded_task": "G2_observable_separation: specify a concrete design and H; check containment and observable identifiability for the matched S/K pair before attempting separate joint and trial-conditional gaps."
+}

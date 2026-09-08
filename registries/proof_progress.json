@@ -1,0 +1,465 @@
+{
+  "version": 1,
+  "updated": "2026-09-08",
+  "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
+  "overall_status": "full_existing_support_absorbed_richer_support_unspecified",
+  "active_item": "G2_observable_separation",
+  "next_action": "Develop the nuisance-adjusted context-perturbation lemma in docs/general_theorem_architecture.md section 5: derive an observable score-alignment condition from the context law, preserving the shared baseline and absorbed-design negative controls. Distinguish joint separation, remaining falsity and conditional advantage.",
+  "consecutive_no_progress_runs": 0,
+  "attempt_history": [
+    {
+      "date": "2026-09-06",
+      "item": "D1_KL_review",
+      "approach": "Exact finite-state reconstruction and analytical KL projection; adversarial conditioning and comparator-scope examples.",
+      "outcome": "Strict KL separation verified; repaired general-vector conditioning and necessity wording. No unresolved blocker.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/proof_reviews/review_01_KL.md"
+    },
+    {
+      "date": "2026-09-07",
+      "item": "D2_BIC_review",
+      "approach": "Reconstruct uniform bound, curvature, localization and BIC failure event; derive exact sufficient-statistic refinement and check finite multinomial tails.",
+      "outcome": "O4-O6 pass without main-proof edits; additional same-assumption bound recorded for integration.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/proof_reviews/review_02_BIC.md"
+    },
+    {
+      "date": "2026-09-08",
+      "item": "G1_primary_specification",
+      "approach": "Specify approved versus proposed hypotheses and exact trial prediction; derive risk chain rule and rational counterexample.",
+      "outcome": "G1 specification complete. Joint KL superiority does not imply conditional superiority; both gaps are required.",
+      "failed_routes": [
+        "Inferring trial-LOO preference from joint KL alone is disproved by the recorded four-cell counterexample."
+      ],
+      "no_progress": false,
+      "artifact": "docs/primary_theorem_specification.md"
+    },
+    {
+      "date": "2026-09-08",
+      "item": "G1_primary_specification",
+      "approach": "Reconcile existing draft with live decisions; add condition-by-condition consequences, DGP conditioning, exact score and PG-L1\u2013PG-L10 dependencies.",
+      "outcome": "Reviewable specification completed; new proposals remain unapproved and separation/BF/trial-LOO gaps explicit. No theorem acceptance.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/primary_theorem_specification.md"
+    },
+    {
+      "date": "2026-09-08",
+      "item": "G2_observable_separation",
+      "approach": "Exact Gaussian representability; finite-support heteroskedastic context on a two-trial opposite-side design; pointwise nuisance absorption before optimization. Independently derive finite-design response-deletion concentration and separate evidence/BIC rate bounds.",
+      "outcome": "Two exact no-gap obstructions recorded. Eight local obligations closed at author-draft level; O9 strict joint/conditional separation remains blocked. Conditional finite-support trial-score limit established, with zero boundary difference.",
+      "failed_routes": [
+        "Gaussian context with affine conditional mean and constant variance is exactly represented by the shared-effect simple model.",
+        "Finite-support context with v(-1)=1 and v(1)=4 cannot separate identical S/K observable families on the two-trial opposite-side design.",
+        "Local distortion perturbation on that same design lies in the intercept/side nuisance span."
+      ],
+      "no_progress": false,
+      "artifact": "docs/primary_separation_attempt_2026-09-08.md"
+    },
+    {
+      "date": "2026-09-08",
+      "item": "G2_observable_separation",
+      "approach": "Inventory all available primary design definitions; stack every W/trial row and derive the nuisance quotient criterion including positive sensitivity and dispersion rescaling.",
+      "outcome": "Existing full support has rank(D)=rank([D,d1])=3 and analytic all-rho absorption. A complete richer/RAID support is absent; no new construction or claim promotion.",
+      "failed_routes": [
+        "Using extra Z rows to rescue the current design fails because the same intercept/side map holds globally.",
+        "Rank equality alone cannot certify absorption when the required sensitivity scale is zero or negative."
+      ],
+      "no_progress": false,
+      "artifact": "docs/design_absorption_audit_2026-09-08.md"
+    },
+    {
+      "date": "2026-09-08",
+      "item": "general_theorem_architecture",
+      "approach": "Separate mechanism and criterion transfer hypotheses; derive observable score-alignment sufficient condition and chain-rule trial-risk requirement.",
+      "outcome": "General architecture written; positive alignment for the primary cognitive pair remains open.",
+      "no_progress": false,
+      "artifact": "docs/general_theorem_architecture.md"
+    }
+  ],
+  "completed_obligations": [],
+  "acceptance_level": "new_primary_route_unproved; legacy_O1_O6_separate_LLM_review_only",
+  "artifacts": [
+    "PROOF_PACKAGE.md",
+    "docs/omitted_context_mixture_lemma.md",
+    "logs/theory_checks/2026-09-05_constructive.json",
+    "docs/proof_reviews/review_01_KL.md",
+    "logs/theory_checks/2026-09-06_KL_review.json",
+    "docs/proof_reviews/review_02_BIC.md",
+    "logs/theory_checks/2026-09-07_BIC_review.json",
+    "docs/primary_theorem_specification.md",
+    "logs/theory_checks/2026-09-08_trial_target.json",
+    "logs/research_updates/2026-09-08_G1_completion.json",
+    "logs/theory_checks/2026-09-08_G1_completion.json",
+    "docs/primary_separation_attempt_2026-09-08.md",
+    "logs/theory_checks/2026-09-08_primary_separation.json",
+    "logs/theory_checks/2026-09-08_primary_separation_gap_scan.json",
+    "logs/research_updates/2026-09-08_primary_separation.json",
+    "scripts/verify_primary_separation.py",
+    "docs/design_absorption_audit_2026-09-08.md",
+    "logs/theory_checks/2026-09-08_design_absorption.json",
+    "logs/theory_checks/2026-09-08_design_absorption_gap_scan.json",
+    "logs/research_updates/2026-09-08_design_absorption.json",
+    "registries/primary_design_support.csv",
+    "scripts/audit_design_absorption.py",
+    "docs/general_theorem_architecture.md"
+  ],
+  "items": [
+    {
+      "id": "D1_KL_review",
+      "title": "KL and mixture adversarial review",
+      "status": "complete",
+      "depends_on": [],
+      "attempts": 1,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/proof_reviews/review_01_KL.md",
+        "logs/theory_checks/2026-09-06_KL_review.json"
+      ],
+      "completed_at": "2026-09-06",
+      "review_type": "separate_LLM_review_pass_not_independent_external_acceptance",
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D2_BIC_review",
+      "title": "BIC convergence review",
+      "status": "complete",
+      "depends_on": [
+        "D1_KL_review"
+      ],
+      "attempts": 1,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/proof_reviews/review_02_BIC.md",
+        "logs/theory_checks/2026-09-07_BIC_review.json"
+      ],
+      "completed_at": "2026-09-07",
+      "review_type": "separate_LLM_review_pass_not_independent_external_acceptance",
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D3_BF_review",
+      "title": "Bayes-factor integral review",
+      "status": "ready",
+      "depends_on": [
+        "D2_BIC_review"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D4_LOPO_review",
+      "title": "LOPO deletion review",
+      "status": "pending",
+      "depends_on": [
+        "D3_BF_review"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D5_integration",
+      "title": "Core integration review",
+      "status": "pending",
+      "depends_on": [
+        "D4_LOPO_review"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D6_ambiguity_mapping",
+      "title": "Structural ambiguity mapping or obstruction",
+      "status": "pending",
+      "depends_on": [
+        "D5_integration"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D7_boundaries",
+      "title": "Boundary and robustness review",
+      "status": "pending",
+      "depends_on": [
+        "D6_ambiguity_mapping"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D8_computation",
+      "title": "Predeclared finite-sample validation",
+      "status": "pending",
+      "depends_on": [
+        "D7_boundaries"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D9_manuscript",
+      "title": "Manuscript proof draft",
+      "status": "pending",
+      "depends_on": [
+        "D8_computation"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "D10_final_review",
+      "title": "Final review packet",
+      "status": "pending",
+      "depends_on": [
+        "D9_manuscript"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "legacy_finite_benchmark"
+    },
+    {
+      "id": "G1_primary_specification",
+      "title": "Specify approved primary assumptions, observable laws and trial-LOO target",
+      "status": "complete",
+      "depends_on": [],
+      "attempts": 2,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/primary_theorem_specification.md",
+        "logs/theory_checks/2026-09-08_trial_target.json",
+        "logs/research_updates/2026-09-08_G1_completion.json",
+        "logs/theory_checks/2026-09-08_G1_completion.json"
+      ],
+      "track": "primary_2026_09_08",
+      "completed_at": "2026-09-08",
+      "completion_scope": "Reviewable specification and explicit gaps only; primary separation unproved",
+      "review_type": "author_specification_self_check_only_not_theorem_acceptance"
+    },
+    {
+      "id": "G2_observable_separation",
+      "title": "Prove or delimit observable separation for the primary candidate pair",
+      "status": "in_progress",
+      "depends_on": [
+        "G1_primary_specification"
+      ],
+      "attempts": 2,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/primary_separation_attempt_2026-09-08.md",
+        "logs/theory_checks/2026-09-08_primary_separation.json",
+        "logs/theory_checks/2026-09-08_primary_separation_gap_scan.json",
+        "logs/research_updates/2026-09-08_primary_separation.json",
+        "docs/design_absorption_audit_2026-09-08.md",
+        "logs/theory_checks/2026-09-08_design_absorption.json",
+        "logs/theory_checks/2026-09-08_design_absorption_gap_scan.json",
+        "logs/research_updates/2026-09-08_design_absorption.json",
+        "registries/primary_design_support.csv"
+      ],
+      "track": "primary_2026_09_08",
+      "completion_scope": "Full existing support audited and absorbed; richer-support input and positive observable gaps remain open.",
+      "review_type": "author_derivation_and_self_check_not_independent_review"
+    },
+    {
+      "id": "G3_trial_LOO",
+      "title": "Derive and review exact trial-deletion result",
+      "status": "pending",
+      "depends_on": [
+        "G2_observable_separation"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/primary_separation_attempt_2026-09-08.md",
+        "logs/theory_checks/2026-09-08_primary_separation.json"
+      ],
+      "track": "primary_2026_09_08",
+      "partial_result": "Conditional finite-support author theorem only; positive selection and general-design extension remain open."
+    },
+    {
+      "id": "G4_primary_BF",
+      "title": "Derive evidence result under specified proper priors",
+      "status": "pending",
+      "depends_on": [
+        "G2_observable_separation"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/primary_separation_attempt_2026-09-08.md",
+        "logs/theory_checks/2026-09-08_primary_separation.json"
+      ],
+      "track": "primary_2026_09_08",
+      "partial_result": "Conditional finite-support author theorem only; positive selection and general-design extension remain open.",
+      "dependency_note": "Evidence rate needs joint likelihood/projection work, not a trial-conditional gap. Independent branch from G3."
+    },
+    {
+      "id": "G5_primary_review",
+      "title": "Adversarial scope and dependency review",
+      "status": "pending",
+      "depends_on": [
+        "G4_primary_BF",
+        "G2b_primary_BIC"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "primary_2026_09_08"
+    },
+    {
+      "id": "G6_primary_computation",
+      "title": "Predeclared finite-sample and recovery validation",
+      "status": "pending",
+      "depends_on": [
+        "G5_primary_review"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "primary_2026_09_08"
+    },
+    {
+      "id": "G7_primary_manuscript",
+      "title": "Evidence-grounded primary manuscript and PI review packet",
+      "status": "pending",
+      "depends_on": [
+        "G6_primary_computation"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [],
+      "track": "primary_2026_09_08"
+    },
+    {
+      "id": "G2b_primary_BIC",
+      "title": "Derive separate BIC corollary from integrated participant likelihood",
+      "status": "pending",
+      "depends_on": [
+        "G2_observable_separation"
+      ],
+      "attempts": 0,
+      "no_progress_runs": 0,
+      "evidence": [
+        "docs/primary_separation_attempt_2026-09-08.md",
+        "logs/theory_checks/2026-09-08_primary_separation.json"
+      ],
+      "track": "primary_2026_09_08",
+      "partial_result": "Conditional finite-support author theorem only; positive selection and general-design extension remain open."
+    }
+  ],
+  "automation": {
+    "id": "daily-cognitive-model-proof-progress",
+    "kind": "heartbeat",
+    "status": "ACTIVE",
+    "schedule_local": "09:00 daily",
+    "timezone": "America/New_York"
+  },
+  "reviewed_obligations": [],
+  "last_review": {
+    "scope": [
+      "L2",
+      "C1",
+      "O4",
+      "O5",
+      "O6"
+    ],
+    "assumption_change": "None; main proof unchanged. Same-assumption sufficient-statistic refinement proved in review_02_BIC.md.",
+    "reviewer_independence": "same LLM task, separate review pass",
+    "core_proof_sha256": "46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c"
+  },
+  "integration_notes": [
+    {
+      "item": "D5_integration",
+      "artifact": "docs/proof_reviews/review_02_BIC.md",
+      "note": "Consider the closed exact identity U_n=|e_A|+|e_B| and bound 159/(8 n u^2) for a shorter model-specific proof. BIC consistency needs only O4 and the KL gap; parameter localization serves later BF. This refinement does not imply practical selection-rate improvement."
+    }
+  ],
+  "legacy_benchmark": {
+    "objective": "Close and adversarially review the finite participant-level KL/BIC/BF/LOPO theorem package; explicitly scope any ambiguity extension.",
+    "overall_status": "core_review_in_progress",
+    "active_item": "D3_BF_review",
+    "next_action": "Adversarially review PROOF_PACKAGE.md C2 and O7: verify prior normalization, the upper/lower likelihood integrals on E_n, and the O_p(1) remainder relative to the fitted likelihood. Write docs/proof_reviews/review_03_BF.md.",
+    "completed_obligations": [
+      "O1",
+      "O2",
+      "O3",
+      "O4",
+      "O5",
+      "O6",
+      "O7",
+      "O8",
+      "O9",
+      "O10"
+    ],
+    "reviewed_obligations": [
+      "O1",
+      "O2",
+      "O3",
+      "O4",
+      "O5",
+      "O6"
+    ],
+    "acceptance_level": "author_draft_with_separate_LLM_review_of_O1_O6_only"
+  },
+  "scope_revision": "docs/pi_decisions_2026-09-08.md",
+  "primary_author_results": {
+    "artifact": "docs/primary_separation_attempt_2026-09-08.md",
+    "locally_closed_obligations": [
+      "O1",
+      "O2",
+      "O3",
+      "O4",
+      "O5",
+      "O6",
+      "O7",
+      "O8"
+    ],
+    "blocked_obligations": [
+      "O9"
+    ],
+    "scope": "IDs local to this new artifact; do not merge with legacy O1-O10 or mark primary acceptance. O4-O8 are conditional on the stated finite-design theorem hypotheses.",
+    "review_status": "author_only"
+  },
+  "design_audit": {
+    "artifact": "docs/design_absorption_audit_2026-09-08.md",
+    "support_manifest": "registries/primary_design_support.csv",
+    "status": "existing_support_audited_exact_absorption",
+    "approval_effect": "none",
+    "next_input": "Complete richer/empirical support is not specified; no empirical verdict.",
+    "author_closed_obligations": [
+      "O1",
+      "O2",
+      "O3",
+      "O4"
+    ],
+    "scope": "Local audit IDs only, not accepted primary-selection obligations."
+  },
+  "priority_update": {
+    "date": "2026-09-08",
+    "P-G1": "approved_for_restricted_theorem_development",
+    "primary_deliverable": "general_theorem",
+    "unchanged_unapproved": [
+      "P-G2a",
+      "P-G2b",
+      "P-G3"
+    ],
+    "previous_next_action": "Current four-row full-support audit is complete and all-rho absorption is proved. Obtain or explicitly specify a complete richer support manifest (both lotteries, side, ambiguity, Z and allowed co-occurrences) and audit its global positive-scale quotient condition before constructing a separation DGP. Do not reuse the absorbed design or treat a numeric rank pass as observable separation. P-G3 remains conditional and unapproved."
+  }
+}

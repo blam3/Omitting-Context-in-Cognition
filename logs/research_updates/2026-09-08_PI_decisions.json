@@ -1,0 +1,76 @@
+{
+  "cycle_title": "Record PI decisions and revise primary theorem and Bayesian contract",
+  "track": "governance",
+  "completed": [
+    "Recorded primary trial-level LOO, primary A-003 and probability-distortion M4; retained prior finite proof as a separate benchmark.",
+    "Selected proper weakly informative prior defaults and bridge sampling under explicit PI delegation.",
+    "Recorded confirmed RAID recoding and isolated remaining option/loss-data gaps.",
+    "Revised primary workflow G1-G7, current context, milestones and STATUS prompts."
+  ],
+  "why_it_matters": [
+    "Settled decisions no longer trigger repeat approval requests.",
+    "Existing reviewed quadratic/LOPO results cannot be mistaken for the newly selected primary theorem."
+  ],
+  "files_changed": [
+    "README.md",
+    "STATUS.md",
+    "docs/approval_log.md",
+    "docs/assumption_registry.md",
+    "docs/bayesian_comparison_plan.md",
+    "docs/current_project_context.md",
+    "docs/hierarchical_bayes_milestones.md",
+    "docs/optional_gaussian_heterogeneity.md",
+    "docs/pi_decisions_2026-09-08.md",
+    "docs/proof_roadmap.md",
+    "docs/raid_variable_coding_memo.md",
+    "docs/research_spec.md",
+    "docs/theorem_backlog.md",
+    "logs/research_updates/2026-09-08_PI_decisions.json",
+    "loops/autonomous_researcher_loop.md",
+    "registries/assumption_register.csv",
+    "registries/claim_register.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Document links, Markdown fences, CSV/JSON integrity and workflow dependencies",
+      "status": "pass",
+      "notes": "All updated local Markdown links resolve; active task and dependency IDs are valid."
+    },
+    {
+      "name": "Preserved benchmark SHA-256",
+      "status": "pass",
+      "notes": "PROOF_PACKAGE.md matches the digest recorded at the September 7 review."
+    },
+    {
+      "name": "Scientific runtime tests and empirical fits",
+      "status": "not_run",
+      "notes": "Documentation and decision-state update only; no mathematical proof or data fit claimed."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "Which lottery do vals/probs describe, where is the other lottery defined, and are loss-domain trials absent or are amounts unsigned?",
+    "default_if_no_response": "Proceed with primary theorem specification and synthetic planning; leave dependent empirical transforms unresolved."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Applied explicit PI approvals without reopening settled choices. Additional model assumptions remain labeled as proposals; no scientific claim promoted or restricted data accessed."
+  },
+  "risks_or_uncertainties": [
+    "A-003 moment approval does not establish Gaussian or residual independence assumptions.",
+    "The new primary probability-distortion/trial-LOO theorem remains unproved.",
+    "Priors require declared utility/context scales and prior predictive validation; exact M4 weighting/task equation is a proposal.",
+    "RAID coding audit remains partial; no data access is inferred."
+  ],
+  "next_bounded_task": "Specify the primary observable DGP and probability-distortion comparator; distinguish approved A-003 moments from proposed residual/Gaussian conditions; formalize trial-level prediction. Write docs/primary_theorem_specification.md."
+}

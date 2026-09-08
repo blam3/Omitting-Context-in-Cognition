@@ -13,6 +13,7 @@ cache/
 logs/*
 !logs/
 !logs/research_updates/
+!logs/theory_checks/
 !logs/research_updates/README.md
 !logs/research_updates/example_update.json
 tmp/

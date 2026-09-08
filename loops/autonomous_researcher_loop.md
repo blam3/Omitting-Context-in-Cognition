@@ -114,9 +114,9 @@ Pause and request direction before:
 
 Use these defaults to avoid unnecessary interruption:
 
-- Target proof route: mixture representation -> Gaussian constructive heterogeneity -> KL dominance -> AIC/BIC threshold corollaries.
+- Target proof route (PI 2026-09-08): primary A-003 additive-context specification -> observable separation for a specified probability-distortion comparator -> separate trial-level LOO and proper-prior BF results. Follow docs/pi_decisions_2026-09-08.md, docs/proof_roadmap.md and registries/proof_progress.json. Preserve the earlier finite/LOPO package as a benchmark.
 - Target empirical contrast: M2/M3 context-aware simple model versus M4 context-omitting complex model.
-- Primary predictive metric: PSIS-LOO ELPD, with held-out participant log score as robustness.
+- Primary predictive target: a held-out trial from a participant whose remaining responses are available; validate exact trial refits before PSIS. New-participant LOPO is secondary. M4 probability distortion is already selected; priors and bridge sampling are recorded in docs/bayesian_comparison_plan.md.
 - AIC/BIC: simulation/theory bridge only, not the final Bayesian empirical criterion.
 - SES context proxies: income and education separately, then composite as sensitivity.
 - RAID claim: model-sensitivity demonstration, not causal identification.
