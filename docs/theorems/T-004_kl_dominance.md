@@ -117,11 +117,31 @@ affineness after rescaling is an over-determined system: membership is
 non-generic, and failure is detectable.
 
 **Lemma T-004b (the closure, and why it is needed).** `M_S` is not closed in
-`(0,1)^{J}`. Its closure adds exactly the degenerate limits obtained as
-`s \to \infty` with `\beta_1 / s \to \rho`:
+`(0,1)^{J}`. Writing
 
-$$\bar{M}_S \setminus M_S \ = \ \big\{\, p \ :\ \Phi^{-1}(p(0)) = c_0 \ \text{arbitrary},\
-\Phi^{-1}(p(a)) = \rho \ \text{for all } a \in \mathcal{A}\setminus\{0\} \,\big\}.$$
+$$D \ :=\ \big\{\, p \ :\ \Phi^{-1}(p(0)) = c_0,\
+\Phi^{-1}(p(a)) = \rho \ \text{for all } a \in \mathcal{A}\setminus\{0\},
+\ \ c_0, \rho \in \mathbb{R} \,\big\}$$
+
+for the family of degenerate limits obtained as `s \to \infty` with
+`\beta_1 / s \to \rho`, the closure of `M_S` in `(0,1)^J` is the **union**
+
+$$\bar{M}_S \ = \ M_S \, \cup \, D .$$
+
+**Remark (why this is a union and not a disjoint one).** `D` is *not* disjoint
+from `M_S`, so it would be wrong to write `\bar{M}_S \setminus M_S = D`. The
+overlap is exactly the diagonal `\rho = c_0`: there `\Phi^{-1}(p(a)) = c_0` for
+**every** `a \in \mathcal{A}`, including `a = 0`, so `p \equiv \Phi(c_0)` is the
+constant-response law, which lies in `M_S` at `(\beta_0, \beta_1, s^2) = (c_0, 0, 0)`.
+That the overlap is only the diagonal follows from Lemma T-004a: matching
+`(c_0 + \beta_1 a)^2 = \rho^2 (1 + s^2 a^2)` at the `\ge 3` distinct positive
+design points guaranteed by A-008 determines the quadratic, forcing
+`c_0^2 = \rho^2`, `2 c_0 \beta_1 = 0` and `\beta_1^2 = \rho^2 s^2`, whose only
+solution is `\rho = c_0`. Equivalently, `D \setminus M_S = \{p \in D : \rho \ne c_0\}`.
+
+Nothing downstream depends on the difference: Theorem T-004 uses only
+`\bar{M}_S` as a set, and Corollary T-004c's "either (a) or (b)" is an inclusive
+disjunction, so points in the overlap satisfy both branches harmlessly.
 
 **Proof.** Fix a sequence `\beta^{(n)} = (\beta_0^{(n)}, \beta_1^{(n)}, s_n^2)`
 with `p_{\beta^{(n)}} \to p^{\infty} \in (0,1)^J`, so
@@ -143,9 +163,11 @@ The `\beta_0^{(n)}` term contributes `O(1/s_n) \to 0`. The remaining term is
 `g^{\infty}(a)`, so it converges to some `\rho \in \mathbb{R}` — the same value
 for every `a > 0`.
 
-For the reverse inclusion, any such `p` is attained: take
-`\beta_0^{(n)} = c_0`, `s_n = n` and `\beta_1^{(n)} = \rho n`, so that
-`g_n(0) = c_0` for every `n` and `g_n(a) \to \rho` for each `a > 0`. `\square`
+This proves `\bar{M}_S \subseteq M_S \cup D`. For the reverse inclusion,
+`M_S \subseteq \bar{M}_S` is immediate, and every `p \in D` is attained as a
+limit: take `\beta_0^{(n)} = c_0`, `s_n = n` and `\beta_1^{(n)} = \rho n`, so that
+`g_n(0) = c_0` for every `n` and `g_n(a) \to \rho` for each `a > 0`. Hence
+`\bar{M}_S = M_S \cup D`. `\square`
 
 **Corollary T-004c (decidable criterion for the closure).**
 `p \in \bar{M}_S` if and only if either
@@ -274,9 +296,32 @@ cells with `\pi = (0.5, 0.5)`. Cross-checked in Python at higher restart counts:
 Case E confirms Proposition T-004d against its closed form to
 `1.1\times10^{-16}`, i.e. to machine precision. Cases B and F confirm that
 variance heterogeneity alone suffices for a strict gap. Case D is the registered
-boundary condition and returns exact zeros in every column, as it must. The
-affine-residual column is the Lemma T-004a certificate: it is zero exactly when
-`p_0 \in M_S`.
+boundary condition and returns exact zeros in every column, as it must.
+
+**What the affine-residual column does and does not certify.** It is branch (a)
+of Corollary T-004c, computed by minimising over `s^2`. That minimisation is an
+**infimum that is not always attained**: for a degenerate point of `D` with
+`c_0 = 0` the residual decays like `s^{-2}` to zero without ever reaching it, so
+the optimiser drives `s \to \infty` and returns a near-zero value for a law that
+lies in `\bar{M}_S` but not in `M_S`. The behaviour is also optimiser-dependent
+— the same point returns `2\times10^{-12}` under a deep search and
+`2\times10^{-5}` under the harness's default restarts. Therefore:
+
+- a **strictly positive** affine residual certifies `p_0 \notin M_S`;
+- a **near-zero** affine residual certifies at most `p_0 \in \bar{M}_S`;
+- neither, on its own, establishes condition (i), which is the *stronger*
+  `p_0 \notin \bar{M}_S` and additionally requires branch (b) to fail.
+
+Branch (b) — is `\Phi^{-1}(p_0(a))` constant on `a > 0`? — is checked separately
+by `constant_index_spread()`, and `closure_membership()` in
+`R/theorem_numerics.R` reports both branches with the verdict. For the cases
+above the branch-(b) spreads are `0.393` (A), `0.466` (B), `0.436` (C) and
+`0.532` (D), all far from constant, so condition (i) does hold wherever the
+table claims a strict gap and the conclusions stand.
+
+This defect was found in proof-critic review by a counterexample search against
+Lemma T-004b, and is instructive: it is the same non-closedness the lemma exists
+to handle, reappearing inside the code written to test for it.
 
 Case C deserves comment because it refines Proposition T-004d. With **discrete**
 `Z`, mean heterogeneity alone leaves a strictly positive but negligible gap

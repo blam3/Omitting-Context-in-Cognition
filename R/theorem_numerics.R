@@ -64,11 +64,26 @@ inf_kl <- function(p0, a, q, predict_fn, n_par, restarts = 40, seed = 7) {
   max(best, 0)
 }
 
-# --- Lemma T-004a: decidable membership criterion for M_S -------------------
+# --- Lemma T-004a / Corollary T-004c: membership criteria -------------------
 #
-# p in M_S  <=>  exists s^2 >= 0 such that a -> Phi^{-1}(p(a)) sqrt(1 + s^2 a^2)
-# is affine on the design support. Returns the minimised affine residual: zero
-# certifies membership, strictly positive certifies non-representability.
+# CAUTION. affine_residual() minimises over s^2, and that INFIMUM IS NOT ALWAYS
+# ATTAINED. For a degenerate point of D with c_0 = 0 (see Lemma T-004b) the
+# residual decays like s^{-2} to zero without ever reaching it, so the optimiser
+# drives s -> Inf and returns a near-zero value for a law that is in the closure
+# of M_S but NOT in M_S. This is the same non-closedness the lemma exists to
+# handle, showing up in the test for it.
+#
+# Consequences for how these functions may be used:
+#   * a STRICTLY POSITIVE affine residual certifies p not in M_S;
+#   * a near-zero affine residual does NOT certify p in M_S -- it certifies at
+#     most p in closure(M_S);
+#   * T-004 condition (i) is p_0 not in closure(M_S), which is STRONGER than
+#     not in M_S, so the affine residual alone never establishes it. Branch (b)
+#     of Corollary T-004c must also be checked. Use closure_membership() rather
+#     than affine_residual() when condition (i) is what is at stake.
+#
+# Lemma T-004a: p in M_S <=> exists s^2 >= 0 with
+# a -> Phi^{-1}(p(a)) sqrt(1 + s^2 a^2) affine on the design support.
 affine_residual <- function(p0, a, restarts = 40, seed = 11) {
   g <- qnorm(p0)
   X <- cbind(1, a)
@@ -83,6 +98,32 @@ affine_residual <- function(p0, a, restarts = 40, seed = 11) {
     if (!inherits(fit, "try-error")) best <- min(best, fit$value)
   }
   max(best, 0)
+}
+
+# Branch (b) of Corollary T-004c: is Phi^{-1}(p(a)) constant over a > 0?
+# This is the branch affine_residual() cannot see, and it is exactly the
+# degenerate family D of Lemma T-004b.
+constant_index_spread <- function(p0, a) {
+  g <- qnorm(p0[a > 0])
+  if (length(g) < 2) return(0)
+  max(g) - min(g)
+}
+
+# Corollary T-004c in full: p in closure(M_S) iff branch (a) OR branch (b).
+# Returns both certificates and the verdict, so a caller can see which fired.
+# `outside_closure = TRUE` is what T-004 condition (i) requires.
+closure_membership <- function(p0, a, tol = 1e-9, restarts = 40, seed = 11) {
+  branch_a <- affine_residual(p0, a, restarts = restarts, seed = seed)
+  branch_b <- constant_index_spread(p0, a)
+  in_closure <- (branch_a < tol) || (branch_b < tol)
+  list(
+    affine_residual = branch_a,          # branch (a); infimum may be unattained
+    constant_index_spread = branch_b,    # branch (b)
+    branch_a_holds = branch_a < tol,
+    branch_b_holds = branch_b < tol,
+    in_closure = in_closure,
+    outside_closure = !in_closure        # T-004 condition (i)
+  )
 }
 
 # --- Proposition T-004d: Gaussian mean heterogeneity is absorbed ------------

@@ -95,3 +95,69 @@ test_that("T-007b': the crossover formula solves its defining quadratic", {
   expect_lt(n_star, 1e11)
   expect_gt(n_star, 100 / 7e-6)
 })
+
+test_that("T-004b: D overlaps M_S exactly on the diagonal rho == c0", {
+  # Counterexample found in proof-critic review (2026-09-09). The lemma
+  # originally asserted closure(M_S) \ M_S == D. It is false: when rho == c0
+  # the degenerate law is the constant response Phi(c0), which is in M_S at
+  # (beta_0, beta_1, s^2) = (c0, 0, 0). The lemma now states a union.
+  # Tolerance is 1e-9, matching closure_membership()'s default: the exact
+  # residual is 0 at s^2 = 0, but the optimiser lands near rather than on it
+  # (observed 1e-14 to 3e-12). Off-diagonal points sit at 6.6e-3 and above, so
+  # the two families are separated by six orders of magnitude regardless.
+  for (c0 in c(0.5, -1.2, 0.0, 2.0)) {
+    p_diag <- pnorm(rep(c0, length(A_DESIGN)))            # rho == c0
+    expect_lt(affine_residual(p_diag, A_DESIGN), 1e-9)    # i.e. IN M_S
+  }
+  # Off the diagonal with c0 != 0 the degenerate law is genuinely outside M_S.
+  for (pair in list(c(0.5, 1.3), c(-1.2, 0.4), c(2.0, -0.7))) {
+    g <- ifelse(A_DESIGN > 0, pair[2], pair[1])
+    expect_gt(affine_residual(pnorm(g), A_DESIGN), 1e-3)
+  }
+})
+
+test_that("T-004a: the affine-residual infimum is not always attained", {
+  # Same review finding. For a degenerate point with c0 = 0 the residual decays
+  # like s^-2 to zero without reaching it, so a near-zero affine residual does
+  # NOT certify membership in M_S. Guarding the decay keeps the docs honest.
+  g <- ifelse(A_DESIGN > 0, 1.0, 0.0)                     # c0 = 0, rho = 1
+  X <- cbind(1, A_DESIGN)
+  resid_at <- function(s) {
+    h <- g * sqrt(1 + s^2 * A_DESIGN^2)
+    sum(residuals(lm.fit(X, h))^2)
+  }
+  r <- vapply(10^(2:5), resid_at, numeric(1))
+  expect_true(all(diff(r) < 0))                           # strictly decreasing
+  expect_lt(r[length(r)], 1e-9)                           # decays to zero
+  expect_true(all(r > 0))                                 # never attains zero
+  expect_lt(abs(log10(r[1] / r[2]) - 2), 0.2)             # s^-2 rate
+})
+
+test_that("T-004c: closure_membership checks both branches", {
+  # branch (b) is the one affine_residual() cannot see
+  g <- ifelse(A_DESIGN > 0, 1.0, 0.0)
+  r <- closure_membership(pnorm(g), A_DESIGN)
+  expect_true(r$branch_b_holds)
+  expect_true(r$in_closure)
+  expect_false(r$outside_closure)
+})
+
+test_that("T-004 condition (i) holds for the table cases via BOTH branches", {
+  # The review confirmed the table's conclusions survive, but the certificate
+  # backing them was incomplete: branch (b) was never checked. It is now.
+  cases <- list(
+    list(mu = c(0.6, 1.8), s2 = c(0.2, 2.5)),   # A mean + variance
+    list(mu = c(1.2, 1.2), s2 = c(0.2, 2.5))    # B variance only
+  )
+  for (cs in cases) {
+    p0 <- p0_mixture(A_DESIGN, B0, cs$mu, cs$s2, c(0.5, 0.5))
+    r <- closure_membership(p0, A_DESIGN, restarts = 60)
+    expect_false(r$branch_a_holds)                        # not affine-representable
+    expect_false(r$branch_b_holds)                        # index not constant on a>0
+    expect_true(r$outside_closure)                        # T-004 condition (i)
+    expect_gt(r$constant_index_spread, 0.3)
+  }
+  # Boundary case D must fail condition (i): p0 IS in M_S, so it is in closure.
+  p_bd <- p0_mixture(A_DESIGN, B0, c(1.2, 1.2), c(0.8, 0.8), c(0.5, 0.5))
+  expect_true(closure_membership(p_bd, A_DESIGN)$in_closure)
+})

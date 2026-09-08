@@ -1,6 +1,67 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-09 proof-critic: counterexample search against Lemma T-004b
+
+Date: 2026-09-09
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: proof-critic pass (counterexample search), at PI request
+Theorem or lemma: Lemma T-004b (closure characterisation), Lemma T-004a
+Claim registry ID: C-004
+Assumptions used: A-007, A-008, A-009 (approved D-006)
+
+Counterexample search: three probes against T-004b's closure characterisation.
+  Probe 1 (subset direction): 2100 divergent sequences across growth rates
+    s^0.25 to s^2. All limits constant on a > 0. No counterexample.
+  Probe 2 (superset direction): 500 (c_0, rho) pairs against the lemma's own
+    construction at n = 1e8; max deviation 3.7e-7. No counterexample.
+  Probe 3 (disjointness): COUNTEREXAMPLE FOUND.
+
+FINDING 1 - T-004b's set-difference equality was false on the diagonal.
+  The lemma asserted closure(M_S) \ M_S = D. Taking rho = c_0 makes
+  Phi^-1(p(a)) = c_0 for every a including a = 0, so p is the constant response
+  Phi(c_0), which is in M_S at (beta_0, beta_1, s^2) = (c_0, 0, 0). A set
+  difference cannot contain elements of the set subtracted. Affine residuals for
+  (c_0, rho) in {(0.5,0.5), (-1.2,-1.2), (0,0), (2,2)} are machine zero.
+  The overlap is exactly the diagonal: with J >= 4 there are >= 3 distinct
+  positive design points, enough to determine the quadratic in
+  (c_0 + beta_1 a)^2 = rho^2 (1 + s^2 a^2), forcing rho = c_0.
+  Severity: cosmetic. Theorem T-004 uses closure(M_S) only as a set and
+  Corollary T-004c is an inclusive disjunction, so nothing downstream breaks.
+  REPAIR: the lemma now states the union closure(M_S) = M_S union D, with the
+  overlap recorded as a remark.
+
+FINDING 2 - the numerical certificate did not implement Lemma T-004a.
+  affine_residual() minimises over s^2 and that infimum is not always attained.
+  For a degenerate point with c_0 = 0 the residual decays like s^-2 to zero
+  without reaching it (2.21e-4, 2.21e-6, 2.21e-8, 2.21e-10 at s = 1e2..1e5), so
+  the optimiser returns near-zero for a law outside M_S. The value is also
+  optimiser-dependent: 2e-12 under a deep search, 2e-5 under the harness
+  defaults. Branch (b) of Corollary T-004c was never implemented at all.
+  Severity: real, and in code CI was passing. T-004 condition (i) is
+  p_0 not in closure(M_S), which is stronger than not in M_S, so a positive
+  affine residual alone never established it.
+  REPAIR: added constant_index_spread() (branch b) and closure_membership()
+  (both branches with verdict); documented the unattained infimum in the
+  function header and in T-004 section 5; four regression tests added.
+
+Do the published results survive? YES. Branch (b) was checked directly on all
+  four table cases: spreads of Phi^-1(p_0) on a > 0 are 0.393, 0.466, 0.436 and
+  0.532, nowhere near constant, so condition (i) genuinely holds wherever a
+  strict gap is claimed. No number in T-004 section 5 changes.
+
+Unsupported steps: unchanged. Proof-critic review of Theorem T-004 itself,
+  T-003, T-007 and T-001 remains outstanding; this pass covered Lemma T-004b
+  only. T-004' still assumes uniqueness and interiority of beta_S-circ without
+  establishing them, and that assumption sits in tension with T-007c's
+  observation that the pseudo-true parameter is on the boundary under boundary
+  conditions 1-3; the two documents should be reconciled explicitly.
+
+Reviewer-2 critique: Pending.
+Decision: revise (applied). T-004 remains proof-draft, not accepted.
+Next action: proof-critic pass on Theorem T-004 proper (the compactness and
+  lower-semicontinuity argument), then T-004' interiority versus T-007c.
+
 ## 2026-09-09 A-007/A-008/A-009 approved; statuses advanced
 
 Date: 2026-09-09
