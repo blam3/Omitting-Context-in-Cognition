@@ -31,6 +31,9 @@ This is not a free-running agent swarm. It is a controlled research workbench wi
 The autonomous researcher should read these files before taking action:
 
 1. [`docs/current_project_context.md`](docs/current_project_context.md) — current theorem, simulation, RAID, and manuscript context.
+2. [`docs/approval_log.md`](docs/approval_log.md) — **binding decisions**; an agent may not reopen one.
+3. [`docs/notation_registry.md`](docs/notation_registry.md) — the single binding source for symbols; enforced by CI.
+4. [`docs/theorems/`](docs/theorems/) — precise statements for T-003 to T-007.
 2. [`loops/autonomous_researcher_loop.md`](loops/autonomous_researcher_loop.md) — cycle protocol and human-decision gates.
 3. [`agents/research_manager.md`](agents/research_manager.md) — research-manager role prompt.
 4. [`docs/procedure_compliance.md`](docs/procedure_compliance.md) — required PR-body audit trail for autonomous cycles.
@@ -45,16 +48,54 @@ The autonomous researcher should read these files before taking action:
 
 ## Formal proof route
 
-The current proof route is:
+Precise statements live in [`docs/theorems/`](docs/theorems/). Symbols are bound
+by [`docs/notation_registry.md`](docs/notation_registry.md). Binding decisions
+are in [`docs/approval_log.md`](docs/approval_log.md).
 
-1. **Omitted-context mixture representation**: integrating out context induces a marginal response law.
-2. **Gaussian constructive case**: omitted context induces context-dependent mean and variance in a latent parameter.
-3. **KL dominance**: a flexible false model can lie closer to the omitted-context mixture than the restricted context-omitting true architecture.
-4. **Predictive consequence**: a conditional LOO expected-log-predictive-density result can imply lower LOOIC for the false complex model when the leave-out target is specified.
-5. **Bayes-factor consequence**: a separate, prior-sensitive marginal-likelihood result can characterize when declared-prior evidence favors the false complex model.
-6. **Secondary finite-sample threshold corollaries**: AIC/BIC-like criteria provide a bridge when log-score gains exceed complexity penalties.
+1. **T-001 omitted-context mixture representation**: integrating out context
+   induces a marginal response law over `F_{Theta | X,Z}` (primary; the
+   `F_{Theta | Z}` display is the T-002 corollary only).
+2. **T-003 Gaussian constructive case**: omitted context induces a
+   context-dependent latent mean and variance — and does so *if and only if*
+   the context coefficient is non-zero and its conditional variance is
+   non-constant.
+3. **T-004 KL dominance**: conditions under which a flexible false model lies
+   strictly closer to the omitted-context mixture than the restricted simple
+   model. The mechanism is **variance** heterogeneity: mean shift alone is
+   absorbed by the simple random-effects model (Proposition T-004d).
+4. **T-005 predictive consequence**: the estimator-to-population bridge for
+   trial-level LOO, whose implicit penalty is `p_loo`, not `k`.
+5. **T-007 finite-sample thresholds**: split into exact algebra, a
+   regular-case probabilistic bridge with a minimum-sample-size corollary, and
+   a singular-case correction.
 
-Boundary cases must always be stated: no context effect, harmless iid noise, sufficient simple random-effect structure, lack of complex-model approximation advantage, or finite-sample penalty dominance.
+**T-006 (Bayes factors) is deferred and is not a theorem target** — see
+[`docs/theorems/T-006_bayes_factor_deferred.md`](docs/theorems/T-006_bayes_factor_deferred.md).
+
+**AIC/BIC are legacy diagnostics only.** `M_K` is a singular statistical model,
+so their asymptotics are invalid here; PSIS-LOO and WAIC are the primary
+criteria. See T-007c and decision D-004.
+
+Boundary cases must always be stated: no context effect, harmless iid noise,
+sufficient simple random-effect structure, lack of complex-model approximation
+advantage, mismatched leave-out unit, or finite-sample penalty dominance.
+
+## Verifying the theorem package
+
+The proof route is guarded by three checks. Run them all with `make verify`.
+
+| Check | Command | What it rejects |
+|---|---|---|
+| Cross-result coherence | `make check-coherence` | notation drift, assumption leaks across `depends_on`, dependency cycles, registry disagreements, Lean/doc status divergence |
+| Numerical verification | `make theorem-numerics` | a stated theorem that is numerically false, including every registered boundary case |
+| Lean typechecking | `make lean` | a formal statement that does not compile against mathlib |
+
+The coherence checker is itself tested (`scripts/test_check_coherence.py`, run
+first in CI): twelve fixtures assert that each rule actually rejects a violating
+repository. A checker that never fails is worthless.
+
+All three run in CI — `.github/workflows/coherence.yml`,
+`.github/workflows/ci.yml`, and `.github/workflows/formal-lean.yml`.
 
 ## Simulation scaffold
 
@@ -68,7 +109,8 @@ The R scaffold implements a lightweight proxy DGM and model suite:
 - `R/generate_synthetic_raid_data.R`: generates public synthetic RAID-style trial and demographic files.
 
 These GLM proxies are for smoke tests and fast screening only. They do not
-produce valid Bayes factors or LOOIC. Final empirical models should use
+produce valid Bayes factors or LOOIC, and their AIC/BIC output is a legacy
+bridge diagnostic that may not be cited in support of C-004 (decision D-004). Final empirical models should use
 hierarchical Bayesian structural models with PSIS-LOOIC, a declared-prior Bayes
 factor sensitivity analysis, and held-out participant log score.
 
@@ -150,6 +192,7 @@ Routine code edits, tests, theorem wording proposals, simulation parameter edits
 ├── tests/testthat/            # Unit tests
 ├── simulations/               # Design grid and run registry
 ├── manuscript/                # Manuscript and supplement skeleton
+├── formal/                    # Lean 4 + mathlib formalization (gated by CI)
 ├── slurm/                     # Slurm templates
 ├── scripts/                   # Setup, validators, and runner scripts
 ├── src/loop_researcher/       # Optional Python API-based orchestrator

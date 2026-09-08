@@ -1,4 +1,75 @@
+<!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
+
+## 2026-09-08 theorem-package restatement (T-003 to T-007)
+
+Date: 2026-09-08
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: autonomous research session (statement rewrite; not a proof-critic pass)
+Theorem or lemma: T-003, T-004, T-005, T-006 (deferred), T-007
+Claim registry ID: C-003, C-004
+Assumptions used: A-001, A-002, A-003 (approved D-001), A-007/A-008/A-009
+  (NEW, `decision_needed`), A-010 (approved D-002), A-011 (approved D-004)
+
+Proof summary:
+  Three of the four remaining route statements were not theorems and have been
+  rewritten rather than proved.
+  - T-004 was circular: `KL(p_0||p) = -E[log p] + const`, so its hypothesis and
+    conclusion were the same proposition. It is replaced by an explicit
+    construction with a decidable non-representability criterion
+    (Lemma T-004a), a closure argument (Lemma T-004b) and a strict-dominance
+    theorem under containment, plus a score-condition variant T-004' for
+    complex classes that do not contain the target.
+  - T-005 was a definition (`LOOIC = -2 elpd`). It is replaced by the
+    estimator-to-population bridge T-005b, whose implicit penalty is `p_loo`,
+    not `k`, with regularity conditions R1-R6 stated explicitly.
+  - T-007 conflated the population per-observation gap with the realised
+    log-likelihood difference, and used penalties whose derivations fail for
+    singular models. It is split into T-007a (exact algebra), T-007b (regular
+    probabilistic bridge plus a minimum-sample-size corollary) and T-007c (the
+    singular-case correction).
+  - T-006 is deferred, not proved. Justification in
+    `docs/theorems/T-006_bayes_factor_deferred.md`.
+
+New substantive finding:
+  The mechanism is VARIANCE heterogeneity, not mean shift. Proposition T-004d
+  shows that if the omitted context shifts only the latent mean and that induced
+  mean is Gaussian, then `p_0` lies in `M_S` exactly and the KL gap is zero.
+  This makes registered boundary conditions 1-3 exact rather than rhetorical and
+  narrows C-004 to a more defensible claim.
+
+Unsupported steps:
+  - A-007, A-008, A-009 are proposed, not approved. T-004 cannot be accepted
+    into `manuscript/supplement_proofs.tex` until they are.
+  - T-005b is stated with a proof sketch, not a full proof; the leave-one-out
+    expansion is quoted rather than derived.
+  - The real log canonical thresholds for `M_S` and `M_K` are unknown, which is
+    why T-006 is deferred and why T-007c is a policy rather than a theorem.
+  - T-001 remains at proof-critic-review; nothing here upgrades it.
+
+Counterexample search:
+  Four registered boundary cases were checked numerically in two independent
+  implementations (R and Python), which agree to reported precision:
+  homogeneous context gives an exactly zero gap; Gaussian mean heterogeneity
+  with `gamma = 0` gives an exactly zero gap (machine precision against the
+  closed form); discrete mean-only heterogeneity gives a negligible `1e-8` gap;
+  variance heterogeneity gives a strict `1.07e-6` gap that the mixture model
+  closes exactly.
+
+Numerical harness caught a drafting error:
+  The first draft of T-007b' quoted the AIC crossover as `n ~ 1e5-1e6`. That is
+  the DETERMINISTIC threshold `1/Delta-ell-star = 1.4e5`. The probabilistic
+  crossover at 95% is `5.5e10` - the same expected-versus-realised conflation
+  the rewrite exists to fix. Both documents were corrected and the test now
+  guards the magnitude.
+
+Reviewer-2 critique: Pending.
+Decision: revise. These are statement drafts. None is accepted.
+Next action:
+  1. PI decision on A-007, A-008, A-009.
+  2. Proof critic reviews T-003 (Corollary T-003a's iff), T-004 (Lemma T-004b's
+     closure argument is the load-bearing step), and T-005 R5 degeneracy.
+  3. Full proof of the T-005b expansion, or an explicit citation in its place.
 
 ## 2026-07-08 omitted-context mixture lemma draft
 

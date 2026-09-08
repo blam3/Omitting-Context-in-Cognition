@@ -19,7 +19,7 @@ def gaussianConstructiveCard : TheoremCard :=
   { label := "T-003 Gaussian constructive heterogeneity result"
     claimId := "C-003"
     assumptionIds := ["A-003"]
-    status := TheoremStatus.decisionGated
+    status := TheoremStatus.statementDraft
     manuscriptReady := false }
 
 universe uScalar uCovariate

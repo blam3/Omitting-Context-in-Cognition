@@ -1,3 +1,26 @@
+<!-- theorem-meta
+id: T-001
+title: Omitted-context conditional mixture representation
+claim: C-002
+status: proof-critic-review
+assumptions: A-001, A-002
+depends_on:
+-->
+
+<!-- theorem-meta
+id: T-002
+title: Fixed or exogenous trial-design corollary
+claim: C-002
+status: corollary-only
+assumptions: A-001, A-002
+depends_on: T-001
+approval: D-005
+-->
+
+<!-- coherence-allow: F_Theta_given_Z -->
+<!-- This document IS the home of Corollary 1.2 (T-002), the only place the
+     simplified F_{Theta|Z} display is permitted. See docs/notation_registry.md. -->
+
 # Omitted-Context Mixture Lemma Proof Draft
 
 Issue: #4, "Proof: Formalize omitted-context mixture lemma"

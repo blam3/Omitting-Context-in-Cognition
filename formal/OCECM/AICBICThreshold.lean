@@ -21,7 +21,7 @@ def aicBicThresholdCard : TheoremCard :=
   { label := "T-007 secondary AIC/BIC finite-sample threshold corollaries"
     claimId := "C-004"
     assumptionIds := []
-    status := TheoremStatus.backlog
+    status := TheoremStatus.statementDraft
     manuscriptReady := false }
 
 universe uQuantity

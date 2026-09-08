@@ -1,6 +1,21 @@
 % Supplementary proof file.
 % Add only proof-loop reviewed theorem statements and proofs here.
+%
+% Insertion is gated. A result may enter this file only when ALL of the
+% following hold (see docs/theorem_backlog.md and docs/approval_log.md):
+%   1. its status in docs/theorem_backlog.md is `accepted`;
+%   2. every assumption it uses is `approved` in
+%      registries/assumption_register.csv -- no `decision_needed` gates;
+%   3. a proof-critic entry exists in docs/proof_review_log.md;
+%   4. `make verify` passes (coherence checker, theorem numerics, lake build).
 
 \subsection{Proof review status}
 
 No proof has yet been accepted.
+
+Statement drafts for T-003, T-004, T-005 and T-007 live in
+\texttt{docs/theorems/}. They are not reproduced here because they remain at
+\texttt{statement-draft}: T-004 and T-003's bridge corollary depend on
+assumptions A-007, A-008 and A-009, which are recorded as
+\texttt{decision\_needed}. T-006 has been deferred and is not a theorem target
+(D-003).

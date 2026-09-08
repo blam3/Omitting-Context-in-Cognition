@@ -1,3 +1,36 @@
+# Model-selection proxies for the fast GLM scaffold.
+#
+# LEGACY BRIDGE DIAGNOSTICS ONLY (decision D-004, docs/approval_log.md).
+#
+# The complex candidate model M_K is a mixture / random-effects family and is
+# therefore a SINGULAR statistical model: where a component is empty or a
+# variance is zero the parameter is not locally identifiable and the Fisher
+# information degenerates. Those are exactly the parameter values that the
+# project's boundary conditions 1-3 make central. Consequently:
+#
+#   * BIC's (k/2) log n penalty is invalid and OVER-penalises M_K (the correct
+#     free-energy expansion uses the real log canonical threshold lambda <= k/2),
+#     so a BIC result favouring the simple model is NOT evidence against C-004;
+#   * AIC's 2k correction assumes correct specification; under misspecification
+#     the correct correction is Takeuchi's 2 tr(J^{-1} V), which does not exist
+#     when J is singular;
+#   * no chi-squared_{dk} significance reading of the log-likelihood difference
+#     is permitted (boundary parameters give a chi-squared mixture);
+#   * the nominal df gap is NOT the complexity of the comparison; report
+#     p_loo / p_waic instead.
+#
+# These functions therefore may not be cited in support of C-004 in either
+# direction. PSIS-LOO and WAIC are the primary criteria because they remain
+# asymptotically valid for singular models. See
+# docs/theorems/T-007_finite_sample_selection.md.
+#
+# Note also that the thresholds below are stated in terms of the REALISED
+# log-likelihood difference D_n, not the population gap Delta-ell-star. They are
+# exact rearrangements of the AIC/BIC definitions (T-007a), and carry no
+# probabilistic content. For the sample size at which a criterion actually
+# selects M_K with a given probability, use aic_crossover_n() in
+# R/theorem_numerics.R (T-007b').
+
 compute_aic_proxy <- function(fit_obj) {
   -2 * fit_obj$loglik + 2 * fit_obj$df
 }

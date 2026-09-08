@@ -1,4 +1,4 @@
-.PHONY: setup smoke test simulate-small synthetic-raid validate-update manuscript clean
+.PHONY: setup smoke test simulate-small synthetic-raid validate-update manuscript clean check-coherence theorem-numerics lean verify
 
 setup:
 	Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv'); renv::restore(prompt = FALSE)"
@@ -23,3 +23,16 @@ manuscript:
 
 clean:
 	rm -rf results cache logs/tmp tmp manuscript/*.aux manuscript/*.bbl manuscript/*.blg manuscript/*.fdb_latexmk manuscript/*.fls manuscript/*.out
+
+check-coherence:
+	python3 scripts/test_check_coherence.py
+	python3 scripts/check_coherence.py
+
+theorem-numerics:
+	Rscript -e "if (!requireNamespace('testthat', quietly = TRUE)) install.packages('testthat'); testthat::test_file('tests/testthat/test-theorem-numerics.R', stop_on_failure = TRUE)"
+
+lean:
+	cd formal && lake exe cache get && lake build
+
+# Everything that can reject a wrong proof, in the order it should be run.
+verify: check-coherence theorem-numerics lean

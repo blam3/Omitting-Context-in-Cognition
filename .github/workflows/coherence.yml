@@ -1,0 +1,26 @@
+name: Theorem-package coherence
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  coherence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # The checker must itself be checked: these fixtures assert that each
+      # coherence rule actually rejects a violating repository.
+      - name: Self-test the coherence checker
+        run: python3 scripts/test_check_coherence.py
+
+      # Notation drift, assumption leaks, dependency cycles, registry
+      # disagreements, and Lean/doc status divergence.
+      - name: Check theorem-package coherence
+        run: python3 scripts/check_coherence.py
