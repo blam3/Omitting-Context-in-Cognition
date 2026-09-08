@@ -117,7 +117,9 @@ $$\bar{M}_S \setminus M_S \ = \ \big\{\, p \ :\ \Phi^{-1}(p(0)) = c_0 \ \text{ar
 **Proof.** Fix a sequence `\beta^{(n)} = (\beta_0^{(n)}, \beta_1^{(n)}, s_n^2)`
 with `p_{\beta^{(n)}} \to p^{\infty} \in (0,1)^J`, so
 `g_n(a) := (\beta_0^{(n)} + \beta_1^{(n)}a)/\sqrt{1+s_n^2a^2}` converges
-pointwise on `\mathcal{A}` to a finite limit. Evaluating at `a = 0` (which lies
+pointwise on `\mathcal{A}` to a finite limit. Passing to a subsequence, assume
+`s_n \to s \in [0, \infty]`; this is no loss, because every subsequential limit
+of `p_{\beta^{(n)}}` must equal `p^{\infty}`. Evaluating at `a = 0` (which lies
 in `\mathcal{A}` by A-008) gives `\beta_0^{(n)} \to c_0` finite. If
 `s_n \to s < \infty`, then evaluating at any `a \ne 0` forces
 `\beta_1^{(n)}` to converge, and the limit lies in `M_S`. If `s_n \to \infty`,
@@ -130,7 +132,11 @@ The `\beta_0^{(n)}` term contributes `O(1/s_n) \to 0`. The remaining term is
 `\beta_1^{(n)}/s_n`. Along a further subsequence `\beta_1^{(n)}/s_n` converges in
 `[-\infty, +\infty]`; a divergent limit would contradict finiteness of
 `g^{\infty}(a)`, so it converges to some `\rho \in \mathbb{R}` — the same value
-for every `a > 0`. `\square`
+for every `a > 0`.
+
+For the reverse inclusion, any such `p` is attained: take
+`\beta_0^{(n)} = c_0`, `s_n = n` and `\beta_1^{(n)} = \rho n`, so that
+`g_n(0) = c_0` for every `n` and `g_n(a) \to \rho` for each `a > 0`. `\square`
 
 **Corollary T-004c (decidable criterion for the closure).**
 `p \in \bar{M}_S` if and only if either
