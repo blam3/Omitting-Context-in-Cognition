@@ -109,6 +109,13 @@ CASES = [
         1, "bare_delta_ell",
     ),
     (
+        "fenced examples do not declare theorems or trip notation rules",
+        {"docs/theorems/a.md": CLEAN + "\nDocumentation example:\n\n```\n"
+                                       "<!-- theorem-meta\nid: T-001\n-->\n"
+                                       "$F_{\\Theta \\mid Z}$ and $\\eta \\in M_S$\n```\n"},
+        0, "",
+    ),
+    (
         "coherence-allow marker suppresses a rule",
         {"docs/theorems/a.md": CLEAN + "\n<!-- coherence-allow: eta_model_index -->\n"
                                        "\nDiscussing $\\eta \\in M_S$ as retired notation.\n"},

@@ -26,6 +26,7 @@ import re
 import sys
 
 META_RE = re.compile(r"<!--\s*theorem-meta\s*\n(.*?)-->", re.DOTALL)
+FENCE_RE = re.compile(r"^[ \t]*(```|~~~).*?^[ \t]*\1[ \t]*$", re.DOTALL | re.MULTILINE)
 ALLOW_RE = re.compile(r"<!--\s*coherence-allow:\s*([^>]*?)-->")
 
 VALID_STATUS = {
@@ -74,6 +75,15 @@ class Problem(list):
         self.append(f"{path}: {msg}")
 
 
+def strip_fences(text: str) -> str:
+    """Blank out fenced code blocks, preserving line numbering.
+
+    Documentation that *shows* a theorem-meta block or a retired symbol must not
+    be read as declaring or using one.
+    """
+    return FENCE_RE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+
+
 def parse_meta(block: str) -> dict:
     out = {}
     for line in block.splitlines():
@@ -112,7 +122,8 @@ def load_registries(root: pathlib.Path, problems: Problem):
 def collect_theorems(root: pathlib.Path, problems: Problem):
     theorems = {}
     for path in sorted(root.glob("docs/**/*.md")):
-        text = path.read_text(encoding="utf-8")
+        raw = path.read_text(encoding="utf-8")
+        text = strip_fences(raw)
         for block in META_RE.findall(text):
             meta = parse_meta(block)
             tid = meta.get("id")
@@ -168,7 +179,7 @@ def find_cycle(theorems):
 def check_notation(root: pathlib.Path, problems: Problem):
     targets = sorted(root.glob("docs/**/*.md")) + sorted(root.glob("manuscript/*.tex"))
     for path in targets:
-        text = path.read_text(encoding="utf-8")
+        text = strip_fences(path.read_text(encoding="utf-8"))
         allowed = set()
         for grp in ALLOW_RE.findall(text):
             allowed |= {a.strip() for a in grp.split(",") if a.strip()}
