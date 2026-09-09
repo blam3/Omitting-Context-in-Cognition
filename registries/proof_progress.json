@@ -2,9 +2,9 @@
   "version": 1,
   "updated": "2026-09-09",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "general_context_perturbation_author_lemma_primary_pair_open",
+  "overall_status": "joint_and_conditional_perturbation_author_lemmas_primary_pair_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Derive the second-order trial-conditional KL gap under the SAME joint projections in docs/context_score_perturbation_2026-09-09.md; identify a sufficient sign condition or counterexample. Separately review the new lemma before integration.",
+  "next_action": "Separately adversarially review the context and trial-conditional perturbation lemmas, checking global joint fits, marginal expansions, latent-tilt admissibility and both exact controls. Then identify observable regularity/global-localization conditions for the nonlinear cognitive extension.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -86,6 +86,15 @@
       "failed_routes": [],
       "no_progress": false,
       "artifact": "docs/context_score_perturbation_2026-09-09.md"
+    },
+    {
+      "date": "2026-09-09",
+      "item": "trial_conditional_perturbation",
+      "approach": "Conditional-expectation operators applied to the same joint projection residuals; exact nested-family positive and negative controls.",
+      "outcome": "Derived conditional gap coefficient and sufficient sign conditions; exact joint-fitted counterexample proves possible preference reversal.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/trial_conditional_perturbation_2026-09-09.md"
     }
   ],
   "completed_obligations": [],
@@ -115,7 +124,10 @@
     "scripts/audit_design_absorption.py",
     "docs/general_theorem_architecture.md",
     "docs/context_score_perturbation_2026-09-09.md",
-    "logs/theory_checks/2026-09-09_context_perturbation.json"
+    "logs/theory_checks/2026-09-09_context_perturbation.json",
+    "docs/trial_conditional_perturbation_2026-09-09.md",
+    "scripts/verify_trial_conditional_perturbation.py",
+    "logs/theory_checks/2026-09-09_trial_conditional_perturbation.json"
   ],
   "items": [
     {

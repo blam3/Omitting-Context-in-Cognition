@@ -100,3 +100,7 @@ Work in `/Users/brendanlam/Documents/GitHub/Omitting-Context-in-Cognition`. Foll
 ## September 9 checkpoint
 
 Author context-perturbation lemma: `context_score_perturbation_2026-09-09.md`. Next derive trial-conditional risk under the same joint projections; do not infer its sign from the joint gap. This run is in worktree `/private/tmp/ocecm-proof-progress-20260909`, branch `agent/general-context-proof-20260909`, recovered from `local-work-2026-09-08` because main lacks the saved roadmap. General theorem retains priority.
+
+## September 9 trial-conditional extension
+
+Completed author derivation in `trial_conditional_perturbation_2026-09-09.md`: same joint projections, conditional-energy expansion, sufficient sign conditions, and exact nested-family reversal/positive controls. Next perform a separate adversarial review of both perturbation lemmas before nonlinear cognitive extension. Primary cognitive separation and Bayesian deletion transfer remain separate open obligations.
