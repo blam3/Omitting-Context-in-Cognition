@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-09-08",
+  "updated": "2026-09-09",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "full_existing_support_absorbed_richer_support_unspecified",
+  "overall_status": "general_context_perturbation_author_lemma_primary_pair_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Develop the nuisance-adjusted context-perturbation lemma in docs/general_theorem_architecture.md section 5: derive an observable score-alignment condition from the context law, preserving the shared baseline and absorbed-design negative controls. Distinguish joint separation, remaining falsity and conditional advantage.",
+  "next_action": "Derive the second-order trial-conditional KL gap under the SAME joint projections in docs/context_score_perturbation_2026-09-09.md; identify a sufficient sign condition or counterexample. Separately review the new lemma before integration.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -77,6 +77,15 @@
       "outcome": "General architecture written; positive alignment for the primary cognitive pair remains open.",
       "no_progress": false,
       "artifact": "docs/general_theorem_architecture.md"
+    },
+    {
+      "date": "2026-09-09",
+      "item": "G2_observable_separation",
+      "approach": "Finite exponential-family projection expansion with bounded latent reweighting and all simple nuisance scores retained.",
+      "outcome": "Author local lemma gives strict joint gap coefficient B\u00b2/(2J) and separate positive residual-risk condition. Approved nonlinear cognitive pair remains unproved.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/context_score_perturbation_2026-09-09.md"
     }
   ],
   "completed_obligations": [],
@@ -104,7 +113,9 @@
     "logs/research_updates/2026-09-08_design_absorption.json",
     "registries/primary_design_support.csv",
     "scripts/audit_design_absorption.py",
-    "docs/general_theorem_architecture.md"
+    "docs/general_theorem_architecture.md",
+    "docs/context_score_perturbation_2026-09-09.md",
+    "logs/theory_checks/2026-09-09_context_perturbation.json"
   ],
   "items": [
     {
@@ -461,5 +472,11 @@
       "P-G3"
     ],
     "previous_next_action": "Current four-row full-support audit is complete and all-rho absorption is proved. Obtain or explicitly specify a complete richer support manifest (both lotteries, side, ambiguity, Z and allowed co-occurrences) and audit its global positive-scale quotient condition before constructing a separation DGP. Do not reuse the absorbed design or treat a numeric rank pass as observable separation. P-G3 remains conditional and unapproved."
+  },
+  "workspace_recovery": {
+    "source_branch": "local-work-2026-09-08",
+    "worktree": "/private/tmp/ocecm-proof-progress-20260909",
+    "branch": "agent/general-context-proof-20260909",
+    "reason": "Main checkout lacks saved roadmap/progress; current main preserved."
   }
 }
