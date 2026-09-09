@@ -28,6 +28,12 @@ data_synthetic/*.csv
 *.out
 *.synctex.gz
 manuscript/main.pdf
+
+# Lean build artifacts
+.lake/
+*.olean
+*.olean.trace
+*.ilean
 data_raw_secure/
 data_processed_secure/
 results_secure/
