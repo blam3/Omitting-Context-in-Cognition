@@ -1,5 +1,7 @@
 # Research Specification
 
+> PI revision 2026-09-08: primary A-003 additive-context route, trial-level LOO, probability-distortion M4, proper weakly informative priors and bridge sampling. See [decision record](pi_decisions_2026-09-08.md) and [comparison contract](bayesian_comparison_plan.md). The grid below is a proposed production design, not an approved compute launch; increasing-trial asymptotics remain unproved.
+
 ## Domain
 
 Latent variable modeling, cognitive modeling, and causal inference.

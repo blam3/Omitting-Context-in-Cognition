@@ -1,0 +1,48 @@
+{
+  "source": "registries/primary_design_support.csv",
+  "declared_support_points": 2,
+  "T": 2,
+  "stacked_rows": 4,
+  "nuisance_columns": [
+    "1",
+    "s",
+    "b=v_A*A/2",
+    "b*Z"
+  ],
+  "exact_rational_rank_D": 3,
+  "exact_rational_rank_D_and_d1": 3,
+  "numeric_rho_probes": [
+    {
+      "rho": 0.25,
+      "diagnostic": "compatible_at_tolerance",
+      "c": "any_positive",
+      "residual": 4.3885418357208765e-17
+    },
+    {
+      "rho": 0.5,
+      "diagnostic": "compatible_at_tolerance",
+      "c": "any_positive",
+      "residual": 0.0
+    },
+    {
+      "rho": 1.0,
+      "diagnostic": "compatible_at_tolerance",
+      "c": "any_positive",
+      "residual": 1.1102230246251565e-16
+    },
+    {
+      "rho": 1.5,
+      "diagnostic": "compatible_at_tolerance",
+      "c": "any_positive",
+      "residual": 0.0
+    },
+    {
+      "rho": 3.0,
+      "diagnostic": "compatible_at_tolerance",
+      "c": "any_positive",
+      "residual": 1.7554167342883506e-16
+    }
+  ],
+  "scope": "Entire declared CSV support only. Completeness relative to an actual task requires protocol verification. Numerical probes are not an all-rho or observable-separation certificate.",
+  "algebra_regressions": "pass; positive, zero, negative c; noncollinearity; zero quotient"
+}

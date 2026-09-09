@@ -1,0 +1,113 @@
+{
+  "seed": 20260905,
+  "unit": "participant response pair",
+  "prior": "uniform [-1,1]^k",
+  "true_cells": [
+    0.1375,
+    0.1625,
+    0.2375,
+    0.4625
+  ],
+  "simple_optimum": 0.44290452030065197,
+  "complex_optimum": [
+    0.5980023173383796,
+    -0.08717669357238889
+  ],
+  "R_K": 0.00626956828625282,
+  "R_S": 0.006968082969842759,
+  "Delta_per_participant": 0.0006985146835899389,
+  "checks": "passed",
+  "finite_sample_examples": [
+    {
+      "participants": 80,
+      "counts_00_10_01_11": [
+        10,
+        18,
+        22,
+        30
+      ],
+      "bic_K_minus_S": 4.241752383145553,
+      "log_BF_K_over_S": -1.2260099889928426,
+      "lopoic_K_minus_S": 1.2538231693799275,
+      "models": {
+        "S": {
+          "loglik": -105.70680160927529,
+          "bic": 215.79562985322445,
+          "log_evidence": -107.7361351744797,
+          "lopoic": 213.40154794307927,
+          "quadrature_order": 96,
+          "refinement_error": 0.0
+        },
+        "K": {
+          "loglik": -105.63666448351113,
+          "bic": 220.03738223637,
+          "log_evidence": -108.96214516347254,
+          "lopoic": 214.6553711124592,
+          "quadrature_order": 96,
+          "refinement_error": 3.63897640909272e-08
+        }
+      }
+    },
+    {
+      "participants": 400,
+      "counts_00_10_01_11": [
+        60,
+        72,
+        94,
+        174
+      ],
+      "bic_K_minus_S": 5.011762929563702,
+      "log_BF_K_over_S": -1.4711069185613042,
+      "lopoic_K_minus_S": 0.6944662110963691,
+      "models": {
+        "S": {
+          "loglik": -520.7448653257868,
+          "bic": 1047.4811951986817,
+          "log_evidence": -523.5667850385948,
+          "lopoic": 1043.5893779071093,
+          "quadrature_order": 192,
+          "refinement_error": 6.821210263296962e-12
+        },
+        "K": {
+          "loglik": -520.2550145170147,
+          "bic": 1052.4929581282454,
+          "log_evidence": -525.0378919571561,
+          "lopoic": 1044.2838441182057,
+          "quadrature_order": 192,
+          "refinement_error": 1.2565351426019333e-08
+        }
+      }
+    },
+    {
+      "participants": 1600,
+      "counts_00_10_01_11": [
+        213,
+        243,
+        397,
+        747
+      ],
+      "bic_K_minus_S": 7.204070151327869,
+      "log_BF_K_over_S": -2.5280683140742894,
+      "lopoic_K_minus_S": 1.7326495619272464,
+      "models": {
+        "S": {
+          "loglik": -2019.7453913005788,
+          "bic": 4046.8685415093855,
+          "log_evidence": -2023.2318858894755,
+          "lopoic": 4041.588808708702,
+          "quadrature_order": 384,
+          "refinement_error": 0.0
+        },
+        "K": {
+          "loglik": -2019.6585469221288,
+          "bic": 4054.0726116607134,
+          "log_evidence": -2025.7599542035498,
+          "lopoic": 4043.321458270629,
+          "quadrature_order": 384,
+          "refinement_error": 3.7061909097246826e-10
+        }
+      }
+    }
+  ],
+  "limits": "Three seeded datasets, not selection rates or a proof; quadrature is numerical, not symbolic exact integration."
+}

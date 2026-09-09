@@ -1,0 +1,74 @@
+{
+  "cycle_title": "Primary separation attempt: exact obstructions and conditional trial-score convergence",
+  "track": "theorem",
+  "completed": [
+    "Proved Gaussian shared-effect representability and an explicit pointwise parameter map showing identical S/K observable families on a two-trial opposite-side design.",
+    "Recorded the fully specified finite-support varying-variance context attempt and its no-gap implication without tuning the design or dropping nuisance terms.",
+    "Derived the exact response-deleted effect/global posterior and evidence-ratio prediction.",
+    "Derived a conditional finite-design law-space concentration theorem, uniform response-deletion stability and clustered trial-score convergence; proved a zero limiting difference at the correctly specified boundary.",
+    "Kept BF integral rates and BIC criterion algebra separate; identified nonidentifiability as an obstruction to regular BIC interpretation.",
+    "Recorded eight local closures and one blocked strict-separation obligation; updated state and next dependencies with no final claim promotion."
+  ],
+  "why_it_matters": [
+    "Shared effects and shared nuisance terms can eliminate the proposed omission advantage. Increasing latent variance heterogeneity alone cannot distinguish identical observable families.",
+    "Exact trial deletion has its own conditioning and stability proof; no old quadratic or LOPO theorem was transferred."
+  ],
+  "files_changed": [
+    "docs/primary_separation_attempt_2026-09-08.md",
+    "docs/primary_theorem_specification.md",
+    "docs/proposed_assumptions.md",
+    "docs/proof_roadmap.md",
+    "STATUS.md",
+    "registries/proof_progress.json",
+    "registries/claim_register.md",
+    "scripts/verify_primary_separation.py",
+    "logs/theory_checks/2026-09-08_primary_separation.json",
+    "logs/theory_checks/2026-09-08_primary_separation_gap_scan.json",
+    "logs/theory_checks/2026-09-08_primary_separation_gap_scan.md",
+    "logs/research_updates/2026-09-08_primary_separation.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/verify_primary_separation.py",
+      "status": "pass",
+      "notes": "Gaussian convolution/GH refinement, pointwise absorption, observable cells, and exact deletion identity agree within 2e-16. A deterministic finite-prior diagnostic sequence checks the score limit; it does not replace the selected continuous priors or prove asymptotics."
+    },
+    {
+      "name": "Initial SciPy special-function import",
+      "status": "fail",
+      "notes": "Existing NumPy/SciPy binary mismatch. Removed the unnecessary SciPy dependency and used stable NumPy logaddexp; final script passes. Environment packages were not modified."
+    },
+    {
+      "name": "proof_gap_scan on primary_separation_attempt_2026-09-08.md",
+      "status": "pass",
+      "notes": "9 obligations; 8 CLOSED-LOCAL, 1 BLOCKED; 0 structural-incomplete and 0 candidate findings. Lint certifies structure only."
+    },
+    {
+      "name": "Legacy proof hash preservation",
+      "status": "pass",
+      "notes": "46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c unchanged."
+    },
+    {
+      "name": "Research update shape and full JSON Schema validation",
+      "status": "pass",
+      "notes": "Validated by project script and jsonschema."
+    },
+    {
+      "name": "Independent proof review, production fitting and positive-gap simulation",
+      "status": "not_run",
+      "notes": "No separation established; no final promotion or production run."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "No new assumption was adopted. P-G3 is a precise conditional theorem proposal; any future general-primary use or new design must preserve its explicit scope.",
+    "default_if_no_response": "Keep P-G3 proposed and strict separation open; proceed only with bounded design-absorption analysis."
+  },
+  "risks_or_uncertainties": [
+    "Existence of a richer-design strict joint and conditional gap is unresolved; counterexamples refute a universal guarantee only.",
+    "Unique misspecified observable projections are not established for the finite-support attempt.",
+    "The conditional finite-design theorem does not cover continuous covariates, arbitrary dependent designs, or fitted-score standard errors.",
+    "Author proofs and numerical/lint checks do not constitute independent review or PI acceptance."
+  ],
+  "next_bounded_task": "Audit distortion absorption on the full support of a candidate richer design while retaining all G1 nuisance terms. Do not retry the two-trial opposite-side design or affine-mean constant-variance Gaussian route for a strict gap. Any new witness needs explicit H, projection analysis and separate positive joint/conditional gaps; P-G3 is conditional only."
+}

@@ -40,3 +40,18 @@ test_that("one replication returns model-selection diagnostics", {
     "reference_ses_ambiguity_coef"
   ) %in% names(res)))
 })
+
+test_that("fixed-parameter control is representable by the shared model baseline", {
+  source(testthat::test_path("../../R/dgm.R"))
+  source(testthat::test_path("../../R/fit_models.R"))
+  dat <- simulate_ambiguity_task(20, 60, context_effect = "none", seed = 902,
+                                latent_heterogeneity = FALSE)
+  expect_true(all(dat$theta == 0.75 & dat$tau == 4 & dat$theta_sd == 0))
+  for (fit in list(fit_simple_omitted_context(dat),
+                   fit_complex_omitted_context(dat),
+                   fit_simple_contextual_true_family(dat))) {
+    mm <- model.matrix(fit$fit)
+    expect_equal(as.vector(qr.fitted(qr(mm), qlogis(dat$choice_prob))),
+                 qlogis(dat$choice_prob), tolerance = 1e-10)
+  }
+})

@@ -45,7 +45,11 @@ The autonomous researcher should read these files before taking action:
 
 ## Formal proof route
 
-The current proof route is:
+The preserved finite benchmark [proof package](PROOF_PACKAGE.md) uses a short conditional mixture lemma, an explicit two-context/two-trial utility construction with strict **participant-level** KL separation, and separate BIC, Bayes-factor and exact leave-one-participant-out corollaries. Both fitted candidates are false as joint distributions. These are locally checked drafts awaiting independent review; the Lean files are infrastructure only.
+
+On 2026-09-08 the PI adopted the additive-context A-003 route as primary, selected **trial-level LOO** and **probability-distortion M4**, and delegated proper prior/estimator choices. The new primary theorem remains to be established; the finite benchmark does not prove it. See the [decision record](docs/pi_decisions_2026-09-08.md), [comparison plan](docs/bayesian_comparison_plan.md), [roadmap](docs/proof_roadmap.md), and [progress state](registries/proof_progress.json).
+
+The broader theorem program, retained from the pre-2026-09-08 route, runs:
 
 1. **Omitted-context mixture representation**: integrating out context induces a marginal response law.
 2. **Gaussian constructive case**: omitted context induces context-dependent mean and variance in a latent parameter.
@@ -53,6 +57,8 @@ The current proof route is:
 4. **Predictive consequence**: a conditional LOO expected-log-predictive-density result can imply lower LOOIC for the false complex model when the leave-out target is specified.
 5. **Bayes-factor consequence**: a separate, prior-sensitive marginal-likelihood result can characterize when declared-prior evidence favors the false complex model.
 6. **Secondary finite-sample threshold corollaries**: AIC/BIC-like criteria provide a bridge when log-score gains exceed complexity penalties.
+
+Steps 4 and 5 are stated at their original leave-out unit; the 2026-09-08 decision makes trial-level LOO the primary predictive target. See `docs/theorem_backlog.md` for the superseded route table.
 
 Boundary cases must always be stated: no context effect, harmless iid noise, sufficient simple random-effect structure, lack of complex-model approximation advantage, or finite-sample penalty dominance.
 
@@ -67,10 +73,7 @@ The R scaffold implements a lightweight proxy DGM and model suite:
 - `R/run_design_cell.R`: runs a small grid cell and writes results.
 - `R/generate_synthetic_raid_data.R`: generates public synthetic RAID-style trial and demographic files.
 
-These GLM proxies are for smoke tests and fast screening only. They do not
-produce valid Bayes factors or LOOIC. Final empirical models should use
-hierarchical Bayesian structural models with PSIS-LOOIC, a declared-prior Bayes
-factor sensitivity analysis, and held-out participant log score.
+These GLM proxies are for smoke tests and fast screening only. They do not produce valid Bayes factors or LOOIC. All proxy candidates share the true baseline value terms. Final models must respect shared participant effects, with primary trial-level LOO conditioned on the person's remaining responses. Whole-participant LOPO is a separately labeled secondary target. Changing the holdout unit does not change the full evidence likelihood or justify row-count BIC.
 
 ## Bayesian modeling milestones
 
@@ -83,7 +86,7 @@ Milestones:
 3. participant-level hierarchical ambiguity model;
 4. context-aware mean model;
 5. context-aware mean-plus-variance model;
-6. primary false-complex model after PI selection;
+6. PI-selected probability-distortion model, after task-equation validation;
 7. final empirical model suite.
 
 ## Basic commands
@@ -123,7 +126,7 @@ The loop must pause and request approval before:
 
 - adding new theorem assumptions;
 - adding or changing estimands;
-- selecting the primary false-complex empirical model;
+- changing the PI-selected probability-distortion empirical model family;
 - making interpretive literature claims;
 - making causal claims about RAID context effects;
 - choosing exclusion thresholds after seeing results;

@@ -1,0 +1,160 @@
+{
+  "checks": "passed",
+  "means_A_B": [
+    "81/40",
+    "137/40"
+  ],
+  "variances_A_B": [
+    "1879/1600",
+    "6071/1600"
+  ],
+  "uniform_tail_coefficient": "159/8",
+  "BIC_failure_coefficient": "159/2",
+  "original_uniform_tail_coefficient_approx": 2305.9017184428585,
+  "coefficient_improvement_factor_approx": 116.02021224869728,
+  "lambda_S_approx": 0.012332546456800243,
+  "lambda_K_approx": 0.0004522250407395217,
+  "exact_tail_checks": [
+    {
+      "participants": 1,
+      "count_vectors": 4,
+      "u": "1/4",
+      "exact_P_U_ge_u": "1",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 1,
+      "count_vectors": 4,
+      "u": "1",
+      "exact_P_U_ge_u": "61/80",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 1,
+      "count_vectors": 4,
+      "u": "2",
+      "exact_P_U_ge_u": "61/80",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 1,
+      "count_vectors": 4,
+      "u": "4",
+      "exact_P_U_ge_u": "11/80",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 1,
+      "count_vectors": 4,
+      "u": "6",
+      "exact_P_U_ge_u": "0",
+      "upper_bound": "53/96"
+    },
+    {
+      "participants": 2,
+      "count_vectors": 10,
+      "u": "1/4",
+      "exact_P_U_ge_u": "1",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 2,
+      "count_vectors": 10,
+      "u": "1",
+      "exact_P_U_ge_u": "5077/6400",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 2,
+      "count_vectors": 10,
+      "u": "2",
+      "exact_P_U_ge_u": "2363/6400",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 2,
+      "count_vectors": 10,
+      "u": "4",
+      "exact_P_U_ge_u": "407/6400",
+      "upper_bound": "159/256"
+    },
+    {
+      "participants": 2,
+      "count_vectors": 10,
+      "u": "6",
+      "exact_P_U_ge_u": "0",
+      "upper_bound": "53/192"
+    },
+    {
+      "participants": 4,
+      "count_vectors": 35,
+      "u": "1/4",
+      "exact_P_U_ge_u": "4430357/5120000",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 4,
+      "count_vectors": 35,
+      "u": "1",
+      "exact_P_U_ge_u": "4288289/8192000",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 4,
+      "count_vectors": 35,
+      "u": "2",
+      "exact_P_U_ge_u": "9089071/40960000",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 4,
+      "count_vectors": 35,
+      "u": "4",
+      "exact_P_U_ge_u": "206547/40960000",
+      "upper_bound": "159/512"
+    },
+    {
+      "participants": 4,
+      "count_vectors": 35,
+      "u": "6",
+      "exact_P_U_ge_u": "0",
+      "upper_bound": "53/384"
+    },
+    {
+      "participants": 8,
+      "count_vectors": 165,
+      "u": "1/4",
+      "exact_P_U_ge_u": "173433336359859/209715200000000",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 8,
+      "count_vectors": 165,
+      "u": "1",
+      "exact_P_U_ge_u": "610280348230981/1677721600000000",
+      "upper_bound": "1"
+    },
+    {
+      "participants": 8,
+      "count_vectors": 165,
+      "u": "2",
+      "exact_P_U_ge_u": "98715826549783/1677721600000000",
+      "upper_bound": "159/256"
+    },
+    {
+      "participants": 8,
+      "count_vectors": 165,
+      "u": "4",
+      "exact_P_U_ge_u": "255216376371/1677721600000000",
+      "upper_bound": "159/1024"
+    },
+    {
+      "participants": 8,
+      "count_vectors": 165,
+      "u": "6",
+      "exact_P_U_ge_u": "0",
+      "upper_bound": "53/768"
+    }
+  ],
+  "limits": "Exact checks for four small participant counts; no selection-rate study. The analytical review proves the bound for all n."
+}

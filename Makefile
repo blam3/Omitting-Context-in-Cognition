@@ -1,13 +1,13 @@
 .PHONY: setup smoke test simulate-small synthetic-raid validate-update manuscript clean
 
 setup:
-	Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv'); renv::restore(prompt = FALSE)"
+	Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv', repos = 'https://cloud.r-project.org'); renv::restore(prompt = FALSE)"
 
 smoke:
 	Rscript R/run_smoke_simulation.R
 
 test:
-	Rscript -e "if (!requireNamespace('testthat', quietly = TRUE)) install.packages('testthat'); testthat::test_dir('tests/testthat')"
+	Rscript -e "if (!requireNamespace('testthat', quietly = TRUE)) install.packages('testthat', repos = 'https://cloud.r-project.org'); testthat::test_dir('tests/testthat')"
 
 simulate-small:
 	Rscript R/run_design_cell.R --n 40 --trials 40 --context_range unrestricted --context_effect weak --replications 10 --seed 20260630

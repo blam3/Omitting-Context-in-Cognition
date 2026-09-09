@@ -13,6 +13,7 @@ cache/
 logs/*
 !logs/
 !logs/research_updates/
+!logs/theory_checks/
 !logs/research_updates/README.md
 !logs/research_updates/example_update.json
 tmp/
@@ -27,6 +28,12 @@ data_synthetic/*.csv
 *.out
 *.synctex.gz
 manuscript/main.pdf
+
+# Lean build artifacts
+.lake/
+*.olean
+*.olean.trace
+*.ilean
 data_raw_secure/
 data_processed_secure/
 results_secure/

@@ -1,0 +1,71 @@
+{
+  "cycle_title": "D1 KL review: strict separation verified and conditional-mixture wording repaired",
+  "track": "theorem",
+  "completed": [
+    "Completed D1 review of L1/T1 and O1-O3 with line-specific evidence.",
+    "Repaired the general participant-vector corollary to require trial independence given (Theta,Z), documented the counterexample and registered scoped A-011.",
+    "Changed exogeneity wording from necessary to sufficient for the integrated response identity.",
+    "Showed the KL gap is not a parameter-box artifact and recorded the intercept-model interpretation limit.",
+    "Advanced persistent state to D2_BIC_review."
+  ],
+  "why_it_matters": [
+    "The main strict joint KL separation survives adversarial reconstruction.",
+    "The generalized participant formula now has a valid, explicit conditioning premise, without changing the constructive DGM or prediction target."
+  ],
+  "files_changed": [
+    "PROOF_PACKAGE.md",
+    "docs/omitted_context_mixture_lemma.md",
+    "registries/assumption_register.csv",
+    "registries/proof_progress.json",
+    "docs/proof_review_log.md",
+    "docs/theorem_backlog.md",
+    "scripts/verify_kl_review.py",
+    "docs/proof_reviews/review_01_KL.md",
+    "logs/theory_checks/2026-09-06_KL_review.json",
+    "logs/theory_checks/2026-09-06_proof_gap_scan.json",
+    "logs/theory_checks/2026-09-06_PROOF_GAP_SCAN.md",
+    "logs/research_updates/2026-09-06T130028Z_proof_daily.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Independent exact-fraction and Decimal arithmetic: scripts/verify_kl_review.py",
+      "status": "pass",
+      "notes": "Recomputed four cells, marginals, determinant and KL risks; checked conditioning/exogeneity counterexamples and alternative intercept model without importing author verifier."
+    },
+    {
+      "name": "Analytical L1/T1 and O1-O3 review",
+      "status": "pass",
+      "notes": "Separate LLM review pass, not independent external review. Strict risk infima, global optimum signs and interiority verified; general vector premise explicitly repaired."
+    },
+    {
+      "name": "proof_gap_scan.py on revised proof",
+      "status": "pass",
+      "notes": "10 obligations; zero blocked or structural/candidate findings. Lint checks structure only."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "options": [],
+    "default_if_no_response": "Continue D2_BIC_review within the authorized proof-development scope."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "A-011 explicitly strengthens only the general vector-corollary premise. A-007-A-010, model pair, priors and new-participant target are unchanged. No claim was promoted to supported_final; no restricted data, new model selection or costly computation."
+  },
+  "risks_or_uncertainties": [
+    "This is a separate LLM pass in the author task, not independent external acceptance.",
+    "The free-intercept-plus-slope alternative ties quadratic marginal fit at two levels; the no-intercept comparator remains explicit.",
+    "BIC/BF/LOPO and full-package integration reviews remain pending; no new finite-sample selection claims are made."
+  ],
+  "next_bounded_task": "D2_BIC_review: check L2/C1 and O4-O6, then write docs/proof_reviews/review_02_BIC.md."
+}

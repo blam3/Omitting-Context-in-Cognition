@@ -65,6 +65,8 @@ simulate_trial_design <- function(trials, seed = NULL) {
 #' @param context_effect Strength of context effect
 #' @param seed Random seed
 #' @param design Study design of the decision-making task
+#' @param latent_heterogeneity Keep residual theta and tau variation (default TRUE).
+#'   FALSE with context_effect='none' gives a correctly representable fixed-parameter control.
 #'
 #' @export
 simulate_ambiguity_task <- function(
@@ -73,25 +75,36 @@ simulate_ambiguity_task <- function(
     context_range = c("unrestricted", "range_restricted"),
     context_effect = c("none", "weak", "moderate", "strong"),
     seed = NULL,
-    design = NULL
+    design = NULL,
+    latent_heterogeneity = TRUE
 ) {
   context_range <- match.arg(context_range)
   context_effect <- match.arg(context_effect)
   if (!is.null(seed)) set.seed(seed)
 
+  stopifnot(is.logical(latent_heterogeneity), length(latent_heterogeneity) == 1L,
+            !is.na(latent_heterogeneity))
   ses <- simulate_context(n, context_range = context_range)
   effect <- context_effect_parameters(context_effect)
 
   # Latent ambiguity aversion. Negative SES effects mean lower-SES participants
   # are, on average, more ambiguity averse when SES is coded high = advantaged.
   # The log-SD term makes low-SES participants more heterogeneous, matching the
-  # current theorem route in which omission induces apparent mixture or
+  # optional heterogeneity example in which omission induces a mixture or
   # heteroskedastic structure.
-  theta_sd_i <- exp(log(0.25) + effect$log_sd * (-ses))
+  theta_sd_i <- if (latent_heterogeneity) {
+    exp(log(0.25) + effect$log_sd * (-ses))
+  } else {
+    rep(0, n)
+  }
   theta_i <- 0.75 + effect$mean * ses + rnorm(n, mean = 0, sd = theta_sd_i)
 
   # Choice sensitivity is individual-varying but not the target construct here.
-  tau_i <- exp(log(4.0) + rnorm(n, mean = 0, sd = 0.15))
+  tau_i <- if (latent_heterogeneity) {
+    exp(log(4.0) + rnorm(n, mean = 0, sd = 0.15))
+  } else {
+    rep(4.0, n)
+  }
 
   if (is.null(design)) {
     design <- simulate_trial_design(trials)
@@ -124,8 +137,8 @@ simulate_ambiguity_task <- function(
   dat$sv_true <- dat$value * (dat$probability - dat$theta * dat$ambiguity / 2)
 
   # No true source/color cognitive parameter is included. Apparent source/color
-  # effects in complex omitted-context models are therefore false-complexity
-  # absorbers in this DGM.
+  # effects are not generating mechanisms here. A fitted cue effect alone does
+  # not establish that it absorbed context rather than sampling/design variation.
   linpred <- -0.10 + dat$tau * dat$sv_true + 0.10 * dat$ref_side
   dat$choice_prob <- plogis(linpred)
   dat$choice <- rbinom(nrow(dat), size = 1, prob = dat$choice_prob)
@@ -133,6 +146,7 @@ simulate_ambiguity_task <- function(
   attr(dat, "truth") <- list(
     dgm = "simple_contextual_ambiguity",
     context_effect = context_effect,
+    latent_heterogeneity = latent_heterogeneity,
     context_mean_effect = effect$mean,
     context_log_sd_effect = effect$log_sd,
     false_complex_terms = c("condition", "color_cue", "nonlinear_ambiguity")
