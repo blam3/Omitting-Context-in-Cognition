@@ -2,9 +2,9 @@
   "version": 1,
   "updated": "2026-09-10",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "perturbation_pair_separate_LLM_review_passed_cognitive_extension_open",
+  "overall_status": "smooth_observable_extension_author_proved_cognitive_hypotheses_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Write docs/smooth_observable_extension.md: finite-support smooth nested observable-family extension with explicit regular local charts and global localization; derive joint fitted-path and conditional-risk expansions. Do not assert these hypotheses hold for the cognitive model without proof.",
+  "next_action": "Adversarially review docs/smooth_observable_extension.md, especially local completeness and closure-to-chart localization; then audit integrated cognitive-model smoothness and observable redundancies before asserting regular charts.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -104,6 +104,15 @@
       "failed_routes": [],
       "no_progress": false,
       "artifact": "docs/proof_reviews/review_perturbation_pair.md"
+    },
+    {
+      "date": "2026-09-10",
+      "item": "smooth_observable_extension",
+      "approach": "Compact observable closure localization, complete local chart, positive information and implicit fitted branch; exact crossing-branch counterexample.",
+      "outcome": "Smooth finite-support theorem proved conditionally; cognitive local completeness not established.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/smooth_observable_extension.md"
     }
   ],
   "completed_obligations": [],
@@ -140,7 +149,9 @@
     "docs/cognitive_bayesian_LOO_extension_plan.md",
     "docs/proof_reviews/review_perturbation_pair.md",
     "scripts/verify_perturbation_review.py",
-    "logs/theory_checks/2026-09-10_perturbation_review.json"
+    "logs/theory_checks/2026-09-10_perturbation_review.json",
+    "docs/smooth_observable_extension.md",
+    "logs/theory_checks/2026-09-10_smooth_global_check.json"
   ],
   "items": [
     {

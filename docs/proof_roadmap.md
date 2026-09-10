@@ -112,3 +112,7 @@ Follow `cognitive_bayesian_LOO_extension_plan.md` for the general-to-cognitive e
 ## September 10 completed review session
 
 `proof_reviews/review_perturbation_pair.md` passes both finite exponential-family perturbation lemmas in a separate same-LLM review. Source proofs unchanged; no cognitive or Bayesian convergence claim promoted. Next: session 2, `smooth_observable_extension.md`, with explicit regular charts and global localization.
+
+## Smooth observable extension completed as author theorem
+
+`smooth_observable_extension.md` supplies global attainment/localization and joint/conditional expansions under a complete regular observable chart. A crossing-branch example shows why local information alone is insufficient. Next review this theorem and then check the cognitive family; the new hypotheses have not been established for that application.
