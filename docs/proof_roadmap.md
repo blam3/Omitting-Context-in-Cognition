@@ -104,3 +104,7 @@ Author context-perturbation lemma: `context_score_perturbation_2026-09-09.md`. N
 ## September 9 trial-conditional extension
 
 Completed author derivation in `trial_conditional_perturbation_2026-09-09.md`: same joint projections, conditional-energy expansion, sufficient sign conditions, and exact nested-family reversal/positive controls. Next perform a separate adversarial review of both perturbation lemmas before nonlinear cognitive extension. Primary cognitive separation and Bayesian deletion transfer remain separate open obligations.
+
+## September 10 extension and verification plan
+
+Follow `cognitive_bayesian_LOO_extension_plan.md` for the general-to-cognitive extension and exact Bayesian trial-LOO proof. Its ten dependency-ordered sessions include separate proof review, global observable geometry, cognitive design/tilt certificates, criterion transfer, Lean coverage and bounded numerical validation. Next: review the two perturbation lemmas. No proof or formal-verification status changes merely because this plan exists.

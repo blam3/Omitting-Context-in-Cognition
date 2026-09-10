@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-09-09",
+  "updated": "2026-09-10",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
   "overall_status": "joint_and_conditional_perturbation_author_lemmas_primary_pair_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Separately adversarially review the context and trial-conditional perturbation lemmas, checking global joint fits, marginal expansions, latent-tilt admissibility and both exact controls. Then identify observable regularity/global-localization conditions for the nonlinear cognitive extension.",
+  "next_action": "Session 1 of docs/cognitive_bayesian_LOO_extension_plan.md: separate adversarial review of both perturbation lemmas and exact controls; produce proof_reviews/review_perturbation_pair.md before applying them to nonlinear cognitive models.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -127,7 +127,8 @@
     "logs/theory_checks/2026-09-09_context_perturbation.json",
     "docs/trial_conditional_perturbation_2026-09-09.md",
     "scripts/verify_trial_conditional_perturbation.py",
-    "logs/theory_checks/2026-09-09_trial_conditional_perturbation.json"
+    "logs/theory_checks/2026-09-09_trial_conditional_perturbation.json",
+    "docs/cognitive_bayesian_LOO_extension_plan.md"
   ],
   "items": [
     {
@@ -490,5 +491,6 @@
     "worktree": "/private/tmp/ocecm-proof-progress-20260909",
     "branch": "agent/general-context-proof-20260909",
     "reason": "Main checkout lacks saved roadmap/progress; current main preserved."
-  }
+  },
+  "extension_plan": "docs/cognitive_bayesian_LOO_extension_plan.md"
 }
