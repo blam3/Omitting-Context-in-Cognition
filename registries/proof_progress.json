@@ -2,9 +2,9 @@
   "version": 1,
   "updated": "2026-09-10",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "joint_and_conditional_perturbation_author_lemmas_primary_pair_open",
+  "overall_status": "perturbation_pair_separate_LLM_review_passed_cognitive_extension_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Session 1 of docs/cognitive_bayesian_LOO_extension_plan.md: separate adversarial review of both perturbation lemmas and exact controls; produce proof_reviews/review_perturbation_pair.md before applying them to nonlinear cognitive models.",
+  "next_action": "Write docs/smooth_observable_extension.md: finite-support smooth nested observable-family extension with explicit regular local charts and global localization; derive joint fitted-path and conditional-risk expansions. Do not assert these hypotheses hold for the cognitive model without proof.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -95,6 +95,15 @@
       "failed_routes": [],
       "no_progress": false,
       "artifact": "docs/trial_conditional_perturbation_2026-09-09.md"
+    },
+    {
+      "date": "2026-09-10",
+      "item": "extension_session_1_review",
+      "approach": "Separate adversarial reconstruction of global optimality and conditional expansion; exact rational operators and closed-risk diagnostic.",
+      "outcome": "Both finite exponential-family lemmas pass within stated scope; no source changes.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/proof_reviews/review_perturbation_pair.md"
     }
   ],
   "completed_obligations": [],
@@ -128,7 +137,10 @@
     "docs/trial_conditional_perturbation_2026-09-09.md",
     "scripts/verify_trial_conditional_perturbation.py",
     "logs/theory_checks/2026-09-09_trial_conditional_perturbation.json",
-    "docs/cognitive_bayesian_LOO_extension_plan.md"
+    "docs/cognitive_bayesian_LOO_extension_plan.md",
+    "docs/proof_reviews/review_perturbation_pair.md",
+    "scripts/verify_perturbation_review.py",
+    "logs/theory_checks/2026-09-10_perturbation_review.json"
   ],
   "items": [
     {
@@ -492,5 +504,14 @@
     "branch": "agent/general-context-proof-20260909",
     "reason": "Main checkout lacks saved roadmap/progress; current main preserved."
   },
-  "extension_plan": "docs/cognitive_bayesian_LOO_extension_plan.md"
+  "extension_plan": "docs/cognitive_bayesian_LOO_extension_plan.md",
+  "perturbation_review": {
+    "status": "passed_within_stated_scope",
+    "reviewer": "same LLM separate pass, not independent external verification",
+    "artifact": "docs/proof_reviews/review_perturbation_pair.md",
+    "source_sha256": {
+      "docs/context_score_perturbation_2026-09-09.md": "6e967ebf77d5ba2f23c226bb68dee08554ba30cd38cbc25d571337bc0cb71181",
+      "docs/trial_conditional_perturbation_2026-09-09.md": "706408b864995c3b46cde41bb8bd4b26581a7138c4f83a8525c7e15528e001c6"
+    }
+  }
 }

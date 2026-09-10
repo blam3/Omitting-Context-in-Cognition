@@ -108,3 +108,7 @@ Completed author derivation in `trial_conditional_perturbation_2026-09-09.md`: s
 ## September 10 extension and verification plan
 
 Follow `cognitive_bayesian_LOO_extension_plan.md` for the general-to-cognitive extension and exact Bayesian trial-LOO proof. Its ten dependency-ordered sessions include separate proof review, global observable geometry, cognitive design/tilt certificates, criterion transfer, Lean coverage and bounded numerical validation. Next: review the two perturbation lemmas. No proof or formal-verification status changes merely because this plan exists.
+
+## September 10 completed review session
+
+`proof_reviews/review_perturbation_pair.md` passes both finite exponential-family perturbation lemmas in a separate same-LLM review. Source proofs unchanged; no cognitive or Bayesian convergence claim promoted. Next: session 2, `smooth_observable_extension.md`, with explicit regular charts and global localization.
