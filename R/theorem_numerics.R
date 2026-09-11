@@ -178,3 +178,24 @@ aic_crossover_n <- function(delta_ell_star, omega, delta_k, alpha = 0.05) {
   root <- (z * omega + sqrt(disc)) / (2 * delta_ell_star)
   ceiling(root^2)
 }
+
+# --- Corollary T-003a: the support qualifier ------------------------------
+#
+# sigma^2(z) = sigma_u^2 + gamma^2 v(z), evaluated ONLY on the support of Z.
+# A v that varies off the support contributes nothing, which is why T-003a
+# must say "non-constant on supp(Z)" rather than "non-constant". Returns the
+# induced variances and whether they are heteroskedastic where it matters.
+induced_variance <- function(v_fun, supp, gamma, sigma_u2) {
+  s2 <- sigma_u2 + gamma^2 * vapply(supp, v_fun, numeric(1))
+  list(sigma2 = s2,
+       heteroskedastic = diff(range(s2)) > 1e-12)
+}
+
+# --- T-003: the variance formula requires U independent of (Z, C) ----------
+#
+# With Cov(C, U | Z) != 0 the true conditional variance gains a cross term
+# 2 * gamma * Cov(C, U | Z), which is first order, not a small correction.
+theta_variance_true <- function(gamma, sigma_u2, v, rho) {
+  gamma^2 * v + sigma_u2 + 2 * gamma * rho * sqrt(v * sigma_u2)
+}
+theta_variance_t003 <- function(gamma, sigma_u2, v) sigma_u2 + gamma^2 * v

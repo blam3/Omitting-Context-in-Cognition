@@ -1,6 +1,73 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-11 proof-critic: counterexample search against T-003
+
+Date: 2026-09-11
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: proof-critic pass (counterexample search), at PI request
+Theorem or lemma: Theorem T-003, Corollary T-003a, Corollary T-003b
+Claim registry ID: C-003
+Assumptions used: A-001, A-002, A-003, A-007, A-008
+
+FINDING 1 - COUNTEREXAMPLE. Corollary T-003a's "if and only if" was false as
+  literally stated. It said sigma^2 is non-constant iff gamma != 0 and v is
+  non-constant, without saying WHERE non-constant. T-003 is stated for Z-almost
+  every z and A-008 makes Z finitely supported, so supp(Z) is the only place it
+  is observable. Take v(z) = (z-1)^2, gamma = 1, sigma_u^2 = 0.5:
+    supp(Z) = {0,2}: v = (1.00, 1.00) constant there; sigma^2 = [1.5, 1.5];
+      affine residual 1.2e-21 -> p_0 in M_S, no heteroskedasticity, no KL gap.
+    supp(Z) = {0,3}: v = (1.00, 4.00); sigma^2 = [1.5, 4.5];
+      affine residual 1.3e-5 -> p_0 outside M_S, gap is real.
+  The unqualified antecedent holds identically in both rows. Only the support
+  placement differs, and it decides the whole conclusion.
+  Severity: real but local. T-004 section 4's boundary-condition table inherited
+  the imprecision through row 2.
+  REPAIR: the qualifier "on the support of Z" added to both directions of the
+  criterion and to its two bullet explanations, with the counterexample recorded
+  in the corollary itself; T-004 section 4 row 2 updated to match.
+
+FINDING 2 - the T-002 exogeneity step in T-003b is LOAD-BEARING, not formal.
+  T-003b's proof replaces F_{Theta|A,Z} by the T-003 mixing law "under A-008 the
+  design is exogenous in the sense of T-002". Breaking it with an adaptive design
+  (ambiguity level assigned from Theta) gives, at a = 1: closed form 0.86822,
+  exogenous assignment 0.86834, adaptive assignment 0.96246. Maximum deviation
+  0.0005 exogenous versus 0.0942 adaptive - a factor of roughly 190.
+  Severity: not a logical gap (A-008 asserts exogeneity) but a visibility
+  problem: the hypothesis appeared only in the proof and in A-008, while
+  everything in T-004 inherits it through this corollary.
+  REPAIR: exogeneity moved into T-003b's STATEMENT; the adaptive-design table
+  added as a remark; A-008 in T-004 section 1 now records that T-004's whole
+  construction rests on it, and that this is the T-002 corollary under A-008's
+  explicit clause, not a revival of the rejected A-006.
+
+NO COUNTEREXAMPLE to Theorem T-003 itself. The moment formulas survived 3000
+  Monte Carlo configurations spanning wide parameter ranges and including the
+  degenerate draws v = 0 and sigma_u^2 = 0 (max relative error 1.9e-2 mean,
+  8.9e-3 variance, both at Monte Carlo error). The Gaussian identity used by
+  T-003b, E[Phi(alpha + beta W)] = Phi(alpha / sqrt(1 + beta^2)), held across
+  2000 (alpha, beta) pairs including negative beta (max deviation 2.2e-3 at 4e5
+  draws).
+
+Independence of U from (Z, C) confirmed load-bearing and correctly stated.
+  Correlating them breaks the variance formula by 24%, 48% and 72% at
+  rho = 0.3, 0.6, 0.9. The cross term is 2*gamma*Cov(C,U|Z) - first order, not a
+  small correction. The analytic helper added to the harness reproduces the
+  Monte Carlo figures exactly.
+
+Repairs applied: T-003a support qualifier; T-004 section 4 row 2; T-003b
+  exogeneity in the statement plus the adaptive-design remark and the A-008
+  cross-reference; two regression tests with two new harness helpers
+  (induced_variance, theta_variance_true/theta_variance_t003).
+
+Unsupported steps: T-007 and T-001 have not had a critic pass. T-007b's proof
+  remains a citation to White and Vuong, both still unverified in
+  docs/citation_claim_map.csv.
+
+Reviewer-2 critique: Pending.
+Decision: revise (applied). T-003 remains proof-draft, not accepted.
+Next action: proof-critic pass on T-007, then T-001.
+
 ## 2026-09-09 proof-critic: counterexample search against Theorem T-004 proper
 
 Date: 2026-09-09

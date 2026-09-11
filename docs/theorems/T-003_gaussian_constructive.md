@@ -49,18 +49,34 @@ expectation. Its variance is
 where the cross term vanishes by the independence of `U_i` and `(Z_i, C_i)`. `\square`
 
 **Corollary T-003a (sharp heteroskedasticity criterion).**
-`\sigma^2(\cdot)` is non-constant **if and only if** `\gamma \ne 0` and
-`v(\cdot)` is non-constant.
+`\sigma^2(\cdot)` is non-constant **on the support of `Z`** if and only if
+`\gamma \ne 0` and `v(\cdot)` is non-constant **on the support of `Z`**.
 
-This is an "if and only if", not an "if", and it is what makes the project's
-boundary conditions 1 and 2 exact rather than rhetorical:
+**The support qualifier is not pedantry — without it the corollary is false.**
+T-003 is stated for `Z`-almost every `z`, and under A-008 `Z` is finitely
+supported, so `\mathrm{supp}(Z)` is the only place any of this is observable.
+A `v` that varies off the support contributes nothing. Counterexample, found in
+proof-critic review (2026-09-09): take `v(z) = (z-1)^2`, `\gamma = 1`,
+`\sigma_u^2 = 0.5`, so `v` is non-constant on `\mathbb{R}` and `\gamma \ne 0` —
+the unqualified antecedent holds. Then
+
+| `\mathrm{supp}(Z)` | `v` on the support | induced `\sigma^2` | affine residual | outcome |
+|---|---|---|---|---|
+| `\{0, 2\}` | `1.00, 1.00` (constant) | `[1.5, 1.5]` | `1.2\times10^{-21}` | `p_0 \in M_S`: **no heteroskedasticity, no KL gap** |
+| `\{0, 3\}` | `1.00, 4.00` | `[1.5, 4.5]` | `1.3\times10^{-5}` | `p_0 \notin M_S`: gap is real |
+
+The antecedent is satisfied identically in both rows; only the support placement
+differs, and it decides whether there is any heteroskedasticity at all.
+
+With the qualifier in place the criterion is exact, and it is what makes the
+project's boundary conditions 1 and 2 precise rather than rhetorical:
 
 - if `\gamma = 0` (omitted context does not shape the latent parameter), the
   induced latent variance is the constant `\sigma_u^2`;
-- if `v(\cdot)` is constant (omitted context is present but its conditional
-  spread does not vary with observables), the induced latent variance is again
-  constant, at `\sigma_u^2 + \gamma^2 v`, and is absorbed by any model with a
-  free latent variance.
+- if `v(\cdot)` is constant on `\mathrm{supp}(Z)` (omitted context is present but
+  its conditional spread does not vary across the observed covariate values), the
+  induced latent variance is again constant, at `\sigma_u^2 + \gamma^2 v`, and is
+  absorbed by any model with a free latent variance.
 
 In both cases the omission is *harmless to model selection* in the precise sense
 that the induced mixing law stays inside the simple model's reach (T-004 §4).
@@ -75,6 +91,13 @@ only approximate and must be derived and labelled separately.
 Take the scalar ambiguity index `X = A` with kernel
 
 $$P(Y = 1 \mid A = a, \Theta = \theta) = \Phi(b_0 + \theta a).$$
+
+**Assume in addition that the trial design is exogenous in the sense of T-002**
+— `\Theta` conditionally independent of `A` given `Z`, or `A` fixed by a
+non-adaptive rule. This hypothesis belongs in the statement, not only in the
+proof: it is what licenses replacing `F_{\Theta \mid A,Z}` by the mixing law of
+T-003, and everything T-004 builds on this corollary inherits it. Under A-008 it
+is supplied; outside A-008 it must be established separately.
 
 Then, combining T-001 with T-003, for `Z`-almost every `z`
 
@@ -110,6 +133,22 @@ Two things follow, and only the second is the paper's contribution:
 
 Claim 2 is what T-004 must prove, and it is proved there by an explicit
 non-representability argument, not by appeal to this remark.
+
+**Remark (how much the exogeneity hypothesis is doing).** It is tempting to read
+the T-002 step as bookkeeping. It is not. Simulating an adaptive design in which
+the ambiguity level is assigned from `\Theta` — the exact violation flagged in
+§8 of `../omitted_context_mixture_lemma.md` — gives:
+
+| `a` | closed form above | exogenous assignment | adaptive assignment |
+|---|---|---|---|
+| `0.00` | `0.61791` | `0.61834` | `0.61802` |
+| `0.50` | `0.79434` | `0.79437` | `0.80222` |
+| `1.00` | `0.86822` | `0.86834` | `0.96246` |
+
+Maximum deviation `0.0005` under exogenous assignment (Monte Carlo error) versus
+`0.0942` under adaptive assignment — a factor of roughly 190. The corollary is
+simply false without the hypothesis, and so is the `p_0` that T-004 takes as its
+target.
 
 ## 4. Numerical check
 

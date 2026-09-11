@@ -239,3 +239,45 @@ test_that("T-004: the KL gap collapses as p0 approaches the boundary", {
   expect_true(all(diff(gaps) < 0))                  # monotone collapse
   expect_gt(gaps[1] / gaps[length(gaps)], 1e3)      # by orders of magnitude
 })
+
+test_that("T-003a: the criterion needs the support qualifier to be true", {
+  # Proof-critic review 2026-09-09. v(z) = (z-1)^2 with gamma = 1 satisfies the
+  # UNQUALIFIED antecedent (gamma != 0, v non-constant on R) in both rows below.
+  # Only the support placement decides whether there is any heteroskedasticity,
+  # which is why T-003a must say "non-constant on supp(Z)".
+  v_fun <- function(z) (z - 1)^2
+  gamma <- 1.0; sigma_u2 <- 0.5
+
+  # v non-constant on R but CONSTANT on supp(Z) -> no heteroskedasticity
+  off <- induced_variance(v_fun, c(0, 2), gamma, sigma_u2)
+  expect_equal(off$sigma2, c(1.5, 1.5))
+  expect_false(off$heteroskedastic)
+
+  # v non-constant ON supp(Z) -> heteroskedasticity
+  on <- induced_variance(v_fun, c(0, 3), gamma, sigma_u2)
+  expect_equal(on$sigma2, c(1.5, 4.5))
+  expect_true(on$heteroskedastic)
+
+  # and the KL consequence follows: no gap in the first case, a gap in the second
+  p_off <- p0_mixture(A_DESIGN, B0, c(0, 0), off$sigma2, c(0.5, 0.5))
+  p_on  <- p0_mixture(A_DESIGN, B0, c(0, 0), on$sigma2,  c(0.5, 0.5))
+  expect_lt(affine_residual(p_off, A_DESIGN), 1e-9)   # in M_S
+  expect_gt(affine_residual(p_on, A_DESIGN), 1e-8)    # outside M_S
+  expect_true(closure_membership(p_off, A_DESIGN)$in_closure)
+  expect_true(closure_membership(p_on, A_DESIGN)$outside_closure)
+})
+
+test_that("T-003: independence of U and C is load-bearing, not a technicality", {
+  # The cross term is 2 * gamma * Cov(C, U | Z) -- first order. Correlating them
+  # breaks the variance formula by tens of percent, so the assumption cannot be
+  # quietly relaxed.
+  gamma <- 1.0; sigma_u2 <- 0.5; v <- 2.0
+  expect_equal(theta_variance_true(gamma, sigma_u2, v, 0),
+               theta_variance_t003(gamma, sigma_u2, v))
+  errs <- vapply(c(0.3, 0.6, 0.9), function(rho) {
+    abs(theta_variance_true(gamma, sigma_u2, v, rho) -
+        theta_variance_t003(gamma, sigma_u2, v)) / theta_variance_t003(gamma, sigma_u2, v)
+  }, numeric(1))
+  expect_true(all(diff(errs) > 0))                    # monotone in rho
+  expect_gt(errs[length(errs)], 0.5)                  # >50% error at rho = 0.9
+})

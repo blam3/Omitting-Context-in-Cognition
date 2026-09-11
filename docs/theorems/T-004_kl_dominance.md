@@ -55,6 +55,18 @@ $$P(Y = 1 \mid A = a, \Theta = \theta) = \Phi(b_0 + \theta a).$$
 **A-008 (finite support, design richness, approved D-006).**
 `\mathcal{A} = \{a_1, \ldots, a_J\} \subset [0, \infty)` with `J \ge 4` distinct
 levels including `a_1 = 0`, and design measure `Q` with `q_j > 0`.
+
+**Trial-design exogeneity is inherited here, and it is load-bearing.** The clause
+"`A` is exogenous in the sense of T-002" below is not decoration: the target
+`p_0` is obtained through Corollary T-003b, whose proof replaces
+`F_{\Theta \mid A,Z}` by the mixing law of T-003 using exactly that condition.
+Everything in this document therefore rests on it. Breaking it with an adaptive
+design — ambiguity level assigned from `\Theta` — moves the response law away
+from the closed form by `0.094` at `a = 1`, against `0.0005` under exogenous
+assignment: a factor of roughly 190 (proof-critic review, 2026-09-09). A-006
+remains rejected as a *primary* assumption; what is used here is the T-002
+corollary under A-008's explicit exogeneity clause, which is a different thing
+and is recorded as such.
 Non-negativity is not cosmetic: it is used in Lemma T-004b, where a signed
 design would make the degenerate limit `\rho\,\mathrm{sign}(a)` rather than a
 constant. Ambiguity levels are non-negative by construction, so this costs
@@ -321,7 +333,7 @@ Mapping onto the project's registered boundary conditions:
 | Boundary condition | Exact status under T-004 |
 |---|---|
 | 1. `C` has no effect on `\Theta` (`\gamma = 0`) | `\sigma^2(\cdot)` constant by T-003a; gap `= 0` exactly under T-004d |
-| 2. `C` adds only correctly modelled iid noise (`v` constant) | same; absorbed into `s^2` |
+| 2. `C` adds only correctly modelled iid noise (`v` constant **on `\mathrm{supp}(Z)`**) | same; absorbed into `s^2`. The support qualifier is load-bearing: a `v` varying only *off* the support leaves `\sigma^2` constant and the gap zero, so this condition holds. See T-003a. |
 | 3. simple model already has sufficient random-effect structure | this *is* `p_0 \in \bar M_S`, i.e. the negation of (i) |
 | 4. complex model has no approximation advantage | negation of (ii) / of the score condition in T-004' |
 | 5. finite-sample penalties dominate | **not addressed here.** T-004 is a population statement with no finite-sample content; see T-007 |
