@@ -2,9 +2,9 @@
   "version": 1,
   "updated": "2026-09-11",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "cognitive_smoothness_proved_current_design_absorbed_coverage_partial",
+  "overall_status": "richer_design_observable_nonabsorption_proved_KL_witness_open",
   "active_item": "G2_observable_separation",
-  "next_action": "Specify a complete richer finite P-G1 design preserving shared terms and audit exact nuisance absorption first. Reuse cognitive_regularity_coverage_audit.md smoothness and boundary arguments; do not claim reduced rank or unique preimages without proof.",
+  "next_action": "On docs/cognitive_design_manifest.md support, isolate the ambiguous-trial inverse problem for mu0,mu1,sigma after calibration identifies alpha,beta,tau,rho. Establish or delimit latent rank/unique preimages before constructing context-tilt alignment; preserve fixed support.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -122,6 +122,15 @@
       "failed_routes": [],
       "no_progress": false,
       "artifact": "docs/cognitive_regularity_coverage_audit.md"
+    },
+    {
+      "date": "2026-09-11",
+      "item": "richer_design_nonabsorption",
+      "approach": "Known-probability calibration triples cancel nuisance terms and latent effects, yielding exact logit contrast and inverse parameter map.",
+      "outcome": "Strict S/K observable inclusion and added tangent direction proved on complete eight-trial support; scientific DGP KL advantage remains open.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/cognitive_design_manifest.md"
     }
   ],
   "completed_obligations": [],
@@ -162,7 +171,11 @@
     "docs/smooth_observable_extension.md",
     "logs/theory_checks/2026-09-10_smooth_global_check.json",
     "docs/cognitive_regularity_coverage_audit.md",
-    "logs/theory_checks/2026-09-11_cognitive_regularity.json"
+    "logs/theory_checks/2026-09-11_cognitive_regularity.json",
+    "docs/cognitive_design_manifest.md",
+    "docs/designs/calibrated_eight_trial_support.csv",
+    "scripts/verify_calibration_design.py",
+    "logs/theory_checks/2026-09-11_calibration_design.json"
   ],
   "items": [
     {

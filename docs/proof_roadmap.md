@@ -120,3 +120,7 @@ Follow `cognitive_bayesian_LOO_extension_plan.md` for the general-to-cognitive e
 ## September 11 cognitive application audit
 
 `cognitive_regularity_coverage_audit.md` proves local integrated smoothness and reduced-parameter boundary exclusion on the current support. Original information is singular by exact four-coordinate reduction; reduced rank and unique local representation remain unproved. S/K families are equal on this support. Next specify and audit richer support, rather than repeatedly fitting the absorbed design.
+
+## September 11 richer support result
+
+`cognitive_design_manifest.md` specifies eight trials at each of two Z values. Calibration triples prove exact observable nonabsorption and recover alpha,beta,tau,rho. Latent rank/coverage and actual omitted-context joint/conditional KL advantages remain open. Next isolate the three latent parameters using the ambiguous rows; preserve this declared support and unfavorable outcomes.
