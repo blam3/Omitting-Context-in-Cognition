@@ -1,6 +1,73 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-11 proof-critic: counterexample search against T-001
+
+Date: 2026-09-11
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: proof-critic pass (counterexample search), at PI request
+Theorem or lemma: Lemma 1.1 (T-001), Corollary 1.2 (T-002)
+Claim registry ID: C-002
+Assumptions used: A-001, A-002, plus the regularity condition of Assumption 4
+
+NO COUNTEREXAMPLE to Lemma 1.1. It reproduced the observed choice law to Monte
+  Carlo error under every design tried, including ones that break its corollary.
+
+FINDING 1 - COUNTEREXAMPLE to the fixed-design argument in section 5.2 step 5.
+  The step asserted that a design "assigned by a non-adaptive rule that does not
+  depend on the realized outcomes, AND HENCE carries no information about Theta
+  beyond Z" gives conditional independence. The "and hence" is false.
+  Assign the ambiguity level by quintile of a baseline pre-test score
+  W = Theta + noise, fixed before the experiment begins. No outcome is ever
+  consulted, so the rule is non-adaptive in exactly the quoted sense. Yet
+  E[Theta | A = a] sweeps 0.034 to 2.367 across the design, so Theta is plainly
+  not independent of A. Lemma 1.1 holds throughout (max deviation 0.00088);
+  Corollary 1.2 fails by 0.124, against 0.0006 under genuinely exogenous
+  assignment.
+  The document already contradicted itself here: section 8 lists stratified task
+  assignment as a counterexample candidate. Section 5.2 was the wrong one.
+  Severity: real, and it reaches beyond this document. A-008 asserts exogeneity
+  for T-004, the T-003b probe showed that step is load-bearing (a factor of 190
+  when violated), and section 5.2 was telling a reader that a non-adaptive design
+  discharges it.
+  REPAIR: step 5 rewritten. The operative condition is the conditional
+  independence itself; non-adaptivity is stated as neither necessary nor
+  sufficient, with the counterexample table inline and section 8 reconciled.
+  T-004 section 1 gains a matching note that A-008's clause may not be discharged
+  by appeal to non-adaptive design.
+
+FINDING 2 - sequencing slip in section 5.2 step 3. The kernel condition
+  P(Y|X,Z,Theta) = p(y|x,theta;eta*) is an exclusion restriction: Z acts on Y
+  only through Theta. Lemma 1.1 states it as a hypothesis, correctly, but step 3
+  introduced it with "By A-001", as though it followed from the assumption rather
+  than being assumed. It is load-bearing: letting Z enter the kernel directly
+  breaks the identity by 0.19 against 0.001 when it holds.
+  REPAIR: step 3 rephrased to present it as the lemma's hypothesis and to say why
+  reading it off A-001 is tempting but not free.
+
+FINDING 3 - confirmed, already acknowledged. The statement is written for
+  P(Y = y | .), identically zero for continuous outcomes, so the identity is
+  vacuous there. Section 7 already records this; the search confirms it is a real
+  restriction to discrete Y rather than a presentational quirk. No repair.
+
+Counterexample search: three designs (exogenous, adaptive from Theta, and
+  non-adaptive but Theta-informative) plus a direct test of the exclusion
+  restriction. Reproduced in R and Python to identical figures.
+
+Repairs applied: section 5.2 steps 3 and 5 rewritten; T-004 section 1 A-008 note;
+  three harness helpers (t001_rhs, t002_rhs, observed_rate) and two regression
+  tests covering the stratification counterexample and the exclusion restriction.
+
+Unsupported steps: the White and Vuong citations underpinning T-007b remain
+  unverified in docs/citation_claim_map.csv, as do the other twelve entries.
+
+Reviewer-2 critique: Pending.
+Decision: revise (applied). T-001 remains proof-critic-review; T-002 remains
+  corollary-only. Neither is accepted.
+Next action: all five results have now had a critic pass. The remaining blockers
+  before anything can enter the supplement are Reviewer-2 critique, the T-005b
+  expansion, and DOI verification for the fourteen citations.
+
 ## 2026-09-11 proof-critic: counterexample search against T-007
 
 Date: 2026-09-11

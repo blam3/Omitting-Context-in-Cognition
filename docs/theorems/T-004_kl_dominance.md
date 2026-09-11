@@ -67,6 +67,16 @@ assignment: a factor of roughly 190 (proof-critic review, 2026-09-09). A-006
 remains rejected as a *primary* assumption; what is used here is the T-002
 corollary under A-008's explicit exogeneity clause, which is a different thing
 and is recorded as such.
+
+**The exogeneity clause may not be discharged by appeal to a non-adaptive
+design.** This is the obvious way someone would try to satisfy it, and it does
+not work: a rule can consult no outcome at all and still be strongly informative
+about `\Theta` if it is built from a baseline quantity correlated with the latent
+parameter and not recorded in `Z` — baseline stratification moves the response
+law by `0.124` while the design remains entirely non-adaptive. See §5.2 step 5
+of `../omitted_context_mixture_lemma.md`. What A-008 requires is the conditional
+independence `\Theta \perp A \mid Z` itself, which is a substantive claim about
+how trials were assigned and has to be argued from the design.
 Non-negativity is not cosmetic: it is used in Lemma T-004b, where a signed
 design would make the degenerate limit `\rho\,\mathrm{sign}(a)` rather than a
 constant. Ambiguity levels are non-negative by construction, so this costs

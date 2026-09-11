@@ -357,3 +357,54 @@ test_that("T-007b: the selection-probability formula matches simulated data", {
   se <- sqrt(max(sim * (1 - sim), 0.01) / reps)
   expect_lt(abs(sim - pred), 4 * se)              # agree within Monte Carlo error
 })
+
+test_that("T-001 holds but T-002 fails under NON-ADAPTIVE baseline stratification", {
+  # Proof-critic review 2026-09-11. Section 5.2 step 5 claimed non-adaptivity
+  # implies Theta _|_ X | Z. It does not. Assigning the ambiguity level by
+  # quintile of a pre-test score W = Theta + noise consults no outcome at all,
+  # so the rule IS non-adaptive -- yet Theta is far from independent of it.
+  set.seed(31415)
+  b0 <- 0.30; mu <- 1.2; s2 <- 0.8; N <- 3e5
+  theta <- rnorm(N, mu, sqrt(s2))
+
+  # (a) genuinely exogenous assignment: both identities hold
+  idx_exo <- sample.int(5, N, replace = TRUE)
+  y_exo <- as.integer(runif(N) < pnorm(b0 + theta * A_DESIGN[idx_exo]))
+  obs <- observed_rate(y_exo, idx_exo, 5)
+  expect_lt(max(abs(obs - t001_rhs(theta, idx_exo, A_DESIGN, b0))), 0.01)
+  expect_lt(max(abs(obs - t002_rhs(mu, s2, A_DESIGN, b0))), 0.01)
+
+  # (b) non-adaptive but Theta-informative: T-001 survives, T-002 does not
+  W <- theta + rnorm(N, 0, 0.35)                       # baseline, fixed in advance
+  idx_str <- findInterval(W, quantile(W, c(.2, .4, .6, .8))) + 1L
+  y_str <- as.integer(runif(N) < pnorm(b0 + theta * A_DESIGN[idx_str]))
+  obs_s <- observed_rate(y_str, idx_str, 5)
+
+  # the design is informative: E[Theta | A = a] sweeps a wide range
+  cell_means <- vapply(1:5, function(j) mean(theta[idx_str == j]), numeric(1))
+  expect_gt(diff(range(cell_means)), 1.5)
+
+  expect_lt(max(abs(obs_s - t001_rhs(theta, idx_str, A_DESIGN, b0))), 0.01)  # T-001 ok
+  expect_gt(max(abs(obs_s - t002_rhs(mu, s2, A_DESIGN, b0))), 0.05)         # T-002 fails
+})
+
+test_that("T-001: the exclusion restriction on Z is load-bearing", {
+  # T-001 assumes P(Y|X,Z,Theta) = p(y|x,theta), i.e. Z acts only through Theta.
+  # It is a hypothesis of the lemma, not a consequence of A-001.
+  set.seed(2718)
+  b0 <- 0.30; N <- 3e5
+  theta <- rnorm(N, 1.2, sqrt(0.8)); Z <- rbinom(N, 1, 0.5)
+  idx <- sample.int(5, N, replace = TRUE); a <- A_DESIGN[idx]
+
+  gap <- function(direct) {
+    y <- as.integer(runif(N) < pnorm(b0 + theta * a + direct * Z))
+    max(vapply(c(2L, 5L), function(j) {
+      max(vapply(0:1, function(z) {
+        m <- idx == j & Z == z
+        abs(mean(y[m]) - mean(pnorm(b0 + theta[m] * A_DESIGN[j])))
+      }, numeric(1)))
+    }, numeric(1)))
+  }
+  expect_lt(gap(0.0), 0.01)    # hypothesis holds -> identity holds
+  expect_gt(gap(0.8), 0.05)    # Z in the kernel directly -> identity breaks
+})

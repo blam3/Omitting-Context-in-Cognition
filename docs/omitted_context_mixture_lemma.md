@@ -191,15 +191,21 @@ latent parameter had value `\theta`. The measure
 `dF_{\Theta | X,Z}(\theta | x,z)` supplies the weights: how likely each
 latent-parameter value is among observations with the same observed `(x,z)`.
 
-3. Substitute the cognitive choice kernel. By A-001, once `X` and `Theta` are
-given, the probability of the choice is represented by the model kernel:
+3. Apply the lemma's kernel hypothesis. Lemma 1.1 *assumes* that, once `X` and
+`\Theta` are given, the choice probability is the model kernel:
 
 ```math
 P(Y = y | X = x, Z = z, \Theta = \theta)
 = p(y | x,\theta; \eta^*).
 ```
 
-Putting this into the identity from Step 2 gives
+This is an **exclusion restriction**: `Z` acts on `Y` only through `\Theta`. It is
+a hypothesis of the lemma, not a consequence of A-001 — A-001 says choices are
+generated through `p(Y | X, \theta; \eta)`, and reading the exclusion off it is
+close enough to be tempting but is a separate commitment once the statement also
+conditions on `Z`. It is load-bearing: letting `Z` enter the kernel directly
+breaks the identity by `0.19`, against `0.001` when it holds (proof-critic
+review, 2026-09-11). Putting it into the identity from Step 2 gives
 
 ```math
 P(Y = y | X = x, Z = z)
@@ -238,16 +244,42 @@ P(Y = y | X = x, Z = z)
 = \int p(y | x,\theta; \eta^*) dF_{\Theta | Z}(\theta | z).
 ```
 
-The "fixed design" branch is not a separate argument: if `X` is fixed by
-design — assigned by a non-adaptive rule that does not depend on the realized
-outcomes, and hence carries no information about `\Theta` beyond `Z` — then
-`\Theta` is conditionally independent of `X` given `Z`, so
-`F_{\Theta | X,Z}(\cdot | x,z) = F_{\Theta | Z}(\cdot | z)` again holds and the
-single substitution above applies verbatim. (This is exactly the exogeneity
-that adaptive designs violate; see §8.) Thus both sufficient conditions in
-Corollary 1.2 reduce to the one derivation of this step, and the
-`F_{\Theta | Z}` display is a genuine special case rather than an independent
-result.
+The "fixed design" branch is **not** a separate argument, but neither is it
+implied by non-adaptivity. The condition that does the work is the conditional
+independence itself: `\Theta \perp X \mid Z`. Where it holds — by whatever
+route — the substitution above applies verbatim, and the `F_{\Theta | Z}` display
+is a genuine special case rather than an independent result.
+
+**Non-adaptivity is not sufficient, and must not be used to discharge the
+condition.** An earlier draft of this step asserted that a design "assigned by a
+non-adaptive rule that does not depend on the realized outcomes, *and hence*
+carries no information about `\Theta` beyond `Z`" yields conditional
+independence. The "and hence" is false. A rule can consult no outcome whatsoever
+and still be strongly informative about `\Theta`, if it is built from a baseline
+quantity correlated with the latent parameter and not recorded in `Z`.
+
+Counterexample (proof-critic review, 2026-09-11). Let `W = \Theta + \varepsilon`
+be a pre-test score, fixed before the experiment begins, and assign the ambiguity
+level by quintile of `W`. No outcome is ever consulted, so the rule is
+non-adaptive in exactly the sense quoted above. Yet:
+
+| `a` | observed | Lemma 1.1 (`F_{\Theta \mid X,Z}`) | Corollary 1.2 (`F_{\Theta \mid Z}`) | `E[\Theta \mid A = a]` |
+|---|---|---|---|---|
+| `0.00` | `0.61813` | `0.61791` | `0.61791` | `0.034` |
+| `0.50` | `0.81211` | `0.81246` | `0.79434` | `1.201` |
+| `1.00` | `0.99214` | `0.99212` | `0.86822` | `2.367` |
+
+`E[\Theta \mid A = a]` sweeps from `0.03` to `2.37`, so `\Theta` is plainly not
+independent of `A`. **Lemma 1.1 holds** throughout (maximum deviation `0.00088`,
+at Monte Carlo error). **Corollary 1.2 fails** by `0.124`, against `0.0006` under
+genuinely exogenous assignment.
+
+This is the same phenomenon §8 already lists under "stratified task assignment";
+the two sections previously disagreed, and this one was wrong. What a
+practitioner must establish is that the assignment rule carries no information
+about `\Theta` beyond `Z` — a substantive claim about the design, not a
+consequence of its being fixed in advance. Adaptive designs violate the
+condition, but so do plenty of non-adaptive ones.
 
 ### 5.3 Conclusion
 

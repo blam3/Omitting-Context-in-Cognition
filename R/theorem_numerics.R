@@ -233,3 +233,32 @@ aic_crossover_containment <- function(delta_ell_star, delta_k = 1, alpha = 0.05)
 aic_select_prob <- function(n, delta_ell_star, omega, delta_k = 1) {
   pnorm((n * delta_ell_star - delta_k) / (sqrt(n) * omega))
 }
+
+# --- T-001 / T-002: when does the simplified mixing law hold? --------------
+#
+# Proof-critic review 2026-09-11. Section 5.2 of docs/omitted_context_mixture_lemma.md
+# claimed a non-adaptive design "hence carries no information about Theta beyond
+# Z". It does not: a rule can consult no outcome at all and still be strongly
+# informative about Theta if built from a baseline correlated with it. These
+# helpers reproduce that counterexample.
+#
+# Lemma 1.1 (T-001) integrates the kernel over F_{Theta | X = a}: always valid.
+t001_rhs <- function(theta, assign_idx, a_levels, b0) {
+  vapply(seq_along(a_levels), function(j) {
+    th <- theta[assign_idx == j]
+    if (!length(th)) return(NA_real_)
+    mean(pnorm(b0 + th * a_levels[j]))
+  }, numeric(1))
+}
+# Corollary 1.2 (T-002) integrates over the MARGINAL F_Theta: valid only when
+# Theta is conditionally independent of the design.
+t002_rhs <- function(mu, sigma2, a_levels, b0) {
+  pnorm((b0 + mu * a_levels) / sqrt(1 + sigma2 * a_levels^2))
+}
+# Realised choice frequencies per design cell.
+observed_rate <- function(y, assign_idx, n_levels) {
+  vapply(seq_len(n_levels), function(j) {
+    yy <- y[assign_idx == j]
+    if (!length(yy)) return(NA_real_) else mean(yy)
+  }, numeric(1))
+}
