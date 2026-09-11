@@ -1,0 +1,30 @@
+name: Formal (Lean)
+
+on:
+  push:
+    paths:
+      - 'formal/**'
+      - '.github/workflows/formal-lean.yml'
+  pull_request:
+    paths:
+      - 'formal/**'
+      - '.github/workflows/formal-lean.yml'
+  workflow_dispatch:
+
+jobs:
+  lake-build:
+    runs-on: ubuntu-latest
+    # mathlib is a large dependency even with the olean cache.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs elan at the toolchain pinned by formal/lean-toolchain, restores
+      # the mathlib olean cache, and runs `lake build`. This is the gate that
+      # rejects a Lean statement that does not typecheck.
+      - name: Build the OCECM Lean library
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal
+          build-args: '--wfail'
+          use-mathlib-cache: true

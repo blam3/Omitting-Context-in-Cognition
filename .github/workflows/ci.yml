@@ -31,6 +31,12 @@ jobs:
       - name: Run unit tests
         run: |
           Rscript -e "testthat::test_dir('tests/testthat')"
+
+      # Numerical verification of every analytic claim in docs/theorems/.
+      # A failure here means a stated theorem is wrong.
+      - name: Verify theorem numerics
+        run: |
+          Rscript -e "testthat::test_file('tests/testthat/test-theorem-numerics.R', stop_on_failure = TRUE)"
       
       - name: Run smoke simulation
         run: |

@@ -1,6 +1,12 @@
+<!-- coherence-allow: bare_delta_ell -->
 # Current Project Context for the Autonomous Researcher
 
-_Last updated: 2026-09-06_
+_Last updated: 2026-09-08_
+
+> **Binding decisions.** D-001 to D-005 in `docs/approval_log.md` are now in force.
+> Symbols are bound by `docs/notation_registry.md`. Precise theorem statements
+> live in `docs/theorems/`; the summaries below are orientation only and are
+> superseded by those files wherever they differ.
 
 ## Core thesis
 
@@ -77,13 +83,27 @@ If $v(z)$ is nonconstant, omission creates context-dependent latent variance. Th
 
 ### Result 3: KL dominance
 
-Let $M_S$ be the context-omitting simple model and $M_K$ be the context-omitting complex model. If
+Let $M_S$ be the context-omitting simple model, indexed by $\beta_S$, and $M_K$
+the context-omitting complex model, indexed by $\beta_K$. (The earlier draft used
+$\eta$ and $\psi$ here, which clashed with $\eta$ as the choice-kernel parameter;
+see `docs/notation_registry.md` §4.)
 
-$$
-\inf_{\psi \in M_K} \text{KL}(p_0 \mid\mid p_\psi) < \inf_{\eta \in M_S} \text{KL}(p_0 \mid\mid p_\eta),
-$$
+The previously stated form of this result — "if $\inf_{M_K}\mathrm{KL} <
+\inf_{M_S}\mathrm{KL}$ then $M_K$ has higher asymptotic expected log-likelihood"
+— is **circular**: the hypothesis and conclusion are the same proposition, since
+$\mathrm{KL}(p_0\|p_\beta) = -\mathbb{E}[\log p_\beta] + \text{const}$.
 
-then the false complex model has higher asymptotic expected log likelihood than the context-omitting simple model.
+The actual result, stated and proved in
+`docs/theorems/T-004_kl_dominance.md`, gives conditions under which the
+inequality holds:
+
+$$\inf_{\beta_K} \mathrm{KL}_Q(p_0 \| p_{\beta_K}) = 0 < \inf_{\beta_S} \mathrm{KL}_Q(p_0 \| p_{\beta_S})$$
+
+whenever (i) $p_0 \notin \bar{M}_S$ and (ii) $p_0 \in M_K$, with a decidable
+criterion for (i) supplied by Lemma T-004a. The sharp finding is that the
+mechanism is **variance** heterogeneity: if the omitted context shifts only the
+mean of the latent parameter, and that induced mean is Gaussian, then
+$p_0 \in M_S$ exactly and there is no gap at all (Proposition T-004d).
 
 ### Result 4: predictive-score consequence for LOOIC
 
@@ -104,46 +124,70 @@ $$
 LOOIC(M) = -2 elpd_{LOO(M)}.
 $$
 
-This result must be kept distinct from the KL bridge. The theorem draft must
-state the target population, whether $G$ is a participant or a trial, and the
-regularity conditions connecting its population log predictive density to the
-estimated LOOIC. PSIS Pareto-k diagnostics are an empirical validity check,
-not an assumption that can be silently waived.
+**$G$ is bound to a single TRIAL by D-002 (2026-09-08).** The primary predictive
+estimand is therefore within-participant next-trial prediction, *not*
+generalisation to a new participant. Trial-level leave-out is optimistic for
+models with more participant-level flexibility, i.e. biased toward $M_K$, which
+is the direction of this paper's own claimed effect; participant-level K-fold is
+a mandatory secondary analysis and the bias must be stated where the primary
+result is reported. See `docs/theorems/T-005_loo_predictive.md`.
 
-### Result 5: Bayes-factor consequence under declared priors
+The content of the result is the **estimator-to-population bridge**, not the
+identity $\mathrm{LOOIC} = -2\,\mathrm{elpd}$, which is arithmetic. PSIS
+Pareto-$\hat k$ diagnostics are an empirical validity check, not an assumption
+that can be silently waived.
 
-For proper, predeclared priors within each candidate model, define
+### Result 5: Bayes factors — DEFERRED, not a theorem target
 
-$$
-BF_{K,S} = p(y \mid M_K) / p(y \mid M_S).
-$$
+Demoted by D-003 (2026-09-08) to a numerical prior-sensitivity study reported as
+a robustness appendix. It is not in the theorem route, may not appear in the
+abstract, and may not be cited in support of C-001.
 
-The Bayes-factor target is also conditional: a separate result can study when
-the omitted-context mixture leads to $log BF_{K,S} > 0$. It cannot be inferred
-from KL dominance or from a LOOIC advantage alone. The statement must specify
-the prior families and scales, the marginal-likelihood estimator, and the
-asymptotic regime. Bayes factors answer a model-evidence question under those
-priors; they are not a predictive-score substitute.
+The reasons are recorded in full in
+`docs/theorems/T-006_bayes_factor_deferred.md`: model evidence is a different
+estimand from the predictive comparison the paper critiques; the sign of
+$\log BF_{K,S}$ is manipulable through the prior scale on $M_K$'s extra
+parameters; and the closed-form asymptotics a theorem would need are invalid
+because $M_K$ is singular. Declared priors, scale grid, and the bridge-sampling
+estimator are fixed by D-003.
 
-### Result 6: secondary AIC/BIC finite-sample bridge
+### Result 6: finite-sample selection thresholds — CORRECTED
 
-Let $Delta ell$ be expected per-observation log-score advantage of the complex model.
+The previously stated thresholds ($2n\Delta\ell > 2(k_K-k_S)$ for AIC,
+$2n\Delta\ell > (k_K-k_S)\log n$ for BIC) contained two errors and have been
+split into three statements in
+`docs/theorems/T-007_finite_sample_selection.md`:
 
-AIC-like selection favors the false complex model when
+1. **T-007a** the exact algebra, in terms of the *realised* log-likelihood
+   difference $D_n$ — a rearrangement of definitions, not a result;
+2. **T-007b** the probabilistic bridge $D_n/n \to_p \Delta\ell^{*}$ with a CLT,
+   valid only under interior pseudo-true parameters and non-singular information,
+   plus a minimum-sample-size corollary;
+3. **T-007c** the singular-case correction.
 
-$$
-2 n Delta ell > 2(k_K - k_S).
-$$
+The two errors were: conflating the population per-observation gap
+$\Delta\ell^{*}$ with the realised $D_n$ (they differ by $O_p(\sqrt n)$, the same
+order as the AIC penalty at moderate $n$); and using penalties whose derivations
+require regularity that fails here.
 
-BIC-like selection favors it when
+**Singularity (D-004).** $M_K$ is a mixture / random-effects family and is a
+singular statistical model: where a component is empty or a variance is zero the
+parameter is not locally identifiable and the Fisher information degenerates —
+and those are exactly the parameter values that boundary conditions 1-3 make
+central. Therefore:
 
-$$
-2 n Delta ell > (k_K - k_S) log n.
-$$
+- BIC's $(k/2)\log n$ is invalid and **over-penalises** $M_K$ (the correct
+  free-energy expansion uses the real log canonical threshold $\lambda \le k/2$),
+  so a BIC null result is not evidence against C-004;
+- AIC's $2k$ assumes correct specification; the misspecification-robust
+  replacement $2\,\mathrm{tr}(J^{-1}V)$ does not exist when $J$ is singular;
+- no $\chi^2_{\Delta k}$ significance reading of $D_n$ is permitted (boundary
+  parameters give a chi-squared mixture);
+- nominal counts $k_S, k_K$ may not be reported as complexity — report
+  $p_\mathrm{loo}$ / $p_\mathrm{waic}$.
 
-Treat these as secondary threshold corollaries under stated assumptions, not
-universal guarantees. They retain continuity with the fast GLM scaffold but
-are not the primary Bayesian cognitive-modeling endpoint.
+PSIS-LOO and WAIC are the primary criteria because they remain asymptotically
+valid for singular models. AIC/BIC are legacy bridge diagnostics only.
 
 ## Boundary conditions the loop must preserve
 
@@ -210,15 +254,15 @@ noninterchangeable comparisons:
 | Question | Primary quantity | Direction favoring `M_K` | Required safeguard |
 |---|---|---|---|
 | Does false complexity predict new data better after context is omitted? | `Delta elpd_LOO = elpd_LOO(M_K) - elpd_LOO(M_S)` and its LOOIC equivalent | Positive `Delta elpd_LOO` / lower LOOIC | Predeclare the leave-out unit and report Pareto-k diagnostics. |
-| Does the declared Bayesian model assign greater marginal evidence to false complexity? | `log BF_{K,S}` | Positive `log BF_{K,S}` | Use proper priors, report prior-scale sensitivity, and identify the marginal-likelihood method. |
+| _(deferred, D-003)_ Does the declared model assign greater marginal evidence to false complexity? | `log BF_{K,S}` — **robustness appendix only, not a theorem** | Positive `log BF_{K,S}` | Priors and estimator fixed by D-003; report the full prior-scale grid; not citable for C-001. |
 
-The preferred scientific target is generalization to a new participant. The
-exact LOO unit remains a PI decision gate because trial-level and
-participant-level leave-out answer different questions for hierarchical
-cognitive models. Trial-level LOO can be a secondary within-participant
-diagnostic; it must not be silently substituted for new-participant prediction.
+**The LOO unit is settled: trial-level (D-002).** The primary estimand is
+within-participant next-trial prediction. Generalisation to a new participant is
+now the *secondary* analysis, via mandatory participant-level K-fold, and the
+paper may not claim new-participant generalisation on trial-level evidence.
 
-AIC/BIC remain secondary bridge diagnostics. The current GLM scaffold must
+AIC/BIC are legacy diagnostics and are not admissible evidence for C-004
+(D-004). The current GLM scaffold must
 label them as proxies and must not report fabricated Bayes factors or LOOIC
 values. See `docs/bayesian_comparison_plan.md` for the implementation contract.
 

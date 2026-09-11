@@ -1,6 +1,29 @@
 % Supplementary proof file.
 % Add only proof-loop reviewed theorem statements and proofs here.
+%
+% Insertion is gated. A result may enter this file only when ALL of the
+% following hold (see docs/theorem_backlog.md and docs/approval_log.md):
+%   1. its status in docs/theorem_backlog.md is `accepted`;
+%   2. every assumption it uses is `approved` in
+%      registries/assumption_register.csv -- no `decision_needed` gates;
+%   3. a proof-critic entry exists in docs/proof_review_log.md;
+%   4. `make verify` passes (coherence checker, theorem numerics, lake build).
 
 \subsection{Proof review status}
 
 No proof has yet been accepted.
+
+Drafts for T-003, T-004, T-005 and T-007 live in \texttt{docs/theorems/}.
+
+As of D-006 (2026-09-09) there are no open decision gates: every theorem
+assumption is approved, so gate~2 above is clear for all of them. They are still
+not reproduced here because gate~1 is not: T-003, T-004 and T-007 are at
+\texttt{proof-draft} awaiting proof-critic review, and T-005 remains at
+\texttt{statement-draft} because its central result T-005b is a proof sketch
+rather than a proof. T-006 is deferred and is not a theorem target (D-003).
+
+When these are inserted, the A-007/A-008/A-009 scope conditions must travel with
+T-004 into the main text, not sit only in an assumptions appendix: the result is
+constructive (probit kernel, finite non-negative design with $J \ge 4$ levels
+including $a=0$, explicit $M_S$ and $M_K$ families), and a reader who takes it as
+a general statement about omitted context has been misled.

@@ -35,3 +35,10 @@ scratch_secure/
 *.rda
 *.qs
 *.parquet
+
+# Lean / Lake build artefacts
+formal/.lake/
+formal/build/
+*.olean
+*.ilean
+*.trace

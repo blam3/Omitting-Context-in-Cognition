@@ -17,6 +17,8 @@ inductive TheoremStatus where
   | proofCriticReview
   | accepted
   | decisionGated
+  | corollaryOnly
+  | deferred
 deriving DecidableEq, Repr
 
 /-- Registry-linked metadata for theorem files. -/
