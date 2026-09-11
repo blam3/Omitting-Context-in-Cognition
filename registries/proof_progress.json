@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-09-10",
+  "updated": "2026-09-11",
   "objective": "Prioritize a general sufficient-condition theorem linking omitted context to observable joint and trial-conditional KL superiority and separate BIC, BF and LOO results; use the approved synthetic distortion pair as a supporting construction.",
-  "overall_status": "smooth_observable_extension_author_proved_cognitive_hypotheses_open",
+  "overall_status": "cognitive_smoothness_proved_current_design_absorbed_coverage_partial",
   "active_item": "G2_observable_separation",
-  "next_action": "Adversarially review docs/smooth_observable_extension.md, especially local completeness and closure-to-chart localization; then audit integrated cognitive-model smoothness and observable redundancies before asserting regular charts.",
+  "next_action": "Specify a complete richer finite P-G1 design preserving shared terms and audit exact nuisance absorption first. Reuse cognitive_regularity_coverage_audit.md smoothness and boundary arguments; do not claim reduced rank or unique preimages without proof.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -113,6 +113,15 @@
       "failed_routes": [],
       "no_progress": false,
       "artifact": "docs/smooth_observable_extension.md"
+    },
+    {
+      "date": "2026-09-11",
+      "item": "cognitive_regularity_coverage",
+      "approach": "Dominated differentiation, exact four-coordinate reduction, and dependence-gap exclusion of boundary escape.",
+      "outcome": "C-infinity interior likelihood proved; original injectivity fails; reduced finite-preimage and rank conditions remain open. Current design cannot separate S/K.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/cognitive_regularity_coverage_audit.md"
     }
   ],
   "completed_obligations": [],
@@ -151,7 +160,9 @@
     "scripts/verify_perturbation_review.py",
     "logs/theory_checks/2026-09-10_perturbation_review.json",
     "docs/smooth_observable_extension.md",
-    "logs/theory_checks/2026-09-10_smooth_global_check.json"
+    "logs/theory_checks/2026-09-10_smooth_global_check.json",
+    "docs/cognitive_regularity_coverage_audit.md",
+    "logs/theory_checks/2026-09-11_cognitive_regularity.json"
   ],
   "items": [
     {
