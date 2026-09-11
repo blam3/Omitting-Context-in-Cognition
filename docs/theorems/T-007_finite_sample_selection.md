@@ -124,21 +124,60 @@ quantity the simulation arm must report, and it is what makes the project's
 boundary condition 5 ("penalties dominate in the finite sample") quantitative
 rather than rhetorical.
 
-**The two thresholds differ by five orders of magnitude, and that difference is
-the whole content of §0's Error 1.** With `\Delta\ell^{*} \approx 7\times10^{-6}`
-from T-004 §6, `k_K - k_S = 1`, `\omega \approx 1` and `\alpha = 0.05`:
+**`\omega` is not a free parameter in this regime — it is determined by
+`\Delta\ell^{*}`.** The earlier draft of this corollary used `\omega \approx 1`
+as a placeholder and quoted a crossover of `5.5\times10^{10}`. That was wrong by
+about four orders of magnitude, and the error was structural rather than
+arithmetic: `\omega` is the standard deviation of the *pointwise* log-likelihood
+difference between two models whose KL gap is `\sim 10^{-6}`, so the two log
+densities differ by `O(10^{-3})` pointwise and `\omega` inherits that scale. It
+cannot be of order one.
 
-| Threshold | Formula | Value |
+**Lemma T-007b'' (`\omega^2 = 2\Delta\ell^{*}` under containment).** When
+`p_0 \in M_K` (condition (ii) of T-004, so `\inf_{M_K}\mathrm{KL}_Q = 0`), the
+pointwise log-score difference has
+
+$$\omega^2 \; = \; 2\,\Delta\ell^{*} \, \big(1 + o(1)\big)$$
+
+as the gap shrinks. This is the standard `\chi^2 \approx 2\,\mathrm{KL}`
+relation between nearby laws. Numerically the ratio `\omega^2 / (2\Delta\ell^{*})`
+stays within `10^{-3}` of `1` across a hundredfold range of effect sizes
+(`0.9993` to `1.0003`). It requires containment: for `M_K^{\mathrm{flex}}`, which
+does not contain `p_0`, the ratio is `0.58`.
+
+**Corollary T-007b''' (the crossover is a fixed multiple of the deterministic
+threshold).** Substituting `\omega = \sqrt{2\Delta\ell^{*}}` into T-007b' and
+writing `u = \sqrt{n\,\Delta\ell^{*}}` turns the defining equation into
+
+$$u^2 \;-\; z_{1-\alpha}\sqrt{2}\; u \;-\; (k_K - k_S) \;=\; 0,$$
+
+which **does not involve the effect size at all**. Hence
+`n^{*} = u_{*}^2 / \Delta\ell^{*}` with `u_{*}` a pure function of `\alpha` and
+`k_K - k_S`:
+
+| `\alpha` | `u_{*}` | crossover |
 |---|---|---|
-| deterministic, as previously stated | `n > (k_K-k_S)/\Delta\ell^{*}` | `n \approx 1.4\times10^{5}` |
-| probabilistic, T-007b' | `n\Delta\ell^{*} - z_{0.95}\sqrt{n}\,\omega - (k_K-k_S) = 0` | `n \approx 5.5\times10^{10}` |
+| `0.05` | `2.697` | `n^{*} = 7.27\,/\,\Delta\ell^{*}` |
+| `0.10` | `2.256` | `n^{*} = 5.09\,/\,\Delta\ell^{*}` |
+| `0.25` | `1.585` | `n^{*} = 2.51\,/\,\Delta\ell^{*}` |
 
-The deterministic threshold is the sample size at which the *expected* AIC
-difference changes sign — a coin flip. The T-007b' value is the sample size at
-which AIC selects `M_K` with 95% probability. Quoting the first as if it were
-the second overstates detectability by a factor of roughly `4\times10^{5}`. The
-`\omega \approx 1` used here is a placeholder; the simulation arm must estimate
-`\omega` rather than assume it, and the crossover scales with `\omega^2`.
+So at `\alpha = 0.05` the probabilistic crossover is about **`7.3` times** the
+deterministic threshold `1/\Delta\ell^{*}` — the same order of magnitude, not
+five orders above it. Applied to the cases of `T-004_kl_dominance.md` §5:
+
+| Case | `\Delta\ell^{*}` | `\omega` | deterministic `1/\Delta\ell^{*}` | probabilistic `n^{*}` |
+|---|---|---|---|---|
+| A mean + variance | `6.90\times10^{-6}` | `3.71\times10^{-3}` | `144{,}949` | `1{,}054{,}173` |
+| B variance only | `1.07\times10^{-6}` | `1.47\times10^{-3}` | `931{,}099` | `6{,}771{,}638` |
+
+**What survives of §0's Error 1.** The distinction is real and the correction
+stands: the deterministic threshold is where the *expected* AIC difference
+changes sign — a coin flip — while `n^{*}` is where AIC selects `M_K` with
+probability `1-\alpha`. What does **not** survive is the claimed size of the
+gap between them. It is a factor of about seven, not `10^5`. Quoting the
+deterministic threshold as a detectability threshold overstates power by
+roughly `7\times`, which is a real but modest error, and the earlier text
+replaced it with a far larger one of its own.
 
 ## 3. T-007c — The singular case, which is the actual case
 
@@ -173,9 +212,15 @@ substitute, because it estimates the free energy without assuming regularity.
 **(b) AIC's `2k` correction is invalid under misspecification, and the
 misspecification-robust replacement is itself invalid under singularity.** Under
 misspecification with non-singular `J`, the correct bias correction is
-Takeuchi's `2\,\mathrm{tr}(J^{-1}V)`, which equals `2k` only when
-`J = V` (correct specification). When `J` is singular, `\mathrm{tr}(J^{-1}V)`
-does not exist and no fixed-`k` correction is available.
+Takeuchi's `2\,\mathrm{tr}(J^{-1}V)`. Correct specification gives `J = V` and
+hence `\mathrm{tr}(J^{-1}V) = k`, recovering AIC. The converse does **not**
+hold: `\mathrm{tr}(J^{-1}V) = k` is one scalar equation on `k^2` entries, so its
+solution set is a hypersurface rather than the single point `J = V` — a random
+search finds such pairs readily (75 in `2\times10^5` draws with
+`\lVert J - V \rVert_F > 1`). The point for this project is one-directional and
+unaffected: under misspecification one may not *assume* `\mathrm{tr}(J^{-1}V) = k`,
+so AIC's `2k` is unjustified. When `J` is singular, `\mathrm{tr}(J^{-1}V)` does
+not exist at all and no fixed-`k` correction is available.
 
 **(c) No significance reading of `D_n`.** Since `M_S \subset M_K`, one might
 reach for a likelihood-ratio test. Its null reference is **not**
@@ -209,7 +254,51 @@ C-004.
 
 ## 5. Numerical verification
 
-`tests/testthat/test-theorem-numerics.R`, case `T-007`, checks the T-007a
-identities symbolically on random inputs, and checks the T-007b' crossover
-formula against a Monte Carlo estimate of `P(\mathrm{AIC} \text{ selects } M_K)`
-on simulated samples from the T-004 construction.
+`tests/testthat/test-theorem-numerics.R`, cases `T-007a`, `T-007b-2`, `T-007b-3`
+and `T-007b`.
+
+**What is checked.**
+
+1. The T-007a identities, symbolically, on 400 random `(D_n, k_S, k_K, n)`.
+2. Lemma T-007b'': `\omega` lies in `(10^{-4}, 10^{-2})` — emphatically not near
+   `1` — and `\omega^2 / (2\Delta\ell^{*}) = 1` to `10^{-3}` for both containment
+   cases.
+3. Corollary T-007b''': the multiplier is `7.27` and is invariant across four
+   orders of magnitude of effect size, and the two quoted `n^{*}` figures
+   reproduce.
+4. **The T-007b selection probability against simulated data.** Data are
+   generated from the T-004 construction, `M_S` and `M_K^{\mathrm{flex}}` are
+   fitted by maximum likelihood, and the realised
+   `P(\mathrm{AIC} \text{ selects } M_K)` is compared with
+   `\Phi\big((n\Delta\ell^{*} - \Delta k)/(\sqrt{n}\,\omega)\big)`:
+
+| `n` | replicates | simulated | T-007b formula | difference |
+|---|---|---|---|---|
+| `2000` | 400 | `0.200` | `0.121` | `0.079` (about 4 s.e.) |
+| `8000` | 400 | `0.585` | `0.573` | `0.013` (under 1 s.e.) |
+| `20000` | 300 | `0.880` | `0.861` | `0.019` (about 1 s.e.) |
+| `50000` | 250 | `1.000` | `0.987` | `0.013` (about 1 s.e.) |
+
+The formula is confirmed for `n \ge 8000`, where `n\Delta\ell^{*} \gtrsim 1`. At
+`n = 2000` (`n\Delta\ell^{*} = 0.30`) it is about four standard errors low. That
+is the expected pre-asymptotic regime for **nested** models: `M_S \subset M_K`,
+so `D_n \ge 0` identically and `D_n` carries an `O(1)` chi-bar-squared
+contribution from the extra parameter, on top of the `O(n\Delta\ell^{*})` and
+`O(\sqrt{n}\,\omega)` terms T-007b models. The normal approximation omits it, and
+it is negligible only once `n\Delta\ell^{*} \gg 1`. **The T-007b' crossover should
+therefore not be read as accurate below itself** — which is precisely where a
+project tempted to cite it would want to use it.
+
+**A note on how this was checked.** The first attempt fitted `M_K` from an
+independent start and produced `\mathbb{E}[2D_n] = 0.32` against a `\chi^2_1`
+target of `1`, because the optimiser under-fitted the larger model; that run
+suggested a spurious finding, which was withdrawn. Seeding `M_K` at the fitted
+`M_S` with `\beta_2 = 0` makes `D_n \ge 0` hold by nesting and removes the
+artefact. The regression test uses the seeded form and asserts `D_n \ge 0` in
+every replicate, so the failure mode cannot silently return.
+
+**Earlier claim, now corrected.** This section previously asserted that the test
+suite checked the crossover formula against a Monte Carlo estimate of
+`P(\mathrm{AIC} \text{ selects } M_K)`. It did not — the only check performed was
+that the formula solved its own defining quadratic. The simulation described
+above was written in proof-critic review (2026-09-11) to make the claim true.

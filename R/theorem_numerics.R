@@ -199,3 +199,37 @@ theta_variance_true <- function(gamma, sigma_u2, v, rho) {
   gamma^2 * v + sigma_u2 + 2 * gamma * rho * sqrt(v * sigma_u2)
 }
 theta_variance_t003 <- function(gamma, sigma_u2, v) sigma_u2 + gamma^2 * v
+
+# --- T-007b: the Vuong variance and the crossover --------------------------
+#
+# omega^2 = Var_{p0}( log p_K(Y|A) - log p_S(Y|A) ), computed exactly from the
+# three probability vectors rather than simulated.
+#
+# CAUTION, from proof-critic review 2026-09-11: omega is NOT a free parameter in
+# this project's regime. It is the sd of the POINTWISE log-likelihood difference
+# between two models whose KL gap is ~1e-6, so the log densities differ by
+# O(1e-3) pointwise and omega inherits that scale. An earlier draft of T-007b'
+# used omega ~ 1 and quoted a crossover four orders of magnitude too large.
+omega_sq <- function(p0, p_S, p_K, q) {
+  eps <- 1e-12
+  p_S <- pmin(pmax(p_S, eps), 1 - eps); p_K <- pmin(pmax(p_K, eps), 1 - eps)
+  p0 <- pmin(pmax(p0, eps), 1 - eps)
+  d1 <- log(p_K / p_S); d0 <- log((1 - p_K) / (1 - p_S))
+  Ed <- sum(q * (p0 * d1 + (1 - p0) * d0))
+  Ed2 <- sum(q * (p0 * d1^2 + (1 - p0) * d0^2))
+  list(delta_ell_star = Ed, omega2 = Ed2 - Ed^2, omega = sqrt(max(Ed2 - Ed^2, 0)))
+}
+
+# Lemma T-007b-2: under containment (p0 in M_K) omega^2 -> 2*delta_ell_star, so
+# Corollary T-007b-3 gives a crossover that is a FIXED multiple of the
+# deterministic threshold 1/delta_ell_star, independent of the effect size.
+aic_crossover_containment <- function(delta_ell_star, delta_k = 1, alpha = 0.05) {
+  z <- qnorm(1 - alpha)
+  u <- (z * sqrt(2) + sqrt(2 * z^2 + 4 * delta_k)) / 2
+  list(multiplier = u^2, n_star = ceiling(u^2 / delta_ell_star))
+}
+
+# T-007b selection probability: P(AIC selects M_K) = Phi((n dl* - dk)/(sqrt(n) omega)).
+aic_select_prob <- function(n, delta_ell_star, omega, delta_k = 1) {
+  pnorm((n * delta_ell_star - delta_k) / (sqrt(n) * omega))
+}

@@ -87,13 +87,15 @@ test_that("T-007b': the crossover formula solves its defining quadratic", {
   expect_gte(n_star * 7e-6 - z * sqrt(n_star) * 1 - 1, -1e-6)
   lower <- floor(n_star * 0.9)
   expect_lt(lower * 7e-6 - z * sqrt(lower) * 1 - 1, 0)
-  # The probabilistic crossover is ~5.5e10, five orders of magnitude above the
-  # deterministic threshold 1/delta_ell_star = 1.4e5. Guarding the magnitude
-  # keeps the docs honest: quoting the deterministic value as if it were the
-  # detectability threshold overstates power by ~4e5.
+  # NOTE: this case uses omega = 1, which is NOT the value for this project's
+  # construction -- the true omega is ~1e-3 (see the T-007b-2 test). It is kept
+  # only to check that aic_crossover_n() solves its quadratic for an arbitrary
+  # omega. The scientifically meaningful crossover is
+  # aic_crossover_containment(), tested in T-007b-3.
   expect_gt(n_star, 1e10)
   expect_lt(n_star, 1e11)
-  expect_gt(n_star, 100 / 7e-6)
+  # the containment crossover for the same effect size is ~5 orders smaller
+  expect_lt(aic_crossover_containment(7e-6)$n_star, n_star / 1e4)
 })
 
 test_that("T-004b: D overlaps M_S exactly on the diagonal rho == c0", {
@@ -280,4 +282,78 @@ test_that("T-003: independence of U and C is load-bearing, not a technicality", 
   }, numeric(1))
   expect_true(all(diff(errs) > 0))                    # monotone in rho
   expect_gt(errs[length(errs)], 0.5)                  # >50% error at rho = 0.9
+})
+
+test_that("T-007b-2: omega^2 = 2*delta_ell_star under containment", {
+  # Proof-critic review 2026-09-11. omega is NOT free: it is the sd of the
+  # pointwise log-likelihood difference between models whose KL gap is ~1e-6,
+  # so omega ~ 1e-3. An earlier draft used omega ~ 1 and inflated the crossover
+  # by four orders of magnitude. Guarding the relation keeps that from
+  # reappearing.
+  cases <- list(
+    list(mu = c(0.6, 1.8), s2 = c(0.2, 2.5), par = c(0.3024, 1.1177, sqrt(1.2074))),
+    list(mu = c(1.2, 1.2), s2 = c(0.2, 2.5), par = c(0.3011, 1.1607, sqrt(0.9701)))
+  )
+  for (cs in cases) {
+    p0 <- p0_mixture(A_DESIGN, B0, cs$mu, cs$s2, c(0.5, 0.5))
+    pS <- m_s_predict(cs$par, A_DESIGN)
+    r <- omega_sq(p0, pS, p0, Q_DESIGN)          # M_K^mix contains p0 exactly
+    expect_gt(r$omega, 1e-4)                      # omega is ~1e-3 ...
+    expect_lt(r$omega, 1e-2)                      # ... not ~1
+    expect_equal(r$omega2 / (2 * r$delta_ell_star), 1, tolerance = 1e-3)
+  }
+})
+
+test_that("T-007b-3: the crossover is a fixed multiple of the deterministic one", {
+  # u^2 - z*sqrt(2)*u - dk = 0 in u = sqrt(n dl*) does not involve the effect
+  # size, so n* / (1/dl*) is a constant depending only on alpha and dk.
+  mult <- aic_crossover_containment(1e-6)$multiplier
+  expect_equal(mult, 7.27, tolerance = 0.01)
+  # independent of effect size across four orders of magnitude
+  for (dl in c(1e-7, 1e-6, 1e-5, 1e-4)) {
+    cc <- aic_crossover_containment(dl)
+    expect_equal(cc$multiplier, mult, tolerance = 1e-9)
+    expect_equal(cc$n_star * dl, mult, tolerance = 0.01)
+  }
+  # weaker confidence => smaller multiplier
+  expect_lt(aic_crossover_containment(1e-6, alpha = 0.25)$multiplier, mult)
+  # the figures quoted in T-007b' for the section 5 cases
+  expect_equal(aic_crossover_containment(6.899e-6)$n_star, 1054337, tolerance = 0.01)
+  expect_equal(aic_crossover_containment(1.074e-6)$n_star, 6770242, tolerance = 0.01)
+})
+
+test_that("T-007b: the selection-probability formula matches simulated data", {
+  # This is the check T-007 section 5 previously CLAIMED to perform but did not.
+  # Simulate from the T-004 construction, fit M_S and M_K by maximum likelihood,
+  # and compare P(AIC selects M_K) against the T-007b formula.
+  skip_on_cran()
+  set.seed(20260911)
+  m_k_flex <- function(par, a) m_k_flex_predict(par, a)
+  p0 <- p0_mixture(A_DESIGN, B0, c(-2.5, 3.5), c(0.05, 9.0), c(0.5, 0.5))
+  xS <- c(0.30, 1.16, sqrt(0.97))
+
+  loglik <- function(p, y, idx) {
+    pp <- pmin(pmax(p[idx], 1e-12), 1 - 1e-12)
+    sum(ifelse(y == 1, log(pp), log(1 - pp)))
+  }
+  one_D <- function(n) {
+    idx <- sample.int(5, n, replace = TRUE)
+    y <- as.integer(runif(n) < p0[idx])
+    fS <- optim(xS, function(par) -loglik(m_s_predict(par, A_DESIGN), y, idx),
+                method = "Nelder-Mead", control = list(maxit = 20000, reltol = 1e-12))
+    # seed M_K at the fitted M_S with beta_2 = 0: nesting then forces D_n >= 0,
+    # which is what a naive independent start gets wrong (it under-fits M_K).
+    seed <- c(fS$par[1], fS$par[2], 0, fS$par[3])
+    fK <- optim(seed, function(par) -loglik(m_k_flex(par, A_DESIGN), y, idx),
+                method = "Nelder-Mead", control = list(maxit = 20000, reltol = 1e-12))
+    fS$value - fK$value
+  }
+
+  n <- 8000; reps <- 60
+  D <- vapply(seq_len(reps), function(i) one_D(n), numeric(1))
+  expect_gte(min(D), -1e-6)                       # nesting: D_n >= 0
+  sim <- mean(D > 1)                              # delta_k = 1
+  pred <- aic_select_prob(n, 1.5217e-4, 1.3296e-2, 1)
+  se <- sqrt(max(sim * (1 - sim), 0.01) / reps)
+  expect_lt(abs(sim - pred), 4 * se)              # agree within Monte Carlo error
 })

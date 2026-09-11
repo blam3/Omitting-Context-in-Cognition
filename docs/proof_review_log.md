@@ -1,6 +1,85 @@
 <!-- coherence-allow: F_Theta_given_Z -->
 # Proof Review Log
 
+## 2026-09-11 proof-critic: counterexample search against T-007
+
+Date: 2026-09-11
+Branch/commit: claude/llm-formal-proofs-strategy-q4r0aj
+Agent: proof-critic pass (counterexample search), at PI request
+Theorem or lemma: T-007a, T-007b, T-007b', T-007c
+Claim registry ID: C-004
+Assumptions used: A-001, A-002, A-003, A-007, A-008, A-009, A-011
+
+FINDING 1 - the omega ~ 1 placeholder was wrong by four orders of magnitude,
+  and the headline crossover with it. omega is the sd of the POINTWISE
+  log-likelihood difference between models whose KL gap is ~1e-6, so the log
+  densities differ by O(1e-3) pointwise and omega inherits that scale. Measured:
+  3.71e-3 (case A), 1.47e-3 (case B). The quoted crossover 5.5e10 should be
+  1.05e6 and 6.77e6 respectively.
+
+FINDING 2 - an exact relation replaces the bad number. Under containment
+  (p_0 in M_K) omega^2 = 2*delta_ell_star, holding to four significant figures
+  across a hundredfold range of effect sizes (ratios 0.9993 to 1.0003) - the
+  standard chi^2 ~ 2KL relation for nearby laws. Substituting and writing
+  u = sqrt(n*delta_ell_star) gives u^2 - z*sqrt(2)*u - dk = 0, which does not
+  involve the effect size, so n* = u*^2/delta_ell_star with u* a pure function
+  of alpha and dk. At alpha = 0.05 the probabilistic crossover is 7.27x the
+  deterministic threshold, NOT five orders of magnitude above it. The claim in
+  T-007b' that "the two thresholds differ by five orders of magnitude, and that
+  difference is the whole content of section 0's Error 1" was false and has been
+  removed. Error 1 itself stands: the deterministic threshold is a coin flip.
+  Only its claimed magnitude was manufactured by the placeholder.
+  The relation requires containment: for M_K^flex the ratio is 0.58.
+
+FINDING 3 - section 5 described a verification that did not exist. It claimed
+  the suite checked the crossover formula against a Monte Carlo estimate of
+  P(AIC selects M_K) on simulated samples. No data were ever simulated; the only
+  check was that the formula solved its own quadratic.
+
+FINDING 4 - T-007c(b) overstated. "tr(J^-1 V) equals 2k only when J = V" - J = V
+  is sufficient, not necessary. The trace is one scalar equation on k^2 entries,
+  so its solution set is a hypersurface; 75 counterexamples found in 2e5 draws
+  with ||J-V||_F > 1. The one-directional point T-007c needs is unaffected.
+
+NO COUNTEREXAMPLE to T-007a or to T-007b in its stated regime. The simulation
+  built for Finding 3 confirms T-007b for n >= 8000:
+    n=2000  sim 0.200 vs 0.121 (about 4 s.e.)
+    n=8000  sim 0.585 vs 0.573 (under 1 s.e.)
+    n=20000 sim 0.880 vs 0.861 (about 1 s.e.)
+    n=50000 sim 1.000 vs 0.987 (about 1 s.e.)
+  The n=2000 shortfall is the expected nested-model pre-asymptotic regime:
+  M_S is a submodel of M_K, so D_n >= 0 identically and carries an O(1)
+  chi-bar-squared term the normal approximation omits, negligible only once
+  n*delta_ell_star >> 1. Recorded as a limit on T-007b' rather than a defect.
+
+WITHDRAWN PROBE - a null-case run appeared to show P(AIC picks M_K) = 0.044
+  against a chi^2 theory value of 0.157, which would have been a finding about
+  T-007b. It was an artefact: fitting M_K from an independent start gave
+  E[2 D_n] = 0.32 against a chi^2_1 target of 1, i.e. the optimiser under-fitted
+  the larger model. Seeding M_K at the fitted M_S with beta_2 = 0 makes D_n >= 0
+  hold by nesting and removes it. The probe is withdrawn; the regression test
+  now asserts D_n >= 0 in every replicate so the artefact cannot return silently.
+  This was the third occasion in this review on which the numerical check, not
+  the mathematics, was the thing that was broken.
+
+Repairs applied: T-007b' rewritten around Lemma T-007b'' and Corollary
+  T-007b''' with corrected figures; T-004 section 6 corrected; T-007c(b)
+  reworded to one direction; section 5 rewritten to state what is actually
+  verified, including the new simulation and the optimiser note; harness gains
+  omega_sq(), aic_crossover_containment() and aic_select_prob(); three
+  regression tests added including the simulation, and the legacy omega = 1
+  test annotated as a solver check rather than a scientific claim.
+
+Unsupported steps: T-001 has not had a critic pass. T-007b's proof remains a
+  citation to White and Vuong, both still unverified in
+  docs/citation_claim_map.csv - now more pressing, since the simulation
+  validates the formula empirically but the derivation still rests on
+  unverified sources.
+
+Reviewer-2 critique: Pending.
+Decision: revise (applied). T-007 remains proof-draft, not accepted.
+Next action: proof-critic pass on T-001; verify the White and Vuong citations.
+
 ## 2026-09-11 proof-critic: counterexample search against T-003
 
 Date: 2026-09-11

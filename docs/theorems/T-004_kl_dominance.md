@@ -398,10 +398,15 @@ The gaps above are per-observation divergences of order `10^{-6}`. That number,
 not the sign of the inequality, governs whether the phenomenon is detectable.
 Carried into T-007, a gap `\Delta\ell^{*} \approx 7 \times 10^{-6}` with
 `k_K - k_S = 1` puts the *deterministic* AIC threshold at
-`n \approx 1.4 \times 10^{5}` trials — and once sampling variability is included,
-the sample size at which AIC actually selects `M_K` with 95% probability is
-`n \approx 5.5 \times 10^{10}` (T-007b'). Realistic RAID-scale designs are many
-orders of magnitude smaller than either.
+`n \approx 1.4 \times 10^{5}` trials, and the sample size at which AIC actually
+selects `M_K` with 95% probability at `n \approx 1.05 \times 10^{6}`. Under
+containment the second is always `7.27\times` the first, independent of the
+effect size, because `\omega^2 = 2\Delta\ell^{*}` in this regime — see
+Lemma T-007b'' and Corollary T-007b'''. (An earlier draft quoted
+`5.5 \times 10^{10}` here, from an `\omega \approx 1` placeholder that is wrong
+by about four orders of magnitude; corrected in proof-critic review
+2026-09-11.) Realistic RAID-scale designs are still orders of magnitude smaller
+than either figure.
 
 This does not weaken T-004, which is a statement about the population limit. It
 does mean the paper must not present the asymptotic result as a claim about what
