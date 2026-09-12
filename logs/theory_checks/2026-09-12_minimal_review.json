@@ -1,0 +1,8 @@
+{
+  "status": "pass_with_scope_clarification",
+  "verification": "same LLM separate pass, not external or formal",
+  "source_sha256": {
+    "docs/minimal_ambiguity_proof.md": "98cb2722b990f6f8faca217a5e44d0d07ddff1421760ebbab6a6991d6b09557e",
+    "docs/proof_reviews/review_minimal_ambiguity.md": "8790a861ba681bc942332013ac8500859826a44b073357db90691da654bc5c32"
+  }
+}

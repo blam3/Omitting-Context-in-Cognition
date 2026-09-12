@@ -2,9 +2,9 @@
   "version": 1,
   "updated": "2026-09-12",
   "objective": "Review and finish the explicit one-parameter versus two-parameter ambiguity construction, with direct observable KL separation and separate BIC, BF and exact trial-LOO corollaries.",
-  "overall_status": "minimal_direct_proof_author_complete_review_pending",
-  "active_item": "M1_minimal_review",
-  "next_action": "Adversarially review docs/minimal_ambiguity_proof.md: fixed-constant task mapping, one/two global parameters, exact cells, global fits, normalized priors and uniform single-trial deletion. Write docs/proof_reviews/review_minimal_ambiguity.md.",
+  "overall_status": "minimal_proof_separate_LLM_review_passed",
+  "active_item": "M2_minimal_computation",
+  "next_action": "M2: deterministic quadrature with the normalized uniform-theta/uniform-rho priors; validate exact single-response deletion on a tiny fixed dataset, then predeclare a small fixed-seed pilot before inspecting preferences.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -140,10 +140,19 @@
       "no_progress": false,
       "failed_routes": [],
       "artifact": "docs/minimal_ambiguity_proof.md"
+    },
+    {
+      "date": "2026-09-12",
+      "item": "M1_minimal_review",
+      "approach": "Reconstruct task mapping, global projection, normalized priors and simultaneous deletion bounds.",
+      "outcome": "Mathematics passes; clarified distortion/offset observational equivalence.",
+      "no_progress": false,
+      "failed_routes": [],
+      "artifact": "docs/proof_reviews/review_minimal_ambiguity.md"
     }
   ],
   "completed_obligations": [],
-  "acceptance_level": "minimal_author_proof_only",
+  "acceptance_level": "minimal_separate_same_LLM_review_only",
   "artifacts": [
     "PROOF_PACKAGE.md",
     "docs/omitted_context_mixture_lemma.md",
@@ -192,15 +201,18 @@
   "items": [
     {
       "id": "M1_minimal_review",
-      "status": "ready",
+      "status": "complete",
       "depends_on": [],
-      "attempts": 0,
+      "attempts": 1,
       "no_progress_runs": 0,
-      "evidence": []
+      "evidence": [
+        "docs/proof_reviews/review_minimal_ambiguity.md"
+      ],
+      "completed_at": "2026-09-12"
     },
     {
       "id": "M2_minimal_computation",
-      "status": "pending",
+      "status": "ready",
       "depends_on": [
         "M1_minimal_review"
       ],

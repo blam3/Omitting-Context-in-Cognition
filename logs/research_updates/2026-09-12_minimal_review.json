@@ -1,0 +1,40 @@
+{
+  "cycle_title": "M1 minimal ambiguity proof review",
+  "track": "theorem",
+  "completed": [
+    "Verified direct KL proof and separate BIC/BF/exact trial-LOO corollaries within the minimal contract.",
+    "Clarified that single-probability distortion is observationally equivalent to a common utility offset."
+  ],
+  "why_it_matters": [
+    "Closes the first review step without adding general machinery or overstating mechanism identification."
+  ],
+  "files_changed": [
+    "docs/minimal_ambiguity_proof.md",
+    "docs/proof_reviews/review_minimal_ambiguity.md",
+    "registries/proof_progress.json",
+    "logs/theory_checks/2026-09-12_minimal_review.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Existing minimal verifier",
+      "status": "pass"
+    },
+    {
+      "name": "Separate same-LLM proof reconstruction",
+      "status": "pass"
+    },
+    {
+      "name": "Lean, external review and posterior computation",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "next_bounded_task": "M2: deterministic quadrature with the normalized uniform-theta/uniform-rho priors; validate exact single-response deletion on a tiny fixed dataset, then predeclare a small fixed-seed pilot before inspecting preferences.",
+  "risks_or_uncertainties": [
+    "Homogeneous global parameters and fixed nuisance constants remain the scope.",
+    "Small gap does not imply frequent ordinary-sample-size wins."
+  ]
+}

@@ -113,6 +113,8 @@ All three preference events hold simultaneously with probability tending to one 
 
 ## 6. Scope and next action
 
+Interpretation clarified in the September 12 review: because option A has the same nominal probability in both trials, rho is observationally equivalent to a free common utility offset delta on this design. The weighting equation provides a cognitive parameterization, but the example does not distinguish distortion from another mechanism producing that offset. The conclusion is that an extra fitted parameter can absorb omitted-context patterns, not identification of probability distortion. The ambiguity-adjusted utility coefficient is not constrained to be a literal probability; no clipping is performed.
+
 This construction intentionally fixes shared nuisance constants and fits homogeneous global parameters. It is now authorized as the main theorem by the user's request for a genuine one-versus-two-parameter ambiguity comparison. It does not silently revise the earlier hierarchical model: that remains a separate empirical/general extension. Probability weighting is applied before the signed ambiguity cost, as in the approved kernel.
 
 Next: adversarially review THIS short package and verify the ambiguity mapping, compact prior normalization, exact four-cell law and single-response deletion bound. Then run a small predeclared numerical validation and prepare a concise manuscript statement. Do not resume general chart coverage, Gaussian constructions, eight-trial latent identifiability or a full Lean probability library unless a specific defect in this minimal package requires it. Small Lean certificates are optional verification work, not prerequisites for the scientific argument.
