@@ -34,3 +34,7 @@ PI confirms choice 1=risky and 2=ambiguous; probs and ambigs already use 0–1; 
 The user explicitly approved the synthetic gain-only distortion model and matched baseline in primary_theorem_specification.md sections 2–3 for theorem development. P-G1 is approved for that restricted construction. The general theorem remains the priority; the example is a supporting route when useful, not the definition of project completion. This does not approve P-G2a/b or P-G3, establish a strict gap, validate the RAID model, or accept a proof.
 
 Develop general sufficient conditions connecting omitted-context observable laws to strict joint and trial-conditional KL advantages, with separate BIC, BF and LOO implications. A theorem that merely assumes the desired positive gaps is a useful transfer result but does not by itself establish the research mechanism. Use the synthetic pair to demonstrate nonvacuity and expose necessary conditions. Preserve the proved absorption boundaries and do not retry absorbed designs.
+
+## 2026-09-12 minimal-comparison priority
+
+User explicitly requested the minimal contract and direct separation proof instead of more general lemmas, and authorized roadmap/schedule revision. The main construction fixes common sensitivity/intercept/side constants and compares one global ambiguity parameter with ambiguity plus probability distortion. No fitted random-effect distribution. Earlier work remains optional. Exact trial-level LOO remains primary. Scope authorization is not proof acceptance.
