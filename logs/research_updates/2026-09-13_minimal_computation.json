@@ -1,0 +1,47 @@
+{
+  "cycle_title": "M2 exact Bayesian computation and fixed pilot",
+  "track": "simulation",
+  "completed": [
+    "Validated quadrature and exact trial deletion under the stated priors.",
+    "Ran all 60 predeclared context/null datasets; retained every outcome.",
+    "Reported numerical tolerances, Monte Carlo uncertainty and unfavorable BIC results."
+  ],
+  "why_it_matters": [
+    "Tests the implemented criterion calculations without substituting finite-sample wins for the proof."
+  ],
+  "files_changed": [
+    "docs/minimal_pilot_protocol.json",
+    "scripts/validate_minimal_bayes.py",
+    "logs/theory_checks/2026-09-13_minimal_bayes.json",
+    "docs/minimal_ambiguity_validation.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Prior normalization and rho/delta Jacobian check",
+      "status": "pass"
+    },
+    {
+      "name": "Explicit deleted-response predictive versus evidence ratio",
+      "status": "pass"
+    },
+    {
+      "name": "All pilot quadrature refinement checks",
+      "status": "pass"
+    },
+    {
+      "name": "Formal error certificate or independent external review",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Ten replicates per cell give imprecise rates.",
+    "Quadrature agreement is not a certified error bound.",
+    "No empirical hierarchical model fitted."
+  ],
+  "next_bounded_task": "M3: write docs/minimal_ambiguity_manuscript.md from the reviewed minimal proof, retaining fixed constants/global parameter counts, distortion-offset equivalence, contextual/null controls, all pilot outcomes and small-gap limitation."
+}

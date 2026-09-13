@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-09-12",
+  "updated": "2026-09-13",
   "objective": "Review and finish the explicit one-parameter versus two-parameter ambiguity construction, with direct observable KL separation and separate BIC, BF and exact trial-LOO corollaries.",
-  "overall_status": "minimal_proof_separate_LLM_review_passed",
-  "active_item": "M2_minimal_computation",
-  "next_action": "M2: deterministic quadrature with the normalized uniform-theta/uniform-rho priors; validate exact single-response deletion on a tiny fixed dataset, then predeclare a small fixed-seed pilot before inspecting preferences.",
+  "overall_status": "minimal_review_and_computation_complete_manuscript_pending",
+  "active_item": "M3_minimal_manuscript",
+  "next_action": "M3: write docs/minimal_ambiguity_manuscript.md from the reviewed minimal proof, retaining fixed constants/global parameter counts, distortion-offset equivalence, contextual/null controls, all pilot outcomes and small-gap limitation.",
   "consecutive_no_progress_runs": 0,
   "attempt_history": [
     {
@@ -149,6 +149,15 @@
       "no_progress": false,
       "failed_routes": [],
       "artifact": "docs/proof_reviews/review_minimal_ambiguity.md"
+    },
+    {
+      "date": "2026-09-13",
+      "item": "M2_minimal_computation",
+      "approach": "Normalized quadrature, coordinate-Jacobian cross-check, explicit single-response refits and predeclared 60-dataset pilot.",
+      "outcome": "All numerical checks passed. Mixed criterion preferences and null wins retained; no claim of precise rates.",
+      "failed_routes": [],
+      "no_progress": false,
+      "artifact": "docs/minimal_ambiguity_validation.md"
     }
   ],
   "completed_obligations": [],
@@ -196,7 +205,11 @@
     "logs/theory_checks/2026-09-11_calibration_design.json",
     "docs/minimal_ambiguity_proof.md",
     "scripts/verify_minimal_ambiguity.py",
-    "logs/theory_checks/2026-09-12_minimal_ambiguity.json"
+    "logs/theory_checks/2026-09-12_minimal_ambiguity.json",
+    "docs/minimal_pilot_protocol.json",
+    "scripts/validate_minimal_bayes.py",
+    "logs/theory_checks/2026-09-13_minimal_bayes.json",
+    "docs/minimal_ambiguity_validation.md"
   ],
   "items": [
     {
@@ -212,17 +225,23 @@
     },
     {
       "id": "M2_minimal_computation",
-      "status": "ready",
+      "status": "complete",
       "depends_on": [
         "M1_minimal_review"
       ],
-      "attempts": 0,
+      "attempts": 1,
       "no_progress_runs": 0,
-      "evidence": []
+      "evidence": [
+        "docs/minimal_pilot_protocol.json",
+        "scripts/validate_minimal_bayes.py",
+        "logs/theory_checks/2026-09-13_minimal_bayes.json",
+        "docs/minimal_ambiguity_validation.md"
+      ],
+      "completed_at": "2026-09-13"
     },
     {
       "id": "M3_minimal_manuscript",
-      "status": "pending",
+      "status": "ready",
       "depends_on": [
         "M2_minimal_computation"
       ],

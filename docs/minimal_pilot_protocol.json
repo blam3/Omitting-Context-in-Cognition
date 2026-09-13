@@ -1,0 +1,15 @@
+{
+ "declared":"2026-09-13 before pilot execution",
+ "regimes":["context","null"],
+ "participants":[50,200,1000],
+ "replicates_per_cell":10,
+ "seed_rule":"20260913 + 100000*regime_index + 1000*n + replicate_index",
+ "generator":"Python random.Random; one fair binary context per participant, then two Bernoulli trials; null context fixed zero",
+ "quadrature_orders":[48,96],
+ "refinement_if_needed":192,
+ "tolerance_log_evidence_and_total_ELPD":0.00001,
+ "report":"all datasets and failures; counts of BIC/BF/LOO preference, binomial MCSE; pilot is diagnostic, not precise selection-rate estimate",
+ "tiny_data":[[0,0],[1,0],[0,1],[1,1],[0,0],[1,0]],
+ "independent_check":"rho versus delta with prior Jacobian; direct held-out posterior expectation versus evidence ratio",
+ "priors":"exactly the minimal proof uniform theta and uniform rho"
+}
