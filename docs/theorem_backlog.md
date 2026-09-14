@@ -16,6 +16,15 @@ A-003 is approved as the primary route; T-003 is active but unproved beyond the 
 
 The old statement that A-003 was not adopted records the earlier route only. Work follows G1–G7 in the progress state; D1/D2 review evidence is retained for the benchmark.
 
+| ID | Result | Claim | Assumptions | Status | Next proof action |
+|---|---|---|---|---|---|
+| T-001 | Omitted-context conditional mixture representation | C-002 | A-001, A-002, regular conditional distribution regularity stated in the draft | proof-critic-review | Proof Critic reviews Lemma 1.1 with `F_{Theta | X,Z}` as primary. |
+| T-002 | Fixed or exogenous trial-design corollary | C-002 | Same as T-001 plus fixed-design or conditional-independence condition; A-006 remains rejected as a primary assumption | decision-gated | Keep as corollary only; do not promote to primary theorem statement without PI direction. |
+| T-003 | Gaussian constructive heterogeneity proof draft | C-003 | A-003; proposed A-007 for conditional zero covariance; proposed A-008 only for the joint-Gaussian corollary | decision-gated | Review `docs/proofs/L2_gaussian_constructive_heterogeneity.md`; obtain PI/theorem decisions on A-003, A-007, and A-008 before proof-critic review or claim promotion. |
+| T-004 | KL dominance bridge | C-004 | Model-class and pseudo-true-risk assumptions still to be drafted | backlog | Draft exact model classes, target law, and KL comparison criterion. |
+| T-005 | LOO expected-predictive-score / LOOIC consequence | C-004 | T-004 plus a declared leave-out unit, population predictive target, and LOO regularity conditions | decision-gated | PI selects the primary leave-out unit; then draft a conditional result linking a positive predictive-score gap to lower LOOIC. |
+| T-006 | Bayes-factor consequence under declared priors | C-004 | Proper prior families, prior scales, marginal-likelihood definition, and an explicit asymptotic regime | decision-gated | Do not infer this result from KL or LOOIC. Open a prior-and-estimator decision before writing the statement. |
+| T-007 | AIC/BIC finite-sample threshold corollaries | C-004 | T-004 plus explicit sample-size and parameter-count conditions | backlog | Keep as secondary bridge corollaries; formalize conditional thresholds only. |
 ## Historical finite-benchmark inventory
 
 
@@ -36,6 +45,12 @@ No main result is marked `accepted`. The manuscript supplement remains an accept
 
 ## Boundaries
 
+| Lean file | Scope | Non-goal |
+|---|---|---|
+| `formal/OCECM/Basic.lean` | Shared labels, theorem-card status, and lightweight notation scaffolding. | No probability theory or theorem claims. |
+| `formal/OCECM/MixtureLemma.lean` | Home for the future mixture statement using `F_{Theta | X,Z}` as primary. | No proof or axiom asserting Lemma 1.1. |
+| `formal/OCECM/GaussianConstructive.lean` | Home for the Gaussian constructive statement after A-003 review. | No imported normal-distribution theory in this setup PR. |
+| `formal/OCECM/AICBICThreshold.lean` | Home for secondary finite-sample threshold statement shapes. | No universal model-selection theorem. |
 - A correctly specified shared random-effect simple model can represent the true pair law and remove the gap.
 - The construction does not claim that K beats the true contextual model in KL risk.
 - Participant count grows with two trials fixed; no growing-trials or increasing-dimension result is supplied.
