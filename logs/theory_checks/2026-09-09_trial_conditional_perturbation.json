@@ -1,0 +1,61 @@
+{
+  "scope": "Exact joint-fitted observable exponential-family diagnostics only",
+  "examples": [
+    {
+      "name": "negative",
+      "expected_coefficients": [
+        1,
+        4,
+        -0.25
+      ],
+      "rows": [
+        {
+          "epsilon": 0.05,
+          "joint_gap_over_e2": 1.0016733692713786,
+          "K_risk_over_e2": 4.027102710137772,
+          "conditional_gap_over_e2": -0.24926548727151848
+        },
+        {
+          "epsilon": 0.025,
+          "joint_gap_over_e2": 1.0004170838922408,
+          "K_risk_over_e2": 4.006693477085509,
+          "conditional_gap_over_e2": -0.24981737578018617
+        },
+        {
+          "epsilon": 0.0125,
+          "joint_gap_over_e2": 1.0001041927168828,
+          "K_risk_over_e2": 4.001668335568975,
+          "conditional_gap_over_e2": -0.24995440632339516
+        }
+      ]
+    },
+    {
+      "name": "positive",
+      "expected_coefficients": [
+        0.5,
+        0.125,
+        0.25
+      ],
+      "rows": [
+        {
+          "epsilon": 0.05,
+          "joint_gap_over_e2": 0.5002085419461093,
+          "K_risk_over_e2": 0.12532650396015613,
+          "conditional_gap_over_e2": 0.25010427097305465
+        },
+        {
+          "epsilon": 0.025,
+          "joint_gap_over_e2": 0.5000520963583963,
+          "K_risk_over_e2": 0.12508144149868183,
+          "conditional_gap_over_e2": 0.25002604817919677
+        },
+        {
+          "epsilon": 0.0125,
+          "joint_gap_over_e2": 0.5000130216473829,
+          "K_risk_over_e2": 0.12502034888030586,
+          "conditional_gap_over_e2": 0.2500065108236894
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "cycle_title": "Separate adversarial review of perturbation pair",
+  "track": "theorem",
+  "completed": [
+    "Reviewed both perturbation lemmas against their exact finite-family assumptions; no load-bearing defect found.",
+    "Reconstructed global fits and conditional reversal through closed KL expressions.",
+    "Recorded source hashes and next smooth-family extension obligation."
+  ],
+  "why_it_matters": [
+    "Allows the reviewed finite-family lemmas to support extension while retaining the global-localization and cognitive applicability gaps."
+  ],
+  "files_changed": [
+    "docs/proof_reviews/review_perturbation_pair.md",
+    "scripts/verify_perturbation_review.py",
+    "logs/theory_checks/2026-09-10_perturbation_review.json",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Rational projections and conditional expectation operators",
+      "status": "pass"
+    },
+    {
+      "name": "65-digit closed-risk evaluations at positive and negative perturbations",
+      "status": "pass"
+    },
+    {
+      "name": "Separate same-LLM mathematical review",
+      "status": "pass",
+      "notes": "Not independent external or formal verification."
+    },
+    {
+      "name": "Lean and cognitive Bayesian fitting",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Cognitive model is not an established instance of the reviewed exponential families.",
+    "Bayesian LOO convergence remains separate."
+  ],
+  "next_bounded_task": "Write docs/smooth_observable_extension.md: finite-support smooth nested observable-family extension with explicit regular local charts and global localization; derive joint fitted-path and conditional-risk expansions. Do not assert these hypotheses hold for the cognitive model without proof."
+}

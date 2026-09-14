@@ -1,0 +1,43 @@
+{
+  "scope": "Analytic identity transcription checks only; no KL witness",
+  "W_support_size": 2,
+  "trials_per_participant": 8,
+  "checks": [
+    {
+      "rho": 0.5,
+      "side": -1,
+      "contrast": -0.11060748832129308,
+      "recovered_rho": 0.49999999999999944
+    },
+    {
+      "rho": 0.5,
+      "side": 1,
+      "contrast": -0.11060748832129308,
+      "recovered_rho": 0.49999999999999983
+    },
+    {
+      "rho": 1,
+      "side": -1,
+      "contrast": 0.0,
+      "recovered_rho": 0.9999999999999996
+    },
+    {
+      "rho": 1,
+      "side": 1,
+      "contrast": 0.0,
+      "recovered_rho": 1.0
+    },
+    {
+      "rho": 2,
+      "side": -1,
+      "contrast": 0.20145533426267914,
+      "recovered_rho": 1.9999999999999993
+    },
+    {
+      "rho": 2,
+      "side": 1,
+      "contrast": 0.2014553342626792,
+      "recovered_rho": 1.9999999999999984
+    }
+  ]
+}

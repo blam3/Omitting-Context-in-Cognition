@@ -1,5 +1,7 @@
 # Claim Registry
 
+> 2026-09-05: The authoritative live register is `registries/claim_register.md`. The initial conjecture below is historical; PROOF_PACKAGE.md now contains locally checked constructive drafts pending independent review.
+
 Claims must be tagged by status.
 
 ## Status labels

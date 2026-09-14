@@ -1,0 +1,5 @@
+support_id,support_probability,z,trial,v_A,v_R,p_A,p_R,A,s
+z_minus,1/2,-1,1,1,1,1/4,1/2,1/4,-1
+z_minus,1/2,-1,2,1,1,3/4,1/2,1/2,1
+z_plus,1/2,1,1,1,1,1/4,1/2,1/4,-1
+z_plus,1/2,1,2,1,1,3/4,1/2,1/2,1

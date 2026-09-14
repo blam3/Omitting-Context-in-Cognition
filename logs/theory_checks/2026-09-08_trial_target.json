@@ -1,0 +1,24 @@
+{
+  "scope": "Probability-law counterexample; not cognitive-pair separation",
+  "joint_advantage_K": 0.13792667225202965,
+  "mean_trial_conditional_advantage_K": -0.08521687906218003,
+  "checks": "Direct conditional summation matches exact logarithmic formulas; signs verified",
+  "P": [
+    0.4,
+    0.1,
+    0.1,
+    0.4
+  ],
+  "Q_S": [
+    0.7,
+    0.1,
+    0.1,
+    0.1
+  ],
+  "Q_K": [
+    0.25,
+    0.25,
+    0.25,
+    0.25
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "cycle_title": "G1 primary specification and conditional-risk obstruction",
+  "track": "theorem",
+  "completed": [
+    "Wrote explicit proposed probability-distortion kernel and matched baseline; separated approved moments from unapproved distribution conditions.",
+    "Derived exact trial-deletion likelihood and conditional KL identity.",
+    "Proved a rational counterexample to joint-KL implying trial-conditional-KL superiority.",
+    "Added separate primary BIC roadmap gate."
+  ],
+  "why_it_matters": [
+    "The new primary trial prediction target requires an additional conditional gap; the legacy joint KL/LOPO proof cannot supply it."
+  ],
+  "files_changed": [
+    "registries/proof_progress.json",
+    "docs/proof_roadmap.md",
+    "docs/proposed_assumptions.md",
+    "docs/primary_theorem_specification.md",
+    "logs/theory_checks/2026-09-08_trial_target.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Exact logarithmic counterexample and direct conditional enumeration",
+      "status": "pass"
+    },
+    {
+      "name": "Legacy proof SHA256 preserved before deployment",
+      "status": "pass"
+    },
+    {
+      "name": "Primary cognitive separation and criterion proofs",
+      "status": "not_run",
+      "notes": "Not claimed; G2 and downstream tasks remain open."
+    }
+  ],
+  "decision_needed": {
+    "needed": true,
+    "question": "Approve P-G1, the synthetic gain-only kernel and matched global-sensitivity/global-distortion candidate pair in primary_theorem_specification.md sections 2\u20133, for theorem development?",
+    "default_if_no_response": "Keep proposal unapproved; continue independent containment and boundary analysis. Gaussian P-G2 remains separate and unapproved."
+  },
+  "risks_or_uncertainties": [
+    "The selected cognitive pair has no proved positive joint or conditional KL gap yet.",
+    "Author derivations have not received separate adversarial review."
+  ],
+  "next_bounded_task": "Check observable containment and necessary design conditions for the proposed matched probability-distortion pair in docs/primary_theorem_specification.md. Seek separate positive joint and conditional KL gaps; do not treat proposed kernel/Gaussian conditions as approved."
+}

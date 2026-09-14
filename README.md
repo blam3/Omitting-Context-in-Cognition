@@ -1,5 +1,7 @@
 # OCECM Autonomous Researcher Workbench
 
+Find recovered proofs and other artifacts in [FILE_LOCATIONS.md](FILE_LOCATIONS.md).
+
 This repository is a bounded-autonomy research workbench for the project **Omitting Contextual Factors in Cognitive Models**.
 
 ## Current project thesis
@@ -45,16 +47,9 @@ The autonomous researcher should read these files before taking action:
 
 ## Formal proof route
 
-The current proof route is:
+The preserved finite benchmark [proof package](PROOF_PACKAGE.md) uses a short conditional mixture lemma, an explicit two-context/two-trial utility construction with strict **participant-level** KL separation, and separate BIC, Bayes-factor and exact leave-one-participant-out corollaries. Both fitted candidates are false as joint distributions. These are locally checked drafts awaiting independent review; the Lean files are infrastructure only.
 
-1. **Omitted-context mixture representation**: integrating out context induces a marginal response law.
-2. **Gaussian constructive case**: omitted context induces context-dependent mean and variance in a latent parameter.
-3. **KL dominance**: a flexible false model can lie closer to the omitted-context mixture than the restricted context-omitting true architecture.
-4. **Predictive consequence**: a conditional LOO expected-log-predictive-density result can imply lower LOOIC for the false complex model when the leave-out target is specified.
-5. **Bayes-factor consequence**: a separate, prior-sensitive marginal-likelihood result can characterize when declared-prior evidence favors the false complex model.
-6. **Secondary finite-sample threshold corollaries**: AIC/BIC-like criteria provide a bridge when log-score gains exceed complexity penalties.
-
-Boundary cases must always be stated: no context effect, harmless iid noise, sufficient simple random-effect structure, lack of complex-model approximation advantage, or finite-sample penalty dominance.
+On 2026-09-08 the PI adopted the additive-context A-003 route as primary, selected **trial-level LOO** and **probability-distortion M4**, and delegated proper prior/estimator choices. The new primary theorem remains to be established; the finite benchmark does not prove it. See the [decision record](docs/pi_decisions_2026-09-08.md), [comparison plan](docs/bayesian_comparison_plan.md), [roadmap](docs/proof_roadmap.md), and [progress state](registries/proof_progress.json).
 
 ## Simulation scaffold
 
@@ -62,15 +57,12 @@ The R scaffold implements a lightweight proxy DGM and model suite:
 
 - `R/dgm.R`: simulates a simple context-aware ambiguity task in which SES shifts latent ambiguity aversion and its heterogeneity.
 - `R/fit_models.R`: fits fast GLM proxies for simple omitted context, complex omitted context, and simple context-aware reference models.
-- `R/model_selection.R`: computes AIC/BIC proxy comparisons and finite-sample log-likelihood threshold diagnostics; it does not calculate Bayesian criteria.
+- `R/model_selection.R`: computes AIC/BIC proxy comparisons and finite-sample log-likelihood threshold diagnostics.
 - `R/run_replication.R`: runs one theorem-aligned simulation replication.
 - `R/run_design_cell.R`: runs a small grid cell and writes results.
 - `R/generate_synthetic_raid_data.R`: generates public synthetic RAID-style trial and demographic files.
 
-These GLM proxies are for smoke tests and fast screening only. They do not
-produce valid Bayes factors or LOOIC. Final empirical models should use
-hierarchical Bayesian structural models with PSIS-LOOIC, a declared-prior Bayes
-factor sensitivity analysis, and held-out participant log score.
+These GLM proxies are for smoke tests and fast screening only. All proxy candidates share the true baseline value terms. Final models must respect shared participant effects, with primary trial-level LOO conditioned on the person's remaining responses. Whole-participant LOPO is a separately labeled secondary target. Changing the holdout unit does not change the full evidence likelihood or justify row-count BIC.
 
 ## Bayesian modeling milestones
 
@@ -83,7 +75,7 @@ Milestones:
 3. participant-level hierarchical ambiguity model;
 4. context-aware mean model;
 5. context-aware mean-plus-variance model;
-6. primary false-complex model after PI selection;
+6. PI-selected probability-distortion model, after task-equation validation;
 7. final empirical model suite.
 
 ## Basic commands
@@ -123,7 +115,7 @@ The loop must pause and request approval before:
 
 - adding new theorem assumptions;
 - adding or changing estimands;
-- selecting the primary false-complex empirical model;
+- changing the PI-selected probability-distortion empirical model family;
 - making interpretive literature claims;
 - making causal claims about RAID context effects;
 - choosing exclusion thresholds after seeing results;

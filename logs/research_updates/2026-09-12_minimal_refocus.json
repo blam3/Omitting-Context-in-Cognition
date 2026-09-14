@@ -1,0 +1,56 @@
+{
+  "cycle_title": "Minimal ambiguity proof and schedule refocus",
+  "track": "theorem",
+  "completed": [
+    "Specified exactly one versus two fitted global parameters and fixed common task constants.",
+    "Proved strict observable KL separation directly from two marginals and shared-context dependence.",
+    "Wrote separate BIC, proper-prior BF and exact single-trial LOO corollaries, plus contextual and null controls.",
+    "Archived previous roadmap, replaced primary work items with M1\u2013M4 and updated the existing daily heartbeat."
+  ],
+  "why_it_matters": [
+    "Returns the project to an explicit ambiguity example with a short mechanism argument; general/hierarchical machinery is optional."
+  ],
+  "files_changed": [
+    "docs/minimal_ambiguity_proof.md",
+    "scripts/verify_minimal_ambiguity.py",
+    "logs/theory_checks/2026-09-12_minimal_ambiguity.json",
+    "docs/proof_roadmap.md",
+    "docs/archive/proof_roadmap_before_minimal_2026-09-12.md",
+    "docs/approval_log.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Exact Fraction mixture cells and covariance",
+      "status": "pass"
+    },
+    {
+      "name": "Cognitive distortion mapping and marginal matching",
+      "status": "pass"
+    },
+    {
+      "name": "Direct conditional risk agrees with half joint gap",
+      "status": "pass"
+    },
+    {
+      "name": "Existing daily heartbeat update",
+      "status": "pass",
+      "notes": "Tool confirmed ACTIVE update; retained daily 9 AM schedule."
+    },
+    {
+      "name": "Independent proof review and model-selection simulation",
+      "status": "not_run",
+      "notes": "Next M1 and M2 tasks; no finite-sample wins claimed."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Small fixed population gap; no practical sample-size guarantee.",
+    "Homogeneous global fits with fixed nuisance constants do not establish superiority over a flexible empirical hierarchy.",
+    "Author proof only."
+  ],
+  "next_bounded_task": "Adversarially review docs/minimal_ambiguity_proof.md: fixed-constant task mapping, one/two global parameters, exact cells, global fits, normalized priors and uniform single-trial deletion. Write docs/proof_reviews/review_minimal_ambiguity.md."
+}

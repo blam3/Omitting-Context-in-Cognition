@@ -1,0 +1,65 @@
+{
+  "cycle_title": "Full-support nuisance absorption audit before further construction",
+  "track": "theorem",
+  "completed": [
+    "Inventoried actual design sources and transcribed the only complete primary support into a four-row manifest.",
+    "Proved a global positive-scale quotient criterion with every shared nuisance term and correct dispersion rescaling retained.",
+    "Proved exact all-rho absorption over all four existing support rows; rank D and augmented rank are both 3.",
+    "Added reusable declared-support audit with positive/zero/negative scale and quotient regression checks.",
+    "Recorded unavailable richer/RAID support and updated next dependencies without constructing a new DGP or changing assumption/claim approval status."
+  ],
+  "why_it_matters": [
+    "A per-block or unsigned rank check can misdiagnose absorption. The current design is globally absorbed; adding Z levels or replicating rows does not rescue it.",
+    "Missing option mappings prevent an honest empirical support audit; the proxy scaffold cannot supply them."
+  ],
+  "files_changed": [
+    "docs/design_absorption_audit_2026-09-08.md",
+    "registries/primary_design_support.csv",
+    "scripts/audit_design_absorption.py",
+    "logs/theory_checks/2026-09-08_design_absorption.json",
+    "logs/theory_checks/2026-09-08_design_absorption_gap_scan.json",
+    "logs/theory_checks/2026-09-08_design_absorption_gap_scan.md",
+    "registries/proof_progress.json",
+    "docs/primary_theorem_specification.md",
+    "docs/proof_roadmap.md",
+    "STATUS.md",
+    "logs/research_updates/2026-09-08_design_absorption.json"
+  ],
+  "checks_run": [
+    {
+      "name": "python3 scripts/audit_design_absorption.py",
+      "status": "pass",
+      "notes": "Exact rational ranks 3/3, full manifest shape and mass checks, five labeled numeric rho probes, and orientation/quotient regression checks. Analytic all-rho proof is separate from probes."
+    },
+    {
+      "name": "proof_gap_scan for design_absorption_audit_2026-09-08.md",
+      "status": "pass",
+      "notes": "Four local obligations closed; no structural-incomplete or candidate findings. Structure only, not independent proof acceptance."
+    },
+    {
+      "name": "Protected assumptions/claims/proposals and benchmark",
+      "status": "pass",
+      "notes": "These files were not edited in this audit. Recorded SHA256 values: {\"PROOF_PACKAGE.md\": \"46e98f94d57f86a724f1a03ac5cdeba4c27324a06d331c403cbc4524cd33943c\", \"docs/proposed_assumptions.md\": \"5356d28bccbd20ba784e887556be12ebd1ebf0a528042189493eb25d3851f002\", \"registries/assumption_register.csv\": \"42d28cbdca26d2c703865d0eea75bea2f56384ed07caaa316011c4ea6cdc3b1e\", \"registries/claim_register.md\": \"b76345bd1018885ab6845def57d801433eac1cfd732f2a44517bae67a086fb9c\"}"
+    },
+    {
+      "name": "Research update project and full JSON Schema validation",
+      "status": "pass"
+    },
+    {
+      "name": "Empirical or richer-support absorption and strict separation",
+      "status": "not_run",
+      "notes": "No complete support manifest exists for those targets; no data access, fitting or new separation construction performed."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "No approval is requested or changed. Further actual-support auditing requires a complete richer/protocol support manifest; this audit does not infer one.",
+    "default_if_no_response": "Retain the current exact obstruction and leave richer-support separation open."
+  },
+  "risks_or_uncertainties": [
+    "Pointwise nonabsorption, if found on a future support, would not prove observable noncontainment or positive joint/conditional KL gaps.",
+    "Numerical rho probes cannot certify all-rho equality, particularly under rank ill-conditioning.",
+    "P-G3 remains a conditional proposal; no accepted theorem or final claim is changed."
+  ],
+  "next_bounded_task": "Current four-row full-support audit is complete and all-rho absorption is proved. Obtain or explicitly specify a complete richer support manifest (both lotteries, side, ambiguity, Z and allowed co-occurrences) and audit its global positive-scale quotient condition before constructing a separation DGP. Do not reuse the absorbed design or treat a numeric rank pass as observable separation. P-G3 remains conditional and unapproved."
+}

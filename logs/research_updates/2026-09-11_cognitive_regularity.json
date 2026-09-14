@@ -1,0 +1,44 @@
+{
+  "cycle_title": "Cognitive regularity and coverage audit",
+  "track": "theorem",
+  "completed": [
+    "Proved local smoothness by a Gaussian derivative envelope.",
+    "Derived exact reduced coordinates and disproved injectivity of original parameters on current support.",
+    "Excluded reduced-parameter boundary escape near interior laws using dependence gaps.",
+    "Identified remaining reduced-rank and finite-preimage conditions; did not certify full coverage."
+  ],
+  "why_it_matters": [
+    "Prevents applying the smooth-family theorem without checking its decisive cognitive-model hypotheses."
+  ],
+  "files_changed": [
+    "docs/cognitive_regularity_coverage_audit.md",
+    "logs/theory_checks/2026-09-11_cognitive_regularity.json",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Exact rational coordinate-reduction checks",
+      "status": "pass",
+      "notes": "12 equalities; not a rank or coverage certificate."
+    },
+    {
+      "name": "Author analytic audit",
+      "status": "pass",
+      "notes": "Separate review pending."
+    },
+    {
+      "name": "Full regular chart, Lean and Bayesian LOO convergence",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Finite competing reduced preimages and full derivative rank not excluded/certified.",
+    "No separation is possible on the current absorbed support."
+  ],
+  "next_bounded_task": "Specify a complete richer finite P-G1 design preserving shared terms and audit exact nuisance absorption first. Reuse cognitive_regularity_coverage_audit.md smoothness and boundary arguments; do not claim reduced rank or unique preimages without proof."
+}

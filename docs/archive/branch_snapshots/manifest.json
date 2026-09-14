@@ -1,0 +1,22 @@
+[
+  {
+    "archive": "formal-theorem-strategy.zip",
+    "source": "origin/claude/llm-formal-proofs-strategy-q4r0aj",
+    "commit": "1d7dca8c5a0c6719e5fa221e64b2e804b619210f"
+  },
+  {
+    "archive": "kl-score-screen.zip",
+    "source": "origin/claude/project-status-next-steps-y57zxy",
+    "commit": "0f777af3226af832d7545902ed3c4065e8ce5873"
+  },
+  {
+    "archive": "project-map.zip",
+    "source": "origin/claude/project-folder-graph-0dc2cp",
+    "commit": "7dd02293248e3e91668584f951ad3f92a7b02c39"
+  },
+  {
+    "archive": "gaussian-heterogeneity.zip",
+    "source": "agent/gaussian-constructive-heterogeneity-v2",
+    "commit": "c4a615f8b885e8c6071977afb7bff2eac5add8cb"
+  }
+]
