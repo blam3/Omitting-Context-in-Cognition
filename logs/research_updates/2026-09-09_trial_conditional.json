@@ -1,0 +1,47 @@
+{
+  "cycle_title": "Trial-conditional KL under joint-optimal fits",
+  "track": "theorem",
+  "completed": [
+    "Derived conditional KL expansion and cross-term sign condition without conditional refitting.",
+    "Proved exact nested-family reversal with both candidates false and global joint fits.",
+    "Provided a positive control and explicit sufficient conditions for simultaneous joint/conditional superiority."
+  ],
+  "why_it_matters": [
+    "Identifies the extra population condition required for trial LOO even when BIC/BF joint KL advantage exists."
+  ],
+  "files_changed": [
+    "docs/trial_conditional_perturbation_2026-09-09.md",
+    "scripts/verify_trial_conditional_perturbation.py",
+    "logs/theory_checks/2026-09-09_trial_conditional_perturbation.json",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Exact fit moment matching and probability normalization",
+      "status": "pass"
+    },
+    {
+      "name": "Direct conditional summation versus marginal KL chain rule",
+      "status": "pass"
+    },
+    {
+      "name": "Six coefficient convergence checks across positive/negative examples",
+      "status": "pass"
+    },
+    {
+      "name": "Independent review",
+      "status": "not_run",
+      "notes": "Author derivation and self-check only."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Scope is finite exponential families; not yet the approved cognitive hierarchy.",
+    "Population conditional gap does not itself establish Bayesian LOO convergence."
+  ],
+  "next_bounded_task": "Separately adversarially review the context and trial-conditional perturbation lemmas, checking global joint fits, marginal expansions, latent-tilt admissibility and both exact controls. Then identify observable regularity/global-localization conditions for the nonlinear cognitive extension."
+}

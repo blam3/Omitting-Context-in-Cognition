@@ -1,0 +1,40 @@
+{
+  "cycle_title": "Richer cognitive support with exact observable nonabsorption",
+  "track": "theorem",
+  "completed": [
+    "Specified complete eight-trial finite support retaining the approved kernel and shared baseline.",
+    "Proved a calibration contrast separates every finite rho!=1 law from the simple observable closure.",
+    "Derived unique calibration-parameter inverse and an extra tangent direction."
+  ],
+  "why_it_matters": [
+    "Removes the exact family-equality obstruction without claiming a positive omitted-context KL gap."
+  ],
+  "files_changed": [
+    "docs/cognitive_design_manifest.md",
+    "docs/designs/calibrated_eight_trial_support.csv",
+    "scripts/verify_calibration_design.py",
+    "logs/theory_checks/2026-09-11_calibration_design.json",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Calibration contrast and inverse transcription checks",
+      "status": "pass",
+      "notes": "Six parameter/side settings; analytic proof supplies generality."
+    },
+    {
+      "name": "Cognitive KL witness, Lean and Bayesian LOO",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Calibration rows may penalize false distortion; simultaneous preference is unproved.",
+    "Latent parameter rank and coverage remain open."
+  ],
+  "next_bounded_task": "On docs/cognitive_design_manifest.md support, isolate the ambiguous-trial inverse problem for mu0,mu1,sigma after calibration identifies alpha,beta,tau,rho. Establish or delimit latent rank/unique preimages before constructing context-tilt alignment; preserve fixed support."
+}

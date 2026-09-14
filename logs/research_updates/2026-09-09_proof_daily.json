@@ -1,0 +1,40 @@
+{
+  "cycle_title": "Nuisance-adjusted context perturbation lemma",
+  "track": "theorem",
+  "completed": [
+    "Derived finite exponential-family joint KL gap after refitting shared nuisance parameters.",
+    "Constructed bounded context tilts with positive alignment when the conditional residual score is nonzero.",
+    "Separated positive complex residual risk and recorded all unproved extensions."
+  ],
+  "why_it_matters": [
+    "Connects a latent perturbation to observable improvement without assuming a KL gap; preserves the general theorem priority."
+  ],
+  "files_changed": [
+    "docs/context_score_perturbation_2026-09-09.md",
+    "logs/theory_checks/2026-09-09_context_perturbation.json",
+    "registries/proof_progress.json",
+    "docs/proof_roadmap.md"
+  ],
+  "checks_run": [
+    {
+      "name": "Four-cell risk coefficient check",
+      "status": "pass",
+      "notes": "All three epsilon values recorded; diagnostic only, not a cognitive witness."
+    },
+    {
+      "name": "Local proof self-check",
+      "status": "pass",
+      "notes": "Checked positivity, centering, global convex optimization, nuisance projection and residual condition. No independent review."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Finite exponential-family specialization not yet established for the approved distortion hierarchy.",
+    "Conditional KL sign remains open.",
+    "Worktree recovery required because main has no current proof state."
+  ],
+  "next_bounded_task": "Derive the second-order trial-conditional KL gap under the SAME joint projections in docs/context_score_perturbation_2026-09-09.md; identify a sufficient sign condition or counterexample. Separately review the new lemma before integration."
+}

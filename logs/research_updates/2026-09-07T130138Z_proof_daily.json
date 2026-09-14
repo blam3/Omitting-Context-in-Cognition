@@ -1,0 +1,63 @@
+{
+  "cycle_title": "D2 BIC review completed with a same-assumption sufficient-statistic refinement",
+  "track": "theorem",
+  "completed": [
+    "Reviewed O4-O6: uniform convergence, curvature, localization and the BIC threshold/probability bound pass.",
+    "Proved an exact two-sufficient-statistic expression for objective error and a sharper probability-bound constant in the review artifact.",
+    "Recorded exact multinomial checks and advanced the state to D3_BF_review."
+  ],
+  "why_it_matters": [
+    "The positive KL gap is correctly transferred to participant-level BIC selection as participant count grows.",
+    "The refinement makes the model-specific argument simpler without adding assumptions or claiming practical sample-size guarantees."
+  ],
+  "files_changed": [
+    "registries/proof_progress.json",
+    "docs/proof_review_log.md",
+    "docs/theorem_backlog.md",
+    "scripts/verify_bic_review.py",
+    "docs/proof_reviews/review_02_BIC.md",
+    "logs/theory_checks/2026-09-07_BIC_review.json",
+    "logs/research_updates/2026-09-07T130138Z_proof_daily.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Analytical review of L2/C1 and O4-O6",
+      "status": "pass",
+      "notes": "Includes non-strict tail events, optimized likelihood convergence, boundary-event accounting and the failure-bound coefficient."
+    },
+    {
+      "name": "scripts/verify_bic_review.py",
+      "status": "pass",
+      "notes": "Exact Fraction checks over 214 multinomial count vectors and 20 tail comparisons, plus sufficient-statistic variances and Gram eigenvalues."
+    },
+    {
+      "name": "Proof dependency hash",
+      "status": "pass",
+      "notes": "Main proof matches the D1 reviewed hash; no proof source changes or additional lint needed."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": "",
+    "default_if_no_response": "Continue D3_BF_review within the established scope."
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "No assumption, model, estimand, prior, proof source or claim-acceptance level changed. The refined bound is separately proved in the review, and no positive-result simulation search was run."
+  },
+  "risks_or_uncertainties": [
+    "This is a separate LLM pass, not independent external acceptance.",
+    "Both finite-sample bounds remain conservative and are not practical sample-size recommendations.",
+    "BF, LOPO and integration reviews remain pending."
+  ],
+  "next_bounded_task": "D3_BF_review: check C2/O7 prior normalization, both integrals and the remainder relative to realized fitted likelihood."
+}

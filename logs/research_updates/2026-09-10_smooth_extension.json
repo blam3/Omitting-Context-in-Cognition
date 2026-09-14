@@ -1,0 +1,42 @@
+{
+  "cycle_title": "Smooth observable extension with global optimality",
+  "track": "theorem",
+  "completed": [
+    "Proved global observable minimizer localization under explicit chart-completeness conditions.",
+    "Extended joint and conditional perturbation formulas beyond exponential families.",
+    "Constructed exact competing-branch counterexample to local regularity alone."
+  ],
+  "why_it_matters": [
+    "Closes the general smooth-family bridge without silently equating local and global fits."
+  ],
+  "files_changed": [
+    "docs/smooth_observable_extension.md",
+    "logs/theory_checks/2026-09-10_smooth_global_check.json",
+    "registries/proof_progress.json",
+    "docs/proof_roadmap.md"
+  ],
+  "checks_run": [
+    {
+      "name": "Exact rational competing-branch checks",
+      "status": "pass"
+    },
+    {
+      "name": "Author proof self-check",
+      "status": "pass",
+      "notes": "Checked compact closure, lower semicontinuity, attainment in actual family, local stationarity and uniqueness."
+    },
+    {
+      "name": "Independent review and Lean",
+      "status": "not_run"
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "risks_or_uncertainties": [
+    "Local completeness and regular charts are not established for the cognitive hierarchy.",
+    "Finite-support scope and separate Bayesian convergence obligations remain."
+  ],
+  "next_bounded_task": "Adversarially review docs/smooth_observable_extension.md, especially local completeness and closure-to-chart localization; then audit integrated cognitive-model smoothness and observable redundancies before asserting regular charts."
+}

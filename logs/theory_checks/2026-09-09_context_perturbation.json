@@ -1,0 +1,22 @@
+{
+  "scope": "Observable four-cell algebra check only; not the approved cognitive model or a context-tilt witness",
+  "predicted_gap_coefficient": 0.5,
+  "predicted_K_risk_coefficient": 0.125,
+  "results": [
+    {
+      "epsilon": 0.1,
+      "gap_over_epsilon_squared": 0.5008366846356904,
+      "K_risk_over_epsilon_squared": 0.12631797456566748
+    },
+    {
+      "epsilon": 0.05,
+      "gap_over_epsilon_squared": 0.5002085419461093,
+      "K_risk_over_epsilon_squared": 0.12532650396015613
+    },
+    {
+      "epsilon": 0.025,
+      "gap_over_epsilon_squared": 0.5000520963583963,
+      "K_risk_over_epsilon_squared": 0.12508144149868183
+    }
+  ]
+}

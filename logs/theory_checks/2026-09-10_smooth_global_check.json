@@ -1,0 +1,29 @@
+{
+  "scope": "Exact competing-branch diagnostic; not a cognitive witness",
+  "u_dot_v": 0,
+  "v_squared_norm": 2,
+  "global_risk_on_second_branch": 0,
+  "local_risk_coefficient_on_first_branch": 1,
+  "checks": [
+    {
+      "epsilon": "1/20",
+      "true_law": [
+        "7/20",
+        "7/20",
+        "3/10"
+      ],
+      "second_branch_parameter": "1/20",
+      "exact_representation": true
+    },
+    {
+      "epsilon": "-1/20",
+      "true_law": [
+        "19/60",
+        "19/60",
+        "11/30"
+      ],
+      "second_branch_parameter": "-1/20",
+      "exact_representation": true
+    }
+  ]
+}

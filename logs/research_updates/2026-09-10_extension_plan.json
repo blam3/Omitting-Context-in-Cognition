@@ -1,0 +1,37 @@
+{
+  "cycle_title": "Cognitive and Bayesian LOO extension verification plan",
+  "track": "theorem",
+  "completed": [
+    "Created dependency-ordered plan from reviewed perturbation lemmas to cognitive geometry, separate KL gaps and Bayesian trial-LOO convergence.",
+    "Specified LLM failure checks, incremental Lean acceptance gates and bounded numerical validation."
+  ],
+  "why_it_matters": [
+    "Keeps the general mechanism theorem primary and prevents formal builds or simulations from substituting for scientific correctness."
+  ],
+  "files_changed": [
+    "docs/cognitive_bayesian_LOO_extension_plan.md",
+    "docs/proof_roadmap.md",
+    "registries/proof_progress.json"
+  ],
+  "checks_run": [
+    {
+      "name": "Inspected existing formal scaffold and proof state",
+      "status": "pass",
+      "notes": "Scaffold does not prove new results; no Lean build claimed."
+    },
+    {
+      "name": "Checked primary Lean and loo documentation",
+      "status": "pass"
+    },
+    {
+      "name": "New proofs, Lean formalization and simulations",
+      "status": "not_run",
+      "notes": "This task creates their execution and verification plan."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "next_bounded_task": "Session 1 of docs/cognitive_bayesian_LOO_extension_plan.md: separate adversarial review of both perturbation lemmas and exact controls; produce proof_reviews/review_perturbation_pair.md before applying them to nonlinear cognitive models."
+}

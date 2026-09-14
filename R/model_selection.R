@@ -2,6 +2,9 @@ compute_aic_proxy <- function(fit_obj) {
   -2 * fit_obj$loglik + 2 * fit_obj$df
 }
 
+# n_obs is the trial-row count for this descriptive GLM proxy. It is not
+# the participant-level BIC used in PROOF_PACKAGE.md, and is not a hierarchical
+# marginal-likelihood approximation. Do not transplant its penalty to that model.
 compute_bic_proxy <- function(fit_obj, n_obs) {
   -2 * fit_obj$loglik + log(n_obs) * fit_obj$df
 }

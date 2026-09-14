@@ -1,0 +1,5 @@
+{
+  "scope": "Exact reduction identity diagnostic; no rank or coverage certification",
+  "rational_equalities": 12,
+  "passed": true
+}

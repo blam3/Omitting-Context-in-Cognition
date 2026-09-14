@@ -1,0 +1,41 @@
+{
+  "review_type": "same LLM separate review pass; not formal or external verification",
+  "rational_checks": [
+    {
+      "case": "negative",
+      "exact_joint_coefficient": "1",
+      "exact_K_risk_coefficient": "4",
+      "exact_conditional_coefficient": "-1/4"
+    },
+    {
+      "case": "positive",
+      "exact_joint_coefficient": "1/2",
+      "exact_K_risk_coefficient": "1/8",
+      "exact_conditional_coefficient": "1/4"
+    }
+  ],
+  "closed_expression_checks": [
+    {
+      "epsilon": "0.05",
+      "joint_gap": "0.0025041834231784187358991132133650207417893915386404884490546196648",
+      "K_risk": "0.01006775677534443671025638948438748928429658426474465244856036100",
+      "conditional_gap": "-0.0006231637181787937923293473466737804396682851217358294690572643698"
+    },
+    {
+      "epsilon": "0.025",
+      "joint_gap": "0.00062526067743264911593919684809250375527777600773927237670877785525",
+      "K_risk": "0.0025041834231784187358991132133650207417893915386404884490546196648",
+      "conditional_gap": "-0.00015613585986265809454504275566611030578206269099000590667650829485"
+    },
+    {
+      "epsilon": "-0.025",
+      "joint_gap": "0.00062526067743264911593919684809250375527777600773927237670877785525",
+      "K_risk": "0.0025041834231784187358991132133650207417893915386404884490546196648",
+      "conditional_gap": "-0.00015613585986265809454504275566611030578206269099000590667650829450"
+    }
+  ],
+  "source_sha256": {
+    "docs/context_score_perturbation_2026-09-09.md": "6e967ebf77d5ba2f23c226bb68dee08554ba30cd38cbc25d571337bc0cb71181",
+    "docs/trial_conditional_perturbation_2026-09-09.md": "706408b864995c3b46cde41bb8bd4b26581a7138c4f83a8525c7e15528e001c6"
+  }
+}

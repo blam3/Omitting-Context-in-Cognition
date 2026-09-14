@@ -1,0 +1,47 @@
+{
+  "checks": "passed",
+  "arithmetic": "exact Fraction; Decimal precision 60",
+  "cells_by_response_pair": {
+    "(0, 0)": "11/80",
+    "(0, 1)": "19/80",
+    "(1, 0)": "13/80",
+    "(1, 1)": "37/80"
+  },
+  "covariance": "1/40",
+  "independence_determinant": "1/40",
+  "simple_optimum": "0.442904520300652122145035819255145361321951961742098646825288",
+  "complex_optimum": [
+    "0.598002317338379559555974439346996857261424507011980671993563",
+    "-0.087176693572388876350460343043334922383313710566212401815609"
+  ],
+  "R_K": "0.0062695682862529947985851755506811443174879084080210500612883",
+  "R_S": "0.0069680829698430555321788618609635175999903644977915196226141",
+  "Delta_per_participant": "0.0006985146835900607335936863102823732825024560897704695613258",
+  "conditional_independence_counterexample": {
+    "construction": "Z,U independent fair bits; Theta constant; Y1=U; Y2=U xor Z",
+    "given_Z_0": {
+      "(0, 0)": "1/2",
+      "(0, 1)": "0",
+      "(1, 0)": "0",
+      "(1, 1)": "1/2"
+    },
+    "given_Z_1": {
+      "(0, 0)": "0",
+      "(0, 1)": "1/2",
+      "(1, 0)": "1/2",
+      "(1, 1)": "0"
+    },
+    "unconditional": {
+      "(0, 0)": "1/4",
+      "(0, 1)": "1/4",
+      "(1, 0)": "1/4",
+      "(1, 1)": "1/4"
+    }
+  },
+  "additional_checks": [
+    "KL decomposition at an arbitrary product distribution",
+    "Constant-kernel exogeneity counterexample",
+    "Intercept-plus-slope alternative ties quadratic marginal fit"
+  ],
+  "limits": "Arithmetic supports a separate LLM review pass; no simulation, criterion re-verification or independent external review."
+}
