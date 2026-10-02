@@ -12,6 +12,7 @@ Recovered 2026-09-13. The normal local folder and this Codex task use `/Users/br
 | Earlier finite benchmark proof package | [Package](PROOF_PACKAGE.md) |
 | Primary theorem specification | [Specification](docs/primary_theorem_specification.md) |
 | General perturbation and conditional-risk proofs | [Joint](docs/context_score_perturbation_2026-09-09.md), [conditional](docs/trial_conditional_perturbation_2026-09-09.md), [smooth extension](docs/smooth_observable_extension.md) |
+| End-to-end central theorem draft (exploratory, 2026-10-02; not authoritative) | [Draft](docs/central_theorem_full_draft.md), [checks](scripts/verify_central_theorem_draft.py) |
 | Gaussian constructive draft (historical assumption IDs) | [Gaussian draft](docs/proofs/L2_gaussian_constructive_heterogeneity.md) |
 | Current roadmap and machine-readable progress | [Roadmap](docs/proof_roadmap.md), [state](registries/proof_progress.json) |
 | Study 1 rewrite | [Word](docs/prospectus/Study1_rewrite.docx), [Markdown](docs/prospectus/Study1_rewrite.md) |

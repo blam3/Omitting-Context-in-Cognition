@@ -1,0 +1,72 @@
+{
+  "cycle_title": "One-shot end-to-end central theorem draft (PI request)",
+  "track": "theorem",
+  "completed": [
+    "Drafted docs/central_theorem_full_draft.md: a single chain from omitted context to the response law, KL separation, and BIC, Bayes-factor and exact trial-LOO selection, with boundary results and a gap ledger.",
+    "New in this draft: exact within-person dependence signature (every homogeneous model is false); second-order heterogeneity expansion splitting omission into attenuation and dependence directions; extra-score drift criterion with a rigorous gap lower bound and a score-test approximation; weighted-least-squares mechanism criterion with Delta_C = Delta_J / T for homogeneous candidates; hierarchical absorption (order eps^6 or eps^8) and a parity obstruction for context-dependent dispersion.",
+    "Added scripts/verify_central_theorem_draft.py (dependency-free) and its output logs/theory_checks/2026-10-02_central_theorem_draft.json; all checks pass."
+  ],
+  "why_it_matters": [
+    "Shows the full logical flow the PI asked for and separates what is proved (homogeneous candidates, finite designs, fixed T) from what is conditional (hierarchical candidates) or open.",
+    "The drift approximation Delta_J ~ Lambda^2 / (2 I) reproduces the witness gap to 0.3 percent from the simple fit alone, and Laplace/TIC heuristics explain the pilot's BF/LOO-versus-BIC ordering."
+  ],
+  "files_changed": [
+    "docs/central_theorem_full_draft.md",
+    "scripts/verify_central_theorem_draft.py",
+    "logs/theory_checks/2026-10-02_central_theorem_draft.json",
+    "logs/research_updates/2026-10-02_central_theorem_draft.json",
+    "FILE_LOCATIONS.md"
+  ],
+  "checks_run": [
+    {
+      "name": "Witness: exact rational cells, projections, direct conditional gap, drift bounds, context-risk identity",
+      "status": "pass"
+    },
+    {
+      "name": "Heterogeneity expansion against exact mixtures (remainder orders 1 and 2) and finite differences",
+      "status": "pass"
+    },
+    {
+      "name": "Local mechanism ratios converge to 1; Delta_C = Delta_J / T to 1e-12; drift lower bound in every row",
+      "status": "pass"
+    },
+    {
+      "name": "Hierarchical absorption scaling and parity obstruction (tangent level)",
+      "status": "pass"
+    },
+    {
+      "name": "Independent mathematical review of the new results",
+      "status": "not_run",
+      "notes": "Same-session author checks only; O6 in the draft lists the results needing review."
+    },
+    {
+      "name": "make smoke / make test / R checks",
+      "status": "not_applicable",
+      "notes": "No R code changed."
+    }
+  ],
+  "decision_needed": {
+    "needed": false,
+    "question": ""
+  },
+  "procedure_compliance": {
+    "operating_context_read": true,
+    "bounded_task": true,
+    "self_check_completed": true,
+    "registry_reviewed": true,
+    "structured_update_written": true,
+    "validation_documented": true,
+    "restricted_data_checked": true,
+    "pi_decision_gate_checked": true,
+    "claim_status_checked": true,
+    "next_task_named": true,
+    "notes": "Exploratory draft requested directly by the PI. No assumption adopted (all hypotheses are labeled conditions of results), no estimand or primary-model change, no claim promotion, no RAID data, negligible compute. Registries and the roadmap/progress state are intentionally unchanged; minimal_ambiguity_proof.md remains authoritative."
+  },
+  "risks_or_uncertainties": [
+    "New results (Thm 1.4, Thm 2.4, Prop 2.5, Cor 2.7, Props 4.3-4.4) are author-checked only.",
+    "Hierarchical-candidate version of the theorem remains conditional on H1-H2, a nonzero drift at the hierarchical projection and L > 0.",
+    "Analysis suggests the research-spec target of misselection as task length grows may fail for hierarchical candidates under trial LOO (open problem O3).",
+    "Background references in Appendix B are not yet verified against source."
+  ],
+  "next_bounded_task": "Independent review of the new results in docs/central_theorem_full_draft.md (O6), then compute the extra-score drift at the hierarchical S projection on the eight-trial calibrated design for a binary large-effect context (O1)."
+}

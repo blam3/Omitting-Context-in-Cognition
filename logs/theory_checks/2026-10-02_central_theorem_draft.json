@@ -1,0 +1,314 @@
+{
+  "scope": "Diagnostics for docs/central_theorem_full_draft.md; exact rational and numerical checks, not proofs or certified global optimisation.",
+  "I1_instance": {
+    "cells_P_order_00_10_01_11": [
+      "37/80",
+      "19/80",
+      "13/80",
+      "11/80"
+    ],
+    "marginals": [
+      "3/8",
+      "3/10"
+    ],
+    "covariance": "1/40",
+    "multi_information_I_P": 0.006269568286253007,
+    "kernel_logits_at_mean": [
+      -0.5493061443340549,
+      -1.0986122886681098
+    ],
+    "true_marginal_logits": [
+      -0.5108256237659907,
+      -0.8472978603872036
+    ],
+    "attenuation_logit_shift": [
+      0.03848052056806417,
+      0.2513144282809062
+    ],
+    "theta_S_star": 0.4429045203006521,
+    "theta_K_star": 0.3364722366212129,
+    "delta_K_star": -0.17435338714477794,
+    "rho_K_star": 0.6626970100655725,
+    "R_S": 0.006968082969843133,
+    "R_K": 0.0062695682862530765,
+    "Delta_J_per_participant": 0.0006985146835900569,
+    "Delta_C_per_trial": 0.00034925734179492435,
+    "alignment_A_at_S_projection": -0.008024549123233915,
+    "partial_information_I_e_given_S": 0.04622162583308148,
+    "curvature_bound_Bbar": 0.05017388877570243,
+    "gap_lower_bound_A2_over_2Bbar": 0.0006417021901477348,
+    "gap_score_test_approx_A2_over_2I": 0.0006965720857995752,
+    "I_Y_C_given_W": 0.12930173236154888,
+    "context_aware_risk_S": 0.1362698153313921,
+    "context_aware_risk_K": 0.13557130064780198,
+    "sd_log_likelihood_ratio_per_participant": 0.03552328601607413,
+    "heuristic_n_expected_BIC_crossing": 6257.196704989064,
+    "heuristic_n_BIC_50pct_ignoring_fit_bonus": 6257.1967049890645,
+    "heuristic_n_BIC_80pct_ignoring_fit_bonus": 11204.851720158658,
+    "heuristic_n_trial_LOO_80pct": 3195.5516652863093,
+    "participant_TIC_trace_S": 1.1026655199059057,
+    "participant_TIC_trace_K": 2.0000000000000027,
+    "trial_LOO_penalty_trace_S": 1.0092553936380932,
+    "trial_LOO_penalty_trace_K": 2.0000000000000018,
+    "mean_fit_bonus_K_minus_S": 0.4486672400470485,
+    "det_J_K_over_J_S": 0.046213363327615775,
+    "BF_Laplace_constant_c0": 2.4041244313316,
+    "heuristic_selection_probabilities_note": "Normal approximation for the pseudo-true log-likelihood ratio plus mean fitting bonus; BF uses Laplace and is unreliable when the delta posterior is truncated by the prior box (roughly n <= 1000 here). Heuristic only.",
+    "heuristic_selection_probabilities": {
+      "200": {
+        "BIC": 2.0471656473286526e-05,
+        "BF_Laplace": 0.7528309637520232,
+        "trial_LOO_TIC": 0.21158198430783964
+      },
+      "1000": {
+        "BIC": 0.020016070640418715,
+        "BF_Laplace": 0.5345572921411773,
+        "trial_LOO_TIC": 0.5553777573469365
+      },
+      "10000": {
+        "BIC": 0.7870649921194741,
+        "BF_Laplace": 0.9296316280471684,
+        "trial_LOO_TIC": 0.9651426138446031
+      },
+      "100000": {
+        "BIC": 0.9999999954220655,
+        "BF_Laplace": 0.9999999987363615,
+        "trial_LOO_TIC": 0.9999999996583593
+      }
+    },
+    "rigorous_hoeffding_n_for_BIC_failure_le_0.05": 27093506067.42668,
+    "local_formula_at_instance_gap": 0.0010808381842530277,
+    "local_formula_at_instance_R_K": 0.007922681177475915,
+    "local_formula_ratio_gap_exact_over_local": 0.6462712862728879
+  },
+  "E1_heterogeneity_expansion": {
+    "asymmetric_V": {
+      "max_abs_error": [
+        0.5168196898382114,
+        0.2660355017754199,
+        0.13493846349923544,
+        0.06795103783055012
+      ],
+      "observed_orders": [
+        0.9580422523556856,
+        0.9793171430952654,
+        0.9897341486803152
+      ]
+    },
+    "symmetric_V": {
+      "max_abs_error": [
+        0.010307670584719375,
+        0.0025775113814177075,
+        0.0006444149362785367,
+        0.00016110600562413424
+      ],
+      "observed_orders": [
+        1.9996676338417043,
+        1.9999169596648079,
+        1.999979658216319
+      ]
+    },
+    "finite_difference_h_error": 1.3193610115536103e-07,
+    "max_abs_mean_and_cross_moment": [
+      5.551115123125783e-17,
+      1.1102230246251565e-16
+    ]
+  },
+  "L1_local_mechanism_homogeneous": {
+    "norms": {
+      "||a-P_S a||^2": 0.2666675737179394,
+      "||a-P_K a||^2": 0.26619851269740946,
+      "||d||^2": 0.00046906102053007607,
+      "||h_D||^2": 1.3670947968624692
+    },
+    "rows": [
+      {
+        "V": "asymmetric_V",
+        "eps": 0.2,
+        "R_S_ratio": 0.5986313052321934,
+        "R_K_ratio": 0.5984053348594905,
+        "gap_ratio": 1.3854711442730823,
+        "multi_info_ratio": 0.5947321753942538,
+        "A_ratio": 1.18852369732083,
+        "gap_over_score_test_approx": 0.9998721786377992,
+        "gap_over_rigorous_lower_bound": 1.2390030580287092,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "asymmetric_V",
+        "eps": 0.1,
+        "R_S_ratio": 0.767627910398259,
+        "R_K_ratio": 0.767481464859598,
+        "gap_ratio": 1.2775584056657898,
+        "multi_info_ratio": 0.7592099079340046,
+        "A_ratio": 1.133261301377413,
+        "gap_over_score_test_approx": 0.9999688431917089,
+        "gap_over_rigorous_lower_bound": 1.2566428978580382,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "asymmetric_V",
+        "eps": 0.05,
+        "R_S_ratio": 0.8759095739030267,
+        "R_K_ratio": 0.875829432349302,
+        "gap_ratio": 1.154966365635677,
+        "multi_info_ratio": 0.8692646129260874,
+        "A_ratio": 1.075421568327402,
+        "gap_over_score_test_approx": 0.9999925205064132,
+        "gap_over_rigorous_lower_bound": 1.2615467075858673,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "asymmetric_V",
+        "eps": 0.025,
+        "R_S_ratio": 0.9361824647704684,
+        "R_K_ratio": 0.9361411898752033,
+        "gap_ratio": 1.0799036595366904,
+        "multi_info_ratio": 0.9321454970872041,
+        "A_ratio": 1.0393625281702619,
+        "gap_over_score_test_approx": 0.9999978887362179,
+        "gap_over_rigorous_lower_bound": 1.262822897726381,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "asymmetric_V",
+        "eps": 0.0125,
+        "R_S_ratio": 0.967693451411365,
+        "R_K_ratio": 0.9676725953080694,
+        "gap_ratio": 1.040315418458297,
+        "multi_info_ratio": 0.965484535308976,
+        "A_ratio": 1.0199914665901881,
+        "gap_over_score_test_approx": 1.0000212317653119,
+        "gap_over_rigorous_lower_bound": 1.2631749932284466,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "asymmetric_V",
+        "eps": 0.00625,
+        "R_S_ratio": 0.9837544251915815,
+        "R_K_ratio": 0.9837439246031905,
+        "gap_ratio": 1.0203179851860646,
+        "multi_info_ratio": 0.9826008892888667,
+        "A_ratio": 1.0100580986395187,
+        "gap_over_score_test_approx": 1.0001201389685255,
+        "gap_over_rigorous_lower_bound": 1.2633811608368768,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.2,
+        "R_S_ratio": 0.8873792534653846,
+        "R_K_ratio": 0.8873526723694847,
+        "gap_ratio": 0.9799359234797924,
+        "multi_info_ratio": 0.8935499281694166,
+        "A_ratio": 1.000404856316835,
+        "gap_over_score_test_approx": 0.999892403245655,
+        "gap_over_rigorous_lower_bound": 1.2369084208521213,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.1,
+        "R_S_ratio": 0.9672459134347108,
+        "R_K_ratio": 0.9672396079363663,
+        "gap_ratio": 0.9892019656502533,
+        "multi_info_ratio": 0.9685326431575623,
+        "A_ratio": 0.997313551754085,
+        "gap_over_score_test_approx": 0.9999725859681489,
+        "gap_over_rigorous_lower_bound": 1.25635642227371,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.05,
+        "R_S_ratio": 0.9914424209479119,
+        "R_K_ratio": 0.9914408535314614,
+        "gap_ratio": 0.9969002413371721,
+        "multi_info_ratio": 0.9917368347303345,
+        "A_ratio": 0.9991393457651261,
+        "gap_over_score_test_approx": 0.9999930578427414,
+        "gap_over_rigorous_lower_bound": 1.2615110877330007,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.025,
+        "R_S_ratio": 0.9978358128532425,
+        "R_K_ratio": 0.9978354211227143,
+        "gap_ratio": 0.9991998376230372,
+        "multi_info_ratio": 0.9979074567095423,
+        "A_ratio": 0.9997727767070942,
+        "gap_over_score_test_approx": 0.9999987462811102,
+        "gap_over_rigorous_lower_bound": 1.262819524868417,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.0125,
+        "R_S_ratio": 0.9994573756753131,
+        "R_K_ratio": 0.9994572734893719,
+        "gap_ratio": 0.9998131920969018,
+        "multi_info_ratio": 0.99947516039072,
+        "A_ratio": 0.9999424365697348,
+        "gap_over_score_test_approx": 1.0000145399146394,
+        "gap_over_rigorous_lower_bound": 1.2631659911888806,
+        "Delta_C_equals_gap_over_T": true
+      },
+      {
+        "V": "symmetric_V",
+        "eps": 0.00625,
+        "R_S_ratio": 0.9998642541845877,
+        "R_K_ratio": 0.9998641574308452,
+        "gap_ratio": 1.0002011554252335,
+        "multi_info_ratio": 0.999868621452254,
+        "A_ratio": 0.9999855617589033,
+        "gap_over_score_test_approx": 1.0002516055518305,
+        "gap_over_rigorous_lower_bound": 1.2635471651892876,
+        "Delta_C_equals_gap_over_T": true
+      }
+    ]
+  },
+  "H1_hierarchical_absorption": {
+    "asymmetric_V": {
+      "hierarchical_KL_over_eps^6": [
+        0.862626797227266,
+        1.186327530016751,
+        1.2899882476853115,
+        1.3172867974961529
+      ],
+      "homogeneous_R_S_over_eps^4": [
+        0.6452129649878149,
+        0.8317556081772471,
+        0.9357502478182224,
+        0.9881071914942008
+      ]
+    },
+    "symmetric_V": {
+      "hierarchical_KL_over_eps^8": [
+        1.886358205740338,
+        2.533174822434044,
+        2.7444969608283896,
+        2.8006561808368384
+      ],
+      "homogeneous_R_S_over_eps^4": [
+        0.9427045558883018,
+        1.0128166434149481,
+        1.0325119063776895,
+        1.0375936560933285
+      ]
+    },
+    "quadrature_normalisation_error": 2.220446049250313e-16
+  },
+  "H2_parity_obstruction": {
+    "z_symmetric_baseline": {
+      "||d||^2": 3.3182158377459516e-33,
+      "||h-P_S h||^2": 0.1422944833019172,
+      "||s_extra - P_S s_extra||^2": 0.07906127308863208
+    },
+    "z_asymmetric_baseline_mu1_0.5": {
+      "||d||^2": 0.004946952578890528,
+      "||h-P_S h||^2": 0.13306977906107229,
+      "||s_extra - P_S s_extra||^2": 0.07482997377571132
+    }
+  }
+}
