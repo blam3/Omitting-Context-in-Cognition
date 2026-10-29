@@ -1,0 +1,34 @@
+{
+  "cycle_title": "Independent audit of the revised central-theorem manuscript",
+  "track": "theorem",
+  "completed": [
+    "Audited every result in revised_central_theorem.tex against its hypotheses and proofs, and checked its change log against the original 2 October draft.",
+    "Added scripts/audit_revised_central_theorem.py (dependency-free): witness, product-reduction identities, sign-reversal example, a Lambda = 0 counterexample, conditional identification, and a direct test of Theorem 7.2 at an interior hierarchical baseline; all checks pass.",
+    "Wrote docs/audit_revised_central_theorem_2026-10-29.md with ranked findings, fixes and readiness assessment for the hierarchical extension."
+  ],
+  "why_it_matters": [
+    "No theorem in the revision is false as stated, but two issues (nesting hypothesis blocking Corollary 8.1; missing localization in the proof of Theorem 6.2) must be fixed before the stated results follow.",
+    "Theorem 7.2 is numerically confirmed in a hierarchical setting, but its leading coefficient can be tiny, so hierarchical witnesses need global certification rather than local-formula signs."
+  ],
+  "files_changed": [
+    "docs/audit_revised_central_theorem_2026-10-29.md",
+    "docs/audit_revised_central_theorem_2026-10-29.pdf",
+    "scripts/audit_revised_central_theorem.py",
+    "logs/theory_checks/2026-10-29_revised_theorem_audit.json",
+    "logs/research_updates/2026-10-29_revised_theorem_audit.json",
+    "FILE_LOCATIONS.md"
+  ],
+  "checks_run": [
+    {"name": "Witness recomputation and Prop 5.2 on the revised prior box", "status": "pass"},
+    {"name": "Product-reduction identities on random positive laws", "status": "pass"},
+    {"name": "Prop 7.7 reversal numbers", "status": "pass"},
+    {"name": "Theorem 7.2 joint and conditional formulas at an interior hierarchical baseline (extrapolated ratios 1.002 and 0.999)", "status": "pass"},
+    {"name": "Audit of the revision's verify_revised_theorem.py", "status": "not_run", "notes": "File not provided."}
+  ],
+  "decision_needed": {"needed": false, "question": ""},
+  "risks_or_uncertainties": [
+    "Auditor also wrote the original draft; the audit is independent of the revision, not of the project.",
+    "Hand-checked proofs remain unreviewed by a human mathematician."
+  ],
+  "next_bounded_task": "Apply audit fixes F1-F5 to the revised manuscript, then start the hierarchical construction at a positive-variance baseline using the R6 harness."
+}

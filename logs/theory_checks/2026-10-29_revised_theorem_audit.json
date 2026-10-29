@@ -1,0 +1,95 @@
+{
+  "scope": "Independent audit diagnostics for revised_central_theorem.tex; not proofs.",
+  "R1_witness": {
+    "theta_S_star_12dp": 0.442904520301,
+    "manuscript_theta_S_star": 0.4429045138,
+    "theta_S_discrepancy": 6.500652072194413e-09,
+    "R_S": 0.006968082969843133,
+    "R_K": 0.0062695682862530765,
+    "Delta_J": 0.0006985146835900569,
+    "Delta_C": 0.00034925734179501976,
+    "rho_K_star": 0.6626970100655732,
+    "delta_range_for_rho_in_[1/4,2]": [
+      -0.3938338670708337,
+      0.4740125512063038
+    ],
+    "prop_5_2_step_s": -0.159934765254232,
+    "prop_5_2_theta_at_step": 0.3450573052009694,
+    "prop_5_2_bound": 0.0006417021901477348
+  },
+  "R2_product_reduction": {
+    "max_identity_error": 8.881784197001252e-16,
+    "random_laws": 200
+  },
+  "R3_reversal": {
+    "lambda_star": 0.2819001355803529,
+    "Delta_J": 0.09832036061051797,
+    "Delta_C": -0.052439660927044496,
+    "R_K": 0.37448553933151085,
+    "manuscript": {
+      "lambda_star": 0.2819,
+      "Delta_J": 0.09832,
+      "Delta_C": -0.05244
+    }
+  },
+  "R4_drift_not_necessary": {
+    "Lambda": 0.0,
+    "Delta_J": 0.0006985146835899961,
+    "rho_K": 0.4175564478543923
+  },
+  "R5_conditional_identification": {
+    "min_ratio_conditional_to_joint_KL": 0.3279858415194433
+  },
+  "R6_hierarchical_local_theorem_7_2": {
+    "coefficients_per_lambda^2": {
+      "R_S": 0.03131487524927172,
+      "R_K": 0.03131387387585011,
+      "Delta_J": 1.0013734216140918e-06,
+      "Delta_C": 7.011076228052158e-06
+    },
+    "L": 1.4022152456104316e-05,
+    "leading_gap_over_leading_R_S": 3.19775638140976e-05,
+    "rows": [
+      {
+        "lambda": 0.08,
+        "R_S_ratio": 1.002403478431397,
+        "R_K_ratio": 1.002175333477417,
+        "Delta_J_ratio": 8.13670738558272,
+        "Delta_C_ratio": 3.0340737223392398,
+        "Delta_J": 5.214644809839117e-08,
+        "Delta_C": 1.3614158175264237e-07
+      },
+      {
+        "lambda": 0.04,
+        "R_S_ratio": 1.0032719593784318,
+        "R_K_ratio": 1.003186332520829,
+        "Delta_J_ratio": 3.6809030623031234,
+        "Delta_C_ratio": 1.9828840835457378,
+        "Delta_J": 5.897533590605228e-09,
+        "Delta_C": 2.224344233780882e-08
+      },
+      {
+        "lambda": 0.02,
+        "R_S_ratio": 1.0020754937164662,
+        "R_K_ratio": 1.0020398551080154,
+        "Delta_J_ratio": 2.1165277710025783,
+        "Delta_C_ratio": 1.4795609754370032,
+        "Delta_J": 8.477738623960396e-10,
+        "Delta_C": 4.1493259131360145e-09
+      },
+      {
+        "lambda": 0.01,
+        "R_S_ratio": 1.0011400018391006,
+        "R_K_ratio": 1.001123947833404,
+        "Delta_J_ratio": 1.5031636213322308,
+        "Delta_C_ratio": 1.2365106395886913,
+        "Delta_J": 1.505228098739285e-10,
+        "Delta_C": 8.669270350953844e-10
+      }
+    ],
+    "extrapolated_ratio_at_lambda_0": {
+      "Delta_J_ratio": 1.0023484689818343,
+      "Delta_C_ratio": 0.9992011158777507
+    }
+  }
+}
