@@ -1,0 +1,400 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.91in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,enumitem,xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage{longtable}
+\definecolor{navy}{HTML}{18344B}
+\definecolor{teal}{HTML}{0B756D}
+\definecolor{muted}{HTML}{596979}
+\hypersetup{colorlinks=true,linkcolor=teal,urlcolor=teal,pdftitle={Omitted Context and False-Complex Model Selection: Corrected Theorems},pdfauthor={Research proof revision}}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\setlist{itemsep=2pt,topsep=3pt,leftmargin=18pt}
+\titleformat{\section}{\large\bfseries\color{navy}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{teal}}{\thesubsection}{0.6em}{}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\color{muted}Corrected central theorem}\fancyhead[R]{\small\color{muted}October 2026}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0.3pt}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Bern}{\operatorname{Bern}}
+\newcommand{\logit}{\operatorname{logit}}
+\newcommand{\sig}{\operatorname{expit}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\p}{\mathsf p}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\wt}{\widetilde}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\IP}{\operatorname{I}}
+\begin{document}
+\begin{center}
+{\Large\bfseries\color{navy} Omitted Context, Observable Mixtures,\\ and Systematic Selection of False Complexity}\par
+\vspace{6pt}
+{\large Corrected theorem and streamlined proof}\par
+\vspace{4pt}
+{\small Revision of \emph{Central theorem, end to end: from omitted context to systematic false-complex selection} (2 October 2026)}
+\end{center}
+\vspace{5pt}
+\begin{abstract}
+\noindent We prove first, by an exact two-trial construction, that omitted context can make a homogeneous complex cognitive model strictly closer in joint Kullback--Leibler (KL) divergence to the observed data than a nested homogeneous simple model, even though both models are false. We then give a short general sufficient condition: a nonzero population extra-parameter score at the simple-model KL projection. With fixed numbers of trials and finite design support, BIC, Bayes factors and exact trial-level Bayesian leave-one-out (LOO) select the false complex model with probability tending to one. A separate local weighted-projection formula explains which design signatures generate the effect. The hierarchical extension is \emph{conditional}: positive joint and conditional KL advantages must be established independently, and the regular local projection calculation requires interior, identifiable observable-law geometry. Zero-variance random-effects boundaries are not covered by that calculation. This version corrects closure/attainment, score-drift, tangent-absorption, moment, parity and context-comparator overstatements in the initial draft.
+\end{abstract}
+
+\section{Setting and the three distinct claims}
+Participants $i=1,\ldots,n$ are independent and identically distributed. A participant has a retained cell $W_i\in\mathcal W$ ($\mathcal W$ finite; $H(w)=\Pr(W=w)>0$) and a fixed $T\ge2$ binary-response vector $Y_i\in\{0,1\}^T$. The true conditional law $p(y\mid w)$ is positive in every cell. One motivating latent specification is
+\begin{equation}\label{eq:latent}
+\Theta=a_0+a_1Z+\gamma C+U,\qquad
+\Pr(Y_t=1\mid\Theta=\theta,W=w,C)=\pi_t(\theta,w)=\sig\{\kappa_t(w)-\beta_t(w)\theta\},
+\end{equation}
+with conditionally independent trials given $(\Theta,W,C)$; $C$ is omitted from the candidate fits. We write $\sig(x)=(1+e^{-x})^{-1}$. The distribution of $\Theta\mid W=w$ is $F_w$, which can depend on $U$ as well as $C$.
+
+A candidate $M$ is a set $\mathcal Q_M$ of conditional participant laws $q(\cdot\mid w)$, and $\mathcal Q_S\subseteq\mathcal Q_K$. The candidate families may be nonclosed; their closures are taken in the finite product of conditional probability simplices. Define
+\begin{equation}\label{eq:risks}
+R_M=\min_{q\in\overline{\mathcal Q_M}}\KL_H(p\Vert q),\quad
+\KL_H(p\Vert q)=\sum_wH(w)\KL\{p(\cdot\mid w)\Vert q(\cdot\mid w)\},\quad
+\Delta_J=R_S-R_K.
+\end{equation}
+The minimum exists in the closure and is finite provided the family contains a positive law. As $p$ has positive cells, every minimizing law $q_M^\star$ is positive. $R_M=0$ \emph{if and only if} $p\in\overline{\mathcal Q_M}$, not necessarily $p\in\mathcal Q_M$. Let $q_M^\star$ denote a unique optimal \emph{law} when uniqueness is required; uniqueness of a parameterization is not assumed.
+
+For the conditional target evaluated at the \emph{joint} KL projections, let
+\begin{equation}\label{eq:conditionalrisk}
+C_M=\frac1T\sum_{t=1}^T\E_{W,Y_{-t}}\KL\left\{p(Y_t\mid Y_{-t},W)\,\middle\Vert\,q_M^\star(Y_t\mid Y_{-t},W)\right\},
+\qquad\Delta_C=C_S-C_K.
+\end{equation}
+This is exact \emph{single-response} prediction: all other trials of the held-out participant remain observed. The joint projection is not refitted to minimize $C_M$.
+
+Three claims must be kept separate. (A) The exact witness and the homogeneous score-drift theorem are complete finite-support results. (B) The local weighted-projection formula is a regular, small-heterogeneity explanation, not a global equivalence. (C) Hierarchical selection requires distinct joint and conditional inequalities and, for the local formulas, additional geometric hypotheses.
+
+\section{Elementary facts about omission and product models}
+\begin{lemma}[Mixture, conditional moments and covariance]\label{lem:mixture}
+Under \eqref{eq:latent},
+\begin{equation}\label{eq:mixture}
+p(y\mid w)=\int\prod_{t=1}^T\pi_t(\theta,w)^{y_t}\{1-\pi_t(\theta,w)\}^{1-y_t}\,F_w(d\theta).
+\end{equation}
+If conditional second moments exist and $m_C=\E(C\mid W)$, $m_U=\E(U\mid W)$, then
+\begin{align*}
+\E(\Theta\mid W)&=a_0+a_1 Z+\gamma m_C+m_U,\\
+\Var(\Theta\mid W)&=\gamma^2\Var(C\mid W)+\Var(U\mid W)+2\gamma\Cov(C,U\mid W).
+\end{align*}
+If $\Theta\mid W=w$ is nondegenerate and $\pi_t(\cdot,w)$ and $\pi_u(\cdot,w)$ are strictly monotone in the same direction, $\Cov(Y_t,Y_u\mid w)>0$.
+\end{lemma}
+\begin{proof}
+Equation \eqref{eq:mixture} is iterated expectation using conditional trial independence. The moment identities follow from linearity and the variance of $\gamma C+U$. For independent copies $\Theta,\Theta'$ from $F_w$, conditional trial independence gives
+\[
+\Cov(Y_t,Y_u\mid w)=\frac12\E\big[\{\pi_t(\Theta)-\pi_t(\Theta')\}\{\pi_u(\Theta)-\pi_u(\Theta')\}\mid w\big].
+\]
+The integrand is nonnegative and strictly positive with positive probability when both functions are strictly monotone in the same direction and $F_w$ is nondegenerate.
+\end{proof}
+
+Write $p_t(\cdot\mid w)$ for the true trial marginal and $I_w=\KL\{p(\cdot\mid w)\Vert\prod_t p_t(\cdot\mid w)\}$ (multi-information).
+\begin{lemma}[Product reduction; the exact LOO identity]\label{lem:product}
+For every positive product law $q(y\mid w)=\prod_tq_t(y_t\mid w)$,
+\begin{align}\label{eq:productKL}
+\KL_H(p\Vert q)&=\sum_wH(w)I_w+\sum_{w,t}H(w)\KL(p_t\Vert q_t),\\
+\E_{W,Y_{-t}}\KL\{p(Y_t\mid Y_{-t},W)\Vert q_t(Y_t\mid W)\}
+&=\IP(Y_t;Y_{-t}\mid W)+\sum_wH(w)\KL(p_t\Vert q_t).\label{eq:productC}
+\end{align}
+Consequently, for two product-model families, $\Delta_C=\Delta_J/T$ exactly. If the condition of Lemma~\ref{lem:mixture} holds in a positive-probability cell, every product candidate satisfies $R_M\ge\sum_wH(w)I_w>0$.
+\end{lemma}
+\begin{proof}
+Insert the product $\prod_tp_t(y_t\mid w)$ between $p$ and $q$ inside $\log(p/q)$ and average. For \eqref{eq:productC}, insert $p_t$ between $p(Y_t\mid Y_{-t},W)$ and $q_t$. The dependence terms are independent of the candidate and cancel in $S-K$ differences. Positivity of covariance excludes a product truth, so the corresponding multi-information is positive. The inequalities extend to the closure because products form a closed subset of the finite simplex.
+\end{proof}
+
+\begin{lemma}[What observing context buys]\label{lem:context}
+For any context-ignoring law $q(y\mid w)$,
+\begin{equation}\label{eq:mutual}
+\E_{W,C}\KL\{p(Y\mid W,C)\Vert q(Y\mid W)\}
+=\IP(Y;C\mid W)+\KL_H(p\Vert q).
+\end{equation}
+Thus an exactly specified context-aware simple law has zero \emph{context-conditional} KL risk. A context-ignoring candidate has risk at least $\IP(Y;C\mid W)$, and its risk is strictly positive whenever $R_K+\IP(Y;C\mid W)>0$.
+\end{lemma}
+\begin{proof}
+Split $\log\{p(y\mid w,c)/q(y\mid w)\}$ into $\log\{p(y\mid w,c)/p(y\mid w)\}+\log\{p(y\mid w)/q(y\mid w)\}$ and average.
+\end{proof}
+\begin{remark}
+Context omission need not create nonzero variability: dependence between $C$ and $U$ can cancel its contribution in \eqref{eq:latent}. Conversely, heterogeneity in $U$ alone can create the same mixture effect. Neither the variance identity nor the mixture identity, by itself, implies an advantage for $K$.
+\end{remark}
+
+\section{The exact constructive theorem (the shortest proof)}
+\begin{theorem}[A false complex model wins consistently: exact two-trial witness]\label{thm:witness}
+Take $T=2$, $x_1=1$, $x_2=2$, $C\sim\Bern(1/2)$, $\Theta=C\log3$, and conditionally independent responses with $\Pr(Y_t=1\mid\Theta)=\sig(-x_t\Theta)$. Compare homogeneous models
+\[
+S:\quad q_t=\sig(-x_t\theta),\qquad
+K:\quad q_t=\sig(\delta-x_t\theta),
+\]
+with $\theta\in[0,2]$ and $\delta=4\{w(1/2;\rho)-1/2\}$, $w(p;\rho)=\exp\{-(-\log p)^\rho\}$, $\rho\in[1/4,2]$; $S$ is the restriction $\rho=1$ ($\delta=0$). Equip both models with proper priors having positive continuous density on their respective parameter boxes.
+
+Then $0<R_K<R_S$, the unique optimal laws exist, and $\Delta_C=\Delta_J/2>0$. As the number of participants increases with $T=2$ fixed, BIC, the Bayes factor, and exact trial LOO all favor $K$ with probability tending to one, although $K$ is false. The extra parameter converges to $\rho_K^\star\ne1$ under the usual likelihood or posterior law-consistency statement.
+\end{theorem}
+\begin{proof}
+The true joint law, in the order $(00,10,01,11)$, is exactly
+\begin{equation}\label{eq:exactcells}
+(p_{00},p_{10},p_{01},p_{11})=\frac1{80}(37,19,13,11).
+\end{equation}
+Thus $p_1=\Pr(Y_1=1)=3/8$, $p_2=\Pr(Y_2=1)=3/10$, and
+\[
+\Cov(Y_1,Y_2)=\frac{11}{80}-\frac38\frac3{10}=\frac1{40}>0.
+\]
+Every product model is therefore false and has risk at least $I(Y_1;Y_2)>0$ by Lemma~\ref{lem:product}. Model $S$ cannot reproduce both trial marginals: matching them would demand
+\[
+\logit(3/10)=2\logit(3/8),\qquad\text{but}\qquad \log(3/7)\ne2\log(3/5).
+\]
+Model $K$ \emph{does} reproduce both marginals exactly with
+\begin{equation}\label{eq:exactK}
+\theta_K^\star=\log(7/5),\qquad \delta_K^\star=\log(21/25),\qquad \rho_K^\star\simeq0.662697.
+\end{equation}
+The corresponding $\rho$ is inside $[1/4,2]$: the Prelec map $\rho\mapsto\delta$ is strictly increasing on this interval and takes the specified value. By \eqref{eq:productKL},
+\[
+R_K=I(Y_1;Y_2)>0,\qquad
+R_S=I(Y_1;Y_2)+\min_\theta\sum_{t=1}^2\KL\{\Bern(p_t)\Vert\Bern(\sig(-x_t\theta))\}>R_K.
+\]
+The strict minimum inequality follows by compactness and the impossibility of matching both marginals. Logit identifiability of the two distinct $x_t$ gives a unique $K$ law and unique $\delta$ and $\theta$; strict convexity gives a unique simple projection. Lemma~\ref{lem:product} yields $\Delta_C=\Delta_J/2$. The selection statement now follows from Theorem~\ref{thm:transfer} below and prior support. Since the nested submodel has a larger risk, every optimal $K$ law lies off $\delta=0$, and the identified, continuous inverse from law to $\rho$ gives parameter consistency.
+\end{proof}
+\begin{center}
+\begin{tabular}{@{}ll@{}}\toprule
+Independent numerical diagnostics & Value\\\midrule
+Simple projection $\theta_S^\star$ & $0.4429045138$\\
+$R_S$; $R_K$ (nats/participant) & $0.0069680830$; $0.0062695683$\\
+$\Delta_J$; $\Delta_C$ & $0.0006985147$; $0.0003492573$\\
+\bottomrule\end{tabular}
+\end{center}
+\emph{Interpretive limitation.} In this deliberately minimal design, the Prelec parameter is observationally a common offset, not separately identified as a unique psychological distortion mechanism. The theorem establishes false-\emph{complexity} selection, not identification of probability weighting.
+
+\section{Why the selection criteria converge}
+\begin{theorem}[Finite-cell selection transfer]\label{thm:transfer}
+Let $\mathcal W$ and the participant response space be finite, let $p(y\mid w)>0$, and let each model contain a positive law. Suppose $\mathcal Q_S\subseteq\mathcal Q_K$, both model dimensions $k_M$ are fixed, and their proper priors put positive mass on every law-neighborhood of an optimal law. Then
+\begin{align}\label{eq:transfer}
+\frac{\mathrm{BIC}_K-\mathrm{BIC}_S}{n}&\xrightarrow{p}-2\Delta_J,\\
+\frac1n\log\mathrm{BF}_{KS}&\xrightarrow{p}\Delta_J.
+\end{align}
+If, in addition, each closure has a unique optimal law $q_M^\star$, then exact single-response Bayesian LOO satisfies
+\begin{equation}\label{eq:loo}
+\frac{\mathrm{LOOIC}_K-\mathrm{LOOIC}_S}{nT}\xrightarrow{p}-2\Delta_C.
+\end{equation}
+Hence if $\Delta_J>0$ and $\Delta_C>0$, all three criteria select $K$ with probability tending to one. The likelihood-ratio statistic for the nested restriction diverges as $2n\Delta_J+o_p(n)$; any fixed critical-value test rejects with probability tending to one. This does \emph{not} assert a classical $\chi^2$ null law under misspecification or irregularity.
+\end{theorem}
+\begin{proof}
+Write $j=(w,y)$, $r_j=H(w)p(y\mid w)>0$, and $\hat r_j$ for empirical participant-cell frequencies. By the law of large numbers, $\max_j|\hat r_j-r_j|\to0$ in probability. Define $\ell(q)=\sum_jr_j\log q(y\mid w)$ and $\hat\ell_n(q)=\sum_j\hat r_j\log q(y\mid w)$. For any fixed sufficiently small cell floor $a>0$, convergence of $\hat\ell_n$ to $\ell$ is uniform on $q_j\ge a$; a small-cell exclusion argument shows that maximizers and posterior mass near maximizers eventually lie in such a region. It follows that
+\[
+\sup_{q\in\mathcal Q_M}\hat\ell_n(q)\xrightarrow{p}\ell_M^\star
+=-R_M-H_p(Y\mid W).
+\]
+The BIC limit follows immediately because $(k_K-k_S)\log n/n\to0$. The evidence $m_M(D)$ is at most $\exp\{n\sup\hat\ell_n\}$. For every $\epsilon>0$, a positive-prior-mass neighborhood of an optimal positive law has population log likelihood at least $\ell_M^\star-\epsilon$ and empirical log likelihood uniformly close to it; restricting the evidence integral to that neighborhood gives $n^{-1}\log m_M(D)\to_p\ell_M^\star$. Subtraction yields the Bayes-factor limit.
+
+For LOO, the exact predictive identity is
+\begin{equation}\label{eq:ratio}
+\widehat p_M(y_{it}\mid D_{-it})
+=\frac{m_M(D)}{m_M(D_{-it})}
+=\int q_M(y_{it}\mid y_{i,-t},W_i;\phi)\,\Pi_M(d\phi\mid D_{-it}).
+\end{equation}
+The posterior is based on all full participant vectors except that $Y_{it}$ is removed, and it uses the \emph{marginal} law of the retained $Y_{i,-t}$. Because the optimal law is unique, there is a strict population likelihood gap outside each neighborhood of $q_M^\star$. A single empirical-cell frequency event controls \emph{all} participant-deleted likelihoods: deleting any participant changes each empirical frequency by $O(1/n)$ uniformly in $i$. Standard likelihood-gap bounds therefore give exponentially vanishing posterior mass outside that neighborhood uniformly over participant deletions. Restoring the other $T-1$ responses of participant $i$ reweights its participant-deleted posterior by $q_M(y_{i,-t}\mid W_i;\phi)\le1$. On a sufficiently small neighborhood of the positive optimal law, this reweighting has a uniform positive lower bound, so the conclusion is also uniform over single-response deletions.
+
+Consequently, by continuity of conditional probabilities on the positive simplex,
+\[
+\max_{i,t}\left|\widehat p_M(y_{it}\mid D_{-it})-q_M^\star(y_{it}\mid y_{i,-t},W_i)\right|\xrightarrow{p}0.
+\]
+The predicted probabilities are bounded away from zero with probability tending to one, so their logs converge uniformly. The participant-level law of large numbers applied to $T^{-1}\sum_t\log q_M^\star(Y_t\mid Y_{-t},W)$ produces the LOO limit, because the true conditional entropies cancel in the $K-S$ difference. A union bound gives simultaneous selection; the likelihood-ratio assertion follows from the same likelihood limit.
+\end{proof}
+\begin{remark}
+The proof works for hierarchical laws without treating a participant's trials as independent. It does not require a regular Laplace approximation to a marginal likelihood. The extra requirement for LOO is a \emph{positive conditional gap}, not merely nesting or a positive joint gap.
+\end{remark}
+
+\section{General homogeneous theorem: the score-drift shortcut}
+A homogeneous model has $q_M(y\mid w;\phi)=\prod_t\Bern\{y_t;\sig(\eta_{Mt}(w;\phi))\}$. Suppose $K$ embeds $S$ at an extra parameter $\rho=\rho_0$ and $\phi_S^\star$ is an attained \emph{interior} simple-model optimum. Let
+\[
+e_t(w)=\left.\frac{\partial\eta_{Kt}(w;\phi_S^\star,\rho)}{\partial\rho}\right|_{\rho=\rho_0},\quad
+\Lambda=\sum_{w,t}H(w)e_t(w)\{p_t(1\mid w)-q_{St}^\star(1\mid w)\}.
+\]
+\begin{theorem}[Strict false-complex advantage from extra-score drift]\label{thm:drift}
+Assume the homogeneous setting above, with a differentiable feasible path in $\rho$ through the simple optimum. If $\Lambda\ne0$ and a small move in the direction of $\operatorname{sign}(\Lambda)$ is permitted, then $\Delta_J>0$. If in addition the truth is a mixture \eqref{eq:mixture} with nondegenerate $F_w$ and two same-direction strictly monotone trial kernels in some positive-mass cell, then
+\[
+0<R_K<R_S,\qquad \Delta_C=\Delta_J/T>0.
+\]
+Under the support and unique-law conditions of Theorem~\ref{thm:transfer}, BIC, BF and exact trial LOO all select the false complex model with probability tending to one.
+\end{theorem}
+\begin{proof}
+The population derivative of $\KL_H(p\Vert q_K(\phi_S^\star,\rho))$ at $\rho_0$ is $-\Lambda$. A feasible sufficiently small move in the improving direction decreases KL strictly below $R_S$, so $R_K<R_S$. Mixture-induced covariance gives $R_K>0$ by Lemmas~\ref{lem:mixture}--\ref{lem:product}; the product reduction gives $\Delta_C=\Delta_J/T$. Apply Theorem~\ref{thm:transfer}.
+\end{proof}
+\begin{remark}[Scope]
+$\Lambda\ne0$ is a \emph{sufficient}, not necessary, condition for $\Delta_J>0$. A zero derivative does not preclude improvement through second-order or nonlocal parameter changes. Also, the displayed sum is a weighted score--residual inner product, not literally a covariance without centering or additional structure.
+\end{remark}
+
+\begin{proposition}[A useful global lower bound]\label{prop:bound}
+Suppose the simple and complex logits are jointly affine in parameters $(\phi,\delta)$, the simple optimum is interior, and the nuisance information $G_{SS}=J_S^\top\Omega^\star J_S$ is positive definite, where $\Omega^\star=\operatorname{diag}\{H(w)q_{St}^\star(1-q_{St}^\star)\}$. Put $e=\partial_\delta\eta_K$, $c=e-J_SG_{SS}^{-1}J_S^\top\Omega^\star e$, and $B=\tfrac14\sum_{w,t}H(w)c_{wt}^2>0$. If the affine path $(\phi_S^\star-sG_{SS}^{-1}J_S^\top\Omega^\star e,\delta_0+s)$ remains feasible for $s=\Lambda/B$, then
+\[
+\Delta_J\ge \frac{\Lambda^2}{2B}.
+\]
+\end{proposition}
+\begin{proof}
+Along the path, the first KL derivative is $-\Lambda$ because the nuisance score vanishes at an interior optimum. The second derivative is $\sum_{w,t}H(w)\sig'(\eta_{wt}(s))c_{wt}^2\le B$. Taylor's inequality bounds the risk along the path above by $R_S-\Lambda s+Bs^2/2$; substitute the feasible $s=\Lambda/B$.
+\end{proof}
+
+\section{A readable local mechanism: weighted residual alignment}
+Write the unobserved heterogeneity as $\Theta\mid w=\bar\theta(w)+\varepsilon V_w$, where $\E V_w=0$, $\Var(V_w)=v(w)$, and $\sup_w\E|V_w|^3<\infty$; all design quantities are fixed. Let $\pi_{t0}=\sig\{\kappa_t-\beta_t\bar\theta\}$ and $p_0(y\mid w)=\prod_t\Bern(y_t;\pi_{t0})$.
+\begin{lemma}[Attenuation and induced dependence]\label{lem:expansion}
+Uniformly on the finite $(w,y)$ space,
+\begin{align}\label{eq:hexpand}
+p_\varepsilon(y\mid w)&=p_0(y\mid w)\{1+\varepsilon^2(h_A+h_D)+O(\varepsilon^3)\},\\
+h_A&=\sum_ta_t(w)(y_t-\pi_{t0}),\quad a_t(w)=\tfrac12v(w)\beta_t(w)^2(1-2\pi_{t0}),\label{eq:att}\\
+h_D&=v(w)\sum_{t<u}\beta_t(w)\beta_u(w)(y_t-\pi_{t0})(y_u-\pi_{u0}).\label{eq:dep}
+\end{align}
+Under $p_0$, $h_A$ and $h_D$ are centered and orthogonal. In particular,
+\[
+\logit\Pr_\varepsilon(Y_t=1\mid w)=\logit\pi_{t0}+\varepsilon^2a_t(w)+O(\varepsilon^3),
+\quad
+\Cov_\varepsilon(Y_t,Y_u\mid w)=\varepsilon^2v\beta_t\beta_u\pi'_{t0}\pi'_{u0}+O(\varepsilon^3).
+\]
+If $V_w$ is symmetric with uniformly bounded fourth moment, the $O(\varepsilon^3)$ remainders above improve to $O(\varepsilon^4)$.
+\end{lemma}
+\begin{proof}
+For $g_y(\theta)=\prod_t\Bern\{y_t;\sig(\kappa_t-\beta_t\theta)\}$, Taylor expansion and $\E V_w=0$ give $\E g_y(\bar\theta+\varepsilon V_w)=g_y(\bar\theta)+\frac12\varepsilon^2v(w)g_y''(\bar\theta)+O(\varepsilon^3)$; bounded logistic derivatives and the moment assumption make the remainder uniform. Use $g''/g=\sum_t\ell_t''+(\sum_t\ell_t')^2$, with $\ell_t'=-\beta_t(y_t-\pi_{t0})$ and $\ell_t''=-\beta_t^2\pi'_{t0}$. The binary identity $(y-\pi)^2-\pi(1-\pi)=(1-2\pi)(y-\pi)$ gives \eqref{eq:att}--\eqref{eq:dep}. Centering and orthogonality follow from independence of the centered coordinates under $p_0$. Marginalization and the derivative of the logit give the displayed probability statements. Symmetry removes the cubic moment.
+\end{proof}
+
+The point is not that attenuation must lie outside $S$: it may be absorbed by a free intercept or another nuisance parameter. Only the \emph{unabsorbed} component matters.
+
+\begin{theorem}[Homogeneous weighted-projection criterion]\label{thm:wls}
+Suppose $p_0$ belongs to both homogeneous candidate families and their local logits have full-column-rank Jacobians $J_S$ and $J_K=[J_S,e]$ at $p_0$. Assume interior, locally isolated observable-law charts around $p_0$ (automatically satisfied for full-rank affine-logit families), and define
+\[
+\Omega=\operatorname{diag}\{H(w)\pi_{t0}(1-\pi_{t0})\},\qquad
+M_M=I-J_M(J_M^\top\Omega J_M)^{-1}J_M^\top\Omega,
+\quad \tilde e=M_Se.
+\]
+Then, with $a$ given by \eqref{eq:att},
+\begin{align}\label{eq:localrisk}
+R_M(\varepsilon)&=\frac{\varepsilon^4}{2}\left\{\norm{M_Ma}_\Omega^2+\norm{h_D}_{p_0}^2\right\}+O(\varepsilon^5),\\
+\Delta_J(\varepsilon)&=\frac{\varepsilon^4}{2}\frac{\langle a,\tilde e\rangle_\Omega^2}{\langle\tilde e,\tilde e\rangle_\Omega}+O(\varepsilon^5),\label{eq:wls}
+\end{align}
+where $\norm{h_D}_{p_0}^2=\sum_wH(w)v(w)^2\sum_{t<u}\beta_t^2\beta_u^2\pi'_{t0}\pi'_{u0}$. In particular, if $\langle a,\tilde e\rangle_\Omega\ne0$, then $\Delta_J>0$ for all sufficiently small nonzero $\varepsilon$ and the local relative gain is determined by that partial alignment. For all homogeneous models, $\Delta_C=\Delta_J/T$ exactly.
+\end{theorem}
+\begin{proof}
+The product identity \eqref{eq:productKL} separates the common multi-information from the marginal Bernoulli KL losses. For a marginal logit shift $\varepsilon^2a_j$ and a fitted logit shift $\varepsilon^2(J_Mb)_j$, the Bernoulli KL Taylor expansion is $\frac12\varepsilon^4\pi'_{j0}\{a_j-(J_Mb)_j\}^2+O(\varepsilon^5)$. The local optimum therefore chooses $b$ by $\Omega$-weighted least squares. The common multi-information has expansion $\frac12\varepsilon^4\norm{h_D}_{p_0}^2+O(\varepsilon^5)$, because the first non-product component is $\varepsilon^2h_D$ and $h_A\perp h_D$. This proves \eqref{eq:localrisk}. Weighted Frisch--Waugh--Lovell residualization gives \eqref{eq:wls}. The final identity is Lemma~\ref{lem:product}.
+\end{proof}
+\begin{remark}[Correct scope of absorption]
+If $\tilde e=0$, the additional parameter has no \emph{first-order} observable direction at $p_0$ and formula \eqref{eq:wls} with division by $\langle\tilde e,\tilde e\rangle_\Omega$ is not applicable. Without further regularity, a locally redundant first derivative gives no reliable order-of-magnitude conclusion: a singular higher-order parameter direction can affect even the leading risk term. Under a regular, locally isolated equal-tangent-space setting, the regular projection theorem instead gives a vanishing leading-order gap. An \emph{exact} zero gap for every truth requires $\overline{\mathcal Q_S}=\overline{\mathcal Q_K}$, not merely equality of Jacobian spans at one point. Likewise $\langle a,\tilde e\rangle_\Omega=0$ means only that the leading-order gain vanishes, not that $\Delta_J=0$ for all $\varepsilon$.
+\end{remark}
+
+\section{Hierarchical models: a separate conditional extension}
+Hierarchical candidates are participant laws of the form $q_M(y\mid w;\phi)=\int\prod_t\Bern\{y_t;\pi_{Mt}(\vartheta,w;\phi)\}\,G_M(d\vartheta\mid w;\phi)$. Their trial predictions condition on the retained trials through the posterior distribution of the participant effect. The product reduction \emph{does not apply}.
+
+\begin{theorem}[Hierarchical selection, conditional on two distinct gaps]\label{thm:hier}
+Assume the finite-cell setting and prior support of Theorem~\ref{thm:transfer}, and unique optimal laws for exact trial LOO. For any nested hierarchical pair, if
+\[
+\boxed{\quad R_S>R_K>0\quad\text{and}\quad C_S>C_K,\quad}
+\]
+then BIC, the Bayes factor and exact single-trial LOO all select the false hierarchical complex model with probability tending to one. Neither the joint gap nor the conditional gap follows solely from omitting $C$. A nonzero feasible extra-score drift is sufficient for $R_S>R_K$, but the other two inequalities require separate proof.
+\end{theorem}
+\begin{proof}
+Apply Theorem~\ref{thm:transfer}. The requirement $R_K>0$ declares the selected model false. The drift implication is the same directional derivative argument as in Theorem~\ref{thm:drift}, applied to the full participant likelihood rather than to product logits.
+\end{proof}
+
+\begin{theorem}[Regular local hierarchical criterion, not a zero-variance theorem]\label{thm:localhier}
+Suppose $p_\varepsilon=p_0\{1+\varepsilon^k h+o(\varepsilon^k)\}$ uniformly on finite cells, where $p_0$ is positive, $\E_0(h\mid W)=0$, and $k\ge1$. Assume both observable-law closures near $p_0$ are locally isolated, embedded $C^2$ manifolds with $p_0$ an \emph{interior} point of each chart; their derivatives have full rank and tangent spaces $\mathcal T_S\subseteq\mathcal T_K$ in $L^2(Hp_0)$. Assume no other model-law branch approaches $p_0$ outside those local charts. Let $P_M$ denote orthogonal projection, $r_M=h-P_Mh$, $d=P_Kh-P_Sh$, and define the positive-semidefinite operator
+\[
+\mathcal A=\frac1T\sum_{t=1}^T\{I-\E_0(\,\cdot\mid Y_{-t},W)\}.
+\]
+Then unique optimal laws exist for all sufficiently small $\varepsilon$ and
+\begin{align*}
+R_M(\varepsilon)&=\tfrac12\varepsilon^{2k}\norm{r_M}_{p_0}^2+o(\varepsilon^{2k}),\\
+\Delta_J(\varepsilon)&=\tfrac12\varepsilon^{2k}\norm{d}_{p_0}^2+o(\varepsilon^{2k}),\\
+\Delta_C(\varepsilon)&=\tfrac12\varepsilon^{2k}\big\{\langle d,\mathcal A d\rangle_{p_0}+2\langle r_K,\mathcal A d\rangle_{p_0}\big\}+o(\varepsilon^{2k}).
+\end{align*}
+Therefore $d\ne0$, $r_K\ne0$, and $L:=\langle d,\mathcal A d\rangle+2\langle r_K,\mathcal A d\rangle>0$ are sufficient for the three gaps of Theorem~\ref{thm:hier} for all small nonzero $\varepsilon$.
+\end{theorem}
+\begin{proof}
+Finite-simplex compactness and the fact that $p_0\in\mathcal Q_M$ force every global KL projection of $p_\varepsilon$ to converge to $p_0$ in law space. Local isolation places it inside the specified chart. With full-rank derivative, the KL Hessian at $p_0$ is positive definite in chart coordinates; the implicit-function theorem and a second-order KL expansion give
+\[
+q_M^\star/p_0=1+\varepsilon^kP_Mh+o(\varepsilon^k),\qquad
+\KL_H(p_\varepsilon\Vert q_M^\star)=\tfrac12\varepsilon^{2k}\norm{h-P_Mh}^2+o(\varepsilon^{2k}).
+\]
+Nested orthogonal projections imply $r_S=r_K+d$ and $\langle r_K,d\rangle=0$, yielding the joint gap. The KL chain rule for $Y_t\mid Y_{-t},W$ subtracts the corresponding $Y_{-t}$ marginal KL. Marginalizing a first-order density perturbation $f$ replaces it with $\E_0(f\mid Y_{-t},W)$, hence $C_M=\frac12\varepsilon^{2k}\langle r_M,\mathcal A r_M\rangle+o(\varepsilon^{2k})$. Substitute $r_S=r_K+d$. Positive coefficients yield the stated strict inequalities.
+\end{proof}
+\begin{remark}[Crucial boundary exclusion]
+A Gaussian random-effect variance constrained to $\sigma^2\ge0$ is at a parameter-space boundary when $\sigma^2=0$. Ordinary interior-manifold hypotheses may fail there; tangent cones or direct one-sided arguments are needed. Theorem~\ref{thm:localhier} does \emph{not} prove the desired effect for a free-variance hierarchical model expanded around zero variance. Moreover $L$ can be negative; $d\ne0$ alone guarantees only the \emph{joint} improvement.
+\end{remark}
+
+\begin{proposition}[Variance matching sharply limits the hierarchical gap]\label{prop:variance}
+Assume $\Theta\mid W=w=\bar\theta(w)+\varepsilon V_w$, $\E V_w=0$, and $\Var(V_w)=v>0$ is constant in $w$. Suppose the hierarchical simple model can choose the correct means and a Gaussian shared effect with variance $\varepsilon^2v$, and the trial product kernel is logistic with fixed finite design. If $\sup_w\E|V_w|^3<\infty$, then $R_S(\varepsilon)=O(\varepsilon^6)$ and $0\le\Delta_J\le R_S=O(\varepsilon^6)$. If each $V_w$ is symmetric and $\sup_w\E|V_w|^4<\infty$, these bounds improve to $O(\varepsilon^8)$.
+\end{proposition}
+\begin{proof}
+Expand each positive participant-cell probability $\E g_y(\bar\theta+\varepsilon V_w)$ in $\varepsilon$. The Gaussian comparator matches the mean and variance terms through order $\varepsilon^2$, and bounded third absolute moments imply a uniform $O(\varepsilon^3)$ probability difference. Symmetry plus bounded fourth moments improve this difference to $O(\varepsilon^4)$. Since every baseline cell is strictly positive, KL between normalized nearby laws is quadratic in their probability difference, giving $O(\varepsilon^6)$ or $O(\varepsilon^8)$. The optimal simple risk cannot exceed the comparator risk, and nesting implies $0\le\Delta_J\le R_S$.
+\end{proof}
+
+\begin{proposition}[Corrected symmetry/parity obstruction]\label{prop:parity}
+Let $Z\in\{-1,1\}$ be balanced, with a common trial design and an otherwise $Z$-symmetric \emph{interior positive-variance} baseline law. Suppose the true local perturbation is $\lambda h$ with $h(Z,y)=Zs_v(y)$, the candidate simple model has an identifiable even/odd score decomposition (e.g., scores for $\mu_0,v$ are even and for $\mu_1Z$ are odd), and \emph{the additional complex-model score is $Z$-even at the baseline}. Under the regular-chart hypotheses of Theorem~\ref{thm:localhier}, $P_Kh=P_Sh$ and $\Delta_J(\lambda)=o(\lambda^2)$. If $s_v$ has an orthogonal component outside the simple odd-score span, then $R_S(\lambda)$ is positive to order $\lambda^2$.
+\end{proposition}
+\begin{proof}
+Balanced $Z$ makes the even and odd subspaces orthogonal in $L^2(Hp_0)$. The perturbation is odd and the added score is even. Residualization of that added even score against the simple even/odd tangent space remains even, hence has zero inner product with the odd perturbation. Thus adding it does not enlarge the projection of $h$, and the first-order-in-$\lambda$ version of Theorem~\ref{thm:localhier} yields the claims.
+\end{proof}
+\begin{remark}
+``Adds one global parameter'' is not a sufficient parity assumption. An extra global parameter entering as $v(Z)=v+\delta Z$ has an \emph{odd} score and may fit context-dependent variance exactly. That counterexample is excluded by the explicit even-score hypothesis above.
+\end{remark}
+
+\begin{proposition}[Joint KL improvement need not imply conditional improvement]\label{prop:reversal}
+Even for nested, positive finite-dimensional participant-law families there can be $\Delta_J>0>\Delta_C$. For $T=2$, in the cell order $(00,01,10,11)$, take
+\[
+p=(.27,.28,.33,.12),\quad s=(.11,.12,.19,.58),\quad k=(.68,.05,.06,.21),
+\]
+and $\mathcal Q_S=\{s\}$, $\mathcal Q_K=\{s+\lambda(k-s):0\le\lambda\le1\}$. The unique joint projection onto $\mathcal Q_K$ has $\lambda^\star\simeq0.281900$, and
+\[
+\Delta_J\simeq0.098320>0,\qquad \Delta_C\simeq-0.052440<0.
+\]
+Thus neither nesting nor a joint likelihood advantage establishes an exact trial-LOO advantage for general dependent-response models.
+\end{proposition}
+\begin{proof}
+All displayed cells are positive. The function $\lambda\mapsto\KL\{p\Vert s+\lambda(k-s)\}$ is strictly convex, with derivative $-\sum_jp_j(k_j-s_j)/(s_j+\lambda(k_j-s_j))$. This derivative has a unique zero in $(0,1)$, giving the stated $\lambda^\star$. Compute $C(q)=\KL(p\Vert q)-\frac12\{\KL(p_{-1}\Vert q_{-1})+\KL(p_{-2}\Vert q_{-2})\}$ for $q=s$ and $q=s+\lambda^\star(k-s)$ to obtain the displayed gaps. The comparison is an abstract nested law-space example, \emph{not} a constructed witness for a particular Gaussian cognitive random-effects pair.
+\end{proof}
+
+\section{Context-aware comparison and theorem status}
+\begin{corollary}[Measured context removes the correctly modeled component]\label{cor:ctx}
+Let $C$ have finite support and be observed; suppose the simple context-aware model $S_C$ contains the true law $p(Y\mid W,C)$, including any residual $U$ distribution required for correctness. Compare it with a context-ignoring $K$ evaluated on $(W,C)$, using the same participant-level likelihood and fixed-dimensional proper priors. If $R_K+\IP(Y;C\mid W)>0$, then the \emph{context-conditional} joint KL gap favoring $S_C$ is strictly positive. BIC and BF consequently favor $S_C$ with probability tending to one. If optimal laws are unique, exact single-trial LOO also favors $S_C$ with probability tending to one.
+\end{corollary}
+\begin{proof}
+The context-aware truth has risk zero. Identity \eqref{eq:mutual} makes the context-ignoring model's risk $R_K+\IP(Y;C\mid W)>0$. For any two positive joint laws, zero conditional KL for every $Y_t\mid Y_{-t},W,C$ implies equality of all full conditionals and hence equality of joint laws (ratios of their masses are constant along edges of the binary hypercube). Therefore a positive joint KL risk implies a strictly positive average conditional KL risk when comparing the true law to the optimal incorrect law. Apply Theorem~\ref{thm:transfer} on the enlarged finite design $(W,C)$, reversing the comparison order.
+\end{proof}
+\begin{remark}
+The positive-gap assumption matters: if $K$ also represents the truth on $(W,C)$, an asymptotic $n$-order preference cannot be inferred from KL alone. Including $C$ also does not make the simple model correct if the remaining $U$ heterogeneity is not modeled adequately.
+\end{remark}
+
+\subsection{What is proved, and what is not}
+\begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}X@{}}\toprule
+\textbf{Regime} & \textbf{Mathematical status in this revision}\\\midrule
+Exact witness & Fully proved within stated parameter boxes and priors; nonzero joint and trial-conditional gaps calculated explicitly.\\
+General homogeneous & Fully proved \emph{conditional on the explicitly checkable score drift}, nondegenerate mixture response, and finite-cell selection assumptions.\\
+Local homogeneous & Leading-order theorem under regular local charts and full-rank logit signatures; not a global necessary-and-sufficient condition.\\
+Hierarchical selection & Complete \emph{transfer theorem} when $R_S>R_K>0$ and $C_S>C_K$ have separately been established. These signs are not proved for an arbitrary cognitive hierarchical pair.\\
+Hierarchical perturbation & Valid under the interior isolated-manifold assumptions. It does not cover free random-effect variance converging to zero without additional one-sided geometry.\\
+Hierarchical existence witness & \emph{Open for the specific G1 pair.} No new empirical context/design construction verifying all hierarchical signs is claimed here.\\\bottomrule
+\end{tabularx}
+
+\subsection{Corrections to the 2 October draft}
+\begin{enumerate}
+\item \textbf{Closure and attainment:} Original Lemma 2.1 now uses $\overline{\mathcal Q_M}$; the correct equivalence is $R_M=0\iff p\in\overline{\mathcal Q_M}$.
+\item \textbf{Marginal shape:} Original Corollary 1.5 does not imply that every mixture's marginals escape $S$; only their unabsorbed design component matters.
+\item \textbf{Drift:} Original Theorem 2.4 is retained as a one-way implication; $\Lambda=0$ may coexist with improvement at higher order or elsewhere.
+\item \textbf{Gap bound:} Original Proposition 2.5 now explicitly assumes interiority, invertible nuisance information, positive curvature bound and feasibility of the proposed step.
+\item \textbf{Regular local geometry:} Original Theorem 2.6 becomes an explicitly interior conditional theorem. No zero-variance Gaussian boundary is silently treated as regular.
+\item \textbf{Tangent absorption:} Original Corollary 2.7 and Proposition 4.2 distinguish zero leading-order improvement from exact equality of candidate law spaces.
+\item \textbf{Higher moments:} Original Proposition 4.3 now explicitly requires third moments and, for the improved rate, symmetry and fourth moments.
+\item \textbf{Parity:} Original Proposition 4.4 now requires the extra complex-model score to be $Z$-even.
+\item \textbf{Trial LOO:} The separate conditional-gap condition is retained and accompanied by an explicit nested-law sign reversal, not merely a reference to a separate file.
+\item \textbf{Context comparator:} The context-aware result now states correct specification of the residual law, positive context-conditional gap and the required unique-law condition for LOO.
+\item \textbf{Identification:} The minimal witness proves erroneous complexity selection but does not independently identify a psychological probability-distortion mechanism.
+\end{enumerate}
+
+\subsection{Remaining research obligations}
+For a particular hierarchical G1 pair, the next rigorous task is a single \emph{constructive} design/context law for which (i) $R_K>0$; (ii) the joint advantage $\Delta_J>0$; (iii) the separately computed conditional advantage $\Delta_C>0$; and (iv) unique KL-optimal laws and prior support hold. An analytic or certified-numerical witness in an interior positive-variance regime would avoid the zero-variance geometry obstruction. A boundary-regime proof, if scientifically essential, should use tangent cones or directly controlled one-sided expansions. Continuous designs, $T\to\infty$, and local alternatives $\varepsilon_n\to0$ require distinct asymptotic theorems and are not claimed here.
+
+\vspace{6pt}\noindent\textbf{Reproducibility.} The accompanying \texttt{verify\_revised\_theorem.py} independently recomputes the exact witness and the joint-versus-conditional sign-reversal diagnostics. Numerical checks support arithmetic, not the general proofs.
+\end{document}
