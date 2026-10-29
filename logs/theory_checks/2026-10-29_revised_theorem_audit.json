@@ -13,9 +13,9 @@
       -0.3938338670708337,
       0.4740125512063038
     ],
-    "prop_5_2_step_s": -0.159934765254232,
-    "prop_5_2_theta_at_step": 0.3450573052009694,
-    "prop_5_2_bound": 0.0006417021901477348
+    "prop_5_3_step_s": -0.159934765254232,
+    "prop_5_3_theta_at_step": 0.3450573052009694,
+    "prop_5_3_bound": 0.0006417021901477348
   },
   "R2_product_reduction": {
     "max_identity_error": 8.881784197001252e-16,
@@ -90,6 +90,16 @@
     "extrapolated_ratio_at_lambda_0": {
       "Delta_J_ratio": 1.0023484689818343,
       "Delta_C_ratio": 0.9992011158777507
+    }
+  },
+  "R7_post_audit_version": {
+    "rho_L": 0.05281365947416609,
+    "rho_U": 2.059995214657597,
+    "prop_5_3_step_on_contract_box": -0.159934765254232,
+    "reversal_witness_order": {
+      "lambda_star": 0.2819001355803529,
+      "Delta_J": 0.09832036061051797,
+      "Delta_C": -0.052439660927044496
     }
   }
 }

@@ -5,13 +5,15 @@ Dependency-free. Recomputes the revised manuscript's explicit numbers and tests
 claims that admit a direct check. These are diagnostics: passing them supports
 arithmetic and specific instances, not the general proofs.
 
-  R1  Theorem 3.1 witness: cells, projections, gaps, the revised rho box, Prop 5.2.
+  R1  Theorem 3.1 witness: cells, projections, gaps, the revised rho box, Prop 5.3.
   R2  Lemma 2.2: product-reduction identities on random positive laws (T = 3).
   R3  Proposition 7.7: joint-versus-conditional sign reversal numbers.
   R4  Theorem 5.1 scope: Lambda = 0 yet Delta_J > 0 (drift is not necessary).
   R5  Corollary 8.1 lemma: positive laws with zero average conditional KL coincide.
   R6  Theorem 7.2 at an interior positive-variance hierarchical baseline:
       exact joint and conditional gaps versus the local projection formulas.
+  R7  Numbers introduced by the post-audit version of the manuscript (contract prior
+      box, Prop 5.3 feasibility on it, Prop 7.7 in the witness cell order).
 """
 from __future__ import annotations
 
@@ -146,7 +148,7 @@ def r1_witness():
     rhoK = math.log(-math.log(0.5 + dK / 4)) / math.log(L2)
     box = (delta(0.25), delta(2.0))
     assert box[0] < dK < box[1] and 0.25 < rhoK < 2
-    # Prop 5.2 in the delta coordinate on the revised box.
+    # Prop 5.3 in the delta coordinate on the revised box.
     pis = [sig(-thS), sig(-2 * thS)]
     om = [pi * (1 - pi) for pi in pis]
     Lam = sum(mt - pt for mt, pt in zip(m, pis))
@@ -165,8 +167,8 @@ def r1_witness():
             "theta_S_discrepancy": thS - 0.4429045138,
             "R_S": RS, "R_K": RK, "Delta_J": dJ, "Delta_C": dC, "rho_K_star": rhoK,
             "delta_range_for_rho_in_[1/4,2]": box,
-            "prop_5_2_step_s": s, "prop_5_2_theta_at_step": th_end,
-            "prop_5_2_bound": bound}
+            "prop_5_3_step_s": s, "prop_5_3_theta_at_step": th_end,
+            "prop_5_3_bound": bound}
 
 
 # ---------------------------------------------------------------------------
@@ -391,6 +393,43 @@ def r6_hierarchical_local():
             "rows": rows, "extrapolated_ratio_at_lambda_0": extrap}
 
 
+# ---------------------------------------------------------------------------
+# R7. Numbers introduced by the post-audit version (manuscript/revised/*.tex)
+# ---------------------------------------------------------------------------
+
+def r7_post_audit_version():
+    L2 = math.log(2)
+    rho_L = math.log(-math.log(3 / 8)) / math.log(L2)
+    rho_U = math.log(-math.log(5 / 8)) / math.log(L2)
+    w = lambda p, r: math.exp(-(-math.log(p)) ** r)
+    assert abs(4 * (w(0.5, rho_L) - 0.5) + 0.5) < 1e-12 and abs(4 * (w(0.5, rho_U) - 0.5) - 0.5) < 1e-12
+    assert abs(rho_L - 0.0528) < 5e-5 and abs(rho_U - 2.0600) < 5e-5
+    wit = r1_witness()
+    assert rho_L < wit["rho_K_star"] < rho_U
+    # Prop 5.3 path feasibility on the contract box: delta in [-1/2, 1/2], theta in [0, 2].
+    s = wit["prop_5_3_step_s"]
+    assert -0.5 < s < 0.5 and 0 <= wit["prop_5_3_theta_at_step"] <= 2
+    assert abs(round(wit["theta_S_star_12dp"], 10) - 0.4429045203) < 1e-12
+    # Prop 7.7 in the witness cell order (00,10,01,11): identical values.
+    order = [(0, 0), (1, 0), (0, 1), (1, 1)]
+    vec = lambda xs: dict(zip(order, xs))
+    p, sv, k = vec([.27, .33, .28, .12]), vec([.11, .19, .12, .58]), vec([.68, .06, .05, .21])
+    seg = lambda lam: {y: sv[y] + lam * (k[y] - sv[y]) for y in order}
+    dfun = lambda lam: -sum(p[y] * (k[y] - sv[y]) / seg(lam)[y] for y in order)
+    lo, hi = 0.0, 1.0
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if dfun(mid) < 0 else (lo, mid)
+    lam = (lo + hi) / 2
+    dJ = kl(p, sv) - kl(p, seg(lam))
+    dC = cond_risk(p, sv, 2) - cond_risk(p, seg(lam), 2)
+    r3 = r3_reversal()
+    assert abs(lam - r3["lambda_star"]) < 1e-12 and abs(dJ - r3["Delta_J"]) < 1e-12 and abs(dC - r3["Delta_C"]) < 1e-12
+    assert abs(lam - 0.281900) < 5e-7 and abs(dJ - 0.098320) < 5e-7 and abs(dC + 0.052440) < 5e-7
+    return {"rho_L": rho_L, "rho_U": rho_U, "prop_5_3_step_on_contract_box": s,
+            "reversal_witness_order": {"lambda_star": lam, "Delta_J": dJ, "Delta_C": dC}}
+
+
 def main():
     res = {
         "scope": "Independent audit diagnostics for revised_central_theorem.tex; not proofs.",
@@ -400,6 +439,7 @@ def main():
         "R4_drift_not_necessary": r4_drift_not_necessary(),
         "R5_conditional_identification": r5_conditional_identification(),
         "R6_hierarchical_local_theorem_7_2": r6_hierarchical_local(),
+        "R7_post_audit_version": r7_post_audit_version(),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(res, indent=2) + "\n")

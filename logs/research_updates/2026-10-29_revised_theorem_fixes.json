@@ -1,0 +1,33 @@
+{
+  "cycle_title": "Apply audit fixes to the revised central-theorem manuscript",
+  "track": "theorem",
+  "completed": [
+    "Committed the revised manuscript as received, then applied audit fixes F1-F16 and the change-log corrections in manuscript/revised/revised_central_theorem.tex.",
+    "Added Appendix A with complete proofs of small-cell exclusion, the evidence limit, uniform deletion concentration and the trial-LOO limit; re-proved Theorem 6.2 from Theorem 7.2; removed the nesting hypothesis from Theorem 4.1.",
+    "Compiled with pdflatex (no errors, warnings, undefined references or overfull boxes) and extended the audit script with check R7 for numbers introduced by the new version; all checks pass."
+  ],
+  "why_it_matters": [
+    "The stated results of the revised manuscript now follow from its proofs, giving a sound base for the hierarchical extension."
+  ],
+  "files_changed": [
+    "manuscript/revised/revised_central_theorem.tex",
+    "manuscript/revised/revised_central_theorem.pdf",
+    "scripts/audit_revised_central_theorem.py",
+    "logs/theory_checks/2026-10-29_revised_theorem_audit.json",
+    "docs/audit_revised_central_theorem_2026-10-29.md",
+    "docs/audit_revised_central_theorem_2026-10-29.pdf",
+    "logs/research_updates/2026-10-29_revised_theorem_fixes.json",
+    "FILE_LOCATIONS.md"
+  ],
+  "checks_run": [
+    {"name": "pdflatex/latexmk compile, clean log", "status": "pass"},
+    {"name": "Audit script R1-R7", "status": "pass"},
+    {"name": "Independent human review of the appendix proofs", "status": "not_run"}
+  ],
+  "decision_needed": {"needed": false, "question": ""},
+  "risks_or_uncertainties": [
+    "Appendix proofs were written and checked in the same session; they adapt previously author-checked repository lemmas but are not externally reviewed.",
+    "The witness prior box was changed to the project's minimal contract; asymptotic results are unaffected."
+  ],
+  "next_bounded_task": "Begin the hierarchical construction at a positive-variance baseline using the R6 harness, certifying 0 < R_K < R_S and Delta_C > 0 by exact global computation."
+}
