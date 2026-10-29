@@ -2,6 +2,8 @@
 
 *A companion to [`central_theorem_full_draft.md`](central_theorem_full_draft.md), written for psychologists who use cognitive models but do not work with mathematical statistics every day.*
 
+> **Superseded (2026-10-29).** This guide follows the exploratory 2 October draft, several of whose claims were later corrected. Use [`revised_central_theorem_guide_for_psychologists.md`](revised_central_theorem_guide_for_psychologists.md), which follows the revised manuscript.
+
 Date: 2026-10-28. **Status:** this guide explains an exploratory, not-yet-reviewed proof draft. It inherits that draft's status: the arguments have been checked by the author and by computer, but not by an independent reviewer. Where the guide says "proved," read "proved in the draft, pending review."
 
 ---
